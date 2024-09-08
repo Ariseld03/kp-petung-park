@@ -51,6 +51,16 @@
             background-color: #333;
             color: white;
         }
+
+        /* Kelas Kustom untuk Galeri */
+        .bg-custom {
+            background-color: #295A3F;
+        }
+
+        /* Kelas Kustom untuk Lokasi */
+        .bg-location {
+            background-color: #A1D0B3;
+        }
     </style>
 </head>
 <body>
@@ -59,7 +69,10 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #295A3F;">
         <div class="container">
             <a class="navbar-brand" href="#">Petung Park</a>
-            <div class="collapse navbar-collapse justify-content-center">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Beranda</a>
@@ -93,7 +106,7 @@
     </section>
 
     <!-- Bagian Lokasi -->
-    <section class="bg-light text-dark text-center py-5">
+    <section class="bg-location text-dark text-center py-5">
         <div class="container">
             <h2 class="h2">Lokasi Petung Park</h2>
             <div class="row justify-content-center mt-4">
@@ -114,7 +127,7 @@
     </section>
 
     <!-- Bagian Galeri -->
-    <section class="bg-dark text-white text-center py-5">
+    <section class="bg-custom text-white text-center py-5">
         <div class="container">
             <h2 class="h2">Galeri</h2>
             <div class="row justify-content-center mt-4">
