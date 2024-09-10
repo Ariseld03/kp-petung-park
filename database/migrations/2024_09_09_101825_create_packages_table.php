@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->float('price', 8, 2);
             $table->tinyinteger('status')->default(0); 
-            $table->string('number_love')->nullable();
+            $table->integer('number_love')->nullable();
             $table->timestamps();
         });
     }
