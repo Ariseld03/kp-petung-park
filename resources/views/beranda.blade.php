@@ -41,10 +41,34 @@
             height: auto;
         }
 
+        /* Kelas Kustom untuk Galeri */
+        .frame-image {
+            padding-top: 20px; /* Jarak antara foto dengan latar belakang putih */
+            padding-left: 20px; 
+            padding-right: 20px;
+            padding-bottom: 55px; 
+            background-color: white; /* Latar belakang putih di sekitar foto */
+            box-sizing: border-box;
+            height: 250px; /* Ukuran tetap untuk frame */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
         .galeri-image {
+            padding-top: 20px; /* Jarak antara foto dengan latar belakang putih */
             width: 100%;
-            height: auto;
-            object-fit: cover;
+            height: 100%;
+            object-fit: cover; /* Agar gambar sesuai dengan frame */
+        }
+
+        .text-image {
+            color: #295A3F; /* Warna teks sesuai kebutuhan */
+            font-size: 14px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px; /* Memberikan jarak 10px antara gambar dan teks */
         }
 
         footer {
@@ -68,14 +92,13 @@
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #295A3F;">
         <div class="container">
-            <a class="navbar-brand" href="#">Petung Park</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Beranda</a>
+                        <a class="nav-link active" href="#"><u>Beranda</u></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Layanan</a>
@@ -85,7 +108,6 @@
                     </li>
                 </ul>
             </div>
-            <button class="btn btn-outline-light ml-auto">Login</button>
         </div>
     </nav>
 
@@ -132,27 +154,27 @@
             <h2 class="h2">Galeri</h2>
             <div class="row justify-content-center mt-4">
                 <div class="col-md-3">
-                    <div class="bg-white p-3">
+                    <div class="frame-image">
                         <img src="/images/beranda/galeri/foto1.jpg" alt="Foto 1" class="galeri-image">
-                        <p class="text-dark mt-2">Teks Foto 1</p>
+                        <p class="text-image">Teks Foto 1</p>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="bg-white p-3">
+                    <div class="frame-image">
                         <img src="/images/beranda/galeri/foto2.jpg" alt="Foto 2" class="galeri-image">
-                        <p class="text-dark mt-2">Teks Foto 2</p>
+                        <p class="text-image">Teks Foto 2</p>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="bg-white p-3">
+                    <div class="frame-image">
                         <img src="/images/beranda/galeri/foto3.jpg" alt="Foto 3" class="galeri-image">
-                        <p class="text-dark mt-2">Teks Foto 3</p>
+                        <p class="text-image">Teks Foto 3</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    
     <!-- Footer -->
     <footer class="py-3">
         <div class="container">
