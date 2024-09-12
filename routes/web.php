@@ -16,3 +16,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('register');
 });
+
+Route::get('/login', function () {
+    return view('login');
+});
+
+Route::get('/beranda', function () {
+    return view('beranda');
+});
+
+Route::get('/layanan', function () {
+    return view('layanan');
+});
+
+Route::get('/tentangKami', function () {
+    return view('tentangKami');
+});
