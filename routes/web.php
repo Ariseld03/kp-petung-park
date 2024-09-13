@@ -14,21 +14,18 @@ use App\Http\Controllers\Auth\RegisterController;
 |
 */
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('register');
 });
 
-/*Route::get('/login', function () {
+Route::get('/login', function () {
     return view('login');
-});*/
+});
 
-// Route untuk menampilkan halaman register
+/* Route untuk menampilkan halaman register
 Route::get('/', function () {
     return view('auth.RegisterController');
-})->name('register.form');
-
-// Route untuk menangani POST request dari form register
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
+})->name('register.form');*/
 
 
 //Route::post('/register', [RegisterController::class, 'register'])->name('register');
