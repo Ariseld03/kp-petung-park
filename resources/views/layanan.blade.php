@@ -285,6 +285,48 @@
         .kegiatan-mendatang table tr td:last-child {
             text-align: center;
         }
+
+        /* Styling untuk kegiatan lalu */
+        .kegiatan-container {
+            display: flex;
+            justify-content: center; /* Menjadikan elemen-elemen di dalam container rata tengah */
+            flex-wrap: wrap;
+            padding: 0 15px;
+        }
+
+        .kegiatan-lalu {
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Membuat konten kegiatan-lalu berada di tengah */
+            width: 80%; /* Lebar elemen */
+        }
+
+        .kegiatan-lalu img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .kegiatan-lalu .judul-kegiatan-lalu {
+            margin-left: 20px; /* Jarak antara gambar dan judul */
+            font-size: 20px;
+            color: #353C14;
+        }
+
+        .kegiatan-lalu button {
+            margin-left: 10px; /* Jarak antara judul dan button */
+            background-color: #353C14;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .kegiatan-lalu button:hover {
+            background-color: #2c3311;
+        }
+
+
     </style>
 </head>
 <body>
@@ -374,12 +416,12 @@
 
     <!-- Kegiatan Mendatang -->
     <div class="kegiatan">
-        <h2>Kegiatan Mendatang</h2>
+        <h2>Kegiatan</h2>
         
         <div class="kegiatan-container">
             <!-- Daftar Kegiatan -->
             <div class="kegiatan-mendatang">
-                <table border="1">
+                <table border="0"> <!--biar border hilang-->
                     <tr>
                         <td>Tanggal: 12/09/2024</td>
                         <td>Nama Kegiatan 1</td>
@@ -400,6 +442,13 @@
                     </tr>
                 </table>
             </div>
+            <!-- Kegiatan Lalu -->
+            <div class="kegiatan-lalu">
+                <img src="image_url" alt="Icon Kegiatan Lalu">
+                <div class="judul-kegiatan-lalu">Nama Kegiatan Lalu</div>
+                <button>Cek Kegiatan</button>
+            </div>
+
         </div>
     </div>
 
