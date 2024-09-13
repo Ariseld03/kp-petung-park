@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,13 +14,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('register');
 });
 
-Route::get('/login', function () {
+/*Route::get('/login', function () {
     return view('login');
-});
+});*/
+
+// Route untuk menampilkan halaman register
+Route::get('/', function () {
+    return view('auth.RegisterController');
+})->name('register.form');
+
+// Route untuk menangani POST request dari form register
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+
+//Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+Route::get('/beranda', function () {
+    return view('beranda');
+})->name('beranda');
+
 
 Route::get('/beranda', function () {
     return view('beranda');
