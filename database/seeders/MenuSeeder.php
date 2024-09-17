@@ -35,7 +35,7 @@ class MenuSeeder extends Seeder
         // Insert multiple records into the menus table
         DB::table('menus')->insert([
             [
-                'name' => 'Spaghetti Carbonara',
+                'name' => 'Kentang Goreng',
                 'description' => $faker->paragraph,
                 'price' => $faker->randomFloat(2, 50000, 200000), // Random price between 50,000 and 200,000
                 'status' => 1,
@@ -48,7 +48,7 @@ class MenuSeeder extends Seeder
                 'category_id' => $categoryIds->random(),
             ],
             [
-                'name' => 'Chicken Alfredo',
+                'name' => 'Nasi Goreng',
                 'description' => $faker->paragraph,
                 'price' => $faker->randomFloat(2, 50000, 200000), // Random price between 50,000 and 200,000
                 'status' => 1,
@@ -61,7 +61,7 @@ class MenuSeeder extends Seeder
                 'category_id' => $categoryIds->random(),
             ],
             [
-                'name' => 'Caesar Salad',
+                'name' => 'Ayam Geprek',
                 'description' => $faker->paragraph,
                 'price' => $faker->randomFloat(2, 30000, 150000), // Random price between 30,000 and 150,000
                 'status' => 0,
@@ -74,7 +74,7 @@ class MenuSeeder extends Seeder
                 'category_id' => $categoryIds->random(),
             ],
             [
-                'name' => 'Margherita Pizza',
+                'name' => 'Ayam Goreng',
                 'description' => $faker->paragraph,
                 'price' => $faker->randomFloat(2, 60000, 250000), // Random price between 60,000 and 250,000
                 'status' => 1,
@@ -87,7 +87,7 @@ class MenuSeeder extends Seeder
                 'category_id' => $categoryIds->random(),
             ],
             [
-                'name' => 'Beef Stroganoff',
+                'name' => 'Bebek Ngos',
                 'description' => $faker->paragraph,
                 'price' => $faker->randomFloat(2, 70000, 300000), // Random price between 70,000 and 300,000
                 'status' => 0,

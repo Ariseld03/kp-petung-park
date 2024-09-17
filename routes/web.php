@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AgendaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +47,7 @@ Route::get('/layanan', function () {
 Route::get('/tentangKami', function () {
     return view('tentangKami');
 });
+
+//Agenda 
+Route::resource('agendas', AgendaController::class);
+Route::post('agendas/json', [AgendaController::class, 'storeJson'])->name('agendas.store.json');

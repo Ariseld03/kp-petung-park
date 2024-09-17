@@ -24,7 +24,7 @@ class ArticleGallerySeeder extends Seeder
             [
                 'article_id' => $articleIds->random(),
                 'gallery_id' => $galleryIds->random(),
-                'name_collage' => 'Collage 1',
+                'name_collage' => 'Kolase 1',
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -32,7 +32,7 @@ class ArticleGallerySeeder extends Seeder
             [
                 'article_id' => $articleIds->random(),
                 'gallery_id' => $galleryIds->random(),
-                'name_collage' => 'Collage 2',
+                'name_collage' => 'Kolase 2',
                 'status' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -40,12 +40,11 @@ class ArticleGallerySeeder extends Seeder
             [
                 'article_id' => $articleIds->random(),
                 'gallery_id' => $galleryIds->random(),
-                'name_collage' => 'Collage 3',
+                'name_collage' => 'Kolase 3',
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Add more entries as needed, ensuring unique combinations
         ]);
     }
 }

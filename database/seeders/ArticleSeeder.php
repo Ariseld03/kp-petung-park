@@ -32,7 +32,7 @@ class ArticleSeeder extends Seeder
         // Insert multiple records into the articles table
         DB::table('articles')->insert([
             [
-                'title' => 'New Policy Updates',
+                'title' => 'Hash July 2024',
                 'main_content' => $faker->paragraphs(3, true),
                 'status' => 1,
                 'staff_email' => $staffEmails->random(),
@@ -41,7 +41,7 @@ class ArticleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'title' => 'Upcoming Company Retreat',
+                'title' => 'Kemah in Petung Park',
                 'main_content' => $faker->paragraphs(3, true),
                 'status' => 1,
                 'staff_email' => $staffEmails->random(),
@@ -50,7 +50,7 @@ class ArticleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'title' => 'Quarterly Financial Report',
+                'title' => 'Pembukaan Wisata Hutan Bambu',
                 'main_content' => $faker->paragraphs(3, true),
                 'status' => 0,
                 'staff_email' => $staffEmails->random(),
@@ -59,7 +59,7 @@ class ArticleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'title' => 'Client Feedback Summary',
+                'title' => 'Pembersihan hutan bambu',
                 'main_content' => $faker->paragraphs(3, true),
                 'status' => 1,
                 'staff_email' => $staffEmails->random(),
@@ -68,7 +68,7 @@ class ArticleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'title' => 'New Product Launch Details',
+                'title' => 'Tarif Masuk Kolam Renang',
                 'main_content' => $faker->paragraphs(3, true),
                 'status' => 0,
                 'staff_email' => $staffEmails->random(),
