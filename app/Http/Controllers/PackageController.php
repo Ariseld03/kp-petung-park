@@ -83,4 +83,79 @@ class PackageController extends Controller
 
         return redirect()->route('package.index')->with('success', 'Package deleted successfully');
     }
+    
+    public function createMenuPackage(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'menu_id' => 'required|integer|exists:menus,id',
+            'menu_category_id' => 'required|integer|exists:menu_categories,id',
+            'package_id' => 'required|integer|exists:packages,id',
+            'name' => 'required|string|max:255',
+            'status' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('package.create')->withErrors($validator)->withInput();
+        }
+        PackageMenu::create([
+            'menu_id' => $request->menu_id,
+            'menu_category_id' => $request->menu_category_id,
+            'package_id' => $request->package_id,
+            'name' => $request->name,
+            'status' => $request->status,
+            'create_date' => now(),
+            'update_date' => now(),
+        ]);
+
+        return redirect()->route('package.index')->with('success', 'Menu for package created successfully');
+    }
+
+    public function storeMenuPackage(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'menu_id' => 'required|integer|exists:menus,id',
+            'menu_category_id' => 'required|integer|exists:menu_categories,id',
+            'package_id' => 'required|integer|exists:packages,id',
+            'name' => 'required|string|max:255',
+            'status' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('package.create')->withErrors($validator)->withInput();
+        }
+        PackageMenu::create([
+            'menu_id' => $request->menu_id,
+            'menu_category_id' => $request->menu_category_id,
+            'package_id' => $request->package_id,
+            'name' => $request->name,
+            'status' => $request->status,
+            'create_date' => now(),
+            'update_date' => now(),
+        ]);
+
+        return redirect()->route('package.index')->with('success', 'Menu for package created successfully');
+    }
+
+    public function updateMenuPackage(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'menu_id' => 'required|integer|exists:menus,id',
+            'menu_category_id' => 'required|integer|exists:menu_categories,id',
+            'package_id' => 'required|integer|exists:packages,id',
+            'name' => 'required|string|max:255',
+            'status' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('package.create')->withErrors($validator)->withInput();
+        }
+        $packageMenu = PackageMenu::findOrFail($id);
+        $packageMenu->update([
+            'menu_id' => $request->menu_id,
+            'menu_category_id' => $request->menu_category_id,
+            'package_id' => $request->package_id,
+            'name' => $request->name,
+            'status' => $request->status,
+            'update_date' => now(),
+        ]);
+
+        return redirect()->route('package.index')->with('success', 'Menu for package updated successfully');
+    }
 }

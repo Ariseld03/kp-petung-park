@@ -97,5 +97,67 @@ class TravelController extends Controller
         $travel->delete();
         return redirect()->route('travels.index')->with('success', 'Travel deleted successfully.');
     }
+    
+    /**
+     * M to M for pivot table travel_gallery
+     */
+    public function createGallery(Travel $travel)
+    {
+        return view('travels.createGallery', compact('travel'));
+    }
+
+    /**
+     * Store a newly created resource in storage for pivot table travel_gallery.
+     */
+    public function storeGallery(Request $request, Travel $travel)
+    {
+        $request->validate([
+            'gallery_id' => 'required|integer',
+            'name_collage' => 'required|string',
+            'status' => 'required|integer',
+        ]);
+
+        DB::table('travel_gallery')->insert([
+            'travel_id' => $travel->id,
+            'gallery_id' => $request->get('gallery_id'),
+            'name_collage' => $request->get('name_collage'),
+            'status' => $request->get('status'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('travels.index')->with('success', 'Gallery created successfully for travel ' . $travel->title);
+    }
+
+    /**
+     * Show the form for editing the specified resource in pivot table travel_gallery.
+     */
+    public function editGallery(Travel $travel, $id)
+    {
+        $gallery = DB::table('travel_gallery')->where('id', $id)->first();
+        return view('travels.editGallery', compact('travel', 'gallery'));
+    }
+
+    /**
+     * Update the specified resource in storage for pivot table travel_gallery.
+     */
+    public function updateGallery(Request $request, Travel $travel, $id)
+    {
+        $request->validate([
+            'gallery_id' => 'required|integer',
+            'name_collage' => 'required|string',
+            'status' => 'required|integer',
+        ]);
+
+        DB::table('travel_gallery')->where('id', $id)->update([
+            'travel_id' => $travel->id,
+            'gallery_id' => $request->get('gallery_id'),
+            'name_collage' => $request->get('name_collage'),
+            'status' => $request->get('status'),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('travels.index')->with('success', 'Gallery updated successfully for travel ' . $travel->title);
+    }
 }
 

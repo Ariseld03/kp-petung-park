@@ -96,7 +96,7 @@ class ArticleController extends Controller
         $article->delete();
         return redirect()->route('articles.index')->with('success', 'Article deleted successfully.');
     }
-    
+    // M to M article_gallery
     /**
      * Store a newly created resource in storage for pivot table article_gallery
      */

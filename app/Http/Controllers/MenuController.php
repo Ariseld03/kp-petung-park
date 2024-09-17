@@ -118,6 +118,10 @@ class MenuController extends Controller
     public function destroy(string $id)
     {
         $menu = Menu::findOrFail($id);
+
+        // Delete data in pivot table package_menus
+        $menu->packages()->detach();
+
         $menu->delete();
 
         return redirect()->route('menu.index')->with('success', 'Menu deleted successfully');
