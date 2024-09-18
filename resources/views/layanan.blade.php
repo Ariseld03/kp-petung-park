@@ -303,8 +303,16 @@
         }
 
         .kegiatan-lalu img {
-            width: 30px;
-            height: 30px;
+            width: 300px;
+            height: 200px;
+            padding-bottom: 30px;
+        }
+
+        .deskripsi-kegiatan-lalu{
+            margin-top: 5px;
+            margin-left: 20px;
+            color: #353C14;
+            font-size: 16px;
         }
 
         .kegiatan-lalu .judul-kegiatan-lalu {
@@ -314,7 +322,7 @@
         }
 
         .kegiatan-lalu button {
-            margin-left: 10px; /* Jarak antara judul dan button */
+            margin-left: 20px; /* Jarak antara judul dan button */
             background-color: #353C14;
             color: white;
             border: none;
@@ -340,10 +348,10 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Beranda</a>
+                        <a class="nav-link" href="#">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><u>Layanan</u></a>
+                        <a class="nav-link active" href="#"><u>Layanan</u></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Tentang Kami</a>
@@ -444,11 +452,15 @@
             </div>
             <!-- Kegiatan Lalu -->
             <div class="kegiatan-lalu">
-                <img src="image_url" alt="Icon Kegiatan Lalu">
-                <div class="judul-kegiatan-lalu">Nama Kegiatan Lalu</div>
+                <img src="https://via.placeholder.com/300x200" alt="Icon Kegiatan Lalu">
+                <div>
+                    <div class="judul-kegiatan-lalu">Nama Kegiatan Lalu</div>
+                    <div class="deskripsi-kegiatan-lalu" style="margin-top: 5px;">
+                        Deskripsi
+                    </div>
+                </div>
                 <button>Cek Kegiatan</button>
             </div>
-
         </div>
     </div>
 

@@ -107,13 +107,13 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Beranda</a>
+                        <a class="nav-link " href="#">Beranda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><u>Layanan</u></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tentang Kami</a>
+                        <a class="nav-link active" href="#">Tentang Kami</a>
                     </li>
                 </ul>
             </div>
