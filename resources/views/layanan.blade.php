@@ -334,7 +334,36 @@
             background-color: #2c3311;
         }
 
+    @media (max-width: 768px){
+        /* Footer */
+        .footer {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
+        .footer .logo-instansi {
+            width: 80px;
+            height: 80px;
+        }
+
+        .footer .alamat,
+        .footer .tautan,
+        .footer .sosmed {
+            margin-left: 0;
+        }
+
+        .footer .alamat,
+        .footer .tautan {
+            margin-bottom: 20px;
+        }
+
+        .sosmed {
+            right: auto;
+            bottom: auto;
+            position: static;
+        }
+    }
     </style>
 </head>
 <body>
