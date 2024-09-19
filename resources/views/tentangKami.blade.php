@@ -26,7 +26,7 @@
         /* Styling untuk info1 */
         .info1 {
             background-color: #449E47;
-            margin: 0px 0px 0px 0px;
+            margin: 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -51,7 +51,7 @@
         /* Styling untuk info2 */
         .info2 {
             background-color: #295A3F;
-            margin: 0px 0px 0px 0px;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -63,6 +63,32 @@
             height: 400px;
             object-fit: cover;
             margin: 0; /* Hilangkan jarak atas dan bawah */
+        }
+
+        /* Styling untuk info3 */
+        .info3 {
+            background-color: #A0D0B3;
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+            flex-direction: row-reverse; /* Membalik posisi gambar dan teks */
+        }
+
+        .text-info3 {
+            color: #295A3F;
+            text-align: right;
+            padding: 20px 10px;
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+
+        .gambar-info3 {
+            width: 40%;
+            height: 100%;
+            margin-right: 20px;
+            object-fit: cover;
         }
 
         /* Styling footer */
@@ -136,6 +162,43 @@
         .tautan-content {
             display: flex;
         }
+
+        /* Media Query untuk tampilan mobile */
+        @media (max-width: 768px) {
+            .info1 {
+                flex-direction: column-reverse; /* Membuat gambar di atas teks */
+                align-items: center; /* Membuat konten di dalamnya rata tengah */
+            }
+
+            .gambar-info1 {
+                width: 100%; /* Gambar memenuhi lebar layar */
+                margin-left: 0;
+            }
+
+            .text-info1 {
+                margin-left: 10px;
+                margin-right: 10px;
+                text-align: center; /* Rata tengah untuk teks */
+            }
+
+            .info3 {
+                flex-direction: column; /* Mengubah arah flex menjadi column pada layar kecil */
+                align-items: center; /* Membuat konten di dalamnya rata tengah */
+            }
+
+            .gambar-info3 {
+                width: 100%; /* Gambar memenuhi lebar layar */
+                margin-right: 0;
+            }
+
+            .text-info3 {
+                margin-left: 10px;
+                margin-right: 10px;
+                text-align: center; /* Rata tengah untuk teks */
+            }
+        }
+
+
     </style>
 </head>
 <body>
@@ -165,15 +228,24 @@
     <!-- Info1 -->
     <div class="info1">
         <div class="text-info1">
-            <h2>Judul Info</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <h2>Judul Info 1</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
-        <img src="https://via.placeholder.com/600x400" alt="Gambar Info" class="gambar-info1">
+        <img src="https://via.placeholder.com/600x400" alt="Gambar Info 1" class="gambar-info1">
     </div>
 
     <!-- Info2 -->
     <div class="info2">
-        <img src="https://via.placeholder.com/600x400" alt="Gambar Info 2" class="gambar-info2">
+        <img src="https://via.placeholder.com/900x400" alt="Gambar Info 2" class="gambar-info2">
+    </div>
+
+    <!-- Info3 (gambar di kiri, teks di kanan) -->
+    <div class="info3">
+        <div class="text-info3">
+            <h2>Judul Info 3</h2>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+        </div>
+        <img src="https://via.placeholder.com/600x400" alt="Gambar Info 3" class="gambar-info3">
     </div>
 
     <!-- Footer -->

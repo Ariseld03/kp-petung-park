@@ -159,6 +159,91 @@
         .tautan-content {
             display: flex;
         }
+
+        @media (max-width: 768px) {
+    /* Title Section */
+    .title-section {
+        height: auto;
+        padding-left: 5%;
+        text-align: center;
+    }
+
+    .title {
+        font-size: 12vw; /* Sesuaikan ukuran font dengan layar kecil */
+    }
+
+    .description {
+        font-size: 4vw;
+    }
+
+    /* Sejarah Section */
+    section.bg-success {
+        padding: 20px 10px;
+    }
+
+    /* Lokasi Section */
+    section.bg-location {
+        padding: 20px 10px;
+    }
+
+    .bg-location .col-md-4 {
+        margin-bottom: 20px;
+    }
+
+    .bg-location img {
+        width: 100%;
+    }
+
+    /* Denah Image */
+    .denah-image {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Galeri Section */
+    .frame-image {
+        height: auto;
+        padding: 10px;
+    }
+
+    .galeri-image {
+        height: auto;
+    }
+
+    .text-image {
+        font-size: 12px;
+    }
+
+    /* Footer */
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer .logo-instansi {
+        width: 80px;
+        height: 80px;
+    }
+
+    .footer .alamat,
+    .footer .tautan,
+    .footer .sosmed {
+        margin-left: 0;
+    }
+
+    .footer .alamat,
+    .footer .tautan {
+        margin-bottom: 20px;
+    }
+
+    .sosmed {
+        right: auto;
+        bottom: auto;
+        position: static;
+    }
+}
+
     </style>
 </head>
 <body>
