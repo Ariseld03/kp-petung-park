@@ -23,6 +23,48 @@
             color: white;
         }
 
+        /* Styling untuk info1 */
+        .info1 {
+            background-color: #449E47;
+            margin: 0px 0px 0px 0px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+        }
+
+        .text-info1 {
+            color: white;
+            text-align: left;
+            padding: 20px 10px;
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+
+        .gambar-info1 {
+            width: 40%;
+            height: 100%;
+            margin-left: 20px;
+            object-fit: cover;
+        }
+
+        /* Styling untuk info2 */
+        .info2 {
+            background-color: #295A3F;
+            margin: 0px 0px 0px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0; /* Hilangkan padding pada info2 */
+        }
+
+        .gambar-info2 {
+            width: 900px;
+            height: 400px;
+            object-fit: cover;
+            margin: 0; /* Hilangkan jarak atas dan bawah */
+        }
+
         /* Styling footer */
         .footer {
             padding: 20px;
@@ -110,20 +152,28 @@
                         <a class="nav-link " href="#">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><u>Layanan</u></a>
+                        <a class="nav-link" href="#">Layanan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Tentang Kami</a>
+                        <a class="nav-link active" href="#"><u>Tentang Kami</u></a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Konten Halaman -->
-    <div class="container mt-5">
-        <h1>Selamat Datang di Website</h1>
-        <p>Ini adalah contoh konten untuk halaman web.</p>
+    <!-- Info1 -->
+    <div class="info1">
+        <div class="text-info1">
+            <h2>Judul Info</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <img src="https://via.placeholder.com/600x400" alt="Gambar Info" class="gambar-info1">
+    </div>
+
+    <!-- Info2 -->
+    <div class="info2">
+        <img src="https://via.placeholder.com/600x400" alt="Gambar Info 2" class="gambar-info2">
     </div>
 
     <!-- Footer -->
