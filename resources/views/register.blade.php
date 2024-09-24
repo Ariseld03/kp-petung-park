@@ -74,6 +74,36 @@
         .image-container img {
             object-fit: cover;
         }
+
+        /* Media Queries for mobile responsiveness */
+        @media (max-width: 768px) {
+            .row {
+                display: flex;
+                flex-direction: column-reverse; /* Gambar di atas form login */
+            }
+
+            .image-container {
+                height: 100vh; /* Menutupi seluruh tinggi layar */
+            }
+
+            .login-container {
+                padding: 20px;
+                text-align: center;
+            }
+
+            .login-title {
+                font-size: 40px;
+            }
+
+            .inputLogin input, .inputLogin button {
+                font-size: 24px;
+            }
+
+            .signup-container p, .signup-container button {
+                font-size: 18px;
+            }
+        }
+
     </style>
 </head>
 <body>

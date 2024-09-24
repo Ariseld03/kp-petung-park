@@ -377,7 +377,7 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Beranda</a>
+                        <a class="nav-link" href="beranda">Beranda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="#"><u>Layanan</u></a>

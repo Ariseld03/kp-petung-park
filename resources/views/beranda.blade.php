@@ -43,13 +43,13 @@
 
         /* Kelas Kustom untuk Galeri */
         .frame-image {
-            padding-top: 20px; /* Jarak antara foto dengan latar belakang putih */
+            padding-top: 20px; 
             padding-left: 20px; 
             padding-right: 20px;
             padding-bottom: 55px; 
-            background-color: white; /* Latar belakang putih di sekitar foto */
+            background-color: white; 
             box-sizing: border-box;
-            height: 250px; /* Ukuran tetap untuk frame */
+            height: 250px; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -57,18 +57,18 @@
         }
 
         .galeri-image {
-            padding-top: 20px; /* Jarak antara foto dengan latar belakang putih */
+            padding-top: 20px;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Agar gambar sesuai dengan frame */
+            object-fit: cover; 
         }
 
         .text-image {
-            color: #295A3F; /* Warna teks sesuai kebutuhan */
+            color: #295A3F; 
             font-size: 14px;
             text-align: center;
             font-weight: bold;
-            margin-top: 10px; /* Memberikan jarak 10px antara gambar dan teks */
+            margin-top: 10px; 
         }
 
         footer {
@@ -161,7 +161,6 @@
         }
 
         @media (max-width: 768px) {
-    /* Title Section */
     .title-section {
         height: auto;
         padding-left: 5%;
@@ -176,12 +175,12 @@
         font-size: 4vw;
     }
 
-    /* Sejarah Section */
+    /* Sejarah  */
     section.bg-success {
         padding: 20px 10px;
     }
 
-    /* Lokasi Section */
+    /* Lokasi  */
     section.bg-location {
         padding: 20px 10px;
     }
@@ -194,13 +193,12 @@
         width: 100%;
     }
 
-    /* Denah Image */
     .denah-image {
         max-width: 100%;
         height: auto;
     }
 
-    /* Galeri Section */
+    /* Galeri */
     .frame-image {
         height: auto;
         padding: 10px;
@@ -260,10 +258,10 @@
                         <a class="nav-link active" href="#"><u>Beranda</u></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Layanan</a>
+                        <a class="nav-link" href="layanan">Layanan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tentang Kami</a>
+                        <a class="nav-link" href="tentangKami">Tentang Kami</a>
                     </li>
                 </ul>
             </div>
