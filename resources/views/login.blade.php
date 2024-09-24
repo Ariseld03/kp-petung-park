@@ -12,6 +12,7 @@
             height: 100vh;
             background-color: white;
             font-family: Arial, sans-serif;
+            margin: 0; /* Hapus margin body untuk memastikan gambar menempel di atas */
         }
 
         .login-container {
@@ -83,7 +84,7 @@
             }
 
             .image-container {
-                height: 20vh; /* Sesuaikan tinggi gambar */
+                height: 25vh; /* Sesuaikan tinggi gambar menjadi 25% dari tinggi layar */
             }
 
             .login-container {
@@ -103,7 +104,6 @@
                 font-size: 18px;
             }
         }
-
     </style>
 </head>
 <body>

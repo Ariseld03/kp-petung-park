@@ -12,6 +12,7 @@
             height: 100vh;
             background-color: white;
             font-family: Arial, sans-serif;
+            margin: 0; /* Pastikan tidak ada margin pada body */
         }
 
         .login-container {
@@ -79,11 +80,11 @@
         @media (max-width: 768px) {
             .row {
                 display: flex;
-                flex-direction: column-reverse; /* Gambar di atas form login */
+                flex-direction: column-reverse; /* Gambar tetap di atas */
             }
 
             .image-container {
-                height: 100vh; /* Menutupi seluruh tinggi layar */
+                height: 25vh; /* Menutupi 25% dari tinggi layar */
             }
 
             .login-container {

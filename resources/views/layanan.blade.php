@@ -334,36 +334,63 @@
             background-color: #2c3311;
         }
 
-    @media (max-width: 768px){
-        /* Footer */
-        .footer {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .footer .logo-instansi {
-            width: 80px;
-            height: 80px;
-        }
-
-        .footer .alamat,
-        .footer .tautan,
-        .footer .sosmed {
-            margin-left: 0;
-        }
-
-        .footer .alamat,
-        .footer .tautan {
-            margin-bottom: 20px;
-        }
-
-        .sosmed {
-            right: auto;
-            bottom: auto;
-            position: static;
-        }
+        @media (max-width: 768px) {
+    /* Kategori Makanan */
+    .makanan {
+        width: 45%; /* Mengubah ukuran menjadi lebih kecil agar muat 2 elemen per baris */
+        margin: 10px;
     }
+
+    .makanan img {
+        width: 100%; /* Menyesuaikan ukuran gambar dengan lebar elemen */
+        height: auto; /* Agar gambar tetap proporsional */
+    }
+
+    /* Kategori Wisata */
+    .wisata {
+        width: 45%; /* Mengubah ukuran menjadi lebih kecil agar muat 2 elemen per baris */
+        margin: 10px;
+    }
+
+    .wisata img {
+        width: 100%; /* Menyesuaikan ukuran gambar dengan lebar elemen */
+        height: auto; /* Agar gambar tetap proporsional */
+    }
+
+    .kegiatan{
+        width: 100%;
+        height: auto;
+    }
+
+    /* Footer */
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer .logo-instansi {
+        width: 80px;
+        height: 80px;
+    }
+
+    .footer .alamat,
+    .footer .tautan,
+    .footer .sosmed {
+        margin-left: 0;
+    }
+
+    .footer .alamat,
+    .footer .tautan {
+        margin-bottom: 20px;
+    }
+
+    .sosmed {
+        right: auto;
+        bottom: auto;
+        position: static;
+    }
+}
     </style>
 </head>
 <body>
@@ -383,7 +410,7 @@
                         <a class="nav-link active" href="#"><u>Layanan</u></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tentang Kami</a>
+                        <a class="nav-link" href="tentangKami">Tentang Kami</a>
                     </li>
                 </ul>
             </div>
@@ -416,6 +443,14 @@
                 <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 3">
                 <p class="judul-makanan">Makanan 3</p>
                 <p class="deskripsi-makanan">Deskripsi makanan 3</p>
+                <button>Pesan</button>
+            </div>
+
+            <!-- Makanan 4 -->
+            <div class="makanan">
+                <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 3">
+                <p class="judul-makanan">Makanan 4</p>
+                <p class="deskripsi-makanan">Deskripsi makanan 4</p>
                 <button>Pesan</button>
             </div>
         </div>
