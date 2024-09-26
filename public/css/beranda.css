@@ -1,0 +1,238 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.title-section {
+    background-image: url('/images/beranda/berandaPetungPark.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 8%;
+}
+
+.title {
+    font-size: 8vw;
+    font-weight: bold;
+}
+
+.description {
+    font-size: 2vw;
+}
+
+.denah-image {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Kelas Kustom untuk Galeri */
+.frame-image {
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 55px;
+    background-color: white;
+    box-sizing: border-box;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.galeri-image {
+    padding-top: 20px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.text-image {
+    color: #295A3F;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+}
+
+/* Kelas Kustom untuk Galeri */
+.bg-custom {
+    background-color: #295A3F;
+}
+
+/* Kelas Kustom untuk Lokasi */
+.bg-location {
+    background-color: #A1D0B3;
+}
+
+/* Styling footer */
+.footer {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: white;
+    position: relative;
+}
+
+.footer .logo-instansi {
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+}
+
+.footer .alamat {
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer .alamat p {
+    margin: 5px 0;
+}
+
+.footer .alamat img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.footer .tautan {
+    margin-left: 90px;
+    text-align: left;
+
+}
+
+.footer .tautan p {
+    margin: 5px 0;
+}
+
+.footer .tautan a {
+    color: white;
+    text-decoration: none;
+}
+
+.sosmed {
+    margin: 5px;
+    text-align: right;
+    right: 20px;
+    bottom: 80px;
+    position: absolute;
+}
+
+.sosmed p {
+    font-weight: bold;
+}
+
+.sosmed a {
+    display: inline-block;
+    margin-right: 10px;
+    /* Jarak antar logo */
+}
+
+.logo-sosmed {
+    width: 30px;
+    /* Ukuran logo IG dan TikTok */
+    height: 30px;
+}
+
+
+.tautan-content {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .title-section {
+        height: auto;
+        padding-left: 5%;
+        text-align: center;
+    }
+
+    .title {
+        font-size: 12vw;
+        /* Sesuaikan ukuran font dengan layar kecil */
+    }
+
+    .description {
+        font-size: 4vw;
+    }
+
+    /* Sejarah  */
+    section.bg-success {
+        padding: 20px 10px;
+    }
+
+    /* Lokasi  */
+    section.bg-location {
+        padding: 20px 10px;
+    }
+
+    .bg-location .col-md-4 {
+        margin-bottom: 20px;
+    }
+
+    .bg-location img {
+        width: 100%;
+    }
+
+    .denah-image {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Galeri */
+    .frame-image {
+        height: auto;
+        padding: 10px;
+    }
+
+    .galeri-image {
+        height: auto;
+    }
+
+    .text-image {
+        font-size: 12px;
+    }
+
+    /* Footer */
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer .logo-instansi {
+        width: 80px;
+        height: 80px;
+    }
+
+    .footer .alamat,
+    .footer .tautan,
+    .footer .sosmed {
+        margin-left: 0;
+    }
+
+    .footer .alamat,
+    .footer .tautan {
+        margin-bottom: 20px;
+    }
+
+    .sosmed {
+        right: auto;
+        bottom: auto;
+        position: static;
+    }
+}
