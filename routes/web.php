@@ -23,6 +23,10 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/kategori', function () {
+    return view('kategori');
+});
+
 /* Route untuk menampilkan halaman register
 Route::get('/', function () {
     return view('auth.RegisterController');

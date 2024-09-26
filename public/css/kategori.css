@@ -1,0 +1,213 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* Styling kategori-makanan */
+.kategori-makanan {
+    background-color: #E2DD6C;
+    padding: 10px 0;
+    /* Full width background */
+    width: 100vw;
+    position: relative;
+}
+
+.kategori-makanan h2 {
+    color: #295A3F;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 35px 0;
+    /* Jarak atas dan bawah*/
+    text-align: center;
+    /* Judul di tengah */
+}
+
+.makanan-container {
+    display: flex;
+    justify-content: center;
+    /* Elemen makanan rata tengah */
+    flex-wrap: wrap;
+    padding: 0 15px;
+}
+
+.makanan {
+    width: 30%;
+    margin: 15px;
+    box-sizing: border-box;
+    text-align: center;
+    /* Text pada makanan juga rata tengah */
+}
+
+.makanan img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    /* Agar gambar tidak terdistorsi */
+}
+
+.makanan .judul-makanan {
+    color: #295A3F;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 1px;
+    font-size: 30px;
+}
+
+.makanan .deskripsi-makanan {
+    color: #295A3F;
+    margin-bottom: 15px;
+    font-size: 25px;
+}
+
+.makanan button {
+    background-color: #295A3F;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.makanan button:hover {
+    background-color: #3b7a53;
+}
+/* Styling untuk tombol Kembali */
+.btn-kembali {
+    padding: 10px 20px;
+    background-color: #E2DD6C;
+    font-weight: bold;
+    color: #295A3F;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect untuk tombol Kembali */
+.btn-kembali:hover {
+    background-color: #E2DD6C;
+    color: black;
+}
+
+/* Styling footer */
+.footer {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: white;
+    position: relative;
+    background-color: #333;
+}
+
+.footer .logo-instansi {
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+}
+
+.footer .alamat {
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer .alamat p {
+    margin: 5px 0;
+}
+
+.footer .alamat img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.footer .tautan {
+    margin-left: 90px;
+    text-align: left;
+}
+
+.footer .tautan p {
+    margin: 5px 0;
+}
+
+.footer .tautan a {
+    color: white;
+    text-decoration: none;
+}
+
+.sosmed {
+    margin: 5px;
+    text-align: right;
+    right: 20px;
+    bottom: 80px;
+    position: absolute;
+}
+
+.sosmed p {
+    font-weight: bold;
+}
+
+.sosmed a {
+    display: inline-block;
+    margin-right: 10px;
+    /* Jarak antar logo */
+}
+
+.logo-sosmed {
+    width: 30px;
+    /* Ukuran logo IG dan TikTok */
+    height: 30px;
+}
+
+.tautan-content {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    /* Kategori Makanan */
+    .makanan {
+        width: 45%;
+        /* Mengubah ukuran menjadi lebih kecil agar muat 2 elemen per baris */
+        margin: 10px;
+    }
+
+    .makanan img {
+        width: 100%;
+        /* Menyesuaikan ukuran gambar dengan lebar elemen */
+        height: auto;
+        /* Agar gambar tetap proporsional */
+    }
+    /* Footer */
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer .logo-instansi {
+        width: 80px;
+        height: 80px;
+    }
+
+    .footer .alamat,
+    .footer .tautan,
+    .footer .sosmed {
+        margin-left: 0;
+    }
+
+    .footer .alamat,
+    .footer .tautan {
+        margin-bottom: 20px;
+    }
+
+    .sosmed {
+        right: auto;
+        bottom: auto;
+        position: static;
+    }
+}
