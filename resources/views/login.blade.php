@@ -122,13 +122,13 @@
                         <div class="form-group">
                             <input type="password" class="form-control p-3" placeholder="Masukkan Kata Sandi" required>
                         </div>
-                        <button type="submit" class="btn btn-block">Masuk</button>
+                        <button type="submit" class="btn btn-block" onclick="window.location.href='{{ url('beranda') }}'">Masuk</button>
                     </form>
 
                     <!-- Signup Section -->
                     <div class="signup-container d-flex align-items-center mt-4">
                         <p class="mb-0">Belum memiliki akun?</p>
-                        <button type="button" class="btn p-0 ml-2">Daftar</button>
+                        <button type="button" class="btn p-0 ml-2" onclick="window.location.href='{{ url('') }}'">Daftar</button>
                     </div>
                 </div>
             </div>

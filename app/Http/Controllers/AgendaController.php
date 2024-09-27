@@ -104,5 +104,12 @@ class AgendaController extends Controller
         $agenda->delete();
         return redirect()->route('agendas.index')->with('success', 'Agenda deleted successfully.');
     }
+
+    public function showLayanan()
+{
+    $agendas = Agenda::all(); // Mengambil semua agenda
+    return view('layanan', compact('agendas')); // Mengirimkan data agenda ke view layanan
+}
+
 }
 

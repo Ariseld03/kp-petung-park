@@ -52,6 +52,11 @@ Route::get('/tentangKami', function () {
     return view('tentangKami');
 });
 
+
+
+Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
+
+
 //Agenda 
 Route::resource('agendas', AgendaController::class);
 Route::post('agendas/json', [AgendaController::class, 'storeJson'])->name('agendas.store.json');
