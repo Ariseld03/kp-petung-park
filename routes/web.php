@@ -52,7 +52,9 @@ Route::get('/tentangKami', function () {
     return view('tentangKami');
 });
 
-
+Route::get('/hidangan', function () {
+    return view('hidangan');
+});
 
 Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
 
