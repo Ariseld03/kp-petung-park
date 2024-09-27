@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Agenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Carbon\Carbon;
 
 class AgendaController extends Controller
 {
@@ -105,10 +106,26 @@ class AgendaController extends Controller
         return redirect()->route('agendas.index')->with('success', 'Agenda deleted successfully.');
     }
 
-    public function showLayanan()
+
+//TAMBAHAN-----------------------------------------------------------
+
+public function showLayanan()
 {
-    $agendas = Agenda::all(); // Mengambil semua agenda
-    return view('layanan', compact('agendas')); // Mengirimkan data agenda ke view layanan
+    $currentDate = Carbon::now();
+
+    // Kegiatan Mendatang: agenda dengan status 1 dan tanggal akhir lebih besar dari atau sama dengan hari ini
+    $kegiatanMendatang = Agenda::where('status', 1)
+        ->where('event_end_date', '>=', $currentDate)
+        ->orderBy('event_start_date', 'asc')
+        ->get();
+
+    // Kegiatan Lalu: agenda dengan status 1 dan tanggal akhir kurang dari hari ini
+    $kegiatanLalu = Agenda::where('status', 1)
+        ->where('event_end_date', '<', $currentDate)
+        ->orderBy('event_end_date', 'desc')
+        ->get();
+
+    return view('layanan', compact('kegiatanMendatang', 'kegiatanLalu'));
 }
 
 }

@@ -80,16 +80,18 @@
             <!-- Daftar Kegiatan Mendatang -->
             <div class="kegiatan-mendatang">
                 <table border="0"> <!--biar border hilang-->
-                    @foreach($agendas as $agenda)
-                        @if($agenda->status == 1) <!-- Kegiatan mendatang -->
-                            <tr>
-                                <td>Tanggal: {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }}</td>
-                                <td>{{ $agenda->event_name }}</td>
-                                <td>{{ $agenda->description }}</td>
-                                <td><button class="cek-kegiatan-button">Cek Kegiatan</button></td>
-                            </tr>
-                        @endif
-                    @endforeach
+                    @forelse($kegiatanMendatang as $agenda)
+                        <tr>
+                            <td>Tanggal: {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }}</td>
+                            <td>{{ $agenda->event_name }}</td>
+                            <td>{{ $agenda->event_location }}</td>
+                            <td><button class="cek-kegiatan-button">Cek Kegiatan</button></td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4">Tidak ada kegiatan mendatang.</td>
+                        </tr>
+                    @endforelse
                 </table>
             </div>
         </div>
@@ -100,21 +102,21 @@
         <h2>Kegiatan Lalu</h2>
 
         <div class="kegiatan-container">
-            @foreach($agendas as $agenda)
-                @if($agenda->status == 0) <!-- Kegiatan lalu -->
-                    <div class="kegiatan-lalu">
-                        <img src="https://via.placeholder.com/300x200" alt="Icon Kegiatan Lalu">
-                        <div>
-                            <div class="judul-kegiatan-lalu">{{ $agenda->event_name }}</div>
-                            <div class="deskripsi-kegiatan-lalu" style="margin-top: 5px;">
-                                Tanggal: {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }} <br>
-                                {{ $agenda->description }}
-                            </div>
+            @forelse($kegiatanLalu as $agenda)
+                <div class="kegiatan-lalu">
+                    <img src="https://via.placeholder.com/300x200" alt="Icon Kegiatan Lalu">
+                    <div>
+                        <div class="judul-kegiatan-lalu">{{ $agenda->event_name }}</div>
+                        <div class="deskripsi-kegiatan-lalu" style="margin-top: 5px;">
+                            Tanggal: {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }} <br>
+                            {{ $agenda->event_location }}
                         </div>
-                        <button>Cek Kegiatan</button>
                     </div>
-                @endif
-            @endforeach
+                    <button>Cek Kegiatan</button>
+                </div>
+            @empty
+                <div>Tidak ada kegiatan lalu.</div>
+            @endforelse
         </div>
     </div>
 
