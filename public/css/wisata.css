@@ -6,24 +6,24 @@ html {
     overflow-x: hidden;
 }
 
-/* Styling kategori-makanan */
-.kategori-makanan {
-    background-color: #E2DD6C;
+/* Styling kategori-wisata */
+.kategori-wisata {
+    background-color: #389562;
     padding: 10px 0; /* Full width background */
     width: 100vw;
     position: relative;
-    min-height: 76vh; /* Pastikan kategori-makanan memenuhi tinggi layar */
-    
+    min-height: 76vh; /* Pastikan kategori-wisata memenuhi tinggi layar */
 }
 
 .kategori-header {
     display: flex; /* Menambahkan flexbox untuk tata letak */
     align-items: center; /* Vertikal align item */
     justify-content: center; /* Horizontal center item */
+    font-size: 30px;
 }
 
-.kategori-makanan h2 {
-    color: #295A3F;
+.kategori-wisata h2 {
+    color: #E2DD6C;
     font-size: 40px;
     font-weight: bold;
     margin: 35px 0; /* Jarak atas dan bawah */
@@ -33,9 +33,9 @@ html {
 /* Styling untuk tombol Kembali */
 .btn-kembali {
     padding: 10px 20px;
-    background-color: #E2DD6C;
+    background-color: #389562;
     font-weight: bold;
-    color: #295A3F;
+    color: #E2DD6C;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -51,12 +51,12 @@ html {
 
 /* Hover effect untuk tombol Kembali */
 .btn-kembali:hover {
-    background-color: #E2DD6C;
-    color: black;
+    background-color: #389562;
+    color: white;
 }
 
-/* Styling gambar hidangan */
-.hidangan-gambar {
+/* Styling gambar wisata */
+.wisata-gambar {
     width: 400px;  /* Mengatur lebar gambar */
     height: 400px; /* Mengatur tinggi gambar */
     position: relative;
@@ -65,62 +65,48 @@ html {
     margin-bottom: 30px; /* Jarak 30px dari footer */
 }
 
-/* Container untuk gambar dan detail hidangan */
-.hidangan-container {
+/* Container untuk gambar dan detail wisata */
+.wisata-container {
     display: flex;
     align-items: flex-start; /* Memastikan gambar dan detail sejajar di bagian atas */
     margin-top: 30px; /* Jarak 100px dari atas */
 }
 
-/* Styling untuk Judul, Deskripsi, dan Harga hidangan */
-.hidangan-detail {
+/* Styling untuk Judul, Deskripsi, dan Harga wisata */
+.wisata-detail {
     margin-left: 30%; /* Jarak 30px dari gambar */
     text-align: left; /* Tulisan rata kiri */
-    color: #295A3F;
+    color: #E2DD6C;
 }
 
-.hidangan-detail h3 {
+.wisata-detail h3 {
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 10px; /* Jarak bawah dari judul ke deskripsi */
-    color: #295A3F;
+    color: #E2DD6C;
 }
 
-.hidangan-detail p {
-    font-size: 15px;
+.wisata-detail p {
+    padding-top: 10px;
+    font-size: 20px;
     margin-bottom: 50px; /* Jarak 20px di bawah deskripsi */
-    color: #295A3F;
+    color: #E2DD6C;
 }
 
-.hidangan-detail .harga {
+.wisata-detail .harga {
     font-size: 15px;
     font-weight: normal;
-    color: #295A3F;
+    color: #E2DD6C;
     margin-bottom: 0px; /* Jarak 30px antara harga dan elemen di bawahnya */
 }
+
 /* Styling untuk tulisan Rekomendasi */
-.hidangan-detail .rekomendasi {
+.wisata-detail .rekomendasi {
     font-size: 20px;
     font-style: italic;
-    color: #295A3F;
+    color: #E2DD6C;
     margin-bottom: 0px; /* Jarak antara rekomendasi dan tombol hati */
 }
-
-/* Styling tombol like berbentuk hati */
-.like-button {
-    font-size: 20px;
-    background: none;
-    border: none;
-    color: #E74C3C;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-/* Hover effect untuk tombol like */
-.like-button:hover {
-    transform: scale(1.2); /* Memperbesar tombol saat hover */
-}
-
 
 /* Styling footer */
 .footer {
@@ -226,23 +212,22 @@ html {
         position: static;
     }
 
-    /* Styling untuk hidangan di layar kecil */
-    .hidangan-gambar {
+    /* Styling untuk wisata di layar kecil */
+    .wisata-gambar {
         width: auto;  /* Gambar lebih kecil agar sesuai dengan layar handphone */
         height: auto;
         left: 50%;
         transform: translateX(-50%); /* Mengatur agar gambar berada di tengah layar */
-        margin-bottom: 10px; /* Jarak 10px dari hidangan container */
-        
+        margin-bottom: 10px; /* Jarak 10px dari wisata container */
     }
 
-    .hidangan-container {
+    .wisata-container {
         flex-direction: column; /* Mengatur agar gambar dan detail vertikal pada layar kecil */
         align-items: center;
         margin-top: 10px; /* Jarak 10px dari gambar */
     }
 
-    .hidangan-detail {
+    .wisata-detail {
         margin-left: 0; /* Hilangkan jarak di layar kecil */
         text-align: center; /* Teks rata tengah pada layar kecil */
     }
@@ -259,5 +244,4 @@ html {
         margin-bottom: 0; /* Hilangkan margin bottom */
         margin-left: 10px; /* Jarak dari kiri layar */
     }
-
 }

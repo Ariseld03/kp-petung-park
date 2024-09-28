@@ -17,15 +17,23 @@ html {
     flex-direction: column;
     justify-content: center;
     padding-left: 8%;
+    padding-right: 8%;
 }
-
+.title-sejarah{
+    font-size: 30px;
+}
 .title {
     font-size: 8vw;
     font-weight: bold;
 }
-
+.title-konten{
+    font-size: 30px;
+}
+.desc-lokasi{
+    font-size: 20px;
+}
 .description {
-    font-size: 2vw;
+    font-size: 20px;
 }
 
 .denah-image {
@@ -54,7 +62,14 @@ html {
     height: 100%;
     object-fit: cover;
 }
-
+.desc-lokasi{
+    text-align: left;
+}
+.img-lokasi{
+    height: 200px;
+    width: 300px;
+    padding-bottom: 20px;
+}
 .text-image {
     color: #295A3F;
     font-size: 14px;

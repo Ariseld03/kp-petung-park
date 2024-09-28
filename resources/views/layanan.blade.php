@@ -11,63 +11,56 @@
         <!-- Makanan 1 -->
         <div class="makanan">
             <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 1">
-            <p class="judul-makanan">Kategori 1</p>
-            <p class="deskripsi-makanan">Deskripsi makanan 1</p>
+            <p class="judul-makanan">Camilan</p>
             <button onclick="window.location.href='{{ url('kategori') }}'">Lihat Kategori</button>
         </div>
 
         <!-- Makanan 2 -->
         <div class="makanan">
             <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 2">
-            <p class="judul-makanan">Kategori 2</p>
-            <p class="deskripsi-makanan">Deskripsi makanan 2</p>
+            <p class="judul-makanan">Makanan berat</p>
             <button onclick="window.location.href='{{ url('kategori') }}'">Lihat Kategori</button>
         </div>
 
         <!-- Makanan 3 -->
         <div class="makanan">
             <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 3">
-            <p class="judul-makanan">Kategori 3</p>
-            <p class="deskripsi-makanan">Deskripsi makanan 3</p>
+            <p class="judul-makanan">Minuman</p>
             <button onclick="window.location.href='{{ url('kategori') }}'">Lihat Kategori</button>
         </div>
 
         <!-- Makanan 4 -->
         <div class="makanan">
             <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 3">
-            <p class="judul-makanan">Makanan 4</p>
-            <p class="deskripsi-makanan">Deskripsi makanan 4</p>
+            <p class="judul-makanan">Es krim</p>
             <button onclick="window.location.href='{{ url('kategori') }}'">Lihat Kategori</button>
         </div>
     </div>
 </div>
 <!-- Kategori Wisata -->
 <div class="kategori-wisata">
-    <h2>Kategori Wisata</h2>
+    <h2>Wisata</h2>
 
     <div class="wisata-container">
         <!-- Wisata 1 -->
         <div class="wisata">
             <img src="https://via.placeholder.com/300x200" alt="Foto Wisata 1">
-            <p class="judul-wisata">Wisata 1</p>
-            <p class="deskripsi-wisata">Deskripsi singkat tentang wisata 1.</p>
-            <button>Baca Lebih Banyak</button>
+            <p class="judul-wisata">Gazebo Kecek</p>
+            <button onclick="window.location.href='{{ url('wisata') }}'">Baca Lebih Banyak</button>
         </div>
 
         <!-- Wisata 2 -->
         <div class="wisata">
             <img src="https://via.placeholder.com/300x200" alt="Foto Wisata 2">
-            <p class="judul-wisata">Wisata 2</p>
-            <p class="deskripsi-wisata">Deskripsi singkat tentang wisata 2.</p>
-            <button>Baca Lebih Banyak</button>
+            <p class="judul-wisata">Kolam</p>
+            <button onclick="window.location.href='{{ url('wisata') }}'">Baca Lebih Banyak</button>
         </div>
 
         <!-- Wisata 3 -->
         <div class="wisata">
             <img src="https://via.placeholder.com/300x200" alt="Foto Wisata 3">
-            <p class="judul-wisata">Wisata 3</p>
-            <p class="deskripsi-wisata">Deskripsi singkat tentang wisata 3.</p>
-            <button>Baca Lebih Banyak</button>
+            <p class="judul-wisata">Hutan Bambu</p>
+            <button onclick="window.location.href='{{ url('wisata') }}'">Baca Lebih Banyak</button>
         </div>
     </div>
 </div>

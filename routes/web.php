@@ -55,6 +55,9 @@ Route::get('/tentangKami', function () {
 Route::get('/hidangan', function () {
     return view('hidangan');
 });
+Route::get('/wisata', function () {
+    return view('wisata');
+});
 
 Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
 
