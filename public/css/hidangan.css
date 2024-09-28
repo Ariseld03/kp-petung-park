@@ -39,6 +39,12 @@ html {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+    position: absolute; /* Menempatkan tombol pada posisi tertentu */
+    top: 0; /* Posisi tombol di bagian atas */
+    left: 0; /* Posisi tombol di bagian kiri */
+    margin-top: 20px; /* Jarak dari atas header */
+    margin-left: 20px; /* Jarak dari kiri halaman */
+    z-index: 100; /* Memastikan tombol berada di atas elemen lain */
 }
 
 /* Hover effect untuk tombol Kembali */
@@ -47,12 +53,70 @@ html {
     color: black;
 }
 
+/* Styling gambar hidangan */
 .hidangan-gambar {
-    width: 300px;  /* Mengatur lebar gambar */
-    height: 300px; /* Mengatur tinggi gambar */
+    width: 400px;  /* Mengatur lebar gambar */
+    height: 400px; /* Mengatur tinggi gambar */
     position: relative;
-    margin-left: 60px; /* Jarak 60px dari kiri */
-    margin-bottom: 80px; /* Jarak 80px dari bawah */
+    left: 500px; /* Jarak 400px dari kiri */
+    top: 10px; /* Jarak dari atas */
+    margin-bottom: 30px; /* Jarak 30px dari footer */
+}
+
+/* Container untuk gambar dan detail hidangan */
+.hidangan-container {
+    display: flex;
+    align-items: flex-start; /* Memastikan gambar dan detail sejajar di bagian atas */
+    margin-top: 30px; /* Jarak 100px dari atas */
+}
+
+/* Styling untuk Judul, Deskripsi, dan Harga hidangan */
+.hidangan-detail {
+    margin-left: 30%; /* Jarak 30px dari gambar */
+    text-align: left; /* Tulisan rata kiri */
+    color: #295A3F;
+}
+
+.hidangan-detail h3 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px; /* Jarak bawah dari judul ke deskripsi */
+    color: #295A3F;
+}
+
+.hidangan-detail p {
+    font-size: 15px;
+    margin-bottom: 50px; /* Jarak 20px di bawah deskripsi */
+    color: #295A3F;
+}
+
+.hidangan-detail .harga {
+    font-size: 15px;
+    font-weight: normal;
+    color: #295A3F;
+    margin-bottom: 0px; /* Jarak 30px antara harga dan elemen di bawahnya */
+}
+/* Styling untuk tulisan Rekomendasi */
+.hidangan-detail .rekomendasi {
+    font-size: 20px;
+    font-style: italic;
+    color: #295A3F;
+    margin-bottom: 0px; /* Jarak antara rekomendasi dan tombol hati */
+}
+
+/* Styling tombol like berbentuk hati */
+.like-button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: #E74C3C;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+/* Hover effect untuk tombol like */
+.like-button:hover {
+    transform: scale(1.2); /* Memperbesar tombol saat hover */
 }
 
 
@@ -129,6 +193,7 @@ html {
     display: flex;
 }
 
+/* Penyesuaian untuk layar handphone */
 @media (max-width: 768px) {
     /* Footer */
     .footer {
@@ -158,4 +223,39 @@ html {
         bottom: auto;
         position: static;
     }
+
+    /* Styling untuk hidangan di layar kecil */
+    .hidangan-gambar {
+        width: auto;  /* Gambar lebih kecil agar sesuai dengan layar handphone */
+        height: auto;
+        left: 50%;
+        transform: translateX(-50%); /* Mengatur agar gambar berada di tengah layar */
+        margin-bottom: 10px; /* Jarak 10px dari hidangan container */
+        
+    }
+
+    .hidangan-container {
+        flex-direction: column; /* Mengatur agar gambar dan detail vertikal pada layar kecil */
+        align-items: center;
+        margin-top: 10px; /* Jarak 10px dari gambar */
+    }
+
+    .hidangan-detail {
+        margin-left: 0; /* Hilangkan jarak di layar kecil */
+        text-align: center; /* Teks rata tengah pada layar kecil */
+    }
+
+    /* Atur jarak kategori-header h2 dari atas */
+    .kategori-header h2 {
+        margin-top: 60px; /* Beri jarak 30px dari atas pada layar kecil */
+    }
+    /* Posisi tombol Kembali di bagian bawah kiri header */
+    .btn-kembali {
+        position: absolute; /* Tetap diatur dengan position absolute */
+        top: 0; /* Menempel di bagian bawah header */
+        left: 0; /* Tetap di bagian kiri layar */
+        margin-bottom: 0; /* Hilangkan margin bottom */
+        margin-left: 10px; /* Jarak dari kiri layar */
+    }
+
 }
