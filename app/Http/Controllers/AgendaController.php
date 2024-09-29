@@ -124,6 +124,17 @@ public function showLayanan()
     return view('layanan', compact('travels', 'kegiatanMendatang', 'kegiatanLalu'));
 }
 
+public function showMendatang($id)
+{
+    $agenda = Agenda::findOrFail($id); // Mengambil agenda berdasarkan id
+    return view('kegiatanMendatang', compact('agenda')); // Kirim agenda ke view
+}
+
+public function showLalu($id)
+{
+    $agenda = Agenda::findOrFail($id); // Mengambil agenda berdasarkan id
+    return view('kegiatanLalu', compact('agenda')); // Kirim agenda ke view
+}
 
 }
 

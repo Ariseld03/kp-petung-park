@@ -79,3 +79,7 @@ Route::post('/gallery/{gallery}/like', [GalleryController::class, 'like'])->name
 //Agenda 
 Route::resource('agendas', AgendaController::class);
 Route::post('agendas/json', [AgendaController::class, 'storeJson'])->name('agendas.store.json');
+
+
+Route::get('/kegiatan/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('kegiatan.mendatang');
+Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');

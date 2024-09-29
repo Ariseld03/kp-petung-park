@@ -56,51 +56,53 @@
 
 
     <!-- Kegiatan Mendatang -->
-    <div class="kegiatan">
-        <h2>Kegiatan Mendatang</h2>
+<div class="kegiatan">
+    <h2>Kegiatan Mendatang</h2>
 
-        <div class="kegiatan-container">
-            <!-- Daftar Kegiatan Mendatang -->
-            <div class="kegiatan-mendatang">
-                <table border="0"> <!--biar border hilang-->
-                    @forelse($kegiatanMendatang as $agenda)
-                        <tr>
-                            <td>Tanggal: {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }}</td>
-                            <td>{{ $agenda->event_name }}</td>
-                            <td>{{ $agenda->event_location }}</td>
-                            <td><button class="cek-kegiatan-button">Cek Kegiatan</button></td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="4">Tidak ada kegiatan mendatang.</td>
-                        </tr>
-                    @endforelse
-                </table>
-            </div>
+    <div class="kegiatan-container">
+        <div class="kegiatan-mendatang">
+            <table border="0">
+                @forelse($kegiatanMendatang as $agenda)
+                    <tr>
+                        <td>Tanggal: {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }}</td>
+                        <td>{{ $agenda->event_name }}</td>
+                        <td>{{ $agenda->event_location }}</td>
+                        <td>
+                            <button class="cek-kegiatan-button" onclick="window.location.href='{{ route('kegiatan.mendatang', $agenda->id) }}'">Cek Kegiatan</button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="4">Tidak ada kegiatan mendatang.</td>
+                    </tr>
+                @endforelse
+            </table>
         </div>
     </div>
+</div>
 
     <!-- Kegiatan Lalu -->
-    <div class="kegiatan">
-        <h2>Kegiatan Lalu</h2>
+<div class="kegiatan">
+    <h2>Kegiatan Lalu</h2>
 
-        <div class="kegiatan-container">
-            @forelse($kegiatanLalu as $agenda)
-                <div class="kegiatan-lalu">
-                    <img src="https://via.placeholder.com/300x200" alt="Icon Kegiatan Lalu">
-                    <div>
-                        <div class="judul-kegiatan-lalu">{{ $agenda->event_name }}</div>
-                        <div class="deskripsi-kegiatan-lalu" style="margin-top: 5px;">
-                            Tanggal: {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }} <br>
-                            {{ $agenda->event_location }}
-                        </div>
+    <div class="kegiatan-container">
+        @forelse($kegiatanLalu as $agenda)
+            <div class="kegiatan-lalu">
+                <img src="https://via.placeholder.com/300x200" alt="Icon Kegiatan Lalu">
+                <div>
+                    <div class="judul-kegiatan-lalu">{{ $agenda->event_name }}</div>
+                    <div class="deskripsi-kegiatan-lalu" style="margin-top: 5px;">
+                        Tanggal: {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }} <br>
+                        {{ $agenda->event_location }}
                     </div>
-                    <button>Cek Kegiatan</button>
                 </div>
-            @empty
-                <div>Tidak ada kegiatan lalu.</div>
-            @endforelse
-        </div>
+                <button onclick="window.location.href='{{ route('kegiatan.lalu', $agenda->id) }}'">Cek Kegiatan</button>
+            </div>
+        @empty
+            <div>Tidak ada kegiatan lalu.</div>
+        @endforelse
     </div>
+</div>
+
 
 @endsection
