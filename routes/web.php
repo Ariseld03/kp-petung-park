@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AgendaController;
-
+use App\Http\Controllers\TravelController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,6 +60,14 @@ Route::get('/wisata', function () {
 });
 
 Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
+
+
+
+Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
+
+// Route untuk halaman detail wisata
+Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
+Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
 
 
 //Agenda 

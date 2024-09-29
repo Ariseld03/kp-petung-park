@@ -51,10 +51,12 @@ class TravelController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Travel $travel)
-    {
-        return view('travels.show', compact('travel'));
-    }
+    public function show($id)
+{
+    $travel = Travel::findOrFail($id);
+    return view('wisata', compact('travel'));
+}
+
 
     /**
      * Show the form for editing the specified resource.
@@ -159,5 +161,13 @@ class TravelController extends Controller
 
         return redirect()->route('travels.index')->with('success', 'Gallery updated successfully for travel ' . $travel->title);
     }
+    //TAMBAHAN ----------------------------
+    public function showLayanan()
+{
+    $travels = Travel::where('status', 1)->get(); // Mengambil hanya travel dengan status 1
+    return view('layanan', compact('travels'));
+}
+
+
 }
 

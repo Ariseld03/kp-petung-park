@@ -6,7 +6,7 @@ use App\Models\Agenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
-
+use App\Models\Travel;
 class AgendaController extends Controller
 {
     /**
@@ -109,24 +109,21 @@ class AgendaController extends Controller
 
 //TAMBAHAN-----------------------------------------------------------
 
+
+
 public function showLayanan()
 {
-    $currentDate = Carbon::now();
+    // Mengambil hanya travel dengan status 1
+    $travels = Travel::where('status', 1)->get();
 
-    // Kegiatan Mendatang: agenda dengan status 1 dan tanggal akhir lebih besar dari atau sama dengan hari ini
-    $kegiatanMendatang = Agenda::where('status', 1)
-        ->where('event_end_date', '>=', $currentDate)
-        ->orderBy('event_start_date', 'asc')
-        ->get();
+    // Mengambil kegiatan mendatang dan lalu (sudah ada)
+    $kegiatanMendatang = Agenda::where('status', 1)->where('event_end_date', '>=', now())->get();
+    $kegiatanLalu = Agenda::where('status', 1)->where('event_end_date', '<', now())->get();
 
-    // Kegiatan Lalu: agenda dengan status 1 dan tanggal akhir kurang dari hari ini
-    $kegiatanLalu = Agenda::where('status', 1)
-        ->where('event_end_date', '<', $currentDate)
-        ->orderBy('event_end_date', 'desc')
-        ->get();
-
-    return view('layanan', compact('kegiatanMendatang', 'kegiatanLalu'));
+    // Mengirimkan $travels, $kegiatanMendatang, dan $kegiatanLalu ke view
+    return view('layanan', compact('travels', 'kegiatanMendatang', 'kegiatanLalu'));
 }
+
 
 }
 

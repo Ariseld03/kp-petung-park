@@ -12,10 +12,8 @@
             <h2>Nama Wisata</h2>
         </div>
         <div class="wisata-container">
-            <img src="https://via.placeholder.com/300x300" alt="wisata" class="wisata-gambar">
-            <div class="wisata-detail">
-                <p>Deskripsi wisata.</p>
-            </div>
+            <h2>{{ $travel->name }}</h2>
+            <p>{{ $travel->description }}</p>
         </div>
     </div>
 @endsection

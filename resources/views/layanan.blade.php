@@ -42,28 +42,18 @@
     <h2>Wisata</h2>
 
     <div class="wisata-container">
-        <!-- Wisata 1 -->
-        <div class="wisata">
-            <img src="https://via.placeholder.com/300x200" alt="Foto Wisata 1">
-            <p class="judul-wisata">Gazebo Kecek</p>
-            <button onclick="window.location.href='{{ url('wisata') }}'">Baca Lebih Banyak</button>
-        </div>
-
-        <!-- Wisata 2 -->
-        <div class="wisata">
-            <img src="https://via.placeholder.com/300x200" alt="Foto Wisata 2">
-            <p class="judul-wisata">Kolam</p>
-            <button onclick="window.location.href='{{ url('wisata') }}'">Baca Lebih Banyak</button>
-        </div>
-
-        <!-- Wisata 3 -->
-        <div class="wisata">
-            <img src="https://via.placeholder.com/300x200" alt="Foto Wisata 3">
-            <p class="judul-wisata">Hutan Bambu</p>
-            <button onclick="window.location.href='{{ url('wisata') }}'">Baca Lebih Banyak</button>
-        </div>
+        @forelse($travels as $travel)
+            <div class="wisata">
+                <img src="https://via.placeholder.com/300x200" alt="Foto {{ $travel->name }}">
+                <p class="judul-wisata">{{ $travel->name }}</p>
+                <button onclick="window.location.href='{{ url('wisata/'.$travel->id) }}'">Baca Lebih Banyak</button>
+            </div>
+        @empty
+            <p>Tidak ada wisata yang tersedia saat ini.</p>
+        @endforelse
     </div>
 </div>
+
 
     <!-- Kegiatan Mendatang -->
     <div class="kegiatan">
