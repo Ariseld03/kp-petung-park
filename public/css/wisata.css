@@ -128,15 +128,18 @@ html {
     background: none; /* Tanpa background */
     border: none; /* Tanpa border */
     cursor: pointer; /* Menunjukkan bisa di klik */
-    color: #E2DD6C; /* Warna sesuai dengan tema */
+    color: #7a0707; /* Warna sesuai dengan tema */
     transition: transform 0.2s; /* Efek transisi */
 }
 
 .like-button:hover {
     transform: scale(1.1); /* Efek zoom saat hover */
 }
-
-/* Styling untuk Judul, Deskripsi, dan Harga wisata */
+.like-count {
+    font-weight: bold;
+    cursor: pointer;
+    color: #7a0707;
+}
 .wisata-detail {
     margin-left: 30%; /* Jarak 30px dari gambar */
     text-align: left; /* Tulisan rata kiri */

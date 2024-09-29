@@ -41,6 +41,7 @@ Route::get('/beranda', function () {
     return view('beranda');
 })->name('beranda');
 
+Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
 
 Route::get('/beranda', function () {
     return view('beranda');
