@@ -101,5 +101,26 @@ class GalleryController extends Controller
         $gallery->delete();
         return redirect()->route('galleries.index')->with('success', 'Gallery deleted successfully.');
     }
+
+    public function like(Request $request, Gallery $gallery)
+    {
+        // Cek aksi dari permintaan
+        if ($request->input('action') === 'increment') {
+            // Increment the number_love only if it's odd
+            if ($gallery->number_love % 2 !== 0) {
+                $gallery->number_love++;
+            }
+        } elseif ($request->input('action') === 'decrement') {
+            // Decrement the number_love only if it's even
+            if ($gallery->number_love % 2 === 0) {
+                $gallery->number_love--;
+            }
+        }
+    
+        $gallery->save();
+    
+        return response()->json(['number_love' => $gallery->number_love]);
+    }
+    
 }
 

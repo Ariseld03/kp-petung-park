@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\TravelController;
+use App\Http\Controllers\GalleryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,6 +71,9 @@ Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan'
 Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
 Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
 
+
+
+Route::post('/gallery/{gallery}/like', [GalleryController::class, 'like'])->name('gallery.like');
 
 //Agenda 
 Route::resource('agendas', AgendaController::class);

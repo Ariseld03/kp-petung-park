@@ -118,6 +118,23 @@ html {
     color: #E2DD6C; /* Warna teks deskripsi */
 }
 
+.like-container {
+    text-align: center; /* Menempatkan tombol di tengah */
+    margin-top: 20px; /* Jarak dari galeri */
+}
+
+.like-button {
+    font-size: 24px; /* Ukuran tombol */
+    background: none; /* Tanpa background */
+    border: none; /* Tanpa border */
+    cursor: pointer; /* Menunjukkan bisa di klik */
+    color: #E2DD6C; /* Warna sesuai dengan tema */
+    transition: transform 0.2s; /* Efek transisi */
+}
+
+.like-button:hover {
+    transform: scale(1.1); /* Efek zoom saat hover */
+}
 
 /* Styling untuk Judul, Deskripsi, dan Harga wisata */
 .wisata-detail {
