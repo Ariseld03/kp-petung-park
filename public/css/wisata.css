@@ -8,7 +8,7 @@ html {
 
 /* Styling kategori-wisata */
 .kategori-wisata {
-    background-color: #389562;
+    background-color: #246140;
     padding: 10px 0; /* Full width background */
     width: 100vw;
     position: relative;
@@ -29,11 +29,45 @@ html {
     margin: 35px 0; /* Jarak atas dan bawah */
     text-align: center; /* Judul di tengah */
 }
+.galeri-container {
+    margin-top: 20px;
+}
+
+.galeri-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Jarak antar item galeri */
+    justify-content: center; /* Mengatur agar item galeri berada di tengah */
+}
+
+.galeri-item {
+    background-color: white; /* Latar belakang putih untuk border luar */
+    border: 2px solid #ddd; /* Border dengan warna abu-abu */
+    padding: 10px; /* Jarak antara gambar dan tepi galeri-item */
+    text-align: center; /* Memastikan gambar, nama, dan deskripsi berada di tengah */
+    width: 320px; /* Lebar galeri-item, sedikit lebih besar dari gambar untuk menampung padding */
+    height: auto; /* Menyesuaikan tinggi otomatis */
+}
+
+.galeri-item img {
+    width: 300px;  /* Mengatur ukuran gambar menjadi 300x300 */
+    height: 300px;
+    object-fit: cover; /* Menyesuaikan gambar agar tidak terpotong */
+    margin-bottom: 10px; /* Jarak antara gambar dan teks */
+}
+
+.galeri-item p {
+    font-size: 16px; /* Ukuran font untuk deskripsi dan nama */
+    color: #246140; /* Warna teks yang sedikit gelap */
+    font-weight: bold;
+    margin: 5px 0; /* Jarak antar teks */
+}
+
 
 /* Styling untuk tombol Kembali */
 .btn-kembali {
     padding: 10px 20px;
-    background-color: #389562;
+    background-color: #246140;
     font-weight: bold;
     color: #E2DD6C;
     border: none;
@@ -51,7 +85,7 @@ html {
 
 /* Hover effect untuk tombol Kembali */
 .btn-kembali:hover {
-    background-color: #389562;
+    background-color: #246140;
     color: white;
 }
 
@@ -68,9 +102,22 @@ html {
 /* Container untuk gambar dan detail wisata */
 .wisata-container {
     display: flex;
-    align-items: flex-start; /* Memastikan gambar dan detail sejajar di bagian atas */
-    margin-top: 30px; /* Jarak 100px dari atas */
+    flex-direction: column; /* Mengatur konten secara vertikal */
+    align-items: center; /* Membuat seluruh konten menjadi rata tengah */
+    justify-content: center; /* Membuat konten berada di tengah secara vertikal */
+    margin-top: 30px; /* Jarak dari atas */
+    text-align: center; /* Mengatur teks deskripsi agar berada di tengah */
+    width: 100%; /* Memastikan container mengambil seluruh lebar layar */
+    padding: 0 20px; /* Memberikan padding kiri dan kanan untuk tampilan lebih rapi */
 }
+
+.wisata-container p {
+    max-width: 800px; /* Batas lebar deskripsi agar tidak terlalu panjang di layar besar */
+    line-height: 1.6; /* Meningkatkan keterbacaan dengan spasi antar baris */
+    font-size: 18px; /* Menyesuaikan ukuran teks deskripsi */
+    color: #E2DD6C; /* Warna teks deskripsi */
+}
+
 
 /* Styling untuk Judul, Deskripsi, dan Harga wisata */
 .wisata-detail {

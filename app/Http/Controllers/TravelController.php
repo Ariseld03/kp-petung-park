@@ -54,7 +54,16 @@ class TravelController extends Controller
     public function show($id)
 {
     $travel = Travel::findOrFail($id);
-    return view('wisata', compact('travel'));
+    
+    // Mengambil data gallery yang berhubungan dengan travel ini
+    $galleries = \DB::table('galleries')
+        ->join('travel_gallery', 'galleries.id', '=', 'travel_gallery.gallery_id')
+        ->where('travel_gallery.travel_id', $id)
+        ->where('travel_gallery.status', 1)
+        ->select('galleries.*')
+        ->get();
+
+    return view('wisata', compact('travel', 'galleries'));
 }
 
 
