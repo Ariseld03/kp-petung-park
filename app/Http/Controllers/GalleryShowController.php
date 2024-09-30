@@ -11,20 +11,16 @@ class GalleryShowController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    // Mengambil data galleries_show dengan status 1 dan gallery_id yang sesuai dari galleries
-    $galleryShows = \DB::table('galleries_show')
-        ->join('galleries', 'galleries_show.gallery_id', '=', 'galleries.id')
-        ->select('galleries_show.name', 'galleries.photo_link')
-        ->where('galleries_show.status', 1)
-        ->get();
-
-    // Pastikan view yang dikembalikan adalah 'beranda'
-    return view('beranda', compact('galleryShows'));
-}
-
-
-
+    {
+        // Mengambil data galleries_show dengan status 1 dan data tambahan dari galleries
+        $galleryShows = \DB::table('galleries_show')
+            ->join('galleries', 'galleries_show.gallery_id', '=', 'galleries.id')
+            ->select('galleries_show.name', 'galleries.photo_link', 'galleries.description', 'galleries.number_love', 'galleries.id as gallery_id')
+            ->where('galleries_show.status', 1)
+            ->get();
+    
+        return view('beranda', compact('galleryShows'));
+    }
     /**
      * Show the form for creating a new resource.
      */

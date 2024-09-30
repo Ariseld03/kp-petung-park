@@ -102,19 +102,20 @@ class GalleryController extends Controller
         return redirect()->route('galleries.index')->with('success', 'Gallery deleted successfully.');
     }
     public function like(Request $request, $id)
-    {
-        $gallery = Gallery::findOrFail($id);
-        
-        if ($request->input('action') === 'increment') {
-            $gallery->number_love += 1; // Tambah like
-        } elseif ($request->input('action') === 'decrement') {
-            $gallery->number_love = max(0, $gallery->number_love - 1); // Kurangi like, tidak boleh kurang dari 0
-        }
-        
-        $gallery->save();
-        
-        return response()->json(['number_love' => $gallery->number_love]);
-    }    
+{
+    $gallery = Gallery::findOrFail($id);
+
+    if ($request->input('action') === 'increment') {
+        $gallery->number_love += 1; // Tambah like
+    } elseif ($request->input('action') === 'decrement') {
+        $gallery->number_love = max(0, $gallery->number_love - 1); // Kurangi like, minimal 0
+    }
+
+    $gallery->save();
+
+    return response()->json(['number_love' => $gallery->number_love]);
+}
+
     
 }
 

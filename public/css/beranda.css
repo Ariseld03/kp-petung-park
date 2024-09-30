@@ -50,7 +50,7 @@ html {
     margin-bottom: 100px;
     background-color: white;
     box-sizing: border-box;
-    height: 250px;
+    height: flex;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,8 +59,8 @@ html {
 
 .galeri-image {
     padding-top: 20px;
-    width: 100%;
-    height: 100%;
+    width: 200px;
+    height: 180px;
     object-fit: cover;
 }
 .desc-lokasi{
@@ -78,7 +78,11 @@ html {
     font-weight: bold;
     margin-top: 10px;
 }
-
+.desc-image {
+    color: #295A3F;
+    font-size: 10px;
+    text-align: center;
+}
 footer {
     background-color: #333;
     color: white;

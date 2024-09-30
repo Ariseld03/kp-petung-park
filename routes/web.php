@@ -83,6 +83,11 @@ Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('
 
 // Route untuk menampilkan halaman beranda dengan galeri
 Route::get('/beranda', [GalleryShowController::class, 'index'])->name('beranda');
+
+
+
+Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
+
 //Agenda 
 // Route::resource('agendas', AgendaController::class);
 // Route::post('agendas/json', [AgendaController::class, 'storeJson'])->name('agendas.store.json');
