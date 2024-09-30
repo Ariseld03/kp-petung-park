@@ -27,7 +27,26 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'password' => 'required|string',
+            'date_of_birth' => 'required|date',
+            'phone_number' => 'required|integer',
+            'role' => 'required|string',
+            'gender' => 'required|string',
+            'status' => 'required|integer',
+            'staff_email' => 'required|email|exists:staffs,email',
+        ]);
+
+        Generic::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'status' => $request->input('status'),
+            'staff_email' => $request->input('staff_email'),
+        ]);
+
+        return redirect()->route('generics.index')->with('success', 'Generic created successfully.');
+  
     }
 
     /**

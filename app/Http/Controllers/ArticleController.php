@@ -13,7 +13,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $agendas = Article::all(); 
+        $articles = Article::all(); 
         return view('articles.index', compact('articles')); 
     }
 
@@ -48,7 +48,7 @@ class ArticleController extends Controller
             'agenda_id' => $request->input('agenda_id'),
         ]);
 
-        return redirect()->route('agendas.index')->with('success', 'Agenda created successfully.');
+        return redirect()->route('articles.index')->with('success', 'Article created successfully.');
     }
 
     /**
@@ -64,7 +64,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('agendas.edit', compact('article'));
+        return view('articles.edit', compact('article'));
     }
 
     /**
@@ -82,7 +82,7 @@ class ArticleController extends Controller
         ]);
         $article = Article::findOrFail($id);
         $article->update($validatedData);
-        response()->json(['success' => true, 'message' => 'Agenda updated successfully.']);
+        response()->json(['success' => true, 'message' => 'Article updated successfully.']);
     }
 
     /**

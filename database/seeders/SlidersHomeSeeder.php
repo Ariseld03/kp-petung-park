@@ -55,7 +55,6 @@ class SlidersHomeSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Add more entries as needed
         ]);
     }
 }

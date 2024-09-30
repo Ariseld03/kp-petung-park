@@ -17,7 +17,7 @@ class GallerySeeder extends Seeder
 
         DB::table('galleries')->insert([
             [
-                'name' => 'Sunset Over the Mountains',
+                'name' => 'Rumah Makan Kecek Air',
                 'photo_link' => 'https://example.com/images/sunset.jpg',
                 'description' => $faker->sentence,
                 'status' => 1,
@@ -26,7 +26,7 @@ class GallerySeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Beautiful Beach',
+                'name' => 'Pemandangan Sawah',
                 'photo_link' => 'https://example.com/images/beach.jpg',
                 'description' => $faker->sentence,
                 'status' => 1,
@@ -35,7 +35,7 @@ class GallerySeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'City Lights',
+                'name' => 'Gazebo',
                 'photo_link' => 'https://example.com/images/city.jpg',
                 'description' => $faker->sentence,
                 'status' => 0,
@@ -44,7 +44,7 @@ class GallerySeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Forest Path',
+                'name' => 'Sumber Air',
                 'photo_link' => 'https://example.com/images/forest.jpg',
                 'description' => $faker->sentence,
                 'status' => 1,
@@ -53,7 +53,7 @@ class GallerySeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Mountain Peak',
+                'name' => 'Hutan Bambu',
                 'photo_link' => 'https://example.com/images/mountain.jpg',
                 'description' => $faker->sentence,
                 'status' => 0,

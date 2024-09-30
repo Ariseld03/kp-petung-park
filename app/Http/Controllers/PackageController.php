@@ -75,15 +75,17 @@ class PackageController extends Controller
     public function destroy($id)
     {
         $package = Package::findOrFail($id);
+        $package->status = 0;
+        $package->save();
 
-        // Delete data in pivot table package_menus
-        $package->menus()->detach();
+        // // Delete data in pivot table package_menus
+        // $package->menus()->detach();
 
-        $package->delete();
+        // $package->delete();
 
         return redirect()->route('package.index')->with('success', 'Package deleted successfully');
     }
-    
+    // M to M package_menus
     public function createMenuPackage(Request $request)
     {
         $validator = Validator::make($request->all(), [

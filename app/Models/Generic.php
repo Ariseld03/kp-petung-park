@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Generic extends Model
 {
     use HasFactory;
+    protected $table = 'generics';
     public function staff()
     {
         return $this->belongsTo(Staff::class, 'staff_email', 'email');

@@ -12,8 +12,8 @@ class TravelController extends Controller
      */
     public function index()
     {
-        $travels = Travel::latest()->get();
-        return view('travels.index', compact('travels'));
+        $travels = Travel::where('status', 1)->get(); // Mengambil hanya travel dengan status 1
+        return view('layanan', compact('travels'));
     }
 
     /**
@@ -170,13 +170,5 @@ class TravelController extends Controller
 
         return redirect()->route('travels.index')->with('success', 'Gallery updated successfully for travel ' . $travel->title);
     }
-    //TAMBAHAN ----------------------------
-    public function showLayanan()
-{
-    $travels = Travel::where('status', 1)->get(); // Mengambil hanya travel dengan status 1
-    return view('layanan', compact('travels'));
-}
-
-
 }
 

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
+    protected $table = 'articles';
     public function galleries()
     {
         return $this->belongsToMany(Gallery::class, 'article_gallery', 'article_id', 'gallery_id');

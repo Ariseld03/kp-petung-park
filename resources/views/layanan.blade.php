@@ -44,7 +44,10 @@
     <div class="wisata-container">
         @forelse($travels as $travel)
             <div class="wisata">
-                <img src="https://via.placeholder.com/300x200" alt="Foto {{ $travel->name }}">
+                    @php
+                        $photo = $travel->galleries->isNotEmpty() ? $travel->galleries->first()->photo_link : 'https://img.freepik.com/free-photo/beautiful-tropical-empty-beach-sea-ocean-with-white-cloud-blue-sky-background_74190-13665.jpg';
+                    @endphp
+                <img src="{{ asset($photo) }}" alt="Foto {{ $travel->name }}">
                 <p class="judul-wisata">{{ $travel->name }}</p>
                 <button onclick="window.location.href='{{ url('wisata/'.$travel->id) }}'">Baca Lebih Banyak</button>
             </div>
@@ -86,17 +89,21 @@
     <h2>Kegiatan Lalu</h2>
 
     <div class="kegiatan-container">
-        @forelse($kegiatanLalu as $agenda)
+        @forelse($kegiatanLalu as $past)
             <div class="kegiatan-lalu">
-                <img src="https://via.placeholder.com/300x200" alt="Icon Kegiatan Lalu">
+                @php
+                    $galleries = $past->articles()->with('galleries')->get()->pluck('galleries')->flatten();
+                    $photo = $galleries->isNotEmpty() ? $galleries->first()->photo_link : 'https://img.freepik.com/free-photo/beautiful-tropical-empty-beach-sea-ocean-with-white-cloud-blue-sky-background_74190-13665.jpg';
+                @endphp
+                <img src="{{asset($photo)}}" alt="Icon Kegiatan Lalu">
                 <div>
-                    <div class="judul-kegiatan-lalu">{{ $agenda->event_name }}</div>
+                    <div class="judul-kegiatan-lalu">{{ $past->event_name }}</div>
                     <div class="deskripsi-kegiatan-lalu" style="margin-top: 5px;">
-                        Tanggal: {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }} <br>
-                        {{ $agenda->event_location }}
+                        Tanggal: {{ \Carbon\Carbon::parse($past->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($past->event_end_date)->format('d/m/Y') }} <br>
+                        {{ $past->event_location }}
                     </div>
                 </div>
-                <button onclick="window.location.href='{{ route('kegiatan.lalu', $agenda->id) }}'">Cek Kegiatan</button>
+                <button onclick="window.location.href='{{ route('kegiatan.lalu', $past->id) }}'">Cek Kegiatan</button>
             </div>
         @empty
             <div>Tidak ada kegiatan lalu.</div>

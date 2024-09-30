@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('password');
             $table->date('date_of_birth');
             $table->string('phone_number');
-            $table->enum('position', ['admin', 'user', 'staff'])->nullable();
+            $table->enum('position', ['admin', 'user', 'staff']);
             $table->enum('gender', ['perempuan', 'laki-laki'])->nullable();
             $table->tinyinteger('status')->default(0);
             $table->timestamps();

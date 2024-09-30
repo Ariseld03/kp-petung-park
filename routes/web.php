@@ -3,8 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AgendaController;
-use App\Http\Controllers\TravelController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\GalleryShowController;
+use App\Http\Controllers\GenericController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\SliderHomeController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\TravelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,22 +72,15 @@ Route::get('/wisata', function () {
 
 Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
 
-
-
-Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
-
 // Route untuk halaman detail wisata
 Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
 Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
 
-
-
 Route::post('/gallery/{gallery}/like', [GalleryController::class, 'like'])->name('gallery.like');
-
-//Agenda 
-Route::resource('agendas', AgendaController::class);
-Route::post('agendas/json', [AgendaController::class, 'storeJson'])->name('agendas.store.json');
-
 
 Route::get('/kegiatan/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('kegiatan.mendatang');
 Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');
+
+//Agenda 
+// Route::resource('agendas', AgendaController::class);
+// Route::post('agendas/json', [AgendaController::class, 'storeJson'])->name('agendas.store.json');
