@@ -42,29 +42,20 @@
     </section>
 
     <!-- Bagian Galeri -->
-    <section class="bg-custom text-white text-center py-5">
-        <div class="container">
-            <h2 class="title-konten">Galeri</h2>
-            <div class="row justify-content-center mt-4">
+<section class="bg-custom text-white text-center py-5">
+    <div class="container">
+        <h2 class="title-konten">Galeri</h2>
+        <div class="row justify-content-center mt-4">
+            @foreach($galleryShows as $galleryShow)
                 <div class="col-md-3">
                     <div class="frame-image">
-                        <img src="/images/beranda/galeri/foto1.jpg" alt="Foto 1" class="galeri-image">
-                        <p class="text-image">Mountain Peak</p>
+                        <img src="{{ $galleryShow->photo_link }}" alt="{{ $galleryShow->name }}" class="galeri-image">
+                        <p class="text-image">{{ $galleryShow->name }}</p>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="frame-image">
-                        <img src="/images/beranda/galeri/foto2.jpg" alt="Foto 2" class="galeri-image">
-                        <p class="text-image">Sunset Over the Mountains</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="frame-image">
-                        <img src="/images/beranda/galeri/foto3.jpg" alt="Foto 3" class="galeri-image">
-                        <p class="text-image">Forest Path</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
+
 @endsection
