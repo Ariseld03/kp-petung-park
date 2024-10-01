@@ -30,7 +30,7 @@ class AgendaSeeder extends Seeder
         DB::table('agendas')->insert([
             [
                 'event_name' => 'Tradisi Hutan Bambu',
-                'event_start_date' => $faker->date(),
+                'event_start_date' => $faker->date('Y-m-d'),
                 'event_end_date' => $faker->time(),
                 'event_location' => 'Gazebo',
                 'status' => 1,
@@ -41,7 +41,7 @@ class AgendaSeeder extends Seeder
             ],
             [
                 'event_name' => 'Acara Ulang Tahun Desa Belik',
-                'event_start_date' => $faker->date(),
+                'event_start_date' => $faker->date('Y-m-d'),
                 'event_end_date' => $faker->time(),
                 'event_location' => 'Rumah Makan Petung Park',
                 'status' => 1,
@@ -52,7 +52,7 @@ class AgendaSeeder extends Seeder
             ],
             [
                 'event_name' => 'Acara Pembukaaan Hutan Bambu',
-                'event_start_date' => $faker->date(),
+                'event_start_date' => $faker->date('Y-m-d'),
                 'event_end_date' => $faker->time(),
                 'event_location' => 'Hutan Bambu',
                 'status' => 0,
@@ -63,7 +63,7 @@ class AgendaSeeder extends Seeder
             ],
             [
                 'event_name' => 'Pembukaan Tempat Kemah',
-                'event_start_date' => $faker->date(),
+                'event_start_date' => $faker->date('Y-m-d'),
                 'event_end_date' => $faker->time(),
                 'event_location' => 'Area Kemah',
                 'status' => 1,
@@ -74,7 +74,7 @@ class AgendaSeeder extends Seeder
             ],
             [
                 'event_name' => 'Hash Oktober 2024',
-                'event_start_date' => $faker->date(),
+                'event_start_date' => $faker->date('Y-m-d'),
                 'event_end_date' => $faker->time(),
                 'event_location' => 'Hutan Bambu',
                 'status' => 0,
