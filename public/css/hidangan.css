@@ -11,14 +11,21 @@ html {
     background-color: #E2DD6C;
     padding: 10px 0; /* Full width background */
     width: 100vw;
+    height: 86%;
     position: relative;
     min-height: 76vh; /* Pastikan kategori-makanan memenuhi tinggi layar */
+    display: flex;
+    justify-content: center; /* Untuk memusatkan secara horizontal */
+    align-items: center; /* Untuk memusatkan secara vertikal */
+    flex-direction: column; /* Supaya elemen di dalamnya tersusun secara vertikal */
 }
 
 .kategori-header {
     display: flex; /* Menambahkan flexbox untuk tata letak */
     align-items: center; /* Vertikal align item */
     justify-content: center; /* Horizontal center item */
+    min-height: 60px;;
+    position: relative;
 }
 
 .kategori-makanan h2 {
@@ -27,6 +34,7 @@ html {
     font-weight: bold;
     margin: 35px 0; /* Jarak atas dan bawah */
     text-align: center; /* Judul di tengah */
+    padding-top: 40px;
 }
 
 /* Styling untuk tombol Kembali */
@@ -40,11 +48,9 @@ html {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
-    position: absolute; /* Menempatkan tombol pada posisi tertentu */
-    top: 0; /* Posisi tombol di bagian atas */
-    left: 0; /* Posisi tombol di bagian kiri */
-    margin-top: 20px; /* Jarak dari atas header */
-    margin-left: 20px; /* Jarak dari kiri halaman */
+    position: fixed; /* Posisi tombol absolut relatif terhadap kategori-makanan */
+    top: 70px; /* Posisi tombol di 20px dari atas container */
+    left: 20px; /* Posisi tombol di 20px dari kiri container */
     z-index: 100; /* Memastikan tombol berada di atas elemen lain */
 }
 
@@ -59,14 +65,17 @@ html {
     width: 400px;  /* Mengatur lebar gambar */
     height: 400px; /* Mengatur tinggi gambar */
     margin-right: 30px; /* Jarak dari gambar ke teks */
+    border: 10px solid #295A3F; 
+    border-radius: 40px; 
 }
 
 /* Container untuk gambar dan detail hidangan */
 .hidangan-container {
     display: flex;
-    align-items: flex-start; /* Memastikan gambar dan detail sejajar di bagian atas */
-    margin-top: 30px; /* Jarak 30px dari atas */
-    padding: 20px; /* Menambah jarak dari tepi */
+    align-items: flex-start;
+    margin-top: 0; /* Hilangkan margin agar container benar-benar di tengah */
+    padding: 20px;
+    justify-content: center; /* Memusatkan konten secara horizontal */
 }
 
 /* Styling untuk Judul, Deskripsi, dan Harga hidangan */
@@ -102,6 +111,12 @@ html {
     font-style: italic;
     color: #295A3F;
     margin-bottom: 0px; /* Jarak antara rekomendasi dan tombol hati */
+}
+
+.desc {
+    width: 400px; /* Set lebar tetap 400px */
+    margin: 0 auto; /* Memusatkan deskripsi secara horizontal jika diperlukan */
+    
 }
 
 /* Styling tombol like berbentuk hati */

@@ -5,12 +5,6 @@ html {
     height: 100%;
     overflow-x: hidden;
 }
-
-footer {
-    background-color: #333;
-    color: white;
-}
-
 /* Styling untuk info1 */
 .info1 {
     background-color: #449E47;

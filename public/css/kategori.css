@@ -9,6 +9,7 @@ html {
 /* Styling kategori-makanan */
 .kategori-makanan {
     background-color: #E2DD6C;
+    height: 86%;
     padding: 10px 0;
     /* Full width background */
     width: 100vw;
@@ -19,10 +20,12 @@ html {
     color: #295A3F;
     font-size: 40px;
     font-weight: bold;
-    margin: 35px 0;
+    margin: 10px 0;
     /* Jarak atas dan bawah*/
     text-align: center;
     /* Judul di tengah */
+    padding-top: 70px;
+    padding-bottom: 30px;
 }
 
 .makanan-container {
@@ -46,6 +49,8 @@ html {
     height: 300px;
     object-fit: cover;
     /* Agar gambar tidak terdistorsi */
+    border: 5px solid #295A3F; 
+    border-radius: 10px; 
 }
 
 .makanan .judul-makanan {
@@ -85,6 +90,10 @@ html {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+    position: fixed; /* Posisi tombol absolut relatif terhadap kategori-makanan */
+    top: 70px; /* Posisi tombol di 20px dari atas container */
+    left: 20px; /* Posisi tombol di 20px dari kiri container */
+    z-index: 100; /* Memastikan tombol berada di atas elemen lain */
 }
 
 /* Hover effect untuk tombol Kembali */

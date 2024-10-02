@@ -8,17 +8,16 @@
     <div class="kategori-makanan">
         <div class="kategori-header">
             <a href="{{ route('kategori.makanan', $menu->category->id) }}" class="btn-kembali">Kembali</a>
-            <h2>Kategori Kuliner</h2>
         </div>
         <div class="hidangan-container">
             <img src="{{ asset($menu->gallery->photo_link ?? 'https://via.placeholder.com/300x300') }}" alt="hidangan" class="hidangan-gambar">
             <div class="hidangan-detail">
                 <h3>{{ $menu->name }}</h3>
-                <p>{{ $menu->description }}</p>
+                <p class="desc">{{ $menu->description }}</p>
                 <p class="harga">Harga: Rp. {{ number_format($menu->price, 0, ',', '.') }}</p>
                 <p class="rekomendasi">
                     @if($menu->status_recommended == 1)
-                        Rekomendasi
+                        <i>Rekomendasi</i>
                     @endif
                 </p>
                 <div class="like-container">

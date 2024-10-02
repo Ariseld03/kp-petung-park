@@ -11,6 +11,7 @@ html {
     background-color: #246140;
     padding: 10px 0; /* Full width background */
     width: 100vw;
+    height: 86%;
     position: relative;
     min-height: 76vh; /* Pastikan kategori-wisata memenuhi tinggi layar */
 }
@@ -28,6 +29,7 @@ html {
     font-weight: bold;
     margin: 35px 0; /* Jarak atas dan bawah */
     text-align: center; /* Judul di tengah */
+    padding-top: 70px;
 }
 .galeri-container {
     margin-top: 20px;
@@ -75,11 +77,9 @@ html {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
-    position: absolute; /* Menempatkan tombol pada posisi tertentu */
-    top: 0; /* Posisi tombol di bagian atas */
-    left: 0; /* Posisi tombol di bagian kiri */
-    margin-top: 20px; /* Jarak dari atas header */
-    margin-left: 20px; /* Jarak dari kiri halaman */
+    position: fixed; /* Posisi tombol absolut relatif terhadap kategori-makanan */
+    top: 70px; /* Posisi tombol di 20px dari atas container */
+    left: 20px; /* Posisi tombol di 20px dari kiri container */
     z-index: 100; /* Memastikan tombol berada di atas elemen lain */
 }
 
