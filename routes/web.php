@@ -32,37 +32,17 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('login');
 });
+//buat navbar
+Route::view('/beranda', 'beranda'); 
+Route::view('/layanan', 'layanan'); 
+Route::view('/tentangKami', 'tentangKami'); 
 
 Route::get('/kategori', function () {
     return view('kategori');
 });
 Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
 
-/* Route untuk menampilkan halaman register
-Route::get('/', function () {
-    return view('auth.RegisterController');
-})->name('register.form');*/
-
-
-//Route::post('/register', [RegisterController::class, 'register'])->name('register');
-
-Route::get('/beranda', function () {
-    return view('beranda');
-})->name('beranda');
-
 Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
-
-Route::get('/beranda', function () {
-    return view('beranda');
-});
-
-Route::get('/layanan', function () {
-    return view('layanan');
-});
-
-Route::get('/tentangKami', function () {
-    return view('tentangKami');
-});
 
 Route::get('/hidangan', function () {
     return view('hidangan');
@@ -87,11 +67,7 @@ Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('
 
 // Route untuk menampilkan halaman beranda dengan galeri
 Route::get('/beranda', [GalleryShowController::class, 'index'])->name('beranda');
-
-
-
 Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
-
 //Agenda 
 // Route::resource('agendas', AgendaController::class);
 // Route::post('agendas/json', [AgendaController::class, 'storeJson'])->name('agendas.store.json');

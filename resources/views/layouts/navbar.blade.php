@@ -7,13 +7,13 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="beranda" style="color: #fff;">Beranda</a>
+                    <a class="nav-link" href="{{ url('/beranda') }}" style="color: #fff;">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="layanan" style="color: #fff;">Layanan</a>
+                    <a class="nav-link" href="{{ url('/layanan') }}" style="color: #fff;">Layanan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="tentangKami" style="color: #fff;">Tentang Kami</a>
+                    <a class="nav-link" href="{{ url('/tentangKami') }}" style="color: #fff;">Tentang Kami</a>
                 </li>
             </ul>
         </div>
