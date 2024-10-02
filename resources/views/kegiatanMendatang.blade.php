@@ -15,6 +15,20 @@
             <p><strong>Deskripsi:</strong> {{ $agenda->event_description }}</p>
         </div>
 
+        <h3>Galeri Kegiatan</h3>
+        @if($galleries->isEmpty())
+            <p>Tidak ada galeri yang tersedia.</p>
+        @else
+            <div class="gallery">
+                @foreach($galleries as $gallery)
+                    <div class="gallery-item">
+                        <img src="{{ $gallery->photo_link }}" alt="{{ $gallery->name }}">
+                        <p>{{ $gallery->description }}</p>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
         <button onclick="window.history.back()">Kembali</button>
     </div>
 @endsection

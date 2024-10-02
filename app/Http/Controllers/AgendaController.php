@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
 use App\Models\Travel;
 use App\Models\Category;
+use App\Models\Article;
+
 class AgendaController extends Controller
 {
     /**
@@ -128,13 +130,42 @@ public function showLayanan()
 public function showMendatang($id)
 {
     $agenda = Agenda::findOrFail($id); // Mengambil agenda berdasarkan id
-    return view('kegiatanMendatang', compact('agenda')); // Kirim agenda ke view
+
+    // Mengambil artikel yang terkait dengan agenda yang ditampilkan
+    $articles = Article::where('status', 1)->where('agenda_id', $agenda->id)->get();
+
+    // Mengambil galeri terkait dengan artikel yang ditampilkan
+    $galleries = collect(); // Inisialisasi sebagai koleksi
+    foreach ($articles as $article) {
+        $articleGalleries = $article->galleries()
+            ->where('article_gallery.status', 1)
+            ->get();
+        
+        $galleries = $galleries->merge($articleGalleries); // Menggabungkan hasil ke dalam koleksi
+    }
+
+    return view('kegiatanMendatang', compact('agenda', 'articles', 'galleries')); // Kirim agenda, artikel, dan galeri ke view
 }
+
 
 public function showLalu($id)
 {
     $agenda = Agenda::findOrFail($id); // Mengambil agenda berdasarkan id
-    return view('kegiatanLalu', compact('agenda')); // Kirim agenda ke view
+
+    // Mengambil artikel yang terkait dengan agenda yang ditampilkan
+    $articles = Article::where('status', 1)->where('agenda_id', $agenda->id)->get();
+
+    // Mengambil galeri terkait dengan artikel yang ditampilkan
+    $galleries = collect(); // Inisialisasi sebagai koleksi
+    foreach ($articles as $article) {
+        $articleGalleries = $article->galleries()
+            ->where('article_gallery.status', 1)
+            ->get();
+        
+        $galleries = $galleries->merge($articleGalleries); // Menggabungkan hasil ke dalam koleksi
+    }
+
+    return view('kegiatanLalu', compact('agenda', 'articles', 'galleries')); // Kirim agenda, artikel, dan galeri ke view
 }
 
 }
