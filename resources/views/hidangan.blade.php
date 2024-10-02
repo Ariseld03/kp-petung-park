@@ -1,5 +1,4 @@
 @extends('layouts.main')
-
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('/css/hidangan.css') }}">
 @endsection
@@ -8,7 +7,7 @@
     <!-- Kategori Makanan -->
     <div class="kategori-makanan">
         <div class="kategori-header">
-            <a href="{{ route('kategori.makanan', $kategoris->id) }}" class="btn-kembali">Kembali</a>
+            <a href="{{ route('kategori.makanan', $menu->category->id) }}" class="btn-kembali">Kembali</a>
             <h2>Kategori Kuliner</h2>
         </div>
         <div class="hidangan-container">

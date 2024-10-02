@@ -49,7 +49,7 @@
                 <div class="desc-lokasi">
                     <p>Jibru, Belik, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur 61375</p>
                     <p>0831-3281-9058</p>
-                    <p>009.00 - 17.00</p>
+                    <p>09.00 - 17.00</p>
                 </div>
             </div>
             <h2 class="title-konten">Denah Petung Park</h2>
