@@ -6,12 +6,17 @@
     <!-- Info1 -->
     <div class="info1">
         <div class="text-info1">
-            <h2>Judul Info 1</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                anim id est laborum.</p>
+            <h2>Sejarah</h2>
+            <p>Petung Park, terletak di Desa Belik yang memiliki arti "mata air kecil," memanfaatkan potensi alam desa yang kaya akan sumber mata air alami. 
+                Salah satu yang paling menonjol adalah hutan bambu Petung, seluas 3,5 hektar, yang dipenuhi oleh bambu Petung berusia ratusan tahun. 
+                Hutan ini bahkan disebut sebagai salah satu yang tertua di Jawa Timur. Awalnya, Desa Belik hanya menjadi jalur lintas di perbatasan Trawas dan Prigen, 
+                hingga kepala desa memutuskan untuk mengembangkan potensi wisatanya. </p>
+                
+                <p>Petung Park menawarkan pemandangan sawah hijau, hutan bambu yang rimbun, serta udara segar yang sejuk. 
+                Fasilitas wisata semakin lengkap dengan dibangunnya pujasera dan gazebo unik di tahun 2021, yang mengalirkan air langsung dari sumber mata air alami. 
+                Pengunjung dapat menikmati hidangan sambil bermain air di gazebo dengan latar pemandangan Gunung Penanggungan. 
+                Petung Park kini menjadi destinasi wisata populer yang menawarkan pengalaman alam 
+                eksotis dan relaksasi dengan harga terjangkau, ideal untuk bersantai dan menghilangkan penat.</p>
         </div>
         <img src="/images/galeri/pemandangan/jalanHutanBambu_2.jpg" alt="Gambar Info 1" class="gambar-info1">
     </div>
@@ -24,16 +29,14 @@
     <!-- Info3 (gambar di kiri, teks di kanan) -->
     <div class="info3">
         <div class="text-info3">
-            <h2>Judul Info 3</h2>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-                aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-                dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
-                sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-                magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-                suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-                ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
-                nulla pariatur?</p>
+            <h2>Visi dan Misi</h2>
+            <p>Mewujudkan Dusun Jibru, Desa Belik sebagai desa mandiri dengan potensi wisata alam yang dikelola secara berkelanjutan, 
+                melalui pelestarian kearifan lokal dan sumber daya alam seperti bambu petung, serta meningkatkan kesejahteraan masyarakat 
+                melalui pengembangan sektor pariwisata.</p>
+
+            <p>Menjaga kelestarian bambu petung sebagai ikon wisata dan sumber daya alam, 
+                serta mengembangkan Petung Park untuk mendukung perekonomian lokal. Selain itu, misi ini mendorong kemandirian desa melalui pengelolaan wisata berbasis desa yang berkelanjutan, 
+                dengan melibatkan partisipasi aktif masyarakat dalam menjaga lingkungan dan memanfaatkan sumber daya alam demi kesejahteraan bersama.</p>
         </div>
         <img src="/images/galeri/pemandangan/pohonBambu.jpg" alt="Gambar Info 3" class="gambar-info3">
     </div>
