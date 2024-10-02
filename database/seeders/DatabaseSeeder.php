@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use App\Models\{Category, Package, Travel, Gallery, GalleryShow, Staff, Agenda, Article, Menu, Generic, PackageMenu, TravelGallery, ArticleGallery, SliderHome};
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,6 +14,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Category::truncate();
+        Package::truncate();
+        Travel::truncate();
+        Gallery::truncate();
+        GalleryShow::truncate();
+        Staff::truncate();
+        Agenda::truncate();
+        Article::truncate();
+        Menu::truncate();
+        Generic::truncate();
+        PackageMenu::truncate();
+        TravelGallery::truncate();
+        ArticleGallery::truncate();
+        SliderHome::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        
         $this->call(CategorySeeder::class);
         $this->call(PackageSeeder::class);
         $this->call(TravelSeeder::class);

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
 use App\Models\Travel;
+use App\Models\Category;
 class AgendaController extends Controller
 {
     /**
@@ -115,13 +116,13 @@ public function showLayanan()
 {
     // Mengambil hanya travel dengan status 1
     $travels = Travel::where('status', 1)->get();
-
     // Mengambil kegiatan mendatang dan lalu (sudah ada)
     $kegiatanMendatang = Agenda::where('status', 1)->where('event_end_date', '>=', now())->get();
     $kegiatanLalu = Agenda::where('status', 1)->where('event_end_date', '<', now())->get();
-
+    // Mengambil manu
+    $kategori = Category::where('status', 1)->get();
     // Mengirimkan $travels, $kegiatanMendatang, dan $kegiatanLalu ke view
-    return view('layanan', compact('travels', 'kegiatanMendatang', 'kegiatanLalu'));
+    return view('layanan', compact('travels', 'kegiatanMendatang', 'kegiatanLalu','kategori'));
 }
 
 public function showMendatang($id)

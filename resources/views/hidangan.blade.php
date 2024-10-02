@@ -8,19 +8,26 @@
     <!-- Kategori Makanan -->
     <div class="kategori-makanan">
         <div class="kategori-header">
-            <a href="{{ url('kategori') }}" class="btn-kembali">Kembali</a>
+            <a href="{{ route('kategori.makanan', $kategoris->id) }}" class="btn-kembali">Kembali</a>
             <h2>Kategori Kuliner</h2>
         </div>
         <div class="hidangan-container">
-            <img src="https://via.placeholder.com/300x300" alt="hidangan" class="hidangan-gambar">
+            <img src="{{ asset($menu->gallery->photo_link ?? 'https://via.placeholder.com/300x300') }}" alt="hidangan" class="hidangan-gambar">
             <div class="hidangan-detail">
-                <h3>Judul Hidangan</h3>
-                <p>Deskripsi hidangan.</p>
-                <p class="harga">Harga: Rp. 50.000</p>
-                <p class="rekomendasi">Rekomendasi</p>
-                <button class="like-button">
-                    ❤️
-                </button>
+                <h3>{{ $menu->name }}</h3>
+                <p>{{ $menu->description }}</p>
+                <p class="harga">Harga: Rp. {{ number_format($menu->price, 0, ',', '.') }}</p>
+                <p class="rekomendasi">
+                    @if($menu->status_recommended == 1)
+                        Rekomendasi
+                    @endif
+                </p>
+                <div class="like-container">
+                    <button class="like-button" data-menu-id="{{ $menu->id }}">
+                        ❤️
+                    </button>
+                    <span class="number-love">{{ $menu->number_love }}</span> <!-- Display number_love here -->
+                </div>
             </div>
         </div>
     </div>

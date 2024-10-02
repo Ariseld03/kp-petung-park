@@ -10,33 +10,15 @@
             <h2>Kategori Kuliner</h2>
         </div>
         <div class="makanan-container">
-            <!-- Makanan 1 -->
-            <div class="makanan">
-                <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 1">
-                <p class="judul-makanan">Makanan 1</p>
-                <button onclick="window.location.href='{{ url('hidangan') }}'">Lihat Hidangan</button>
-            </div>
-
-            <!-- Makanan 2 -->
-            <div class="makanan">
-                <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 2">
-                <p class="judul-makanan">Makanan 2</p>
-                <button onclick="window.location.href='{{ url('hidangan') }}'">Lihat Hidangan</button>
-            </div>
-
-            <!-- Makanan 3 -->
-            <div class="makanan">
-                <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 3">
-                <p class="judul-makanan">Makanan 3</p>
-                <button onclick="window.location.href='{{ url('hidangan') }}'">Lihat Hidangan</button>
-            </div>
-
-            <!-- Makanan 4 -->
-            <div class="makanan">
-                <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 3">
-                <p class="judul-makanan">Makanan 4</p>
-                <button onclick="window.location.href='{{ url('hidangan') }}'">Lihat Hidangan</button>
-            </div>
+            @forelse($kategori->menus as $menu)
+                <div class="makanan">
+                    <img src="{{ asset($menu->gallery->photo_link ?? 'https://via.placeholder.com/300x200') }}" alt="Foto {{ $menu->name }}">
+                    <p class="judul-makanan">{{ $menu->name }}</p>
+                    <button onclick="window.location.href='{{ url('hidangan', $menu->id) }}'">Lihat Hidangan</button>
+                </div>
+            @empty
+                <p>Tidak ada hidangan yang tersedia untuk kategori ini.</p>
+            @endforelse
         </div>
     </div>
 @endsection

@@ -17,8 +17,8 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->word, // Generate a unique category name
-            'status' => $this->faker->boolean ? 1 : 0, // Randomly set status to 0 or 1
+            'name' => $this->faker->unique()->word, 
+            'status' => $this->faker->boolean ? 1 : 0, 
             'created_at' => now(),
             'updated_at' => now(),
         ];

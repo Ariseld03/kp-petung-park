@@ -8,33 +8,18 @@
     <h2>Kategori Kuliner</h2>
 
     <div class="makanan-container">
-        <!-- Makanan 1 -->
-        <div class="makanan">
-            <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 1">
-            <p class="judul-makanan">Camilan</p>
-            <button onclick="window.location.href='{{ url('kategori') }}'">Lihat Kategori</button>
-        </div>
-
-        <!-- Makanan 2 -->
-        <div class="makanan">
-            <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 2">
-            <p class="judul-makanan">Makanan berat</p>
-            <button onclick="window.location.href='{{ url('kategori') }}'">Lihat Kategori</button>
-        </div>
-
-        <!-- Makanan 3 -->
-        <div class="makanan">
-            <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 3">
-            <p class="judul-makanan">Minuman</p>
-            <button onclick="window.location.href='{{ url('kategori') }}'">Lihat Kategori</button>
-        </div>
-
-        <!-- Makanan 4 -->
-        <div class="makanan">
-            <img src="https://via.placeholder.com/300x200" alt="Foto Makanan 3">
-            <p class="judul-makanan">Es krim</p>
-            <button onclick="window.location.href='{{ url('kategori') }}'">Lihat Kategori</button>
-        </div>
+        @forelse($kategori as $kategoris)
+            <div class="makanan">
+                    @php
+                    $fotoMakanan = $kategoris->menus->isNotEmpty() ? $kategoris->menus->first()->gallery->photo_link : "/images/footer/logoPetungPark.png";
+                    @endphp
+                <img src="{{ asset($fotoMakanan) }}" alt="Foto {{$kategoris->name }}">
+                <p class="judul-makanan">{{$kategoris->name }}</p>
+                <button onclick="window.location.href='{{ route('kategori.makanan', $kategoris->id) }}'">Lihat Kategori</button>
+            </div>
+        @empty
+            <p>Tidak ada menu yang tersedia saat ini.</p>
+        @endforelse
     </div>
 </div>
 <!-- Kategori Wisata -->
@@ -45,7 +30,7 @@
         @forelse($travels as $travel)
             <div class="wisata">
                     @php
-                        $photo = $travel->galleries->isNotEmpty() ? $travel->galleries->first()->photo_link : 'https://img.freepik.com/free-photo/beautiful-tropical-empty-beach-sea-ocean-with-white-cloud-blue-sky-background_74190-13665.jpg';
+                        $photo = $travel->galleries->isNotEmpty() ? $travel->galleries->first()->photo_link : '/images/footer/logoPetungPark.png';
                     @endphp
                 <img src="{{ asset($photo) }}" alt="Foto {{ $travel->name }}">
                 <p class="judul-wisata">{{ $travel->name }}</p>

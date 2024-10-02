@@ -12,7 +12,7 @@ class SliderHomeController extends Controller
      */
     public function index()
     {
-        $sliderHomes = SliderHome::latest()->paginate(10);
+        $sliderHomes = SliderHome::where('status', 1)->get();
 
         return view('slider-homes.index', compact('sliderHomes'));
     }

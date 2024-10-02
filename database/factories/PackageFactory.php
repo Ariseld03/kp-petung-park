@@ -17,10 +17,10 @@ class PackageFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->word . ' Package', // Unique name with a descriptor
-            'price' => $this->faker->numberBetween(10000, 99999), // Random price between 10,000 and 99,999
-            'status' => $this->faker->boolean ? 1 : 0, // Randomly set status to 0 or 1
-            'number_love' => $this->faker->numberBetween(0, 10), // Random number of loves between 0 and 10
+            'name' => $this->faker->unique()->word . ' Package', 
+            'price' => $this->faker->numberBetween(10000, 99999), 
+            'status' => $this->faker->boolean ? 1 : 0, 
+            'number_love' => $this->faker->numberBetween(0, 10), 
             'created_at' => now(),
             'updated_at' => now(),
         ];

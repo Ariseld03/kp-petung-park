@@ -11,7 +11,7 @@ class Gallery extends Model
     protected $table = 'galleries';
     public function menu()
     {
-        return $this->hasOne(Menu::class, 'gallery_id', 'id');
+        return $this->belongsTo(Menu::class, 'gallery_id', 'id');
     }
     public function articles()
     {

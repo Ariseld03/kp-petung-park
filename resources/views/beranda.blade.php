@@ -2,13 +2,31 @@
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('/css/beranda.css') }}">
 @endsection
-@section('container-main')
-    <!-- Bagian Judul -->
-    <div class="title-section">
-        <h1 class="title">Petung Park</h1>
-        <p class="description">Mencari tempat jalan jalan yang ramah di kantong? Ada satu destinasi wisata yang tersembunyi di kota Mojokerto yang layak dipertimbangkan. Lokasinya terletak di Trawas, menawarkan keindahan yang luar biasa. Alam yang masih asri, pemandangan yang menakjubkan, dan udara segar yang mengalir dengan alami akan memberikan makna baru bagi liburanmu dan membantu merilekskan pikiran yang lelah.</p>
-    </div>
 
+@section('container-main')
+<!-- Bagian Judul -->
+     <!-- <div class="title-section">
+        <h1 class="title">Petung Park</h1>
+        <p class="description">Mencari tempat jalan jalan yang ramah di kantong? Ada satu destinasi wisata yang tersembunyi di kota Mojokerto yang layak dipertimbangkan. 
+            Lokasinya terletak di Trawas, menawarkan keindahan yang luar biasa. Alam yang masih asri, pemandangan yang menakjubkan, dan udara segar yang mengalir dengan alami akan 
+            memberikan makna baru bagi liburanmu dan membantu merilekskan pikiran yang lelah.</p>
+    </div> --> 
+    <section>
+        <div class="slider-container">
+            <div class="slider">
+                @foreach($sliderHomes as $slide)
+                    <div class="slide" style="background-image: url('{{ asset($slide->gallery->photo_link) }}')">
+                        <h1 class="title">{{ $slide->gallery->name }}</h1>
+                        <p class="description">{{ $slide->gallery->description }}</p>
+                    </div>
+                @endforeach
+            </div>
+            <div class="navigation">
+                <button class="nav-button" id="prevBtn">❮</button>
+                <button class="nav-button" id="nextBtn">❯</button>
+            </div>
+        </div>
+    </section>
     <!-- Bagian Sejarah -->
     <section class="bg-success text-white text-center py-5">
         <div class="container">
@@ -50,68 +68,92 @@
                     <div class="col-md-3">
                         <div class="frame-image">
                             <img src="{{ $galleryShow->photo_link }}" alt="{{ $galleryShow->name }}" class="galeri-image">
-                            <p class="text-image">{{ $galleryShow->name }}</p>
-                            <p class="desc-image">{{ $galleryShow->description }}</p>
-                            <!-- Tombol Like dan Jumlah Like -->
-                            <button class="like-button" data-gallery-id="{{ $galleryShow->gallery_id }}">
-                                <span id="like-count" class="{{ $galleryShow->number_love % 2 === 0 ? 'even' : 'odd' }}">{{ $galleryShow->number_love }}</span>
-                                <span class="like-icon">❤️</span>
-                            </button>
+                            <div class="content-container">
+                                <p class="text-image">{{ $galleryShow->name }}</p>
+                                <p class="desc-image">{{ $galleryShow->description }}</p>
+                                <button class="like-button" data-gallery-id="{{ $galleryShow->gallery_id }}">
+                                    <span id="like-count" class="{{ $galleryShow->number_love % 2 === 0 ? 'even' : 'odd' }}">{{ $galleryShow->number_love }}</span>
+                                    <span class="like-icon">❤️</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 @endforeach
             </div>
         </div>
     </section>
-
 @endsection
 
 @section('page-js')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-    const likeButtons = document.querySelectorAll('.like-button');
+            const likeButtons = document.querySelectorAll('.like-button');
+            const slider = document.querySelector('.slider');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
 
-    likeButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const likeCount = button.querySelector('#like-count');
-            let currentLikes = parseInt(likeCount.textContent);
-            const galleryId = button.dataset.galleryId;
+            let currentIndex = 0;
 
-            // Toggle logic untuk like
-            let action = currentLikes % 2 === 0 ? 'increment' : 'decrement';
+            function updateSliderPosition() {
+                const offset = -currentIndex * 100; // Calculate offset based on currentIndex
+                slider.style.transform = `translateX(${offset}%)`; // Apply the transformation
+            }
 
-            // Update like di database
-            fetch(`/gallery/${galleryId}/like`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-                body: JSON.stringify({ action: action })
-            })
-            .then(response => response.json())
-            .then(data => {
-                likeCount.textContent = data.number_love; // Update tampilan dengan nilai dari server
-                updateLikeCountDisplay(likeCount); // Update warna
-                console.log("Like updated!");
-            })
-            .catch(error => {
-                console.error("Ada kesalahan saat mengubah like:", error);
+            nextBtn.addEventListener('click', function () {
+                console.log("Next button clicked"); // Debugging
+                currentIndex = (currentIndex + 1) % slides.length; // Move to the next slide
+                updateSliderPosition();
             });
+
+            prevBtn.addEventListener('click', function () {
+                console.log("Prev button clicked"); // Debugging
+                currentIndex = (currentIndex - 1 + slides.length) % slides.length; // Move to the previous slide
+                updateSliderPosition();
+            });
+
+            // Initial call to position the slider correctly on page load
+            updateSliderPosition();
+
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const likeCount = button.querySelector('#like-count');
+                    let currentLikes = parseInt(likeCount.textContent);
+                    const galleryId = button.dataset.galleryId;
+
+                    // Toggle logic untuk like
+                    let action = currentLikes % 2 === 0 ? 'increment' : 'decrement';
+
+                    // Update like di database
+                    fetch(`/gallery/${galleryId}/like`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        body: JSON.stringify({ action: action })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        likeCount.textContent = data.number_love; // Update tampilan dengan nilai dari server
+                        updateLikeCountDisplay(likeCount); // Update warna
+                    })
+                    .catch(error => {
+                        console.error("Ada kesalahan saat mengubah like:", error);
+                    });
+                });
+            });
+
+            function updateLikeCountDisplay(likeCount) {
+                const count = parseInt(likeCount.textContent);
+                if (count % 2 === 0) {
+                    likeCount.classList.remove('odd');
+                    likeCount.classList.add('even');
+                } else {
+                    likeCount.classList.remove('even');
+                    likeCount.classList.add('odd');
+                }
+            }
         });
-    });
-
-    function updateLikeCountDisplay(likeCount) {
-        const count = parseInt(likeCount.textContent);
-        if (count % 2 === 0) {
-            likeCount.classList.remove('odd');
-            likeCount.classList.add('even');
-        } else {
-            likeCount.classList.remove('even');
-            likeCount.classList.add('odd');
-        }
-    }
-});
-
     </script>
 @endsection

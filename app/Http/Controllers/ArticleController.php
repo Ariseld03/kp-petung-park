@@ -54,11 +54,17 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Article $article)
+    public function showArtikelAllPengguna()
     {
+        $articles = Article::where('status', 1)->get();
         return view('articles.show', compact('article'));
     }
-
+    public function show(Article $article)
+    {
+        $articles = Article::where('status', 1)->get();
+        return view('artikel', compact('artikel'));
+        // return view('articles.show', compact('article'));
+    }
     /**
      * Show the form for editing the specified resource.
      */

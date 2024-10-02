@@ -32,9 +32,9 @@ class GenericController extends Controller
     {
         $request->validate([
             'key' => 'required|string|max:255',
-            'value' => 'required|string',
+            'value' => 'required|longtext',
             'status' => 'required|integer',
-            'icon_picture_link' => 'required|string|max:255',
+            'icon_picture_link' => 'string|max:255',
             'staff_email' => 'required|email|exists:staffs,email',
         ]);
 
@@ -72,9 +72,9 @@ class GenericController extends Controller
     {
         $request->validate([
             'key' => 'required|string|max:255',
-            'value' => 'required|string',
+            'value' => 'required|longtext',
             'status' => 'required|integer',
-            'icon_picture_link' => 'required|string|max:255',
+            'icon_picture_link' => 'string|max:255',
             'staff_email' => 'required|email|exists:staffs,email',
         ]);
         $generic->key = $request->input('key');

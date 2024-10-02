@@ -13,7 +13,6 @@ html {
     width: 100vw;
     position: relative;
     min-height: 76vh; /* Pastikan kategori-makanan memenuhi tinggi layar */
-    
 }
 
 .kategori-header {
@@ -59,22 +58,20 @@ html {
 .hidangan-gambar {
     width: 400px;  /* Mengatur lebar gambar */
     height: 400px; /* Mengatur tinggi gambar */
-    position: relative;
-    left: 500px; /* Jarak 400px dari kiri */
-    top: 10px; /* Jarak dari atas */
-    margin-bottom: 30px; /* Jarak 30px dari footer */
+    margin-right: 30px; /* Jarak dari gambar ke teks */
 }
 
 /* Container untuk gambar dan detail hidangan */
 .hidangan-container {
     display: flex;
     align-items: flex-start; /* Memastikan gambar dan detail sejajar di bagian atas */
-    margin-top: 30px; /* Jarak 100px dari atas */
+    margin-top: 30px; /* Jarak 30px dari atas */
+    padding: 20px; /* Menambah jarak dari tepi */
 }
 
 /* Styling untuk Judul, Deskripsi, dan Harga hidangan */
 .hidangan-detail {
-    margin-left: 30%; /* Jarak 30px dari gambar */
+    flex-grow: 1; /* Membuat detail mengisi ruang yang tersisa */
     text-align: left; /* Tulisan rata kiri */
     color: #295A3F;
 }
@@ -98,6 +95,7 @@ html {
     color: #295A3F;
     margin-bottom: 0px; /* Jarak 30px antara harga dan elemen di bawahnya */
 }
+
 /* Styling untuk tulisan Rekomendasi */
 .hidangan-detail .rekomendasi {
     font-size: 20px;
@@ -120,7 +118,6 @@ html {
 .like-button:hover {
     transform: scale(1.2); /* Memperbesar tombol saat hover */
 }
-
 
 /* Styling footer */
 .footer {
@@ -228,12 +225,11 @@ html {
 
     /* Styling untuk hidangan di layar kecil */
     .hidangan-gambar {
-        width: auto;  /* Gambar lebih kecil agar sesuai dengan layar handphone */
-        height: auto;
-        left: 50%;
-        transform: translateX(-50%); /* Mengatur agar gambar berada di tengah layar */
-        margin-bottom: 10px; /* Jarak 10px dari hidangan container */
-        
+        width: 100%; /* Set width to 100% for responsiveness */
+        max-width: 400px; /* Set a maximum width for larger screens */
+        height: auto; /* Maintain aspect ratio */
+        display: block; /* Ensures the image behaves like a block element */
+        margin: 10px auto; /* Center horizontally and add margin above and below */
     }
 
     .hidangan-container {
@@ -259,5 +255,4 @@ html {
         margin-bottom: 0; /* Hilangkan margin bottom */
         margin-left: 10px; /* Jarak dari kiri layar */
     }
-
 }

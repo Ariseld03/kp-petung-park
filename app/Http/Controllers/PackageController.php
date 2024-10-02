@@ -44,6 +44,12 @@ class PackageController extends Controller
         return view('package.show', compact('package'));
     }
 
+    public function showPaketAllPengguna()
+    {
+        $packages = Package::where('status', 1)->get();
+        return view('packages.show', compact('package'));
+    }
+
     public function edit($id)
     {
         $package = Package::findOrFail($id);

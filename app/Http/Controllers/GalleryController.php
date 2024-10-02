@@ -55,7 +55,11 @@ class GalleryController extends Controller
     {
         return view('galleries.show', compact('gallery'));
     }
-
+    public function showGalleriAllPengguna()
+    {
+        $galleries = Gallery::where('status', 1)->get();
+        return view('galleries.show', compact('galleries'));
+    }
     /**
      * Show the form for editing the specified resource.
      */

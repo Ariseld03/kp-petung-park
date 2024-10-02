@@ -37,67 +37,80 @@ class MenuSeeder extends Seeder
             [
                 'name' => 'Kentang Goreng',
                 'description' => $faker->paragraph,
-                'price' => $faker->randomFloat(2, 50000, 200000), // Random price between 50,000 and 200,000
+                'price' => $faker->randomFloat(0, 50000, 200000), // Random price between 50,000 and 200,000
                 'status' => 1,
                 'status_recommended' => 1,
                 'number_love' => $faker->numberBetween(1, 10),
                 'created_at' => now(),
                 'updated_at' => now(),
                 'staff_email' => $staffEmails->random(),
-                'gallery_id' => $galleryIds->random(),
-                'category_id' => $categoryIds->random(),
+                'gallery_id' => $galleryIds[14],
+                'category_id' => $categoryIds[0],
             ],
             [
-                'name' => 'Nasi Goreng',
+                'name' => 'Es Teh Manis',
                 'description' => $faker->paragraph,
-                'price' => $faker->randomFloat(2, 50000, 200000), // Random price between 50,000 and 200,000
+                'price' => $faker->randomFloat(0, 50000, 200000), // Random price between 50,000 and 200,000
                 'status' => 1,
                 'status_recommended' => 0,
                 'number_love' => $faker->numberBetween(1, 10),
                 'created_at' => now(),
                 'updated_at' => now(),
                 'staff_email' => $staffEmails->random(),
-                'gallery_id' => $galleryIds->random(),
-                'category_id' => $categoryIds->random(),
+                'gallery_id' => $galleryIds[13],
+                'category_id' =>  $categoryIds[1],
             ],
             [
                 'name' => 'Ayam Geprek',
                 'description' => $faker->paragraph,
-                'price' => $faker->randomFloat(2, 30000, 150000), // Random price between 30,000 and 150,000
+                'price' => $faker->randomFloat(0, 30000, 150000), // Random price between 30,000 and 150,000
                 'status' => 0,
                 'status_recommended' => 1,
                 'number_love' => $faker->numberBetween(1, 10),
                 'created_at' => now(),
                 'updated_at' => now(),
                 'staff_email' => $staffEmails->random(),
-                'gallery_id' => $galleryIds->random(),
-                'category_id' => $categoryIds->random(),
+                'gallery_id' => $galleryIds[16],
+                'category_id' =>  $categoryIds[2],
             ],
             [
                 'name' => 'Ayam Goreng',
                 'description' => $faker->paragraph,
-                'price' => $faker->randomFloat(2, 60000, 250000), // Random price between 60,000 and 250,000
+                'price' => $faker->randomFloat(0, 60000, 250000), // Random price between 60,000 and 250,000
                 'status' => 1,
                 'status_recommended' => 0,
                 'number_love' => $faker->numberBetween(1, 10),
                 'created_at' => now(),
                 'updated_at' => now(),
                 'staff_email' => $staffEmails->random(),
-                'gallery_id' => $galleryIds->random(),
-                'category_id' => $categoryIds->random(),
+                'gallery_id' => $galleryIds[9],
+                'category_id' =>  $categoryIds[2],
             ],
             [
                 'name' => 'Bebek Ngos',
                 'description' => $faker->paragraph,
-                'price' => $faker->randomFloat(2, 70000, 300000), // Random price between 70,000 and 300,000
+                'price' => $faker->randomFloat(0, 70000, 300000), // Random price between 70,000 and 300,000
                 'status' => 0,
                 'status_recommended' => 1,
                 'number_love' => $faker->numberBetween(1, 10),
                 'created_at' => now(),
                 'updated_at' => now(),
                 'staff_email' => $staffEmails->random(),
-                'gallery_id' => $galleryIds->random(),
-                'category_id' => $categoryIds->random(),
+                'gallery_id' => $galleryIds[10],
+                'category_id' =>  $categoryIds[2],
+            ],
+            [
+                'name' => 'Es Krim Stroberi',
+                'description' => $faker->paragraph,
+                'price' => $faker->randomFloat(0, 70000, 300000), // Random price between 70,000 and 300,000
+                'status' => 0,
+                'status_recommended' => 1,
+                'number_love' => $faker->numberBetween(1, 10),
+                'created_at' => now(),
+                'updated_at' => now(),
+                'staff_email' => $staffEmails->random(),
+                'gallery_id' => $galleryIds[15],
+                'category_id' => $categoryIds[3],
             ],
         ]);
     }

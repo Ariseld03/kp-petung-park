@@ -36,7 +36,7 @@ class TravelSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Kolam Ikan',
+                'name' => 'Kolam Bayi',
                 'description' => 'Immerse yourself in the rich culture and history of Japan, from ancient temples to modern cities.',
                 'status' => 0,
                 'created_at' => now(),
@@ -44,6 +44,13 @@ class TravelSeeder extends Seeder
             ],
             [
                 'name' => 'Pondok Bambu',
+                'description' => 'Enjoy a relaxing vacation on the pristine beaches of the Caribbean, with crystal-clear waters and sunny skies.',
+                'status' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Pujasera',
                 'description' => 'Enjoy a relaxing vacation on the pristine beaches of the Caribbean, with crystal-clear waters and sunny skies.',
                 'status' => 1,
                 'created_at' => now(),

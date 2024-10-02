@@ -30,7 +30,7 @@ class StaffSeeder extends Seeder
         // Insert multiple records into the staffs table
         DB::table('staffs')->insert([
             [
-                'email' => 'admin@example.com',
+                'email' => 'Griseldaamelia68@gmail.com',
                 'name' => 'Admin User',
                 'password' => Hash::make('password'), // Hash the password for security
                 'date_of_birth' => $faker->date(),
@@ -43,7 +43,7 @@ class StaffSeeder extends Seeder
                 'gallery_id' => $galleryIds->random(),
             ],
             [
-                'email' => 'user@example.com',
+                'email' => 'MagdalenaFelicia@gmail.com',
                 'name' => 'Regular User',
                 'password' => Hash::make('password'), // Hash the password for security
                 'date_of_birth' => $faker->date(),
@@ -56,7 +56,7 @@ class StaffSeeder extends Seeder
                 'gallery_id' => $galleryIds->random(),
             ],
             [
-                'email' => 'staff@example.com',
+                'email' => 'staff@gmail.com',
                 'name' => 'Staff Member',
                 'password' => Hash::make('password'), // Hash the password for security
                 'date_of_birth' => $faker->date(),
@@ -69,7 +69,7 @@ class StaffSeeder extends Seeder
                 'gallery_id' => $galleryIds->random(),
             ],
             [
-                'email' => 'anotherstaff@example.com',
+                'email' => 'anotherstaff@gmail.com',
                 'name' => 'Another Staff Member',
                 'password' => Hash::make('password'), // Hash the password for security
                 'date_of_birth' => $faker->date(),

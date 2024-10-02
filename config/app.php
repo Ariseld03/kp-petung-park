@@ -155,7 +155,7 @@ return [
     */
 
     'providers' => [
-
+        App\Providers\FooterServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */

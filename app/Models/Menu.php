@@ -19,7 +19,7 @@ class Menu extends Model
     }
     public function gallery()
     {
-        return $this->belongsTo(Gallery::class, 'gallery_id', 'id');
+        return $this->hasOne(Gallery::class, 'id', 'gallery_id');
     }
     // Define the many-to-many relationship with Package
     public function packages()

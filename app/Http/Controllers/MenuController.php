@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -68,6 +69,22 @@ class MenuController extends Controller
         return view('menu.show', compact('menu'));
     }
 
+    public function showMenuAllPengguna()
+    {
+        $menus = Menu::where('status', 1)->get();
+        return view('menus.show', compact('menus'));
+    }
+
+    public function cariMenuDariId($id)
+    {
+        // Retrieve the menu with the given ID
+        $menu = Menu::with('category') // Eager load the related category
+                    ->findOrFail($id); // This will throw a 404 if the menu is not found
+    
+        // Return a view with the menu data
+        return view('hidangan', compact('menu')); // Pass the menu object to the view
+    }
+    
     /**
      * Show the form for editing the specified resource.
      */

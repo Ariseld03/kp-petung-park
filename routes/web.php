@@ -36,6 +36,7 @@ Route::get('/login', function () {
 Route::get('/kategori', function () {
     return view('kategori');
 });
+Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
 
 /* Route untuk menampilkan halaman register
 Route::get('/', function () {
@@ -66,6 +67,9 @@ Route::get('/tentangKami', function () {
 Route::get('/hidangan', function () {
     return view('hidangan');
 });
+
+Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('hidangan');
+
 Route::get('/wisata', function () {
     return view('wisata');
 });

@@ -29,10 +29,10 @@ class AgendaSeeder extends Seeder
         // Insert multiple records into the agendas table
         DB::table('agendas')->insert([
             [
-                'event_name' => 'Tradisi Hutan Bambu',
-                'event_start_date' => $faker->date('Y-m-d'),
-                'event_end_date' => $faker->date('Y-m-d'),
-                'event_location' => 'Gazebo',
+                'event_name' => 'Kegiatan Bermain Air',
+                'event_start_date' => '2024-03-15',
+                'event_end_date' => '2024-03-15',
+                'event_location' => 'Baby Pool',
                 'status' => 1,
                 'description' => $faker->paragraph,
                 'created_at' => now(),
@@ -40,10 +40,10 @@ class AgendaSeeder extends Seeder
                 'staff_email' => $staffEmails->random(),
             ],
             [
-                'event_name' => 'Acara Ulang Tahun Desa Belik',
+                'event_name' => 'Ulang Tahun Desa Belik',
                 'event_start_date' => $faker->date('Y-m-d'),
                 'event_end_date' => $faker->date('Y-m-d'),
-                'event_location' => 'Rumah Makan Petung Park',
+                'event_location' => 'Pujasera',
                 'status' => 1,
                 'description' => $faker->paragraph,
                 'created_at' => now(),
@@ -74,6 +74,17 @@ class AgendaSeeder extends Seeder
             ],
             [
                 'event_name' => 'Hash Oktober 2024',
+                'event_start_date' => $faker->date('Y-m-d'),
+                'event_end_date' => $faker->date('Y-m-d'),
+                'event_location' => 'Hutan Bambu',
+                'status' => 0,
+                'description' => $faker->paragraph,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'staff_email' => $staffEmails->random(),
+            ],
+            [
+                'event_name' => 'Hash July 2024',
                 'event_start_date' => $faker->date('Y-m-d'),
                 'event_end_date' => $faker->date('Y-m-d'),
                 'event_location' => 'Hutan Bambu',

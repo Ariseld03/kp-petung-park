@@ -35,7 +35,7 @@ class CategorySeeder extends Seeder
             ],
             [
                 'name' => 'Makanan Penutup',
-                'status' => 0,
+                'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

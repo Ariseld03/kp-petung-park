@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class GalleryShow extends Model
 {
     use HasFactory;
-    protected $table = 'gallery_shows';
+    protected $table = 'galleries_show';
     public function gallery()
     {
         return $this->belongsTo(Gallery::class, 'gallery_id', 'id');

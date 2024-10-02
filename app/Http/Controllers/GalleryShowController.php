@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\GalleryShow;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use App\Models\SliderHome;
 
 class GalleryShowController extends Controller
 {
@@ -13,13 +15,14 @@ class GalleryShowController extends Controller
     public function index()
     {
         // Mengambil data galleries_show dengan status 1 dan data tambahan dari galleries
-        $galleryShows = \DB::table('galleries_show')
+        $galleryShows = DB::table('galleries_show')
             ->join('galleries', 'galleries_show.gallery_id', '=', 'galleries.id')
             ->select('galleries_show.name', 'galleries.photo_link', 'galleries.description', 'galleries.number_love', 'galleries.id as gallery_id')
             ->where('galleries_show.status', 1)
             ->get();
-    
-        return view('beranda', compact('galleryShows'));
+        $sliderHomes = SliderHome::where('status', 1)->get();
+        // dd($sliderHomes);
+        return view('beranda', compact('galleryShows','sliderHomes'));
     }
     /**
      * Show the form for creating a new resource.

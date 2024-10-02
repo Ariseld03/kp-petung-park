@@ -51,6 +51,20 @@ class CategoryController extends Controller
         return view('categories.show', compact('categories')); 
     }
 
+    public function showKategoriAllPengguna()
+    {
+        $category = Category::where('status', 1)->get();
+        return view('categories.show', compact('categories'));
+    }
+    public function cariMakananDariKategori($id)
+    {
+        // Fetch the menus related to the category
+        $kategori = Category::with('menus') // Eager load the menus for the category
+        ->findOrFail($id); // This will throw a 404 if the category is not found
+        // dd($kategori);
+        // Return a view with the category and its menus
+        return view('kategori', compact('kategori'));
+    }
     /**
      * Show the form for editing the specified resource.
      */

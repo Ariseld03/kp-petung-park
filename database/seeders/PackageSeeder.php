@@ -14,10 +14,11 @@ class PackageSeeder extends Seeder
      */
     public function run(): void
     {
+        $faker = Faker::create();
         DB::table('packages')->insert([
             [
                 'name' => 'Paket Hemat',
-                'price' => rand(10000, 99999),
+                'price' => $faker->randomFloat(2, 60000, 250000),
                 'status' => 1,
                 'number_love' => 0,
                 'created_at' => now(),
@@ -25,7 +26,7 @@ class PackageSeeder extends Seeder
             ],
             [
                 'name' => 'Paket Rame-rame',
-                'price' => rand(10000, 99999),
+                'price' => $faker->randomFloat(2, 60000, 250000),
                 'status' => 1,
                 'number_love' => 0,
                 'created_at' => now(),
@@ -33,7 +34,7 @@ class PackageSeeder extends Seeder
             ],
             [
                 'name' => 'Paket Ngedate',
-                'price' => rand(10000, 99999),
+                'price' => $faker->randomFloat(2, 60000, 250000),
                 'status' => 1,
                 'number_love' => 1,
                 'created_at' => now(),
@@ -41,7 +42,7 @@ class PackageSeeder extends Seeder
             ],
             [
                 'name' => 'Paket Puas',
-                'price' => rand(10000, 99999),
+                'price' => $faker->randomFloat(2, 60000, 250000),
                 'status' => 0,
                 'number_love' => 4,
                 'created_at' => now(),
@@ -49,7 +50,7 @@ class PackageSeeder extends Seeder
             ],
             [
                 'name' => 'Paket Panas',
-                'price' => rand(10000, 99999),
+                'price' => $faker->randomFloat(2, 60000, 250000),
                 'status' => 1,
                 'number_love' => 5,
                 'created_at' => now(),

@@ -6,6 +6,64 @@ html {
     overflow-x: hidden;
 }
 
+/* Slider styles */
+.slider-container {
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+.slide {
+    min-width: 100%;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+}
+
+.slide h1 {
+    font-size: 8vw;
+    font-weight: bold;
+}
+
+.slide p {
+    font-size: 20px;
+}
+
+.navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.nav-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+.nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
 .title-section {
     background-image: url('/images/beranda/berandaPetungPark.jpg');
     background-size: cover;
@@ -42,27 +100,92 @@ html {
 }
 
 /* Kelas Kustom untuk Galeri */
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    flex-grow: 1;
+}
+
+/* Frame for the image */
 .frame-image {
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 55px;
+    padding: 10px;
     margin-bottom: 100px;
     background-color: white;
     box-sizing: border-box;
-    height: flex;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    width: 100%;
+    max-width: 250px;
+    height: 350px;
+    overflow: hidden;
 }
 
 .galeri-image {
-    padding-top: 20px;
-    width: 200px;
-    height: 180px;
+    width: 100%;
+    height: auto;
+    max-height: 180px;
     object-fit: cover;
+    margin-bottom: 10px;
 }
+
+/* Text styling */
+.text-image, .desc-image {
+    color: #295A3F;
+    font-size: 12px;
+    margin-bottom: 5px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-image {
+    margin-bottom: 8px;
+}
+
+/* Adjusted desc-image */
+.desc-image {
+    font-size: 10px;
+    max-height: none;
+    margin-bottom: 10px;
+    padding: 0 5px;
+    text-align: center;
+}
+
+/* The like button */
+.like-button {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 1px solid #295A3F;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #295A3F;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.like-button .like-icon {
+    margin-left: 8px;
+    font-size: 16px;
+}
+
+.like-button:hover {
+    background-color: #295A3F;
+    color: #ffffff;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+}
+
 .desc-lokasi{
     text-align: left;
 }
@@ -70,18 +193,6 @@ html {
     height: 200px;
     width: 300px;
     padding-bottom: 20px;
-}
-.text-image {
-    color: #295A3F;
-    font-size: 14px;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 10px;
-}
-.desc-image {
-    color: #295A3F;
-    font-size: 10px;
-    text-align: center;
 }
 footer {
     background-color: #333;
@@ -99,41 +210,35 @@ footer {
 }
 
 /* Styling footer */
-.footer {
+footer {
+    background-color: #333;
+    color: white;
     padding: 20px;
+}
+
+.footer-content {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    color: white;
-    position: relative;
 }
 
 .footer .logo-instansi {
-    margin: 10px;
     width: 100px;
     height: 100px;
+    margin-right: 5px;
 }
 
 .footer .alamat {
-    margin-left: 40px;
-    display: flex;
-    flex-direction: column;
+    margin: 0 10px;
+    flex-grow: 1;
 }
 
 .footer .alamat p {
     margin: 5px 0;
 }
 
-.footer .alamat img {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-}
-
 .footer .tautan {
-    margin-left: 90px;
-    text-align: left;
-
+    margin: 0 10px;
 }
 
 .footer .tautan p {
@@ -145,114 +250,73 @@ footer {
     text-decoration: none;
 }
 
-.sosmed {
-    margin: 5px;
-    text-align: right;
-    right: 20px;
-    bottom: 80px;
-    position: absolute;
+.footer .sosmed {
+    margin: 0 20px;
+    text-align: center;
 }
 
-.sosmed p {
-    font-weight: bold;
+.footer .sosmed p {
+    margin-bottom: 10px;
 }
 
-.sosmed a {
-    display: inline-block;
-    margin-right: 10px;
-    /* Jarak antar logo */
-}
-
-.logo-sosmed {
+.footer .logo-sosmed {
     width: 30px;
-    /* Ukuran logo IG dan TikTok */
     height: 30px;
+    margin: 0 5px;
 }
-
-
-.tautan-content {
-    display: flex;
+.footer .whatsapp-logo {
+    width: 16px;
+    height: 16px;
 }
-
+.footer .alamat img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+/* Responsive styles */
 @media (max-width: 768px) {
-    .title-section {
-        height: auto;
-        padding-left: 5%;
-        text-align: center;
+    .frame-image {
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
     }
 
-    .title {
-        font-size: 12vw;
-        /* Sesuaikan ukuran font dengan layar kecil */
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
-    .description {
-        font-size: 4vw;
-    }
-
-    /* Sejarah  */
-    section.bg-success {
-        padding: 20px 10px;
-    }
-
-    /* Lokasi  */
-    section.bg-location {
-        padding: 20px 10px;
-    }
-
-    .bg-location .col-md-4 {
+    .col-md-3 {
+        display: flex;
+        justify-content: center;
         margin-bottom: 20px;
     }
-
-    .bg-location img {
-        width: 100%;
-    }
-
-    .denah-image {
-        max-width: 100%;
-        height: auto;
-    }
-
-    /* Galeri */
-    .frame-image {
-        height: auto;
-        padding: 10px;
-    }
-
-    .galeri-image {
-        height: auto;
-    }
-
-    .text-image {
-        font-size: 12px;
-    }
-
-    /* Footer */
-    .footer {
+    .footer-content {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
 
     .footer .logo-instansi {
-        width: 80px;
-        height: 80px;
+        margin-bottom: 10px;
     }
 
     .footer .alamat,
     .footer .tautan,
     .footer .sosmed {
-        margin-left: 0;
+        margin: 10px 0;
     }
-
-    .footer .alamat,
-    .footer .tautan {
-        margin-bottom: 20px;
+    .footer .alamat img {
+        display: inline-block;
+        margin-bottom: 5px;
     }
-
-    .sosmed {
-        right: auto;
-        bottom: auto;
-        position: static;
+    .footer .alamat p {
+        margin: 5px 0;
+    }
+    .footer .d-flex {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 }
