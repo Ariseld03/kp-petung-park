@@ -25,7 +25,6 @@ class GallerySeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-
             [
                 'name' => 'Gazebo Kecek Air',
                 'photo_link' => 'https://static.promediateknologi.id/crop/22x100:984x814/0x0/webp/photo/p2/82/2023/11/08/oce-kelana-desa-3724991597.jpeg',

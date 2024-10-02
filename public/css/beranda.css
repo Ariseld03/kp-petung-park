@@ -40,7 +40,7 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
     /* Warna overlay gelap (50% transparansi) */
     z-index: 1;
 }
@@ -117,11 +117,7 @@ html {
 }
 
 .text-bottom {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px;
+    vertical-align: text-bottom;
 }
 
 .description {

@@ -26,12 +26,14 @@ use App\Http\Controllers\TravelController;
 */
 
 Route::get('/', function () {
-    return view('register');
+    return redirect()->route('beranda');
+    // return view('register');
 });
 
 Route::get('/login', function () {
     return view('login');
 });
+
 //buat navbar
 Route::view('/beranda', 'beranda'); 
 Route::view('/layanan', 'layanan'); 

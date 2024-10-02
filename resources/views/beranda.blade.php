@@ -6,11 +6,11 @@
 @section('container-main')
     <!-- Bagian Judul -->
     <!-- <div class="title-section">
-                    <h1 class="title">Petung Park</h1>
-                    <p class="description">Mencari tempat jalan jalan yang ramah di kantong? Ada satu destinasi wisata yang tersembunyi di kota Mojokerto yang layak dipertimbangkan.
-                        Lokasinya terletak di Trawas, menawarkan keindahan yang luar biasa. Alam yang masih asri, pemandangan yang menakjubkan, dan udara segar yang mengalir dengan alami akan
-                        memberikan makna baru bagi liburanmu dan membantu merilekskan pikiran yang lelah.</p>
-                </div> -->
+                        <h1 class="title">Petung Park</h1>
+                        <p class="description">Mencari tempat jalan jalan yang ramah di kantong? Ada satu destinasi wisata yang tersembunyi di kota Mojokerto yang layak dipertimbangkan.
+                            Lokasinya terletak di Trawas, menawarkan keindahan yang luar biasa. Alam yang masih asri, pemandangan yang menakjubkan, dan udara segar yang mengalir dengan alami akan
+                            memberikan makna baru bagi liburanmu dan membantu merilekskan pikiran yang lelah.</p>
+                    </div> -->
     <section>
         <div class="slider-container">
             <div class="slider">
@@ -57,9 +57,10 @@
                         referrerpolicy="no-referrer-when-downgrade" class="img-lokasi"></iframe>
                 </div>
                 <div class="col">
-                    <div class="desc-beranda text-left">
+                    <div class="desc-beranda text-start">
                         <p>Jibru, Belik, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur 61375</p>
-                        <div class="text-bottom">
+
+                        <div class="row align-items-end">
                             <p><b>Telepon</b> : 0831-3281-9058
                                 <br /><b>Jam</b> : 09.00 - 17.00
                             </p>

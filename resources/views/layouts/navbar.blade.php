@@ -6,14 +6,14 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/beranda') }}" style="color: #fff;">Beranda</a>
+                <li class="nav-item me-4">
+                    <a class="nav-link fs-3" href="{{ url('/beranda') }}" style="color: #fff;">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/layanan') }}" style="color: #fff;">Layanan</a>
+                    <a class="nav-link fs-3" href="{{ url('/layanan') }}" style="color: #fff;">Layanan</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/tentangKami') }}" style="color: #fff;">Tentang Kami</a>
+                <li class="nav-item ms-4">
+                    <a class="nav-link fs-3" href="{{ url('/tentangKami') }}" style="color: #fff;">Tentang Kami</a>
                 </li>
             </ul>
         </div>
