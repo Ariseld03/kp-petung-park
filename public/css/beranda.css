@@ -33,13 +33,27 @@ html {
     min-width: 100%;
 }
 
+.slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Warna overlay gelap (50% transparansi) */
+    z-index: 1;
+}
+
 .slide h1 {
-    font-size: 8vw;
+    font-size: 5vw;
     font-weight: bold;
+    z-index: 2;
 }
 
 .slide p {
-    font-size: 20px;
+    font-size: 25px;
+    z-index: 2;
 }
 
 .navigation {
@@ -61,9 +75,11 @@ html {
     cursor: pointer;
     font-size: 20px;
 }
+
 .nav-button:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }
+
 .title-section {
     background-image: url('/images/beranda/berandaPetungPark.jpg');
     background-size: cover;
@@ -77,19 +93,37 @@ html {
     padding-left: 8%;
     padding-right: 8%;
 }
-.title-sejarah{
-    font-size: 30px;
+
+.title-beranda {
+    font-size: 50px;
 }
+
+.desc-beranda {
+    font-size: 20px;
+}
+
 .title {
     font-size: 8vw;
     font-weight: bold;
 }
-.title-konten{
+
+.title-konten {
     font-size: 30px;
 }
-.desc-lokasi{
+
+.desc-lokasi {
     font-size: 20px;
+    line-height: 1.2;
 }
+
+.text-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+}
+
 .description {
     font-size: 20px;
 }
@@ -122,7 +156,6 @@ html {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 250px;
     height: 350px;
     overflow: hidden;
 }
@@ -136,7 +169,8 @@ html {
 }
 
 /* Text styling */
-.text-image, .desc-image {
+.text-image,
+.desc-image {
     color: #295A3F;
     font-size: 12px;
     margin-bottom: 5px;
@@ -186,14 +220,13 @@ html {
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
 }
 
-.desc-lokasi{
-    text-align: left;
-}
-.img-lokasi{
-    height: 200px;
-    width: 300px;
+
+.img-lokasi {
+    /* height: 200px;
+    width: 300px; */
     padding-bottom: 20px;
 }
+
 footer {
     background-color: #333;
     color: white;
@@ -208,6 +241,7 @@ footer {
 .bg-location {
     background-color: #A1D0B3;
 }
+
 /* Responsive styles */
 @media (max-width: 768px) {
     .frame-image {

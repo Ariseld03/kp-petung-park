@@ -92,8 +92,6 @@ footer-content {
     }
 }
 </style>
-</body>
-</html>
 <footer class="footer">
     <div class="footer-content">
         <img src="/images/footer/logoPetungPark.png" alt="Logo Instansi" class="logo-instansi">
