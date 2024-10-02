@@ -80,7 +80,7 @@ class GenericSeeder extends Seeder
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => '083132819058',
-                'icon_picture_link' => 'https://png.pngtree.com/png-clipart/20181003/ourmid/pngtree-whatsapp-social-media-icon-design-template-vector-whatsapp-logo-png-image_3654780.png',
+                'icon_picture_link' => '/images/footer/logoWA.png',
             ],
             [
                 'created_at' => now(),

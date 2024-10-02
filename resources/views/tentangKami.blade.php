@@ -13,12 +13,12 @@
                 nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
                 anim id est laborum.</p>
         </div>
-        <img src="https://via.placeholder.com/600x400" alt="Gambar Info 1" class="gambar-info1">
+        <img src="/images/galeri/pemandangan/jalanHutanBambu_2.jpg" alt="Gambar Info 1" class="gambar-info1">
     </div>
 
     <!-- Info2 -->
     <div class="info2">
-        <img src="https://via.placeholder.com/900x400" alt="Gambar Info 2" class="gambar-info2">
+        <img src="/images/galeri/pemandangan/jalanHutanBambu.jpg" alt="Gambar Info 2" class="gambar-info2">
     </div>
 
     <!-- Info3 (gambar di kiri, teks di kanan) -->
@@ -35,6 +35,6 @@
                 ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
                 nulla pariatur?</p>
         </div>
-        <img src="https://via.placeholder.com/600x400" alt="Gambar Info 3" class="gambar-info3">
+        <img src="/images/galeri/pemandangan/pohonBambu.jpg" alt="Gambar Info 3" class="gambar-info3">
     </div>
 @endsection

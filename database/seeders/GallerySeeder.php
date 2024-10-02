@@ -35,8 +35,8 @@ class GallerySeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Foto Selfie Gazebo Kecek Air',
-                'photo_link' => 'https://awsimages.detik.net.id/community/media/visual/2023/10/19/petung-park-mojokerto_169.jpeg?w=600&q=90',
+                'name' => 'Acara Pelatihan Prima',
+                'photo_link' => '/images/galeri/pemandangan/pelatihanPrima.png',
                 'description' => $faker->sentence,
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 100),

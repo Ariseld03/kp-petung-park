@@ -121,9 +121,8 @@ public function showLayanan()
     // Mengambil kegiatan mendatang dan lalu (sudah ada)
     $kegiatanMendatang = Agenda::where('status', 1)->where('event_end_date', '>=', now())->get();
     $kegiatanLalu = Agenda::where('status', 1)->where('event_end_date', '<', now())->get();
-    // Mengambil manu
+    // Mengambil menu
     $kategori = Category::where('status', 1)->get();
-    // Mengirimkan $travels, $kegiatanMendatang, dan $kegiatanLalu ke view
     return view('layanan', compact('travels', 'kegiatanMendatang', 'kegiatanLalu','kategori'));
 }
 

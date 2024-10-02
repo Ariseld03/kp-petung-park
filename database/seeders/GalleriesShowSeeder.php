@@ -24,37 +24,23 @@ class GalleriesShowSeeder extends Seeder
         // Insert multiple records into the galleries_show table
         DB::table('galleries_show')->insert([
             [
-                'name' => 'Show 1',
+                'name' => 'Gazebo Kecek Air',
                 'status' => 1,
-                'gallery_id' => $galleryIds->random(),
+                'gallery_id' => $galleryIds[0],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Show 2',
+                'name' => 'Hidangan Camilan Kentang Goreng',
                 'status' => 1,
-                'gallery_id' => $galleryIds->random(),
+                'gallery_id' => $galleryIds[17],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Show 3',
-                'status' => 0,
-                'gallery_id' => $galleryIds->random(),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Show 4',
+                'name' => 'Hutan Bambu',
                 'status' => 1,
-                'gallery_id' => $galleryIds->random(),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Show 5',
-                'status' => 0,
-                'gallery_id' => $galleryIds->random(),
+                'gallery_id' => $galleryIds[9],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
