@@ -1,0 +1,103 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.kegiatan-detail {
+        background-color: #c2f7b5;
+        width: 100vw;
+        position: relative;
+        height: auto; /* Ubah dari min-height ke height: auto */
+        display: flex;
+        flex-direction: column;
+        color: #033a03;
+        align-items: center;  
+        text-align: center;  
+}
+
+.kegiatan-detail h2 {
+    padding-top: 90px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    text-align: center; /* Menyelarankan teks ke tengah */
+    font-size: 40px;
+}
+
+.kegiatan-info {
+    padding-bottom: 20px;
+    max-width: 600px; /* Menetapkan lebar maksimum untuk informasi kegiatan */
+    text-align: center; /* Meratakan teks di dalam .kegiatan-info */
+}
+
+.artikel {
+    display: flex; /* Mengaktifkan flexbox */
+    flex-direction: column; /* Menyusun item secara vertikal */
+    align-items: center; /* Meratakan konten secara horizontal */
+    justify-content: center; /* Meratakan konten secara vertikal */
+    background-color: #033a03; /* Warna latar belakang hijau tua */
+    color: #c2f7b5; /* Warna teks kuning */
+    width: 100%; /* Mengatur lebar 100% */
+    padding: 20px; /* Memberikan padding di dalam artikel */
+    box-sizing: border-box; /* Menambahkan padding ke dalam lebar total elemen */
+    min-height: 300px; /* Tinggi minimum untuk artikel agar tetap terlihat */
+}
+
+.artikel h3 {
+    padding-bottom: 15px;
+    padding-top: 30px;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center; /* Menyelaraskan teks ke tengah */
+}
+.artikel p {
+    width: 900px; /* Menetapkan lebar maksimum untuk teks */
+    padding-bottom: 50px;
+    text-align: center; /* Menyelaraskan teks ke tengah */
+}
+
+.gallery {
+    display: flex; /* Mengaktifkan Flexbox */
+    flex-wrap: wrap; /* Memungkinkan item membungkus ke baris berikutnya */
+    justify-content: center; /* Menyelaraskan gambar ke tengah */
+    margin-top: 20px; /* Jarak atas antara galeri dan konten lain */
+}
+
+.gallery-item {
+    background-color: white; /* Latar belakang putih untuk border luar */
+    border: 2px solid #ddd; 
+    padding: 10px; /* Jarak antara gambar dan tepi galeri-item */
+    margin: 10px; /* Menambahkan jarak antar item galeri */
+    flex: 1 0 30%; /* Fleksibel untuk mengambil 30% dari lebar kontainer */
+    box-sizing: border-box; /* Memastikan padding dan border termasuk dalam lebar total */
+    max-width: 300px; /* Lebar maksimum untuk setiap galeri-item */
+    text-align: center; /* Memastikan gambar, nama, dan deskripsi berada di tengah */
+}
+
+.gallery-img {
+    height: 200px;
+    width: 100%; /* Mengatur lebar gambar 100% dari .gallery-item */
+    object-fit: cover; /* Mengatur gambar agar sesuai dengan ukuran */
+}
+
+.btn-kembali {
+    background-color: #c2f7b5; /* Warna latar belakang tombol */
+    color: #033a03; /* Warna teks tombol */
+    padding: 10px 15px; /* Padding di dalam tombol */
+    text-decoration: none; /* Menghilangkan garis bawah pada link */
+    border: 0px;
+    display: inline-block; /* Menyusun tombol dalam satu baris */
+    margin-bottom: 20px; /* Jarak bawah untuk memisahkan dari elemen di bawahnya */
+    position: absolute; /* Menggunakan posisi absolut untuk menempatkan tombol */
+    left: 20px; /* Jarak dari kiri */
+    top: 70px; /* Jarak dari atas */
+    font-weight: bold; /* Menebalkan teks tombol */
+    transition: background-color 0.3s; /* Efek transisi saat hover */
+}
+
+.btn-kembali:hover {
+    color: #000000; /* Warna teks saat hover */
+}
+
