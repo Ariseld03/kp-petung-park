@@ -8,6 +8,7 @@ class FooterServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        $footerData = [];
         $footerData = Generic::where('status',1)->get();
         $footerInfo = [
             'instagram' => null,
