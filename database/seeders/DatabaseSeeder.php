@@ -40,11 +40,11 @@ class DatabaseSeeder extends Seeder
         $this->call(AgendaSeeder::class);
         $this->call(ArticleSeeder::class);
         $this->call(MenuSeeder::class);
-        $this->call(GenericSeeder::class);
-        $this->call(PackageMenuSeeder::class);
-        $this->call(TravelGallerySeeder::class);
-        $this->call(ArticleGallerySeeder::class);
-        $this->call(SlidersHomeSeeder::class);
+        // $this->call(GenericSeeder::class);
+        // $this->call(PackageMenuSeeder::class);
+        // $this->call(TravelGallerySeeder::class);
+        // $this->call(ArticleGallerySeeder::class);
+        // $this->call(SlidersHomeSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

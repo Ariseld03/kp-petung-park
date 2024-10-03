@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Generic;
 use Illuminate\Http\Request;
 
 class StaffController extends Controller

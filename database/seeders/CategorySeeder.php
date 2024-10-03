@@ -15,14 +15,9 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         DB::table('categories')->insert([
+            
             [
-                'name' => 'Camilan',
-                'status' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Minuman',
+                'name' => 'Paket Hemat',
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -34,13 +29,13 @@ class CategorySeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Makanan Penutup',
+                'name' => 'Minuman',
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Pakan Ikan',
+                'name' => 'Camilan',
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),

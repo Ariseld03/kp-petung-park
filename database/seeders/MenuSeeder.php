@@ -36,11 +36,11 @@ class MenuSeeder extends Seeder
         DB::table('menus')->insert([
             [
                 'name' => 'Kentang Goreng',
-                'description' => $faker->paragraph,
+                'description' => "Kentang Goreng yang hangan dan enak, cocok dinikmati dengan bersantai",
                 'price' => $faker->randomFloat(0, 50000, 200000), // Random price between 50,000 and 200,000
                 'status' => 1,
                 'status_recommended' => 1,
-                'number_love' => $faker->numberBetween(1, 10),
+                'number_love' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
                 'staff_email' => $staffEmails->random(),
@@ -49,11 +49,11 @@ class MenuSeeder extends Seeder
             ],
             [
                 'name' => 'Es Teh Manis',
-                'description' => $faker->paragraph,
+                'description' => "Es teh yang berasa manis cocok untuk mendinginkan kepala",
                 'price' => $faker->randomFloat(0, 50000, 200000), // Random price between 50,000 and 200,000
                 'status' => 1,
                 'status_recommended' => 0,
-                'number_love' => $faker->numberBetween(1, 10),
+                'number_love' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
                 'staff_email' => $staffEmails->random(),
@@ -61,7 +61,7 @@ class MenuSeeder extends Seeder
                 'category_id' =>  $categoryIds[1],
             ],
             [
-                'name' => 'Ayam Geprek',
+                'name' => 'Ayam Goreng',
                 'description' => $faker->paragraph,
                 'price' => $faker->randomFloat(0, 30000, 150000), // Random price between 30,000 and 150,000
                 'status' => 0,
