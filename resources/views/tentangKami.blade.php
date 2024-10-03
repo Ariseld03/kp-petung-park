@@ -18,12 +18,12 @@
                 Petung Park kini menjadi destinasi wisata populer yang menawarkan pengalaman alam 
                 eksotis dan relaksasi dengan harga terjangkau, ideal untuk bersantai dan menghilangkan penat.</p>
         </div>
-        <img src="/images/galeri/pemandangan/jalanHutanBambu_2.jpg" alt="Gambar Info 1" class="gambar-info1">
+        <img src="/images/galeri/pemandangan/jalanHutanBambu_2.JPG" alt="Gambar Info 1" class="gambar-info1">
     </div>
 
     <!-- Info2 -->
     <div class="info2">
-        <img src="/images/galeri/pemandangan/jalanHutanBambu.jpg" alt="Gambar Info 2" class="gambar-info2">
+        <img src="/images/galeri/pemandangan/jalanHutanBambu.JPG" alt="Gambar Info 2" class="gambar-info2">
     </div>
 
     <!-- Info3 (gambar di kiri, teks di kanan) -->
@@ -38,6 +38,6 @@
                 serta mengembangkan Petung Park untuk mendukung perekonomian lokal. Selain itu, misi ini mendorong kemandirian desa melalui pengelolaan wisata berbasis desa yang berkelanjutan, 
                 dengan melibatkan partisipasi aktif masyarakat dalam menjaga lingkungan dan memanfaatkan sumber daya alam demi kesejahteraan bersama.</p>
         </div>
-        <img src="/images/galeri/pemandangan/pohonBambu.jpg" alt="Gambar Info 3" class="gambar-info3">
+        <img src="/images/galeri/pemandangan/pohonBambu.JPG" alt="Gambar Info 3" class="gambar-info3">
     </div>
 @endsection
