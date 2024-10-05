@@ -1,0 +1,100 @@
+body {
+    height: 100vh;
+    background-color: white;
+    font-family: Arial, sans-serif;
+    margin: 0; /* Pastikan tidak ada margin pada body */
+}
+
+.login-container {
+    max-width: 600px;
+}
+
+.login-title {
+    font-size: 60px;
+    font-weight: bold;
+    color: #295A3F;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+}
+
+.inputLogin input {
+    font-size: 32px;
+    border: 6px solid #295A3F;
+    border-radius: 10px;
+    color: #295A3F;
+    background-color: white;
+}
+
+.inputLogin input::placeholder {
+    color: #295A3F;
+}
+
+.inputLogin button {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    background-color: #295A3F;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.inputLogin button:hover {
+    background-color: #1e4633;
+}
+
+.signup-container p {
+    font-size: 24px;
+    color: black;
+}
+
+.signup-container button {
+    font-size: 24px;
+    color: #295A3F;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.signup-container button:hover {
+    color: #1e4633;
+}
+
+.form-group{
+    padding-bottom: 10px;
+    font-size: 27px;
+}
+.image-container img {
+    object-fit: cover;
+}
+
+/* Media Queries for mobile responsiveness */
+@media (max-width: 768px) {
+    .row {
+        display: flex;
+        flex-direction: column-reverse; /* Gambar tetap di atas */
+    }
+
+    .image-container {
+        height: 25vh; /* Menutupi 25% dari tinggi layar */
+    }
+
+    .login-container {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .login-title {
+        font-size: 40px;
+    }
+
+    .inputLogin input, .inputLogin button {
+        font-size: 24px;
+    }
+
+    .signup-container p, .signup-container button {
+        font-size: 18px;
+    }
+}

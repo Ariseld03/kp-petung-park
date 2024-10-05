@@ -1,114 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <!-- Link Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Custom CSS for maintaining specific styles not covered by Bootstrap */
-        body {
-            height: 100vh;
-            background-color: white;
-            font-family: Arial, sans-serif;
-            margin: 0; /* Pastikan tidak ada margin pada body */
-        }
-
-        .login-container {
-            max-width: 600px;
-        }
-
-        .login-title {
-            font-size: 60px;
-            font-weight: bold;
-            color: #295A3F;
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-        }
-
-        .inputLogin input {
-            font-size: 32px;
-            border: 6px solid #295A3F;
-            border-radius: 10px;
-            color: #295A3F;
-            background-color: white;
-        }
-
-        .inputLogin input::placeholder {
-            color: #295A3F;
-        }
-
-        .inputLogin button {
-            font-size: 32px;
-            font-weight: bold;
-            color: white;
-            background-color: #295A3F;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        .inputLogin button:hover {
-            background-color: #1e4633;
-        }
-
-        .signup-container p {
-            font-size: 24px;
-            color: black;
-        }
-
-        .signup-container button {
-            font-size: 24px;
-            color: #295A3F;
-            background: none;
-            border: none;
-            cursor: pointer;
-            text-decoration: underline;
-            font-weight: bold;
-        }
-
-        .signup-container button:hover {
-            color: #1e4633;
-        }
-
-        .image-container img {
-            object-fit: cover;
-        }
-
-        /* Media Queries for mobile responsiveness */
-        @media (max-width: 768px) {
-            .row {
-                display: flex;
-                flex-direction: column-reverse; /* Gambar tetap di atas */
-            }
-
-            .image-container {
-                height: 25vh; /* Menutupi 25% dari tinggi layar */
-            }
-
-            .login-container {
-                padding: 20px;
-                text-align: center;
-            }
-
-            .login-title {
-                font-size: 40px;
-            }
-
-            .inputLogin input, .inputLogin button {
-                font-size: 24px;
-            }
-
-            .signup-container p, .signup-container button {
-                font-size: 18px;
-            }
-        }
-
-    </style>
-</head>
-<body>
-
+@extends('layouts.main')
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('/css/register.css') }}">
+@endsection
+@section('container-main')
     <div class="container-fluid h-100">
         <div class="row h-100">
             <!-- Login Form Section -->
@@ -145,10 +39,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Link Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+@endsection
