@@ -4,6 +4,7 @@ html {
     padding: 0;
     height: 100%;
     overflow-x: hidden;
+    background: #ecf78e;
 }
 
 /* Slider styles */
@@ -97,6 +98,24 @@ html {
 .title-beranda {
     font-size: 50px;
 }
+
+.con-video {
+    height: 700px; 
+    width: 1244px;
+    background-color: #ecf78e; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.video-frame {
+    height: 100%; 
+    width: 100%; 
+    border: none; 
+}
+
+
 
 .desc-beranda {
     font-size: 20px;

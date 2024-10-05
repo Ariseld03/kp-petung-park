@@ -27,6 +27,20 @@
             </div>
         </div>
     </section>
+    
+    <!-- Bagian Video -->
+    <section>
+        <div class="con-video">
+            <iframe class="video-frame" 
+                src="https://www.youtube.com/embed/wq8MRjtlkxQ" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+
     <!-- Bagian Sejarah -->
     <section class="bg-success text-white text-center py-5">
         <div class="container">
