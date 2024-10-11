@@ -16,10 +16,10 @@ class TravelGallerySeeder extends Seeder
     public function run()
     {
         // Retrieve a list of existing travel IDs
-        $travelIds = DB::table('travels')->pluck('id');
+        $travelIds = DB::table('travels')->orderBy('id')->pluck('id');
         
         // Retrieve a list of existing gallery IDs
-        $galleryIds = DB::table('galleries')->pluck('id');
+        $galleryIds = DB::table('galleries')->orderBy('id')->pluck('id');
 
         // Ensure we have at least one travel and one gallery to reference
         if ($travelIds->isEmpty() || $galleryIds->isEmpty()) {

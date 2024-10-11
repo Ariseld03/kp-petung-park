@@ -21,10 +21,10 @@ class MenuSeeder extends Seeder
         $staffEmails = DB::table('staffs')->pluck('email');
 
         // Retrieve a list of existing gallery IDs
-        $galleryIds = DB::table('galleries')->pluck('id');
+        $galleryIds = DB::table('galleries')->orderBy('id')->pluck('id');
 
         // Retrieve a list of existing category IDs
-        $categoryIds = DB::table('categories')->pluck('id');
+        $categoryIds = DB::table('categories')->orderBy('id')->pluck('id');
 
         // Ensure we have at least one staff, gallery, and category to reference
         if ($staffEmails->isEmpty() || $galleryIds->isEmpty() || $categoryIds->isEmpty()) {
@@ -36,7 +36,7 @@ class MenuSeeder extends Seeder
         DB::table('menus')->insert([
             [
                 'name' => 'Kentang Goreng',
-                'description' => "Kentang Goreng yang hangan dan enak, cocok dinikmati dengan bersantai",
+                'description' => "Kentang Goreng yang hangat dan enak, cocok dinikmati dengan bersantai",
                 'price' => $faker->randomFloat(0, 50000, 200000), // Random price between 50,000 and 200,000
                 'status' => 1,
                 'status_recommended' => 1,

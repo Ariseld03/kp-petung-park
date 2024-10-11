@@ -10,8 +10,8 @@ class ArticleGallerySeeder extends Seeder
     public function run()
     {
         // Retrieve IDs from the articles and galleries tables
-        $articleIds = DB::table('articles')->pluck('id');
-        $galleryIds = DB::table('galleries')->pluck('id');
+        $articleIds = DB::table('articles')->orderBy('id')->pluck('id');
+        $galleryIds = DB::table('galleries')->orderBy('id')->pluck('id');
 
         // Check if there are any articles and galleries to seed
         if ($articleIds->isEmpty() || $galleryIds->isEmpty()) {

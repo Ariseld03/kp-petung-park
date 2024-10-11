@@ -101,7 +101,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Pujasera',
-                'photo_link' => $pemandangan,'pujaseraTampakLuar.jpg',
+                'photo_link' => $pemandangan . 'pujaseraTampakLuar.jpg', // Correct concatenation
                 'description' => $faker->sentence,
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 100),

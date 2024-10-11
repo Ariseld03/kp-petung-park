@@ -19,7 +19,7 @@ class StaffSeeder extends Seeder
         $faker = Faker::create();
 
         // Retrieve a list of existing gallery IDs
-        $galleryIds = DB::table('galleries')->pluck('id');
+        $galleryIds = DB::table('galleries')->orderBy('id')->pluck('id');
 
         // Ensure we have at least one gallery to reference
         if ($galleryIds->isEmpty()) {

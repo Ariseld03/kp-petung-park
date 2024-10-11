@@ -10,7 +10,7 @@ class SlidersHomeSeeder extends Seeder
     public function run()
     {
         // Retrieve IDs from the galleries table
-        $galleryIds = DB::table('galleries')->pluck('id');
+        $galleryIds = DB::table('galleries')->orderBy('id')->pluck('id');
         
         // Check if there are any galleries to seed
         if ($galleryIds->isEmpty()) {

@@ -21,7 +21,7 @@ class ArticleSeeder extends Seeder
         $staffEmails = DB::table('staffs')->pluck('email');
 
         // Retrieve a list of existing agenda IDs
-        $agendaIds = DB::table('agendas')->pluck('id');
+        $agendaIds = DB::table('agendas')->orderBy('id')->pluck('id');
 
         // Ensure we have at least one staff and one agenda to reference
         if ($staffEmails->isEmpty() || $agendaIds->isEmpty()) {
