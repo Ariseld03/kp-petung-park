@@ -1,12 +1,29 @@
 body {
     height: 100vh;
-    background-color: white;
+    background-image: url('/images/login/bambu.jpg'); /* Gambar latar belakang */
+    background-size: cover; /* Memastikan gambar menutupi seluruh latar belakang */
+    background-position: center; /* Memusatkan gambar */
     font-family: Arial, sans-serif;
     margin: 0; /* Pastikan tidak ada margin pada body */
 }
 
+.container-fluid {
+    height: 100%; /* Menjamin kontainer mengisi tinggi penuh */
+    display: flex;
+    align-items: center; /* Memusatkan secara vertikal */
+    justify-content: center; /* Memusatkan secara horizontal */
+}
+
 .login-container {
     max-width: 600px;
+    background-color: rgb(255, 255, 255); 
+    padding: 40px; /* Padding untuk ruang di dalam kontainer */
+    border-radius: 10px; /* Sudut melengkung */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Bayangan untuk efek kedalaman */
+    display: flex;
+    flex-direction: column; /* Mengatur elemen di dalam kontainer secara vertikal */
+    align-items: center; /* Memusatkan konten secara horizontal */
+    text-align: center; /* Memastikan teks di dalamnya berada di tengah */
 }
 
 .login-title {
@@ -14,22 +31,23 @@ body {
     font-weight: bold;
     color: #295A3F;
     margin-bottom: 40px;
-    padding-bottom: 30px;
 }
 
-.inputLogin input {
+.inputRegister input {
     font-size: 32px;
+    margin-bottom: 10px;
     border: 6px solid #295A3F;
     border-radius: 10px;
     color: #295A3F;
     background-color: white;
+    width: 100%; /* Memastikan input mengisi lebar kontainer */
 }
 
-.inputLogin input::placeholder {
+.inputRegister input::placeholder {
     color: #295A3F;
 }
 
-.inputLogin button {
+.inputRegister button {
     font-size: 32px;
     font-weight: bold;
     color: white;
@@ -37,15 +55,25 @@ body {
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    width: 100%; /* Memastikan tombol mengisi lebar kontainer */
 }
 
-.inputLogin button:hover {
+.inputRegister button:hover {
     background-color: #1e4633;
+}
+
+.signup-container {
+    display: flex;
+    padding-top: 10px;
+    flex-direction: column; /* Mengatur elemen dalam kolom untuk memusatkan */
+    align-items: center;
+    margin-top: 20px; /* Memisahkan dari form login */
 }
 
 .signup-container p {
     font-size: 24px;
     color: black;
+    margin: 0; /* Menghapus margin default */
 }
 
 .signup-container button {
@@ -62,39 +90,24 @@ body {
     color: #1e4633;
 }
 
-.form-group{
-    padding-bottom: 10px;
-    font-size: 27px;
-}
-.image-container img {
-    object-fit: cover;
-}
-
 /* Media Queries for mobile responsiveness */
 @media (max-width: 768px) {
-    .row {
-        display: flex;
-        flex-direction: column-reverse; /* Gambar tetap di atas */
-    }
-
-    .image-container {
-        height: 25vh; /* Menutupi 25% dari tinggi layar */
-    }
-
     .login-container {
         padding: 20px;
-        text-align: center;
     }
 
     .login-title {
         font-size: 40px;
     }
 
-    .inputLogin input, .inputLogin button {
+    .inputRegister input,
+    .inputRegister button {
         font-size: 24px;
+        width: 100%; /* Memastikan elemen mengisi lebar kontainer pada perangkat kecil */
     }
 
-    .signup-container p, .signup-container button {
+    .signup-container p,
+    .signup-container button {
         font-size: 18px;
     }
 }

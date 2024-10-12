@@ -1,16 +1,16 @@
-@extends('layouts.main')
+@extends('layouts.loginRegis')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('/css/register.css') }}">
 @endsection
 @section('container-main')
     <div class="container-fluid h-100">
         <div class="row h-100">
-            <!-- Login Form Section -->
+            <!-- Register Form Section -->
             <div class="col-md-6 d-flex align-items-center justify-content-center">
                 <div class="login-container">
                     <div class="login-title">Daftar</div>
 
-                    <form class="inputLogin">
+                    <form class="inputRegister">
                         <div class="form-group">
                             <input type="text" class="form-control p-3" placeholder="Masukkan Nama Pengguna" required>
                         </div>
@@ -28,13 +28,6 @@
                         <p class="mb-0">Sudah memiliki akun?</p>
                         <button type="button" class="btn p-0 ml-2" onclick="window.location.href='{{ url('login') }}'">Masuk</button>
                     </div>
-                </div>
-            </div>
-
-            <!-- Image Section -->
-            <div class="col-md-6 p-0">
-                <div class="image-container h-100">
-                    <img src="/images/login/bambu.jpg" alt="Gambar Bambu" class="w-100 h-100">
                 </div>
             </div>
         </div>
