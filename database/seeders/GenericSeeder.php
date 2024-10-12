@@ -66,6 +66,15 @@ class GenericSeeder extends Seeder
             ],
             [
                 'created_at' => now(),
+                'key' => 'alamat_petung_park_trawas',
+                'staff_email' => $staffEmails->random(),
+                'status' => 1,
+                'updated_at' => now(),
+                'value' => 'Jibru, Belik, Trawas, Mojokerto Regency, East Java 61375',
+                'icon_picture_link' => null, 
+            ],
+            [
+                'created_at' => now(),
                 'key' => 'teks_footer',
                 'staff_email' => $staffEmails->random(),
                 'status' => 1,
