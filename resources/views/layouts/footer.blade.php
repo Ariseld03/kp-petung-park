@@ -85,11 +85,6 @@ footer-content {
     .footer .alamat p {
         margin: 5px 0;
     }
-    .footer .d-flex {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
 }
 </style>
 <footer class="footer">
