@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
         Gallery::truncate();
         GalleryShow::truncate();
         Staff::truncate();
+        Generic::truncate();
         Agenda::truncate();
         Article::truncate();
         Menu::truncate();
-        Generic::truncate();
         PackageMenu::truncate();
         TravelGallery::truncate();
         ArticleGallery::truncate();
@@ -37,10 +37,10 @@ class DatabaseSeeder extends Seeder
         $this->call(GallerySeeder::class);
         $this->call(GalleriesShowSeeder::class);
         $this->call(StaffSeeder::class);
+        $this->call(GenericSeeder::class);
         $this->call(AgendaSeeder::class);
         $this->call(ArticleSeeder::class);
         $this->call(MenuSeeder::class);
-        $this->call(GenericSeeder::class);
         $this->call(PackageMenuSeeder::class);
         $this->call(TravelGallerySeeder::class);
         $this->call(ArticleGallerySeeder::class);
