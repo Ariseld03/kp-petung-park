@@ -32,7 +32,7 @@ class StaffSeeder extends Seeder
             [
                 'email' => 'Griseldaamelia68@gmail.com',
                 'name' => 'Admin User',
-                'password' => Hash::make('password'), // Hash the password for security
+                'password' => 'hai123', 
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
                 'position' => 'admin',
@@ -40,12 +40,12 @@ class StaffSeeder extends Seeder
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
-                'gallery_id' => $galleryIds->random(),
+                'gallery_id' => $galleryIds[18],
             ],
             [
                 'email' => 'MagdalenaFelicia@gmail.com',
                 'name' => 'Regular User',
-                'password' => Hash::make('password'), // Hash the password for security
+                'password' => 'hai123', 
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
                 'position' => 'user',
@@ -53,12 +53,12 @@ class StaffSeeder extends Seeder
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
-                'gallery_id' => $galleryIds->random(),
+                'gallery_id' => $galleryIds[18],
             ],
             [
                 'email' => 'staff@gmail.com',
                 'name' => 'Staff Member',
-                'password' => Hash::make('password'), // Hash the password for security
+                'password' => 'hai123', 
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
                 'position' => 'staff',
@@ -66,12 +66,12 @@ class StaffSeeder extends Seeder
                 'status' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
-                'gallery_id' => $galleryIds->random(),
+                'gallery_id' => $galleryIds[18],
             ],
             [
                 'email' => 'anotherstaff@gmail.com',
                 'name' => 'Another Staff Member',
-                'password' => Hash::make('password'), // Hash the password for security
+                'password' => 'hai123', 
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
                 'position' => 'staff',
@@ -79,7 +79,7 @@ class StaffSeeder extends Seeder
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
-                'gallery_id' => $galleryIds->random(),
+                'gallery_id' => $galleryIds[18],
             ],
         ]);
     }

@@ -27,6 +27,13 @@ class SlidersHomeSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'Slider 2',
+                'status' => 1,
+                'gallery_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

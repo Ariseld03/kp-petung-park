@@ -26,19 +26,19 @@ class GalleriesShowSeeder extends Seeder
             [
                 'name' => 'Gazebo Kecek Air',
                 'status' => 1,
-                'gallery_id' => $galleryIds[0],
+                'gallery_id' => $galleryIds[1],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Hidangan Camilan Kentang Goreng',
+                'name' => 'Hidangan Camilan Ayam Geprek',
                 'status' => 1,
                 'gallery_id' => $galleryIds[17],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Hutan Bambu',
+                'name' => 'Pujasera ',
                 'status' => 1,
                 'gallery_id' => $galleryIds[9],
                 'created_at' => now(),
