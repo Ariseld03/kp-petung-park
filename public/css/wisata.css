@@ -32,6 +32,7 @@ html {
 }
 .galeri-container {
     margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 .galeri-grid {
@@ -67,21 +68,20 @@ html {
 
 /* Styling untuk tombol Kembali */
 .btn-kembali {
-    padding: 10px 20px;
-    background-color: #246140;
-    font-weight: bold;
-    color: #E2DD6C;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    position: fixed; /* Posisi tombol absolut relatif terhadap kategori-makanan */
-    top: 70px; /* Posisi tombol di 20px dari atas container */
-    left: 20px; /* Posisi tombol di 20px dari kiri container */
-    z-index: 100; /* Memastikan tombol berada di atas elemen lain */
+    font-size: medium;
+    background-color: #246140; /* Warna latar belakang tombol */
+    color: #E2DD6C; /* Warna teks tombol */
+    padding: 10px 15px; /* Padding di dalam tombol */
+    text-decoration: none; /* Menghilangkan garis bawah pada link */
+    border: 0px;
+    display: inline-block; /* Menyusun tombol dalam satu baris */
+    margin-bottom: 20px; /* Jarak bawah untuk memisahkan dari elemen di bawahnya */
+    position: absolute; /* Menggunakan posisi absolut untuk menempatkan tombol */
+    left: 20px; /* Jarak dari kiri */
+    top: 70px; /* Jarak dari atas */
+    font-weight: bold; /* Menebalkan teks tombol */
+    transition: background-color 0.3s; /* Efek transisi saat hover */
 }
-
 /* Hover effect untuk tombol Kembali */
 .btn-kembali:hover {
     background-color: #246140;
@@ -202,10 +202,7 @@ html {
     }
     /* Posisi tombol Kembali di bagian bawah kiri header */
     .btn-kembali {
-        position: absolute; /* Tetap diatur dengan position absolute */
-        top: 0; /* Menempel di bagian bawah header */
-        left: 0; /* Tetap di bagian kiri layar */
-        margin-bottom: 0; /* Hilangkan margin bottom */
-        margin-left: 10px; /* Jarak dari kiri layar */
+        top: 70px; /* Mengatur posisi tombol untuk handphone */
+        left: 10px; /* Mengatur posisi tombol untuk handphone */
     }
 }

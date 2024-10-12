@@ -10,7 +10,6 @@ html {
 .kategori-makanan {
     background-color: #E2DD6C;
     padding: 10px 0;
-    /* Full width background */
     width: 100vw;
     position: relative;
 }
@@ -20,16 +19,13 @@ html {
     font-size: 40px;
     font-weight: bold;
     margin: 35px 0;
-    /* Jarak atas dan bawah*/
     text-align: center;
-    /* Judul di tengah */
     padding-top: 40px;
 }
 
 .makanan-container {
     display: flex;
     justify-content: center;
-    /* Elemen makanan rata tengah */
     flex-wrap: wrap;
     padding: 0 15px;
 }
@@ -39,16 +35,14 @@ html {
     margin: 15px;
     box-sizing: border-box;
     text-align: center;
-    /* Text pada makanan juga rata tengah */
 }
 
 .makanan img {
     width: 300px;
     height: 300px;
     object-fit: cover;
-    /* Agar gambar tidak terdistorsi */
-    border: 5px solid #295A3F; /* Menambahkan border putih */
-    border-radius: 10px; /* Opsional: Menambahkan radius agar sudutnya melengkung */
+    border: 5px solid #295A3F;
+    border-radius: 10px;
 }
 
 .makanan .judul-makanan {
@@ -82,7 +76,6 @@ html {
 .kategori-wisata {
     background-color: #295A3F;
     padding: 10px 0;
-    /* Full width background */
     width: 100vw;
     position: relative;
 }
@@ -92,15 +85,12 @@ html {
     font-size: 40px;
     font-weight: bold;
     margin: 35px 0;
-    /* Jarak atas dan bawah */
     text-align: center;
-    /* Judul di tengah */
 }
 
 .wisata-container {
     display: flex;
     justify-content: center;
-    /* Elemen wisata rata tengah */
     flex-wrap: wrap;
     padding: 0 15px;
 }
@@ -110,16 +100,14 @@ html {
     margin: 15px;
     box-sizing: border-box;
     text-align: center;
-    /* Text pada wisata juga rata tengah */
 }
 
 .wisata img {
     width: 300px;
     height: 300px;
     object-fit: cover;
-    /* Agar gambar tidak terdistorsi */
-    border: 5px solid #E2DD6C; 
-    border-radius: 10px; 
+    border: 5px solid #E2DD6C;
+    border-radius: 10px;
 }
 
 .wisata .judul-wisata {
@@ -184,12 +172,10 @@ html {
     border-collapse: collapse;
 }
 
-/* Revisi: Hanya menampilkan border bawah */
 .kegiatan-mendatang table td {
     padding: 10px;
     color: #353C14;
     border-bottom: 3px solid #353C14;
-    /* Border bawah dengan ketebalan 3px */
 }
 
 .kegiatan-mendatang table td:first-child {
@@ -216,22 +202,12 @@ html {
 }
 
 /* Styling untuk kegiatan lalu */
-.kegiatan-container {
-    display: flex;
-    justify-content: center;
-    /* Menjadikan elemen-elemen di dalam container rata tengah */
-    flex-wrap: wrap;
-    padding: 0 15px;
-}
-
 .kegiatan-lalu {
     margin-top: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Membuat konten kegiatan-lalu berada di tengah */
     width: 80%;
-    /* Lebar elemen */
     padding-bottom: 10px;
 }
 
@@ -239,7 +215,7 @@ html {
     width: 300px;
     height: 200px;
     border: 5px solid #2c3311;
-    border-radius: 10px; 
+    border-radius: 10px;
 }
 
 .deskripsi-kegiatan-lalu {
@@ -251,14 +227,12 @@ html {
 
 .kegiatan-lalu .judul-kegiatan-lalu {
     margin-left: 20px;
-    /* Jarak antara gambar dan judul */
     font-size: 20px;
     color: #353C14;
 }
 
 .kegiatan-lalu button {
     margin-left: 20px;
-    /* Jarak antara judul dan button */
     background-color: #353C14;
     color: white;
     border: none;
@@ -270,40 +244,64 @@ html {
     background-color: #2c3311;
 }
 
+/* Responsif untuk tampilan handphone */
 @media (max-width: 768px) {
 
     /* Kategori Makanan */
     .makanan {
         width: 45%;
-        /* Mengubah ukuran menjadi lebih kecil agar muat 2 elemen per baris */
         margin: 10px;
     }
 
     .makanan img {
-        width: 100%;
-        /* Menyesuaikan ukuran gambar dengan lebar elemen */
-        height: auto;
-        /* Agar gambar tetap proporsional */
+        width: 90%;
+        height: 200px;
+        object-fit: cover; /* Agar gambar menyesuaikan ukuran tanpa distorsi */
     }
 
     /* Kategori Wisata */
     .wisata {
         width: 45%;
-        /* Mengubah ukuran menjadi lebih kecil agar muat 2 elemen per baris */
         margin: 10px;
     }
 
     .wisata img {
-        width: 100%;
-        /* Menyesuaikan ukuran gambar dengan lebar elemen */
-        height: auto;
-        /* Agar gambar tetap proporsional */
+        width: 90%;
+        height: 200px;
+        object-fit: cover; /* Agar gambar menyesuaikan ukuran tanpa distorsi */
     }
 
-    .kegiatan {
+    /* Kegiatan Mendatang */
+    .kegiatan-mendatang {
+        width: 90%;
+    }
+
+    /* Kegiatan Lalu */
+    .kegiatan-lalu {
         width: 100%;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .kegiatan-lalu img {
+        width: 80%;
         height: auto;
     }
 
-   
+    .deskripsi-kegiatan-lalu {
+        margin-left: 0;
+        font-size: 14px;
+    }
+
+    .judul-kegiatan-lalu {
+        margin-left: 0;
+        font-size: 18px;
+    }
+
+    .kegiatan-lalu button {
+        margin-top: 10px;
+        padding: 8px 15px;
+        font-size: 14px;
+    }
 }
+

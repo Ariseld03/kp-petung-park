@@ -80,21 +80,19 @@ html {
 }
 /* Styling untuk tombol Kembali */
 .btn-kembali {
-    padding: 10px 20px;
-    background-color: #E2DD6C;
-    font-weight: bold;
-    color: #295A3F;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    position: fixed; /* Posisi tombol absolut relatif terhadap kategori-makanan */
-    top: 70px; /* Posisi tombol di 20px dari atas container */
-    left: 20px; /* Posisi tombol di 20px dari kiri container */
-    z-index: 100; /* Memastikan tombol berada di atas elemen lain */
+    background-color: #E2DD6C; /* Warna latar belakang tombol */
+    color: #295A3F; /* Warna teks tombol */
+    padding: 10px 15px; /* Padding di dalam tombol */
+    text-decoration: none; /* Menghilangkan garis bawah pada link */
+    border: 0px;
+    display: inline-block; /* Menyusun tombol dalam satu baris */
+    margin-bottom: 20px; /* Jarak bawah untuk memisahkan dari elemen di bawahnya */
+    position: absolute; /* Menggunakan posisi absolut untuk menempatkan tombol */
+    left: 20px; /* Jarak dari kiri */
+    top: 70px; /* Jarak dari atas */
+    font-weight: bold; /* Menebalkan teks tombol */
+    transition: background-color 0.3s; /* Efek transisi saat hover */
 }
-
 /* Hover effect untuk tombol Kembali */
 .btn-kembali:hover {
     background-color: #E2DD6C;
@@ -111,11 +109,17 @@ html {
         margin: 10px;
     }
 
+    .kategori-header{
+        padding-top: 10%;
+    }
     .makanan img {
-        width: 100%;
-        /* Menyesuaikan ukuran gambar dengan lebar elemen */
-        height: auto;
-        /* Agar gambar tetap proporsional */
+        width: 200px;
+        height: 200px;
+
     }
     
+    .btn-kembali {
+        top: 70px; /* Mengatur posisi tombol untuk handphone */
+        left: 10px; /* Mengatur posisi tombol untuk handphone */
+}
 }

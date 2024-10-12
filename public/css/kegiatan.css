@@ -100,4 +100,38 @@ html {
 .btn-kembali:hover {
     color: #000000; /* Warna teks saat hover */
 }
+/* Responsif untuk tampilan handphone */
+@media (max-width: 768px) {
+    .kegiatan-detail h2 {
+        font-size: 24px; /* Ukuran font untuk judul kegiatan di handphone */
+        padding-top: 30%; /* Mengurangi padding atas untuk tampilan handphone */
+    }
+
+    .kegiatan-info {
+        padding-bottom: 10px; /* Mengurangi padding bawah di handphone */
+        max-width: 90%; /* Memperbesar lebar maksimum di handphone */
+    }
+
+    .artikel h3 {
+        font-size: 28px; /* Ukuran font untuk h3 di handphone */
+    }
+
+    .artikel p {
+        width: 90%; /* Memperbesar lebar maksimum untuk teks di handphone */
+    }
+
+    .gallery-item {
+        flex: 1 0 45%; /* Mengubah ukuran galeri item agar lebih lebar di handphone */
+        max-width: 90%; /* Memperbesar lebar maksimum untuk galeri-item di handphone */
+    }
+
+    .gallery-img {
+        height: 150px; /* Mengurangi tinggi gambar di handphone */
+    }
+
+    .btn-kembali {
+        top: 70px; /* Mengatur posisi tombol untuk handphone */
+        left: 10px; /* Mengatur posisi tombol untuk handphone */
+    }
+}
 

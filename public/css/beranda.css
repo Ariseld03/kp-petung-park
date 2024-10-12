@@ -256,23 +256,70 @@ footer {
     background-color: #A1D0B3;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
+    /* Slider styles */
+    .slider-container {
+        height: 50vh; 
+    }
+
+    .slide {
+        height: 50vh; 
+    }
+
+    .slide h1 {
+        font-size: 8vw; 
+    }
+
+    .slide p {
+        font-size: 16px; 
+    }
+
+    /* Title section */
+    .title-section {
+        height: 50vh; 
+        padding: 5%;
+    }
+
+    .title-beranda {
+        font-size: 24px; 
+    }
+
+    .con-video {
+        width: 100%; 
+        height: auto;
+    }
+
+    /* Konten teks */
+    .desc-beranda, .desc-lokasi, .description {
+        font-size: 14px;
+    }
+
+    .title {
+        font-size: 12vw; 
+    }
+
+    .title-konten {
+        font-size: 20px;
+    }
+
+    /*Google Map*/
+    .img-lokasi {
+        width: 100%; 
+        height: 250px; 
+        padding-bottom: 10px; 
+    }
+
+    /* Image frame */
     .frame-image {
-        width: 100%;
-        max-width: 250px;
-        margin: 0 auto;
+        align-items: center;
+        height: auto; 
+        width: 250px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .col-md-3 {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
+    .galeri-image {
+        max-height: 150px; 
+        max-width: 200px;
     }
 }
