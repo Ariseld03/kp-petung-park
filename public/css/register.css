@@ -1,17 +1,15 @@
 body {
+    padding-top: 80px;
     height: 100vh;
     background-image: url('/images/login/bambu.jpg'); /* Gambar latar belakang */
     background-size: cover; /* Memastikan gambar menutupi seluruh latar belakang */
     background-position: center; /* Memusatkan gambar */
     font-family: Arial, sans-serif;
+    background-repeat: no-repeat; /* Mencegah gambar mengulang */
+    background-attachment: fixed; /* Memastikan latar belakang tetap saat menggulir */
+    font-family: Arial, sans-serif;
     margin: 0; /* Pastikan tidak ada margin pada body */
-}
-
-.container-fluid {
-    height: 100%; /* Menjamin kontainer mengisi tinggi penuh */
-    display: flex;
-    align-items: center; /* Memusatkan secara vertikal */
-    justify-content: center; /* Memusatkan secara horizontal */
+    position: relative; /* Mengatur posisi relative untuk kontainer overlay */
 }
 
 .login-container {
@@ -27,14 +25,14 @@ body {
 }
 
 .login-title {
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bold;
     color: #295A3F;
     margin-bottom: 40px;
 }
 
 .inputRegister input {
-    font-size: 32px;
+    font-size: 20px;
     margin-bottom: 10px;
     border: 6px solid #295A3F;
     border-radius: 10px;
@@ -48,7 +46,7 @@ body {
 }
 
 .inputRegister button {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bold;
     color: white;
     background-color: #295A3F;
@@ -97,17 +95,18 @@ body {
     }
 
     .login-title {
-        font-size: 40px;
+        font-size: 30px;
+        margin: auto;
     }
 
     .inputRegister input,
     .inputRegister button {
-        font-size: 24px;
+        font-size: 20px;
         width: 100%; /* Memastikan elemen mengisi lebar kontainer pada perangkat kecil */
     }
 
     .signup-container p,
     .signup-container button {
-        font-size: 18px;
+        font-size: 15px;
     }
 }

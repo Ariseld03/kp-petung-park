@@ -3,6 +3,8 @@ body {
     background-image: url('/images/login/bambu.jpg'); /* Gambar latar belakang */
     background-size: cover; /* Memastikan gambar menutupi seluruh latar belakang */
     background-position: center; /* Memusatkan gambar */
+    background-repeat: no-repeat; /* Mencegah gambar mengulang */
+    background-attachment: fixed; /* Memastikan latar belakang tetap saat menggulir */
     font-family: Arial, sans-serif;
     margin: 0; /* Pastikan tidak ada margin pada body */
     position: relative; /* Mengatur posisi relative untuk kontainer overlay */
@@ -27,15 +29,41 @@ body {
     text-align: center; /* Memastikan teks di dalamnya berada di tengah */
 }
 
+.form-group {
+    padding-bottom: 15px;
+    font-size: 20px;
+}
+
+.custom-checkbox {
+    width: 20px !important;
+    height: 20px !important;
+    border: 2px solid #295A3F !important;
+    appearance: none !important;
+    background-color: white !important;
+    display: inline-block !important;
+}
+
+.form-check-input {
+    margin: 0; /* Remove any default margin */
+    display: flex;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+}
+
+.form-check-label {
+    margin-bottom: 0; /* Remove any default margin */
+    line-height: 1; /* Align label vertically with the checkbox */
+}
+
 .login-title {
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bold;
     color: #295A3F;
     margin-bottom: 40px;
 }
 
 .inputLogin input {
-    font-size: 32px;
+    font-size: 20px;
     border: 6px solid #295A3F;
     border-radius: 10px;
     color: #295A3F;
@@ -48,14 +76,14 @@ body {
 }
 
 .inputLogin button {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bold;
     color: white;
     background-color: #295A3F;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    width: 100%; /* Memastikan tombol mengisi lebar kontainer */
+    width: 100%; 
 }
 
 .inputLogin button:hover {
@@ -67,11 +95,11 @@ body {
     display: flex;
     flex-direction: column; /* Mengatur elemen dalam kolom untuk memusatkan */
     align-items: center;
-    margin-top: 20px; /* Memisahkan dari form login */
+    margin-top: 5px; /* Memisahkan dari form login */
 }
 
 .signup-container p {
-    font-size: 24px;
+    font-size: 20px;
     color: black;
     margin: 0; /* Menghapus margin default */
 }
@@ -90,11 +118,6 @@ body {
     color: #1e4633;
 }
 
-.form-group {
-    padding-bottom: 15px;
-    font-size: 27px;
-}
-
 /* Media Queries for mobile responsiveness */
 @media (max-width: 768px) {
     .login-container {
@@ -102,17 +125,18 @@ body {
     }
 
     .login-title {
-        font-size: 40px;
+        font-size: 30px;
+        margin: auto;
     }
 
     .inputLogin input,
     .inputLogin button {
-        font-size: 24px;
+        font-size: 20px;
         width: 100%; /* Memastikan elemen mengisi lebar kontainer pada perangkat kecil */
     }
 
     .signup-container p,
     .signup-container button {
-        font-size: 18px;
+        font-size: 15px;
     }
 }

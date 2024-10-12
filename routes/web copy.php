@@ -24,14 +24,11 @@ use App\Http\Controllers\TravelController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Auth::routes();
+
 Route::get('/', function () {
-    return view('login');
+    return redirect()->route('beranda');
+    // return view('register');
 });
-// Route::get('/', function () {
-//     return redirect()->route('beranda');
-//     // return view('register');
-// });
 
 Route::get('/login', function () {
     return view('login');
@@ -78,6 +75,3 @@ Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gal
 //Agenda 
 // Route::resource('agendas', AgendaController::class);
 // Route::post('agendas/json', [AgendaController::class, 'storeJson'])->name('agendas.store.json');
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

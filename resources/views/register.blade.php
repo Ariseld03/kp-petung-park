@@ -1,3 +1,4 @@
+@extends('layouts.app')
 @extends('layouts.loginRegis')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('/css/register.css') }}">

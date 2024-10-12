@@ -19,7 +19,7 @@
 
 <body>
     <!-- Header -->
-    @include('layouts.navbar')
+    @include('layouts.app')
     @yield('container-main')
     <!-- Footer -->
     @include('layouts.footer')

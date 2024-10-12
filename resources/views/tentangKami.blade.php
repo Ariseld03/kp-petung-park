@@ -4,7 +4,7 @@
 @endsection
 @section('container-main')
     <!-- Info1 -->
-    <div class="info1 mt-5">
+    <div class="info1">
         <div class="text-info1 mt-4">
             <h2>Sejarah</h2>
             <p>Petung Park, terletak di Desa Belik yang memiliki arti "mata air kecil," memanfaatkan potensi alam desa yang kaya akan sumber mata air alami. 
