@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Menambahkan Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('css/staffShow.css') }}"> <!-- Menghubungkan file CSS -->
-    <title>Tabel Staff</title>
+    <link rel="stylesheet" href="{{ asset('css/galeri.css') }}"> <!-- Menghubungkan file CSS -->
+    <title>Galeri</title>
 </head>
 <body>
     <!-- Header Admin -->
@@ -28,19 +28,16 @@
     </header>
 
     <div class="container mt-5">
-        <h1 class="text-center" style="color: #557C56;">Tabel Staff</h1>
-        <a href="{{ url('/staffAdd') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Staff</a>
+        <h1 class="text-center" style="color: #557C56;">Galeri</h1>
+        <a href="{{ url('/galeriAdd') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Foto</a>
         <table class="table table-bordered">
             <thead class="thead-dark" style="background-color: #557C56; color: #FFFBE6;">
                 <tr>
-                    <th>Email</th>
                     <th>Nama</th>
-                    <th>Password</th>
-                    <th>Tanggal Lahir</th>
-                    <th>Nomor Telepon</th>
-                    <th>Posisi</th>
-                    <th>Jenis Kelamin</th>
+                    <th>Foto</th>
+                    <th>Deskripsi</th>
                     <th>Status</th>
+                    <th>Banyak Like</th>
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Diubah</th>
                     <th>Perbarui</th>
@@ -48,34 +45,21 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Contoh data galeri, dapat diulang sesuai kebutuhan -->
                 <tr>
-                    <td>staff1@example.com</td>
-                    <td>Staff Satu</td>
-                    <td>password1</td>
-                    <td>1990-01-01</td>
-                    <td>081234567890</td>
-                    <td>Admin</td>
-                    <td>Pria</td>
+                    <td>Contoh Galeri 1</td>
+                    <td><img src="link_foto1.jpg" alt="Foto Galeri 1" style="max-width: 100px;"></td>
+                    <td>Deskripsi singkat tentang Galeri 1</td>
                     <td>Aktif</td>
+                    <td>120</td>
                     <td>2023-01-01</td>
                     <td>2023-10-01</td>
-                    <td><a href="{{ url('/staffUpdate') }}" class="btn btn-primary">Perbarui</a></td>
-                    <td><a href="{{ url('/staffDelete') }}" class="btn btn-danger">Hapus</a></td>
+                    <td>
+                        <a href="{{ url('/galeriUpdate') }}" class="btn btn-primary">Perbarui</a>
+                    </td>
+                    <td><a href="{{ url('/galeriDelete') }}" class="btn btn-danger">Hapus</a></td>
                 </tr>
-                <tr>
-                    <td>staff2@example.com</td>
-                    <td>Staff Dua</td>
-                    <td>password2</td>
-                    <td>1992-02-02</td>
-                    <td>082345678901</td>
-                    <td>Staff</td>
-                    <td>Wanita</td>
-                    <td>Non-Aktif</td>
-                    <td>2023-02-01</td>
-                    <td>2023-10-02</td>
-                    <td><a href="{{ url('/staffUpdate') }}" class="btn btn-primary">Perbarui</a></td>
-                    <td><a href="{{ url('/staffDelete') }}" class="btn btn-danger">Hapus</a></td>
-                </tr>
+                <!-- Tambahkan lebih banyak baris sesuai data galeri -->
             </tbody>
         </table>
     </div>

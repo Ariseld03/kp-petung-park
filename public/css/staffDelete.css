@@ -1,58 +1,11 @@
 body {
-    font-family: Arial, sans-serif;
     background-color: #FFFBE6;
     margin: 0;
     padding: 20px;
 }
 
-.container {
-    max-width: 400px; /* Ukuran lebih kecil untuk halaman konfirmasi */
-    margin: 0 auto;
-    background: FFFBE6;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 h1 {
-    text-align: center;
     color: #557C56;
 }
 
-.staff-details {
-    margin: 20px 0; /* Memberi jarak di atas dan bawah */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: #f9f9f9; /* Latar belakang yang berbeda untuk detail */
-}
-
-/* Style for button */
-    .btn-kembali {
-    background-color: gray;
-    color: white;
-    padding: 10px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    }
-
-    .btn-hapus {
-    background-color: red;
-    color: white;
-    padding: 10px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    }
-
-    /* Optional: Hover effect */
-    .btn-kembali:hover {
-        background-color: darkgray;
-    }
-
-    .btn-hapus:hover {
-        background-color: darkred;
-    }
+/* Optional: Bisa menambahkan kustomisasi di sini jika perlu */

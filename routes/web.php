@@ -98,3 +98,33 @@ Route::get('/staffDelete', function () {
 Route::get('/staffAdd', function () {
     return view('staffAdd');
 });
+
+
+Route::get('/galeri', function () {
+    return view('galeri');
+});
+
+Route::get('/galeriUpdate', function () {
+    return view('galeriUpdate');
+});
+
+Route::get('/galeriDelete', function () {
+    return view('galeriDelete');
+});
+
+Route::get('/galeriAdd', function () {
+    return view('galeriAdd');
+});
+
+
+Route::get('/menu', function () {
+    return view('menu');
+});
+
+Route::get('/hidanganUpdate', function () {
+    return view('hidanganUpdate');
+});
+
+Route::get('/hidanganDelete', function () {
+    return view('hidanganDelete');
+});
