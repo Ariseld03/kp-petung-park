@@ -1,0 +1,104 @@
+/* Background untuk seluruh halaman */
+body {
+    background-color: #FFFBE6;
+    font-family: Arial, sans-serif;
+}
+
+/* Container dan styling judul */
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #557C56;
+    text-align: center;
+}
+
+/* Tombol "Tambah Staff" */
+#addRowBtn {
+    background-color: #ffbd09;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#addRowBtn:hover {
+    opacity: 0.9;
+}
+
+/* Tabel Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFBE6;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #557C56;
+}
+
+th {
+    background-color: #557C56; /* Warna latar belakang judul kolom */
+    color: #33372C;            /* Warna teks judul kolom */
+    font-weight: bold;
+}
+
+/* Tombol "Perbarui" dan "Hapus" */
+.update-btn {
+    background-color: #7695FF;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.update-btn:hover {
+    opacity: 0.9;
+}
+
+.delete-btn {
+    background-color: #C7253E;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    opacity: 0.9;
+}
+
+/* Header Navigation */
+header nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    background-color: #557C56;
+    justify-content: center;
+}
+
+header nav ul li {
+    margin: 0;
+}
+
+header nav ul li a {
+    display: block;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header nav ul li a:hover {
+    background-color: #7695FF;
+}

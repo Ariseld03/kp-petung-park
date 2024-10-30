@@ -81,3 +81,20 @@ Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gal
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//-------------------------------------------------------------------------
+Route::get('/staffShow', function () {
+    return view('staffShow');
+});
+
+Route::get('/staffUpdate', function () {
+    return view('staffUpdate');
+});
+
+Route::get('/staffDelete', function () {
+    return view('staffDelete');
+});
+
+Route::get('/staffAdd', function () {
+    return view('staffAdd');
+});
