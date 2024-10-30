@@ -31,8 +31,8 @@ class StaffSeeder extends Seeder
         DB::table('staffs')->insert([
             [
                 'email' => 'Griseldaamelia68@gmail.com',
-                'name' => 'Admin User',
-                'password' => 'hai123', 
+                'name' => 'Amel',
+                'password' => Hash::make('12345678'),
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
                 'position' => 'admin',
@@ -44,8 +44,8 @@ class StaffSeeder extends Seeder
             ],
             [
                 'email' => 'MagdalenaFelicia@gmail.com',
-                'name' => 'Regular User',
-                'password' => 'hai123', 
+                'name' => 'Feli',
+                'password' => Hash::make('12345678'),
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
                 'position' => 'user',
@@ -57,8 +57,8 @@ class StaffSeeder extends Seeder
             ],
             [
                 'email' => 'staff@gmail.com',
-                'name' => 'Staff Member',
-                'password' => 'hai123', 
+                'name' => 'staff',
+                'password' => Hash::make('12345678'),
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
                 'position' => 'staff',
@@ -70,8 +70,8 @@ class StaffSeeder extends Seeder
             ],
             [
                 'email' => 'anotherstaff@gmail.com',
-                'name' => 'Another Staff Member',
-                'password' => 'hai123', 
+                'name' => 'staff',
+                'password' => Hash::make('12345678'), 
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
                 'position' => 'staff',

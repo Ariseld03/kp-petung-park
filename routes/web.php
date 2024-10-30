@@ -13,6 +13,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\SliderHomeController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TravelController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,17 +26,25 @@ use App\Http\Controllers\TravelController;
 |
 */
 Auth::routes();
-Route::get('/', function () {
-    return view('login');
+
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']); // Untuk metode login
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('beranda');
+    });
 });
+
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']); // Untuk metode register
+
+
 // Route::get('/', function () {
 //     return redirect()->route('beranda');
 //     // return view('register');
 // });
 
-Route::get('/login', function () {
-    return view('login');
-});
 Route::get('/register', function () {
     return view('register');
 });
@@ -48,8 +57,6 @@ Route::get('/kategori', function () {
     return view('kategori');
 });
 Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
-
-Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
 
 Route::get('/hidangan', function () {
     return view('hidangan');
@@ -67,7 +74,8 @@ Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan'
 Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
 Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
 
-Route::post('/gallery/{gallery}/like', [GalleryController::class, 'like'])->name('gallery.like');
+// Route::post('/gallery/{gallery}/like', [GalleryController::class, 'like'])->name('gallery.like');
+Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
 
 Route::get('/kegiatan/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('kegiatan.mendatang');
 Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');

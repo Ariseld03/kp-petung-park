@@ -30,8 +30,15 @@ body {
 }
 
 .form-group {
-    padding-bottom: 15px;
+    padding-bottom: 5px; /* Mengurangi padding bawah */
+    margin-bottom: 0; /* Pastikan tidak ada margin bawah */
     font-size: 20px;
+}
+
+.invalid-feedback {
+    margin-top: 1px; /* Mengatur jarak atas untuk pesan error */
+    margin-bottom: 0; /* Mengatur jarak bawah ke 0 */
+    font-size: 14px; /* Ukuran font pesan error */
 }
 
 .custom-checkbox {
@@ -41,6 +48,20 @@ body {
     appearance: none !important;
     background-color: white !important;
     display: inline-block !important;
+}
+
+.custom-checkbox:checked {
+    background-color: #295A3F !important; /* Ganti warna saat checkbox di-check */
+    border-color: #295A3F !important;
+}
+
+/* Ikon centang atau simbol untuk status "checked" */
+.custom-checkbox:checked::before {
+    color: white;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .form-check-input {
