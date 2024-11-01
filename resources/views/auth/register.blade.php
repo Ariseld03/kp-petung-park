@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @extends('layouts.loginRegis')
+
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('/css/register.css') }}">
 @endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -59,6 +61,63 @@
 
                             <div class="col-md-8">
                                 <input id="password-confirm" type="password" class="form-control" placeholder="Konfirmasi Kata Sandi" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="dob" class="col-md-4 col-form-label text-md-end">Tanggal Lahir</label>
+
+                            <div class="col-md-8">
+                                <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror" value="2000-01-01" placeholder="Masukkan Tanggal Lahir" name="dob" required autocomplete="dob">
+
+                                @error('dob')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="gender" class="col-md-4 col-form-label text-md-end">Gender</label>
+                            <div class="col-md-8">
+                                <select id="gender" name="gender" class="gender-select">
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                                @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="phone" class="col-md-4 col-form-label text-md-end">Nomor Telepon</label>
+
+                            <div class="col-md-8">
+                                <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" placeholder="081234567890" pattern="[0-9]{10,15}" name="phone" required autocomplete="phone">
+
+                                @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="photo" class="col-md-4 col-form-label text-md-end">Unggah Foto</label>
+
+                            <div class="col-md-8">
+                                <input id="photo" type="file" class="form-control @error('file') is-invalid @enderror" accept=".jpg, .jpeg, .png" name="photo" required autocomplete="photo">
+
+                                @error('file')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 

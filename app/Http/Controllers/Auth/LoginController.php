@@ -39,7 +39,6 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:8',
         ]);
-
         // Cek apakah email ada di database
         $user = \App\Models\Staff::where('email', $request->email)->first();
         if (!$user) {
@@ -48,7 +47,6 @@ class LoginController extends Controller
                 'email' => 'Email tidak ditemukan dalam sistem kami.'
             ])->withInput();
         }
-
         // Autentikasi pengguna dengan email dan password
         if (!Auth::attempt($request->only('email', 'password'))) {
             // Jika password salah
@@ -56,12 +54,11 @@ class LoginController extends Controller
                 'password' => 'Password yang Anda masukkan salah.'
             ])->withInput();
         }
-
+        
         // Jika autentikasi berhasil, simpan data pengguna di session
         $user = Auth::user();
         session(['user_role' => $user->position]); // Menyimpan role pengguna
         session(['user_name' => $user->name]); // Menyimpan nama pengguna
-
         // Redirect ke halaman yang dituju
         return redirect()->intended($this->redirectTo);
     }

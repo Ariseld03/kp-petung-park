@@ -31,8 +31,8 @@ body {
     margin-bottom: 40px;
 }
 
-.inputRegister input {
-    font-size: 20px;
+.inputRegister input,.gender-select {
+    font-size: 15px;
     margin-bottom: 10px;
     border: 6px solid #295A3F;
     border-radius: 10px;
@@ -60,12 +60,18 @@ body {
     background-color: #1e4633;
 }
 
+.inputRegister label{
+    display: flex;
+    flex-direction: column;  
+    justify-content: center;  
+}
+
 .signup-container {
     display: flex;
     padding-top: 10px;
     flex-direction: column; /* Mengatur elemen dalam kolom untuk memusatkan */
     align-items: center;
-    margin-top: 20px; /* Memisahkan dari form login */
+    margin-top: 20px; 
 }
 
 .signup-container p {
@@ -101,7 +107,7 @@ body {
 
     .inputRegister input,
     .inputRegister button {
-        font-size: 20px;
+        font-size: 12px;
         width: 100%; /* Memastikan elemen mengisi lebar kontainer pada perangkat kecil */
     }
 
