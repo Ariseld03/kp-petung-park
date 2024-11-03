@@ -107,3 +107,11 @@ Route::middleware(['auth'])->group(function () {
 // Route::get('/hidanganDelete', function () {
 //     return view('hidanganDelete');
 // });
+
+/*Route::get('/paketUpdate', function () {
+    return view('paketUpdate');
+});
+
+Route::get('/paketDelete', function () {
+    return view('paketDelete');
+});*/

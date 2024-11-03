@@ -55,10 +55,10 @@
                     <td>01-01-2024</td>
                     <td>05-01-2024</td>
                     <td>
-                        <button class="btn btn-primary" onclick="location.href='{{ url('/menuUpdate') }}'">Perbarui</button>
+                        <button class="btn btn-primary" onclick="location.href='{{ url('/paketUpdate') }}'">Perbarui</button>
                     </td>
                     <td>
-                        <button class="btn btn-danger" onclick="location.href='{{ url('/menuDelete') }}'">Hapus</button>
+                        <button class="btn btn-danger" onclick="location.href='{{ url('/paketDelete') }}'">Hapus</button>
                     </td>
                 </tr>
                 <!-- Tambahkan lebih banyak baris sesuai data menu -->
