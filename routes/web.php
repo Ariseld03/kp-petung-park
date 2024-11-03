@@ -104,6 +104,11 @@ Route::middleware(['auth'])->group(function () {
 // Route::get('/hidanganUpdate', function () {
 //     return view('hidanganUpdate');
 // });
+
+//Route::get('/hidanganAdd', function () {
+//    return view('hidanganAdd');
+//});
+
 // Route::get('/hidanganDelete', function () {
 //     return view('hidanganDelete');
 // });
@@ -116,6 +121,10 @@ Route::get('/paketDelete', function () {
     return view('paketDelete');
 });
 
+Route::get('/paketAdd', function () {
+    return view('paketAdd');
+});
+
 Route::get('/wisataStaff', function () {
     return view('wisataStaff');
 });
@@ -126,6 +135,18 @@ Route::get('/wisataUpdate', function () {
 
 Route::get('/wisataDelete', function () {
     return view('wisataDelete');
+});
+
+Route::get('/kegiatan', function () {
+    return view('kegiatan');
+});
+
+Route::get('/kegiatanUpdate', function () {
+    return view('kegiatanUpdate');
+});
+
+Route::get('/kegiatanDelete', function () {
+    return view('kegiatanDelete');
 });
 
 */

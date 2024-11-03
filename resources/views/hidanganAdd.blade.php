@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> <!-- Menghubungkan Bootstrap -->
+    <link rel="stylesheet" href="{{ asset('css/hidanganAdd.css') }}"> <!-- Menghubungkan file CSS -->
+    <title>Tambah Hidangan</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center text-success">Tambah Hidangan</h1>
+        <form action="{{ url('/hidanganStore') }}" method="post" enctype="multipart/form-data">
+            @csrf <!-- Token untuk melindungi dari CSRF -->
+            
+            <div class="form-group">
+                <label for="nama">Nama Hidangan:</label>
+                <input type="text" class="form-control" id="nama" name="nama" required>
+            </div>
+
+            <div class="form-group">
+                <label for="harga">Harga:</label>
+                <input type="number" class="form-control" id="harga" name="harga" required>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select class="form-control" id="status" name="status">
+                    <option value="1">Aktif</option>
+                    <option value="0">Tidak Aktif</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="rekomendasi">Rekomendasi:</label>
+                <select class="form-control" id="rekomendasi" name="rekomendasi">
+                    <option value="1">Ya</option>
+                    <option value="0">Tidak</option>
+                </select>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">Tambahkan</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='{{ url('/menu') }}'">Batal</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
