@@ -114,4 +114,18 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/paketDelete', function () {
     return view('paketDelete');
-});*/
+});
+
+Route::get('/wisataStaff', function () {
+    return view('wisataStaff');
+});
+
+Route::get('/wisataUpdate', function () {
+    return view('wisataUpdate');
+});
+
+Route::get('/wisataDelete', function () {
+    return view('wisataDelete');
+});
+
+*/
