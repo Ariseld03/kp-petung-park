@@ -137,6 +137,11 @@ Route::get('/wisataDelete', function () {
     return view('wisataDelete');
 });
 
+Route::get('/wisataAdd', function () {
+    return view('wisataAdd');
+});
+
+
 Route::get('/kegiatan', function () {
     return view('kegiatan');
 });
@@ -149,4 +154,7 @@ Route::get('/kegiatanDelete', function () {
     return view('kegiatanDelete');
 });
 
+Route::get('/kegiatanAdd', function () {
+    return view('kegiatanAdd');
+});
 */

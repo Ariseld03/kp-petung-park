@@ -1,0 +1,43 @@
+body {
+    background-color: #FFFBE6;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #557C56;
+    text-align: center;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #557C56;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-secondary {
+    background-color: gray;
+    color: white;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: darkgray;
+}
