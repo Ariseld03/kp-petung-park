@@ -49,71 +49,71 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');
 });
 
-// // Registration routes
-// Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register'); // Show registration form
-// Route::post('/register', [RegisterController::class, 'register']); // Handle registration submission
+// Registration routes
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register'); // Show registration form
+Route::post('/register', [RegisterController::class, 'register']); // Handle registration submission
 
-// // Additional routes
-// Route::get('/kategori', function () {
-//     return view('kategori');
-// });
-// Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
+// Additional routes
+Route::get('/kategori', function () {
+    return view('kategori');
+});
+Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
 
-// Route::get('/hidangan', function () {
-//     return view('hidangan');
-// });
-// Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('hidangan');
+Route::get('/hidangan', function () {
+    return view('hidangan');
+});
+Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('hidangan');
 
-// Route::get('/wisata', function () {
-//     return view('wisata');
-// });
-// Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
+Route::get('/wisata', function () {
+    return view('wisata');
+});
+Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
 
-// // Staff management views
-// Route::get('/staffShow', function () {
-//     return view('staffShow');
-// });
-// Route::get('/staffUpdate', function () {
-//     return view('staffUpdate');
-// });
-// Route::get('/staffDelete', function () {
-//     return view('staffDelete');
-// });
-// Route::get('/staffAdd', function () {
-//     return view('staffAdd');
-// });
+// Staff management views
+Route::get('/staffShow', function () {
+    return view('staffShow');
+});
+Route::get('/staffUpdate', function () {
+    return view('staffUpdate');
+});
+Route::get('/staffDelete', function () {
+    return view('staffDelete');
+});
+Route::get('/staffAdd', function () {
+    return view('staffAdd');
+});
 
-// // Gallery management views
-// Route::get('/galeri', function () {
-//     return view('galeri');
-// });
-// Route::get('/galeriUpdate', function () {
-//     return view('galeriUpdate');
-// });
-// Route::get('/galeriDelete', function () {
-//     return view('galeriDelete');
-// });
-// Route::get('/galeriAdd', function () {
-//     return view('galeriAdd');
-// });
+// Gallery management views
+Route::get('/galeri', function () {
+    return view('galeri');
+});
+Route::get('/galeriUpdate', function () {
+    return view('galeriUpdate');
+});
+Route::get('/galeriDelete', function () {
+    return view('galeriDelete');
+});
+Route::get('/galeriAdd', function () {
+    return view('galeriAdd');
+});
 
-// // Menu management views
-// Route::get('/menu', function () {
-//     return view('menu');
-// });
-// Route::get('/hidanganUpdate', function () {
-//     return view('hidanganUpdate');
-// });
+// Menu management views
+Route::get('/menu', function () {
+    return view('menu');
+});
+Route::get('/hidanganUpdate', function () {
+    return view('hidanganUpdate');
+});
 
-//Route::get('/hidanganAdd', function () {
-//    return view('hidanganAdd');
-//});
+Route::get('/hidanganAdd', function () {
+   return view('hidanganAdd');
+});
 
-// Route::get('/hidanganDelete', function () {
-//     return view('hidanganDelete');
-// });
+Route::get('/hidanganDelete', function () {
+    return view('hidanganDelete');
+});
 
-/*Route::get('/paketUpdate', function () {
+Route::get('/paketUpdate', function () {
     return view('paketUpdate');
 });
 
@@ -124,6 +124,8 @@ Route::get('/paketDelete', function () {
 Route::get('/paketAdd', function () {
     return view('paketAdd');
 });
+
+
 
 Route::get('/wisataStaff', function () {
     return view('wisataStaff');
@@ -142,6 +144,7 @@ Route::get('/wisataAdd', function () {
 });
 
 
+
 Route::get('/kegiatan', function () {
     return view('kegiatan');
 });
@@ -157,4 +160,3 @@ Route::get('/kegiatanDelete', function () {
 Route::get('/kegiatanAdd', function () {
     return view('kegiatanAdd');
 });
-*/
