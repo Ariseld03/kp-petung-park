@@ -30,10 +30,12 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('staff')->only('logout');
         $this->middleware('auth')->only('logout');
     }
     public function login(Request $request)
-    {   
+    {     
+        //$request->headers->set('Accept', 'application/json');
         // Validasi input
         $request->validate([
             'email' => 'required|email',
@@ -54,13 +56,13 @@ class LoginController extends Controller
                 'password' => 'Password yang Anda masukkan salah.'
             ])->withInput();
         }
-        
+        // dd($request);
         // Jika autentikasi berhasil, simpan data pengguna di session
         $user = Auth::user();
         session(['user_role' => $user->position]); // Menyimpan role pengguna
         session(['user_name' => $user->name]); // Menyimpan nama pengguna
         // Redirect ke halaman yang dituju
-        return redirect()->intended($this->redirectTo);
+        return redirect($request)->intended($this->redirectTo);
     }
 
     public function showLoginForm()

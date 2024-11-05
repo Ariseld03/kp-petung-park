@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class StaffMiddleware
 {
@@ -15,9 +16,9 @@ class StaffMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->staff()->role=="admin") { 
+        if(Auth::check()){
             return $next($request);
         }
-        return redirect()->route('login'); 
+        abort(401); 
     }
 }
