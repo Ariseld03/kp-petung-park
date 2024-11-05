@@ -107,20 +107,6 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="photo" class="col-md-4 col-form-label text-md-end">Unggah Foto</label>
-
-                            <div class="col-md-8">
-                                <input id="photo" type="file" class="form-control @error('file') is-invalid @enderror" accept=".jpg, .jpeg, .png" name="photo" required autocomplete="photo">
-
-                                @error('file')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
                         <div class="signup-container d-flex align-items-center mt-4">
                         <p class="mb-0" style="font-size: 18px;">Sudah memiliki akun?</p>
                         <a class="btn btn-link p-0 ml-2 mb-3" style="color: #295A3F; font-size: 20px;" onclick="window.location.href='{{ route('login') }}'">{{ __('Masuk') }}</a>
