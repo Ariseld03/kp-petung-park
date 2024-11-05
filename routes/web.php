@@ -49,6 +49,20 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');
 });
 
+
+// Navbar routes
+    Route::view('/layanan', 'layanan'); 
+    Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
+    Route::view('/tentangKami', 'tentangKami');
+
+    // Gallery routes
+    Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
+
+    // Agenda routes
+    Route::get('/kegiatan/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('kegiatan.mendatang');
+    Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');
+
+
 // Registration routes
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register'); // Show registration form
 Route::post('/register', [RegisterController::class, 'register']); // Handle registration submission
