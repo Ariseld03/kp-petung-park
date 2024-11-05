@@ -123,12 +123,12 @@
 
                         <div class="signup-container d-flex align-items-center mt-4">
                         <p class="mb-0" style="font-size: 18px;">Sudah memiliki akun?</p>
-                        <a class="btn btn-link p-0 ml-2 mb-3" style="color: #295A3F; font-size: 18px;" onclick="window.location.href='{{ route('login') }}'">{{ __('Login') }}</a>
+                        <a class="btn btn-link p-0 ml-2 mb-3" style="color: #295A3F; font-size: 20px;" onclick="window.location.href='{{ route('login') }}'">{{ __('Masuk') }}</a>
                     </div>
                         <div class="row mb-2">
                             <div class="col-md-6 offset-md-3">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Daftar') }}
                                 </button>
                             </div>
                         </div>

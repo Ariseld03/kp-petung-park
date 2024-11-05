@@ -16,7 +16,7 @@
                     <form class="inputLogin" method="POST" action="{{ route('login') }}"> 
                         @csrf 
                         <div class="form-group row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Alamat Email') }}</label>
                             <div class="col-md-8">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                             </div>
@@ -30,7 +30,7 @@
                         @enderror
 
                         <div class="form-group row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Kata Sandi') }}</label>
                             <div class="col-md-8">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan Kata Sandi" name="password" required autocomplete="current-password">
                             </div>
@@ -43,29 +43,31 @@
                             </div>
                         @enderror
 
+                        <!-- "Remember Me" dan "Forgot Your Password?" -->
                         <div class="form-group col-md-6 offset-md-3 d-flex align-items-center">
                             <input class="form-check-input custom-checkbox" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label class="form-check-label ms-2 mb-0 d-flex align-items-center" style="font-size: 14px;" for="remember">
-                                {{ __('Remember Me') }}
+                                {{ __('Ingat Saya') }}
                             </label>
-                        </div>
-                        <div class="col-md-8 offset-md-2">
-                            <button type="submit" class="btn btn-block">
-                                {{ __('Login') }}
-                            </button>
-
                             @if (Route::has('password.request'))
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
+                                <a class="forgot-password-link" href="{{ route('password.request') }}">
+                                    {{ __('Lupa kata sandi?') }}
                                 </a>
                             @endif
                         </div>
-                    </form>
+
+                        <!-- Button Login -->
+                        <div class="col-md-8 offset-md-2">
+                            <button type="submit" class="btn btn-block">
+                                {{ __('Masuk') }}
+                            </button>
+                        </div>
 
                     <!-- Signup Section -->
                     <div class="signup-container">
-                        <button type="button" class="btn p-0 ml-2" onclick="window.location.href='{{ route('register') }}'">{{ __('Register') }}</button>
-                    </div>
+                        <p class="text-regis">Belum memiliki akun ?</p>
+                        <button type="button" class="btn p-0 ml-2" onclick="window.location.href='{{ route('register') }}'">{{ __('Daftar') }}</button>
+                    </div>                    
                 </div>
             </div>
         </div>

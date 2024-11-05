@@ -22,6 +22,7 @@
         @endforelse
     </div>
 </div>
+
 <!-- Kategori Wisata -->
 <div class="kategori-wisata">
     <h2>Wisata</h2>
