@@ -14,6 +14,7 @@ use App\Http\Controllers\SliderHomeController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TravelController;
 use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,23 +31,14 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+Route::get('/register', [RegisterController::class, 'register'])->name('register');
+Route::get('/login', [LoginController::class, 'login'])->name('login');
 
-Route::middleware(["auth"])->group(function () {
+Route::post('/login', [LoginController::class, 'login_process'])->name('login_process');
+Route::post('/register', [RegisterController::class, 'register_process'])->name('register_process');
+
+Route::middleware(['auth'])->group(function () {
     Route::get('/beranda', [GalleryShowController::class, 'index'])->name('beranda');
-    
-    // // Navbar routes
-    // Route::view('/layanan', 'layanan'); 
-    // Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
-    // Route::view('/tentangKami', 'tentangKami');
-
-    // // Gallery routes
-    // Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
-
-    // // Agenda routes
-    // Route::get('/kegiatan/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('kegiatan.mendatang');
-    // Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');
 });
 
 

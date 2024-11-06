@@ -3,7 +3,7 @@
 
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('/css/login.css') }}">
-@endsection
+    @endsection
 
 @section('container-main')
     <div class="container-fluid h-100">
@@ -13,7 +13,7 @@
                 <div class="login-container">
                     <div class="login-title">Masuk</div>
 
-                    <form class="inputLogin" method="POST" action="{{ route('login') }}"> 
+                    <form id="login-form" class="inputLogin" method="POST" action="{{ route('login_process') }}"> 
                         @csrf 
                         <div class="form-group row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Alamat Email') }}</label>
@@ -73,3 +73,38 @@
         </div>
     </div>
 @endsection
+<script>
+    $(document).ready(function() {
+        $('#login-form').submit(function(e) {
+            e.preventDefault();
+            var email = $('#email').val();
+            var password = $('#password').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/login-process',
+                data: {
+                    email: email,
+                    password: password,
+                    '_token': '{{ csrf_token() }}',
+                    'expectsJson': true
+                },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                dataType: 'json',
+                success: function(response) {
+                    // Handle the response
+                    console.log(response);
+                    if (response.success) {
+                        window.location.href = "{{ route('beranda') }}";
+                    } else {
+                        alert(response.message);
+                    }
+                }
+            });
+        });
+    });
+</script>
+

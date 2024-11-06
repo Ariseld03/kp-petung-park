@@ -61,7 +61,7 @@ class RegisterController extends Controller
     }
 
     // Menambahkan metode register
-    public function register(Request $request)
+    public function register_process(Request $request)
     {
         // Validasi input
         $this->validator($request->all())->validate();
@@ -74,5 +74,23 @@ class RegisterController extends Controller
 
         // Redirect setelah registrasi berhasil
         return redirect($this->redirectTo);
+    }
+    public function register()
+    {
+        return view('auth.register');
+    }
+    public function logout(Request $request)
+    {
+        // Logout the user
+        Auth::logout();
+
+        // Invalidate the session to clear session data
+        $request->session()->invalidate();
+
+        // Regenerate the CSRF token to prevent CSRF attacks
+        $request->session()->regenerateToken();
+
+        // Redirect to the login page with a logout success message
+        return redirect()->route('register')->with('success', 'You have successfully logged out.');
     }
 }
