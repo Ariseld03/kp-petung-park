@@ -3,19 +3,41 @@
     <link rel="stylesheet" href="{{ asset('/css/layanan.css') }}">
 @endsection
 @section('container-main')
+
+<!-- Kategori Paket -->
+<div class="kategori-wisata">
+    <h2>Paket Menu</h2>
+
+    <div name="paket-menu" class="wisata-container">
+        @forelse($paket as $perpaket)
+            <div class="wisata">
+                    @php
+                        $photo = $perpaket->menus->isNotEmpty() ? $perpaket->menus->first()->gallery->photo_link : '/images/footer/logoPetungPark.png';
+                    @endphp
+                <img src="{{ asset($photo) }}" alt="Foto {{ $perpaket->name }}">
+                <p class="judul-wisata">{{ $perpaket->name }}</p>
+                <button onclick="window.location.href='{{ url('paket/'.$perpaket->id) }}'">Baca Lebih Banyak</button>
+            </div>
+        @empty
+            <p>Tidak ada menu paket yang tersedia saat ini.</p>
+        @endforelse
+    </div>
+</div>
+
+
 <!-- Kategori Makanan -->
 <div class="kategori-makanan">
     <h2>Kategori Kuliner</h2>
 
     <div class="makanan-container">
-        @forelse($kategori as $kategoris)
+        @forelse($kategori as $perkategori)
             <div class="makanan">
                     @php
-                    $fotoMakanan = $kategoris->menus->isNotEmpty() ? $kategoris->menus->first()->gallery->photo_link : "/images/footer/logoPetungPark.png";
+                    $fotoMakanan = $perkategori->menus->isNotEmpty() ? $perkategori->menus->first()->gallery->photo_link : "/images/footer/logoPetungPark.png";
                     @endphp
-                <img src="{{ asset($fotoMakanan) }}" alt="Foto {{$kategoris->name }}">
-                <p class="judul-makanan">{{$kategoris->name }}</p>
-                <button onclick="window.location.href='{{ route('kategori.makanan', $kategoris->id) }}'">Lihat Kategori</button>
+                <img src="{{ asset($fotoMakanan) }}" alt="Foto {{$perkategori->name }}">
+                <p class="judul-makanan">{{$perkategori->name }}</p>
+                <button onclick="window.location.href='{{ route('kategori.makanan', $perkategori->id) }}'">Lihat Kategori</button>
             </div>
         @empty
             <p>Tidak ada menu yang tersedia saat ini.</p>
@@ -28,14 +50,14 @@
     <h2>Wisata</h2>
 
     <div class="wisata-container">
-        @forelse($travels as $travel)
+        @forelse($wisata as $spot)
             <div class="wisata">
                     @php
-                        $photo = $travel->galleries->isNotEmpty() ? $travel->galleries->first()->photo_link : '/images/footer/logoPetungPark.png';
+                        $photo = $spot->galleries->isNotEmpty() ? $spot->galleries->first()->photo_link : '/images/footer/logoPetungPark.png';
                     @endphp
-                <img src="{{ asset($photo) }}" alt="Foto {{ $travel->name }}">
-                <p class="judul-wisata">{{ $travel->name }}</p>
-                <button onclick="window.location.href='{{ url('wisata/'.$travel->id) }}'">Baca Lebih Banyak</button>
+                <img src="{{ asset($photo) }}" alt="Foto {{ $spot->name }}">
+                <p class="judul-wisata">{{ $spot->name }}</p>
+                <button onclick="window.location.href='{{ url('wisata/'.$spot->id) }}'">Baca Lebih Banyak</button>
             </div>
         @empty
             <p>Tidak ada wisata yang tersedia saat ini.</p>

@@ -165,7 +165,7 @@ class ArticleController extends Controller
     }
     public function destroyArticleGallery(Article $article)
     {
-        DB::table('article_gallery')->where('article_id', $article->id)->update(['status' => 0]);
+        Article::findOrFail($article->id)->update(['status' => 0]);
         return redirect()->route('articles.index')->with('Berhasil', 'Foto di Artikel berhasil dihapus!');
     }
 }

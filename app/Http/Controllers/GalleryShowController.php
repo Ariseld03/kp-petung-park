@@ -12,7 +12,7 @@ class GalleryShowController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function showAllPengguna()
     {
         // Mengambil data galleries_show dengan status 1 dan data tambahan dari galleries
         $galleryShows = GalleryShow::where('status', 1)->get();
@@ -21,7 +21,7 @@ class GalleryShowController extends Controller
         return view('beranda', compact('galleryShows','sliderHomes'));
     }
     
-    public function indexAdmin()
+    public function index()
     {
         // Mengambil data galleries_show dengan status 1 dan data tambahan dari galleries
         $galleryShows = GalleryShow::all();

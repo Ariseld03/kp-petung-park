@@ -34,18 +34,17 @@ class GalleryController extends Controller
             'status' => 'required|integer',
             'photo_link' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'number_love' => 'nullable|integer',
         ]);
 
         $gallery = new Gallery();
         $gallery->photo_link = $request->input('photo_link');
         $gallery->description = $request->input('description');
-        $gallery->number_love = $request->input('number_love');
+        $gallery->number_love = 0;
         $gallery->name = $request->input('name');
         $gallery->status = $request->input('status');
         $gallery->save();
 
-        return redirect()->route('galleries.index')->with('success', 'Gallery created successfully.');
+        return redirect()->route('galleries.index')->with('Berhasil', 'Galeri berhasil ditambahkan!');
     }
 
     /**
@@ -88,7 +87,7 @@ class GalleryController extends Controller
         $gallery->description = $request->input('description');
         $gallery->save();
 
-        return redirect()->route('galleries.index')->with('success', 'Gallery updated successfully.');
+        return redirect()->route('galleries.index')->with('Berhasil', 'Galeri berhasil diperbarui!');
     }
 
     /**
@@ -101,7 +100,7 @@ class GalleryController extends Controller
         $gallery->travels()->status=0;
         $gallery->articles()->status=0;
         $gallery->save();
-        return redirect()->route('galleries.index')->with('success', 'Gallery deleted successfully.');
+        return redirect()->route('galleries.index')->with('Berhasil', 'Galeri berhasil dihapus!');
     }
     public function like(Request $request, $id)
 {
@@ -117,7 +116,5 @@ class GalleryController extends Controller
 
     return response()->json(['number_love' => $gallery->number_love]);
 }
-
-    
 }
 

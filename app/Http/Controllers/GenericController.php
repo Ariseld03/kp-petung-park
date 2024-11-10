@@ -56,7 +56,11 @@ class GenericController extends Controller
     {
         return view('generics.show', compact('generic'));
     }
-
+    public function AboutUs()
+    {
+        $generics = Generic::all();
+        return view('generics.index', compact('generics'));
+    }
     /**
      * Show the form for editing the specified resource.
      */

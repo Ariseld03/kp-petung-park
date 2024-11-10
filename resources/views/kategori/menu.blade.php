@@ -12,7 +12,7 @@
         <div class="makanan-container">
             @forelse($kategori->menus as $menu)
                 <div class="makanan">
-                    <img src="{{ asset($menu->gallery->photo_link ?? 'https://via.placeholder.com/300x200') }}" alt="Foto {{ $menu->name }}">
+                    <img src="{{ asset($menu->gallery->photo_link ??  '/images/footer/logoPetungPark.png') }}" alt="Foto {{ $menu->name }}">
                     <p class="judul-makanan">{{ $menu->name }}</p>
                     <button onclick="window.location.href='{{ url('hidangan', $menu->id) }}'">Lihat Hidangan</button>
                 </div>

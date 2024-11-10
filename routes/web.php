@@ -39,13 +39,15 @@ Route::post('/register', [RegisterController::class, 'register_process'])->name(
 
 // Route::middleware(['auth'])->group(function () {
 // });
-Route::get('/beranda', [GalleryShowController::class, 'index'])->name('beranda');
+Route::get('/beranda', [GalleryShowController::class, 'showAllPengguna'])->name('beranda');
+Route::post('/like', [GalleryController::class, 'like']);
 
 
 // Navbar routes
     Route::view('/layanan', 'layanan'); 
     Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
-    Route::view('/tentangKami', 'tentangKami');
+    // Route::view('/tentangKami', 'tentangKami');
+    Route::get('/tentangkami', [GenericController::class, 'aboutUs'])->name('tentangKami');
 
     // Gallery routes
     Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
@@ -60,9 +62,7 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']); // Handle registration submission
 
 // Additional routes
-Route::get('/kategori', function () {
-    return view('kategori');
-});
+Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
 Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
 
 Route::get('/hidangan', function () {

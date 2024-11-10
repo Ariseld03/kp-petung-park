@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Models\Travel;
 use App\Models\Category;
 use App\Models\Article;
+use App\Models\Package;
 
 class AgendaController extends Controller
 {
@@ -121,11 +122,12 @@ class AgendaController extends Controller
 
 public function showLayanan()
 {
-    $travels = Travel::where('status', 1)->get();
+    $paket = Package::where('status', 1)->get();
+    $wisata = Travel::where('status', 1)->get();
     $kegiatanMendatang = Agenda::where('status', 1)->where('event_end_date', '>=', now())->get();
     $kegiatanLalu = Agenda::where('status', 1)->where('event_end_date', '<', now())->get();
     $kategori = Category::where('status', 1)->get();
-    return view('layanan', compact('travels', 'kegiatanMendatang', 'kegiatanLalu','kategori'));
+    return view('layanan', compact('wisata', 'paket', 'kegiatanMendatang', 'kegiatanLalu','kategori'));
 }
 
 public function showMendatang($id)

@@ -97,13 +97,13 @@
                 @foreach ($galleryShows as $galleryShow)
                     <div class="col-md-4">
                         <div class="frame-image">
-                            <img src="{{ $galleryShow->photo_link }}" alt="{{ $galleryShow->name }}" class="galeri-image">
+                            <img src="{{ $galleryShow->gallery->photo_link }}" alt="{{ $galleryShow->name }}" class="galeri-image">
                             <div class="content-container">
                                 <p class="text-image">{{ $galleryShow->name }}</p>
                                 <p class="desc-image">{{ $galleryShow->description }}</p>
-                                <button class="like-button" data-gallery-id="{{ $galleryShow->gallery_id }}">
+                                <button class="like-button" data-gallery-id="{{ $galleryShow->gallery->id}}">
                                     <span id="like-count"
-                                        class="{{ $galleryShow->number_love % 2 === 0 ? 'even' : 'odd' }}">{{ $galleryShow->number_love }}</span>
+                                        class="{{ $galleryShow->gallery->number_love % 2 === 0 ? 'even' : 'odd' }}">{{ $galleryShow->gallery->number_love }}</span>
                                     <span class="like-icon">❤️</span>
                                 </button>
                             </div>
@@ -158,24 +158,23 @@
 
                     // Update like di database
                     fetch(`/gallery/${galleryId}/like`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            },
-                            body: JSON.stringify({
-                                action: action
-                            })
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        body: JSON.stringify({
+                            action: action
                         })
-                        .then(response => response.json())
-                        .then(data => {
-                            likeCount.textContent = data
-                                .number_love; // Update tampilan dengan nilai dari server
-                            updateLikeCountDisplay(likeCount); // Update warna
-                        })
-                        .catch(error => {
-                            console.error("Ada kesalahan saat mengubah like:", error);
-                        });
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        likeCount.textContent = data.number_love; // Update tampilan dengan nilai dari server
+                        updateLikeCountDisplay(likeCount); // Update warna
+                    })
+                    .catch(error => {
+                        console.error("Ada kesalahan saat mengubah like:", error);
+                    });
                 });
             });
 
