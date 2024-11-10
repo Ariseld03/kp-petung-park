@@ -41,7 +41,7 @@ class SliderHomeController extends Controller
             'status' => $request->input('status'),
             'gallery_id' => $request->input('gallery_id'),
         ]);
-        return redirect()->route('slider-homes.index')->with('success', 'Slider home created successfully.');
+        return redirect()->route('sliderHomes.index')->with('Berhasil', 'Tampilan Slider Home berhasil ditambahkan.');
     }
 
     /**
@@ -49,7 +49,7 @@ class SliderHomeController extends Controller
      */
     public function show(SliderHome $sliderHome)
     {
-        return view('slider-homes.show', compact('sliderHome'));
+        return view('sliderHomes.show', compact('sliderHome'));
     }
 
     /**
@@ -57,7 +57,7 @@ class SliderHomeController extends Controller
      */
     public function edit(SliderHome $sliderHome)
     {
-        return view('slider-homes.edit', compact('sliderHome'));
+        return view('sliderHomes.edit', compact('sliderHome'));
     }
 
     /**
@@ -76,7 +76,7 @@ class SliderHomeController extends Controller
         $sliderHome->gallery_id = $request->input('gallery_id');
         $sliderHome->save();
 
-        return redirect()->route('slider-homes.index')->with('success', 'Slider home updated successfully.');
+        return redirect()->route('sliderHomes.index')->with('Berhasil', 'Tampilan Slider Home berhasil diperbarui.');
     }
 
     /**
@@ -84,9 +84,9 @@ class SliderHomeController extends Controller
      */
     public function destroy(SliderHome $sliderHome)
     {
-        $sliderHome->delete();
-
-        return redirect()->route('slider-homes.index')->with('success', 'Slider home deleted successfully.');
+        $sliderHome->status = 0;
+        $sliderHome->save();
+        return redirect()->route('sliderHomes.index')->with('Berhasil', 'Tampilan Slider Home berhasil dihapus.');
     }
 }
 

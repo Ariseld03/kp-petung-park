@@ -56,7 +56,7 @@ class AgendaController extends Controller
             'staff_email' => $request->input('staff_email'),
         ]);
 
-        return redirect()->route('agendas.index')->with('success', 'Agenda created successfully.');
+        return redirect()->route('agendas.index')->with('Berhasil', 'Agenda berhasil ditambahkan.');
     }
 
     /**
@@ -88,15 +88,15 @@ class AgendaController extends Controller
             'event_location' => 'required|string|max:255',
             'status' => 'required|integer',
             'description' => 'nullable|string',
-            'staff_email' => 'required|email|exists:staffs,email', // Ensure staff email exists in staff table
+            'staff_email' => 'required|email|exists:staffs,email', 
         ]);
         // Find and update the Agenda record
         try {
             $agenda = Agenda::findOrFail($id);
             $agenda->update($validatedData);
-            return response()->json(['success' => true, 'message' => 'Agenda updated successfully.']);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Failed to update agenda.']);
+            return redirect()->route('agendas.index')->with('Berhasil', 'Agenda Berhasil Diubah!');
+        } catch (Exception $e) {
+            return redirect()->route('agendas.index')->with('Gagal', 'Agenda Gagal Diubah!');
         }
     }
 
@@ -106,31 +106,32 @@ class AgendaController extends Controller
     public function destroy(Agenda $agenda)
     {
         $agenda->delete();
-        return redirect()->route('agendas.index')->with('success', 'Agenda deleted successfully.');
+        try {
+            $delete = $agenda;
+            $delete->status = 0;
+            $agenda->update($delete);
+            return redirect()->route('agendas.delete')->with('Berhasil', 'Agenda Berhasil Dihapus!');
+        } catch (Exception $e) {
+            return redirect()->route('agendas.delete')->with('Gagal', 'Agenda Gagal Dihapus!');
+        }
     }
 
 
 //TAMBAHAN-----------------------------------------------------------
 
-
-
 public function showLayanan()
 {
-    // Mengambil hanya travel dengan status 1
     $travels = Travel::where('status', 1)->get();
-    // Mengambil kegiatan mendatang dan lalu (sudah ada)
     $kegiatanMendatang = Agenda::where('status', 1)->where('event_end_date', '>=', now())->get();
     $kegiatanLalu = Agenda::where('status', 1)->where('event_end_date', '<', now())->get();
-    // Mengambil menu
     $kategori = Category::where('status', 1)->get();
     return view('layanan', compact('travels', 'kegiatanMendatang', 'kegiatanLalu','kategori'));
 }
 
 public function showMendatang($id)
 {
-    $agenda = Agenda::findOrFail($id); // Mengambil agenda berdasarkan id
+    $agenda = Agenda::findOrFail($id); 
 
-    // Mengambil artikel yang terkait dengan agenda yang ditampilkan
     $articles = Article::where('status', 1)->where('agenda_id', $agenda->id)->get();
 
     // Mengambil galeri terkait dengan artikel yang ditampilkan
@@ -143,28 +144,26 @@ public function showMendatang($id)
         $galleries = $galleries->merge($articleGalleries); // Menggabungkan hasil ke dalam koleksi
     }
 
-    return view('kegiatanMendatang', compact('agenda', 'articles', 'galleries')); // Kirim agenda, artikel, dan galeri ke view
+    return view('kegiatanMendatang', compact('agenda', 'articles', 'galleries'));
 }
 
 
 public function showLalu($id)
 {
-    $agenda = Agenda::findOrFail($id); // Mengambil agenda berdasarkan id
+    $agenda = Agenda::findOrFail($id);
 
-    // Mengambil artikel yang terkait dengan agenda yang ditampilkan
     $articles = Article::where('status', 1)->where('agenda_id', $agenda->id)->get();
 
-    // Mengambil galeri terkait dengan artikel yang ditampilkan
-    $galleries = collect(); // Inisialisasi sebagai koleksi
+    $galleries = collect();
     foreach ($articles as $article) {
         $articleGalleries = $article->galleries()
             ->where('article_gallery.status', 1)
             ->get();
         
-        $galleries = $galleries->merge($articleGalleries); // Menggabungkan hasil ke dalam koleksi
+        $galleries = $galleries->merge($articleGalleries);
     }
 
-    return view('kegiatanLalu', compact('agenda', 'articles', 'galleries')); // Kirim agenda, artikel, dan galeri ke view
+    return view('kegiatanLalu', compact('agenda', 'articles', 'galleries'));
 }
 
 }

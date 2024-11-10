@@ -37,7 +37,6 @@ class MenuController extends Controller
             'price' => 'required|double',
             'status' => 'required|integer',
             'status_recommend' => 'required|integer',
-            'number_love' => 'nullable|integer',
             'category_id' => 'required|integer|exists:categories,id',
             'staff_email' => 'required|email|exists:staffs,email',
         ]);
@@ -52,12 +51,12 @@ class MenuController extends Controller
             'price' => $request->price,
             'status' => $request->status,
             'status_recommend' => $request->status_recommend,
-            'number_love' => $request->number_love,
+            'number_love' => 0,
             'category_id' => $request->category_id,
             'staff_email' => $request->staff_email,
         ]);
 
-        return redirect()->route('menu.index')->with('success', 'Menu created successfully');
+        return redirect()->route('menu.index')->with('Berhasil', 'Menu berhasil ditambahkan!');
     }
 
     /**
@@ -126,7 +125,7 @@ class MenuController extends Controller
             'staff_email' => $request->staff_email,
         ]);
 
-        return redirect()->route('menu.index')->with('success', 'Menu updated successfully');
+        return redirect()->route('menu.index')->with('success', 'Menu berhasil Diupdate!');
     }
 
     /**
@@ -135,13 +134,9 @@ class MenuController extends Controller
     public function destroy(string $id)
     {
         $menu = Menu::findOrFail($id);
-
-        // Delete data in pivot table package_menus
-        $menu->packages()->detach();
-
-        $menu->delete();
-
-        return redirect()->route('menu.index')->with('success', 'Menu deleted successfully');
+        $menu->status=0;
+        $menu->save();
+        return redirect()->route('menu.index')->with('Berhasil', 'Menu berhasil dihapus!');
     }
 }
 

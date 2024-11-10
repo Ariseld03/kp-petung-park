@@ -32,7 +32,7 @@ class StaffSeeder extends Seeder
             [
                 'email' => 'Griseldaamelia68@gmail.com',
                 'name' => 'Amel',
-                'password' => Hash::make('12345678'),
+                'password' => bcrypt('12345678'),
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
                 'position' => 'admin',
@@ -45,7 +45,7 @@ class StaffSeeder extends Seeder
             [
                 'email' => 'MagdalenaFelicia@gmail.com',
                 'name' => 'Feli',
-                'password' => Hash::make('12345678'),
+                'password' => bcrypt('12345678'),
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
                 'position' => 'user',
@@ -58,7 +58,7 @@ class StaffSeeder extends Seeder
             [
                 'email' => 'staff@gmail.com',
                 'name' => 'staff',
-                'password' => Hash::make('12345678'),
+                'password' => bcrypt('12345678'),
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
                 'position' => 'staff',
@@ -71,7 +71,7 @@ class StaffSeeder extends Seeder
             [
                 'email' => 'anotherstaff@gmail.com',
                 'name' => 'staff',
-                'password' => Hash::make('12345678'), 
+                'password' => bcrypt('12345678'),
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
                 'position' => 'staff',

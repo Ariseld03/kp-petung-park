@@ -86,9 +86,9 @@ class CategoryController extends Controller
         try {
             $category = Category::findOrFail($id);
             $category->update($validatedData);
-            return response()->json(['success' => true, 'message' => 'Category updated successfully.']);
+            return redirect()->route('categories.index')->with('Berhasil', 'Berhasil Update Kategori!');
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Failed to update category.']);
+            return redirect()->route('categories.index')->with('Gagal', 'Gagal Update Kategori!');
         }
     }
 
@@ -99,9 +99,11 @@ class CategoryController extends Controller
     {
         $menus = Menu::where('category_id', $category->id)->get();
         foreach ($menus as $menu) {
-            $menu->delete();
+            $menu->status=0;
+            $menu->save();
         }
-        $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
+        $category->status=0;
+        $category->save();
+        return redirect()->route('categories.index')->with('Berhasil', 'Kategori berhasil dihapus!');
     }
 }

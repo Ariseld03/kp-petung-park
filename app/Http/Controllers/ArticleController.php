@@ -35,7 +35,6 @@ class ArticleController extends Controller
             'title' => 'required|string|max:255',
             'main_content' => 'required|date',
             'status' => 'required|date',
-            'number_love' => 'nullable|integer',
             'staff_email' => 'required|email|exists:staffs,email',
             'agenda_id' => 'required|integer|exists:agendas,id',
         ]);
@@ -43,12 +42,12 @@ class ArticleController extends Controller
             'title' => $request->input('title'),
             'main_content' => $request->input('main_content'),
             'status' => $request->input('status'),
-            'number_love' => $request->input('number_love'),
+            'number_love' => 0,
             'staff_email' => $request->input('staff_email'),
             'agenda_id' => $request->input('agenda_id'),
         ]);
 
-        return redirect()->route('articles.index')->with('success', 'Article created successfully.');
+        return redirect()->route('articles.index')->with('Berhasil', 'Artikel berhasil ditambahkan!');
     }
 
     /**
@@ -86,21 +85,27 @@ class ArticleController extends Controller
             'staff_email' => 'required|email|exists:staffs,email',
             'agenda_id' => 'required|exists:agendas,id',
         ]);
-        $article = Article::findOrFail($id);
-        $article->update($validatedData);
-        response()->json(['success' => true, 'message' => 'Article updated successfully.']);
+        try {
+            $article = Article::findOrFail($id);
+            $article->update($validatedData);
+            return redirect()->route('articles.index')->with('Berhasil', 'Article berhasil Diupdate!');
+        } catch (Exception $e) {
+            return redirect()->route('articles.index')->with('Gagal', 'Article Gagal Diupdate!');
+        }
     }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Article $article)
     {
-        // Delete data in pivot table article_gallery
-        $article->galleries()->detach();
-
-        $article->delete();
-        return redirect()->route('articles.index')->with('success', 'Article deleted successfully.');
+        try {
+            $delete = $article;
+            $article->status = 0;
+            $article->update($delete);
+            return redirect()->route('articles.index')->with('Berhasil', 'Artikel Berhasil Dihapus!');
+        } catch (Exception $e) {
+            return redirect()->route('articles.index')->with('Gagal', 'Artikel Gagal Dihapus!');
+        }
     }
     // M to M article_gallery
     /**
@@ -120,25 +125,47 @@ class ArticleController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        response()->json(['success' => true, 'message' => 'Gallery added successfully.']);
+        return redirect()->route('articles.index')->with('Berhasil', 'Foto di Artikel Berhasil Ditambah!');
+        // response()->json(['success' => true, 'message' => 'Gallery added successfully.']);
     }
 
     /**
      * Update the specified resource in storage for pivot table article_gallery
      */
-    public function updateGallery(Request $request, string $id)
+    public function updateArticleGallery(Request $request, string $id)
     {
         $validatedData = $request->validate([
             'gallery_id' => 'required|integer|exists:galleries,id',
             'name_collage' => 'required|string|max:255',
             'status' => 'required|integer|in:0,1',
         ]);
-        $article = Article::findOrFail($id);
-        $article->galleries()->updateExistingPivot($validatedData['gallery_id'], [
-            'name_collage' => $validatedData['name_collage'],
-            'status' => $validatedData['status'],
-            'updated_at' => now(),
-        ]);
-        response()->json(['success' => true, 'message' => 'Gallery updated successfully.']);
+        try {
+            $article = Article::findOrFail($id);
+            $article->galleries()->updateExistingPivot($validatedData['gallery_id'], [
+                'name_collage' => $validatedData['name_collage'],
+                'status' => $validatedData['status'],
+                'updated_at' => now(),
+            ]);
+            return redirect()->route('articles.index')->with('Berhasil', 'Foto di Artikel Berhasil Diubah!');
+        } catch (Exception $e) {
+            return redirect()->route('articles.index')->with('Gagal', 'Foto di Artikel Gagal Diubah!');
+        }
+    }
+    public function deleteArticleGallery(Request $request, string $id)
+    {
+        try {
+            $delete= $request;
+            $delete->status = 0;
+            $request = Article::findOrFail($id);
+            $request->update($delete);
+            return redirect()->route('articleGalleries.index')->with('Berhasil', 'Foto di Artikel Berhasil Dihapus!');
+        } catch (Exception $e) {
+            return redirect()->route('articleGalleries.index')->with('Gagal', 'Foto di Artikel Gagal Dihapus!');
+        }
+    }
+    public function destroyArticleGallery(Article $article)
+    {
+        DB::table('article_gallery')->where('article_id', $article->id)->update(['status' => 0]);
+        return redirect()->route('articles.index')->with('Berhasil', 'Foto di Artikel berhasil dihapus!');
     }
 }

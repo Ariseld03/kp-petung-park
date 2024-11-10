@@ -15,14 +15,17 @@ class GalleryShowController extends Controller
     public function index()
     {
         // Mengambil data galleries_show dengan status 1 dan data tambahan dari galleries
-        $galleryShows = DB::table('galleries_show')
-            ->join('galleries', 'galleries_show.gallery_id', '=', 'galleries.id')
-            ->select('galleries_show.name', 'galleries.photo_link', 'galleries.description', 'galleries.number_love', 'galleries.id as gallery_id')
-            ->where('galleries_show.status', 1)
-            ->get();
+        $galleryShows = GalleryShow::where('status', 1)->get();
         $sliderHomes = SliderHome::where('status', 1)->get();
         // dd($sliderHomes);
         return view('beranda', compact('galleryShows','sliderHomes'));
+    }
+    
+    public function indexAdmin()
+    {
+        // Mengambil data galleries_show dengan status 1 dan data tambahan dari galleries
+        $galleryShows = GalleryShow::all();
+        return view('beranda', compact('galleryShows'));
     }
     /**
      * Show the form for creating a new resource.
@@ -48,7 +51,7 @@ class GalleryShowController extends Controller
             'status' => $request->input('status'),
             'gallery_id' => $request->input('gallery_id'),
         ]);
-        return redirect()->route('gallery-shows.index')->with('success', 'Gallery show created successfully.');
+        return redirect()->route('galleryShows.index')->with('Berhasil', 'Tampilan Galeri berhasil ditambahkan!');
     }
 
     /**
@@ -56,7 +59,7 @@ class GalleryShowController extends Controller
      */
     public function show(GalleryShow $galleryShow)
     {
-        return view('gallery-shows.show', compact('galleryShow'));
+        return view('galleryShows.show', compact('galleryShow'));
     }
 
     /**
@@ -64,7 +67,7 @@ class GalleryShowController extends Controller
      */
     public function edit(GalleryShow $galleryShow)
     {
-        return view('gallery-shows.edit', compact('galleryShow'));
+        return view('galleryShows.edit', compact('galleryShow'));
     }
 
     /**
@@ -83,7 +86,7 @@ class GalleryShowController extends Controller
         $galleryShow->gallery_id = $request->input('gallery_id');
         $galleryShow->save();
 
-        return redirect()->route('gallery-shows.index')->with('success', 'Gallery show updated successfully.');
+        return redirect()->route('galleryShows.index')->with('Berhasil', 'Tampilan Galeri berhasil diperbarui!');
     }
 
     /**
@@ -91,9 +94,10 @@ class GalleryShowController extends Controller
      */
     public function destroy(GalleryShow $galleryShow)
     {
-        $galleryShow->delete();
+        $galleryShow->status=0;
+        $galleryShow->save();
 
-        return redirect()->route('gallery-shows.index')->with('success', 'Gallery show deleted successfully.');
+        return redirect()->route('galleryShows.index')->with('Berhasil', 'Tampilan Galeri berhasil dihapus!');
     }
 }
 

@@ -12,7 +12,8 @@ class StaffController extends Controller
      */
     public function index()
     {
-        //
+        $staffs = Staff::all();
+        return view('staffs.index', compact('staffs'));
     }
 
     /**
@@ -20,7 +21,7 @@ class StaffController extends Controller
      */
     public function create()
     {
-        //
+        return view('staffs.create');
     }
 
     /**
@@ -33,21 +34,25 @@ class StaffController extends Controller
             'password' => 'required|string',
             'date_of_birth' => 'required|date',
             'phone_number' => 'required|integer',
-            'role' => 'required|string',
+            'position' => 'required|string',
             'gender' => 'required|string',
             'status' => 'required|integer',
             'staff_email' => 'required|email|exists:staffs,email',
         ]);
 
-        Generic::create([
+        Staff::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'status' => $request->input('status'),
             'staff_email' => $request->input('staff_email'),
+            'date_of_birth' => $request->input('date_of_birth'),
+            'phone_number' => $request->input('phone_number'),
+            'position' => $request->input('position'),
+            'gender' => $request->input('gender'),
+            'password' => bcrypt($request->input('password')),
         ]);
 
-        return redirect()->route('generics.index')->with('success', 'Generic created successfully.');
-  
+        return redirect()->route('staffs.index')->with('Berhasil', 'Staf berhasil ditambahkan!');
     }
 
     /**
@@ -55,7 +60,8 @@ class StaffController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $staff = Staff::findOrFail($id);
+        return view('staffs.show', compact('staff'));
     }
 
     /**
@@ -63,7 +69,8 @@ class StaffController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $staff = Staff::findOrFail($id);
+        return view('staffs.edit', compact('staff'));
     }
 
     /**
@@ -71,7 +78,30 @@ class StaffController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'password' => 'nullable|string',
+            'date_of_birth' => 'required|date',
+            'phone_number' => 'required|integer',
+            'position' => 'required|string',
+            'gender' => 'required|string',
+            'status' => 'required|integer',
+            'staff_email' => 'required|email',
+        ]);
+
+        $staff = Staff::findOrFail($id);
+        $data = $request->only([
+            'name', 'description', 'status', 'staff_email', 'date_of_birth', 
+            'phone_number', 'position', 'gender'
+        ]);
+
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->input('password'));
+        }
+
+        $staff->update($data);
+
+        return redirect()->route('staffs.index')->with('Berhasil', 'Staf berhasil diupdate!');
     }
 
     /**
@@ -79,6 +109,10 @@ class StaffController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $staff = Staff::findOrFail($id);
+        $staff->status = 0;
+        $staff->save();
+
+        return redirect()->route('staffs.index')->with('Berhasil', 'Staf berhasil dihapus!');
     }
 }

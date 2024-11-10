@@ -97,12 +97,10 @@ class GalleryController extends Controller
     public function destroy(Gallery $gallery)
     {
         // Delete data in pivot table travel_gallery
-        $gallery->travels()->detach();
-
-        // Delete data in pivot table article_gallery
-        $gallery->articles()->detach();
-
-        $gallery->delete();
+        $gallery->status=0;
+        $gallery->travels()->status=0;
+        $gallery->articles()->status=0;
+        $gallery->save();
         return redirect()->route('galleries.index')->with('success', 'Gallery deleted successfully.');
     }
     public function like(Request $request, $id)

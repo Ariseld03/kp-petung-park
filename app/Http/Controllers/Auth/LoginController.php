@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Staff;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -41,23 +42,21 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
         $user = Staff::where('email', $request->email)->first();
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-           // dd(Auth::user());
-            $staff = Staff::where('email', $request->email)->first();
-            $user = Auth::user();
-            // Save the user data in the session
-            $request->session()->put('user', $user);
-            return redirect()->intended($redirectTo)->with('success', 'Login successful!');
+
+        if ($user && Hash::check($request->input('password'), $user->password)) {
+            // Attempt to authenticate the user (this will also start the session)
+            if (Auth::attempt($request->only('email', 'password'))) {
+                $request->session()->put('user', Auth::user());
+                return redirect()->intended($redirectTo)->with('Berhasil', 'Login Sukses!');
+            }
         }
-        // Check if email exists in the database
+    
         if (!$user) {
-            // If email not found
             return redirect()->back()->withErrors([
                 'email' => 'Email tidak ditemukan dalam sistem kami.'
             ])->withInput();
         }
-        return redirect()->back()->withErrors(['password' => 'Password yang Anda masukkan salah.'])->withInput();
+        return redirect()->back()->withErrors(['Password' => 'Kata Sandi yang Anda masukkan salah.'])->withInput();
     }
 
     public function login()
@@ -76,6 +75,6 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         // Redirect to the login page with a logout success message
-        return redirect()->route('login')->with('success', 'You have successfully logged out.');
+        return redirect()->route('login')->with('Berhasil', 'Anda berhasil keluar!');
     }
 }

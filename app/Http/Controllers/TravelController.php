@@ -33,19 +33,18 @@ class TravelController extends Controller
             'title' => 'required',
             'status' => 'required|integer',
             'description' => 'required',
-            'number_love' => 'nullable|integer',
         ]);
 
         $travel = new Travel([
             'title' => $request->get('title'),
             'status' => $request->get('status'),
             'description' => $request->get('description'),
-            'number_love' => $request->get('number_love'),
+            'number_love' => 0,
         ]);
 
         $travel->save();
 
-        return redirect()->route('travels.index')->with('success', 'Travel created successfully.');
+        return redirect()->route('travels.index')->with('Berhasil', 'Wisata berhasil ditambahkan!');
     }
 
     /**
@@ -56,7 +55,7 @@ class TravelController extends Controller
     $travel = Travel::findOrFail($id);
     
     // Mengambil data gallery yang berhubungan dengan travel ini
-    $galleries = \DB::table('galleries')
+    $galleries = DB::table('galleries')
         ->join('travel_gallery', 'galleries.id', '=', 'travel_gallery.gallery_id')
         ->where('travel_gallery.travel_id', $id)
         ->where('travel_gallery.status', 1)
@@ -82,8 +81,8 @@ class TravelController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'status' => 'required|integer',
-            'description' => 'required',
+            'status' => 'required|tinyint',
+            'description' => 'required|longtext',
             'number_love' => 'nullable|integer',
         ]);
 
@@ -94,25 +93,25 @@ class TravelController extends Controller
 
         $travel->save();
 
-        return redirect()->route('travels.index')->with('success', 'Travel updated successfully.');
+        return redirect()->route('travels.index')->with('Berhasil', 'Wisata berhasil diubah!');
     }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Travel $travel)
     {
         // Delete data in pivot table travel_gallery
-        $travel->galleries()->detach();
+        //$travel->galleries()->detach();
 
-        $travel->delete();
-        return redirect()->route('travels.index')->with('success', 'Travel deleted successfully.');
+        $travel->status=0;
+        $travel->save();
+        return redirect()->route('travels.index')->with('Berhasil', 'Wisata berhasil dihapus!');
     }
     
     /**
      * M to M for pivot table travel_gallery
      */
-    public function createGallery(Travel $travel)
+    public function createTravelGallery(Travel $travel)
     {
         return view('travels.createGallery', compact('travel'));
     }
@@ -137,7 +136,7 @@ class TravelController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('travels.index')->with('success', 'Gallery created successfully for travel ' . $travel->title);
+        return redirect()->route('travels.index')->with('Berhasil', 'Foto di Galeri berhasil ditambahkan!' . $travel->title);
     }
 
     /**
@@ -168,7 +167,12 @@ class TravelController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('travels.index')->with('success', 'Gallery updated successfully for travel ' . $travel->title);
+        return redirect()->route('travels.index')->with('Berhasil', 'Foto di Wisata berhasil diubah! ' . $travel->title);
+    }
+    public function destroyTravelGallery(Travel $travel)
+    {
+        DB::table('travel_gallery')->where('travel_id', $travel->id)->update(['status' => 0]);
+        return redirect()->route('travels.index')->with('Berhasil', 'Foto di Wisata berhasil dihapus!');
     }
 }
 
