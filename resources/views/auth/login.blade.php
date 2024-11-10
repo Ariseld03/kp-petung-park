@@ -66,7 +66,7 @@
                     <!-- Signup Section -->
                     <div class="signup-container">
                         <p class="text-regis">Belum memiliki akun ?</p>
-                        <button type="button" class="btn p-0 ml-2" onclick="window.location.href='{{ route('register') }}'">{{ __('Daftar') }}</button>
+                        <button type="button" style="font-weight: bold" class="btn p-0 ml-2" onclick="window.location.href='{{ route('register') }}'">{{ __('Daftar') }}</button>
                     </div>                    
                 </div>
             </div>

@@ -21,8 +21,9 @@
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #295A3F;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Petung Park Website
+                    {{ Auth::check() ? Auth::user()->name : 'Petung Park Website' }}
                 </a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

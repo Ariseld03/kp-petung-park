@@ -239,7 +239,8 @@ body {
 }
 
 .signup-container button:hover {
-    color: white;
+    color: #1e4633;
+    background: none;
 }
 
 
