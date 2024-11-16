@@ -21,7 +21,7 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        return view('galeri.create');
+        return view('galeri.add');
     }
 
     /**
@@ -89,19 +89,30 @@ class GalleryController extends Controller
 
         return redirect()->route('galeri.index')->with('Berhasil', 'Galeri berhasil diperbarui!');
     }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Gallery $gallery)
     {
         // Delete data in pivot table travel_gallery
-        $gallery->status=0;
-        $gallery->travels()->status=0;
-        $gallery->articles()->status=0;
-        $gallery->save();
-        return redirect()->route('galleries.index')->with('Berhasil', 'Galeri berhasil dihapus!');
+        if ($gallery->status == 0) {
+            $message = 'Galeri status sudah nonaktif.';
+        } else {
+            $gallery->status=0;
+            $gallery->travels()->status=0;
+            $gallery->articles()->status=0;
+            $gallery->save();
+            $message = 'Galeri berhasil dihapus.';
+        }
+        return redirect()->route('galeri.index')->with('Berhasil', $message);
     }
+    /**
+     * Like or unlike a gallery.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function like(Request $request, $id)
 {
     $gallery = Gallery::findOrFail($id);

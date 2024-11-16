@@ -76,15 +76,13 @@ Route::get('/staffUpdate', [StaffController::class, 'edit'])->name('staff.edit')
 Route::get('/staffDelete', [StaffController::class, 'delete'])->name('staff.delete');
 Route::get('/staffAdd', [StaffController::class, 'add'])->name('staff.add');
 
-// Gallery 
+//Galeri
 Route::get('/galeri', [GalleryController::class, 'index'])->name('galeri.index');
-Route::post('/galeri', [GalleryController::class, 'store'])->name('galeri.store'); // Handle  submission
-
-Route::get('/galeriUpdate', [GalleryController::class, 'edit'])->name('galeri.edit');
-Route::get('/galeriDelete', [GalleryController::class, 'delete'])->name('galeri.delete');
-Route::get('/galeriAdd', [GalleryController::class, 'add'])->name('galeri.add');
-
-
+Route::post('/galeriAdd', [GalleryController::class, 'store'])->name('galeri.store'); // Handle  submission
+Route::get('/galeriAdd', [GalleryController::class, 'create'])->name('galeri.add');
+Route::get('/galeri/edit/{id}', [GalleryController::class, 'edit'])->name('galeri.edit');
+Route::post('/galeri/edit/{id}', [GalleryController::class, 'update'])->name('galeri.update');
+Route::delete('/gallery/{gallery}', [GalleryController::class, 'destroy'])->name('galeri.destroy');
 // Menu 
 Route::get('/menu', [MenuController::class, 'menu'])->name('hidangan.menu');
 //hidangan 
