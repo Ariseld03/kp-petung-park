@@ -43,21 +43,21 @@ Route::get('/beranda', [GalleryShowController::class, 'showAllPengguna'])->name(
 Route::post('/like', [GalleryController::class, 'like']);
 
 
-// Navbar routes
+// Navbar 
     Route::view('/layanan', 'layanan'); 
     Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
     // Route::view('/tentangKami', 'tentangKami');
-    Route::get('/tentangkami', [GenericController::class, 'aboutUs'])->name('tentangKami');
+    Route::get('/tentangKami', [GenericController::class, 'aboutUs'])->name('tentangKami');
 
-    // Gallery routes
+    // Gallery 
     Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
 
-    // Agenda routes
+    // Agenda 
     Route::get('/kegiatan/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('kegiatan.mendatang');
     Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');
 
 
-// Registration routes
+// Registration
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register'); // Show registration form
 Route::post('/register', [RegisterController::class, 'register']); // Handle registration submission
 
@@ -65,104 +65,49 @@ Route::post('/register', [RegisterController::class, 'register']); // Handle reg
 Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
 Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
 
-Route::get('/hidangan', function () {
-    return view('hidangan');
-});
-Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('hidangan');
-
+//wisata
 Route::get('/wisata', function () {
-    return view('wisata');
+    return view('wisata.index');
 });
 Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
 
-// Staff management views
-Route::get('/staffShow', function () {
-    return view('staffShow');
-});
-Route::get('/staffUpdate', function () {
-    return view('staffUpdate');
-});
-Route::get('/staffDelete', function () {
-    return view('staffDelete');
-});
-Route::get('/staffAdd', function () {
-    return view('staffAdd');
-});
+// Staff
+Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
+Route::get('/staffUpdate', [StaffController::class, 'update'])->name('staff.update');
+Route::get('/staffDelete', [StaffController::class, 'delete'])->name('staff.delete');
+Route::get('/staffAdd', [StaffController::class, 'add'])->name('staff.add');
 
-// Gallery management views
-Route::get('/galeri', function () {
-    return view('galeri');
-});
-Route::get('/galeriUpdate', function () {
-    return view('galeriUpdate');
-});
-Route::get('/galeriDelete', function () {
-    return view('galeriDelete');
-});
-Route::get('/galeriAdd', function () {
-    return view('galeriAdd');
-});
+// Gallery 
+Route::get('/galeri', [GalleryController::class, 'index'])->name('galeri.index');
+Route::post('/galeri', [GalleryController::class, 'add']); // Handle registration submission
 
-// Menu management views
-Route::get('/menu', function () {
-    return view('menu');
-});
-Route::get('/hidanganUpdate', function () {
-    return view('hidanganUpdate');
-});
-
-Route::get('/hidanganAdd', function () {
-   return view('hidanganAdd');
-});
-
-Route::get('/hidanganDelete', function () {
-    return view('hidanganDelete');
-});
-
-Route::get('/paketUpdate', function () {
-    return view('paketUpdate');
-});
-
-Route::get('/paketDelete', function () {
-    return view('paketDelete');
-});
-
-Route::get('/paketAdd', function () {
-    return view('paketAdd');
-});
+Route::get('/galeriUpdate', [GalleryController::class, 'update'])->name('galeri.update');
+Route::get('/galeriDelete', [GalleryController::class, 'delete'])->name('galeri.delete');
+Route::get('/galeriAdd', [GalleryController::class, 'add'])->name('galeri.add');
 
 
+// Menu 
+Route::get('/menu', [MenuController::class, 'menu'])->name('hidangan.menu');
+//hidangan 
+Route::get('/hidangan', [MenuController::class, 'index'])->name('hidangan.index');
+Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('hidangan.cari');
+Route::get('/hidanganUpdate/{id}', [MenuController::class, 'update'])->name('hidangan.update');
+Route::get('/hidanganAdd', [MenuController::class, 'add'])->name('hidangan.add');
+Route::get('/hidanganDelete', [MenuController::class, 'delete'])->name('hidangan.delete');
 
-Route::get('/wisataStaff', function () {
-    return view('wisataStaff');
-});
+//paket
+Route::get('/paketUpdate', [PacketController::class, 'update'])->name('paket.update');
+Route::get('/paketDelete', [PacketController::class, 'delete'])->name('paket.delete');
+Route::get('/paketAdd', [PacketController::class, 'delete'])->name('paket.add');
 
-Route::get('/wisataUpdate', function () {
-    return view('wisataUpdate');
-});
+//wisata
+Route::get('/wisataStaff', [TravelController::class, 'staff'])->name('wisata.staff');
+Route::get('/wisataUpdate', [TravelController::class, 'update'])->name('wisata.update');
+Route::get('/wisataDelete', [TravelController::class, 'delete'])->name('wisata.delete');
+Route::get('/wisataAdd', [TravelController::class, 'add'])->name('wisata.add');
 
-Route::get('/wisataDelete', function () {
-    return view('wisataDelete');
-});
-
-Route::get('/wisataAdd', function () {
-    return view('wisataAdd');
-});
-
-
-
-Route::get('/kegiatan', function () {
-    return view('kegiatan');
-});
-
-Route::get('/kegiatanUpdate', function () {
-    return view('kegiatanUpdate');
-});
-
-Route::get('/kegiatanDelete', function () {
-    return view('kegiatanDelete');
-});
-
-Route::get('/kegiatanAdd', function () {
-    return view('kegiatanAdd');
-});
+//kegiatan
+Route::get('/kegiatanUpdate', [AgendaController::class, 'update'])->name('kegiatan.update');
+Route::get('/kegiatanDelete', [AgendaController::class, 'delete'])->name('kegiatan.delete');
+Route::get('/kegiatanAdd', [AgendaController::class, 'add'])->name('kegiatan.add');
+Route::get('/kegiatan', [AgendaController::class, 'index'])->name('kegiatan.index');

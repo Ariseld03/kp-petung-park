@@ -101,7 +101,7 @@
             <div class="kegiatan-lalu">
                 @php
                     $galleries = $past->articles()->with('galleries')->get()->pluck('galleries')->flatten();
-                    $photo = $galleries->isNotEmpty() ? $galleries->first()->photo_link : 'https://img.freepik.com/free-photo/beautiful-tropical-empty-beach-sea-ocean-with-white-cloud-blue-sky-background_74190-13665.jpg';
+                    $photo = $galleries->isNotEmpty() ? $galleries->first()->photo_link : '/images/galeri/pemandangan/jalanHutanBambu_2.JPG';
                 @endphp
                 <img src="{{asset($photo)}}" alt="Icon Kegiatan Lalu">
                 <div>

@@ -56,10 +56,45 @@ class GenericController extends Controller
     {
         return view('generics.show', compact('generic'));
     }
-    public function AboutUs()
+    public function aboutUs()
     {
-        $generics = Generic::all();
-        return view('generics.index', compact('generics'));
+        $aboutUs = [];
+        $data = Generic::where('status',1)->get();
+        $aboutUs = [
+            'sejarah' => null,
+            'visi_misi' => null,
+            'gambar' => null,
+        ];
+
+        // Loop through the data and assign values
+        foreach ($data as $item) {
+            switch ($item->key) {
+                case 'sejarah':
+                    $aboutUs['sejarah_nama'] = 'Sejarah';
+                    $aboutUs['sejarah_text'] = $item->value; 
+                    break;
+                case 'sejarah_2':
+                    $aboutUs['sejarah_2_text'] = $item->value;
+                    break;
+                case 'visi_misi':
+                    $aboutUs['visi_misi_nama'] = 'Visi & Misi'; 
+                    $aboutUs['visi_misi_text'] = $item->value; 
+                    break;
+                case 'visi_misi_2':
+                    $aboutUs['visi_misi_2_text'] = $item->value;
+                    break;
+                case 'gambar_baris_1':
+                    $aboutUs['gambar1'] = $item->icon_picture_link; 
+                    break;
+                case 'gambar_baris_2':
+                    $aboutUs['gambar2'] = $item->icon_picture_link; 
+                    break;
+                case 'gambar_baris_3':
+                    $aboutUs['gambar3'] = $item->icon_picture_link; 
+                    break;    
+            }
+        }
+        return view('tentangKami', compact('aboutUs'));
     }
     /**
      * Show the form for editing the specified resource.
