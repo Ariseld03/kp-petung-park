@@ -13,7 +13,7 @@ class GalleryController extends Controller
     public function index()
     {
         $galleries = Gallery::all();
-        return view('galleries.index', compact('galleries'));
+        return view('galeri.index', compact('galleries'));
     }
 
     /**
@@ -21,7 +21,7 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        return view('galleries.create');
+        return view('galeri.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class GalleryController extends Controller
         $gallery->status = $request->input('status');
         $gallery->save();
 
-        return redirect()->route('galleries.index')->with('Berhasil', 'Galeri berhasil ditambahkan!');
+        return redirect()->route('galeri.index')->with('Berhasil', 'Galeri berhasil ditambahkan!');
     }
 
     /**
@@ -52,19 +52,19 @@ class GalleryController extends Controller
      */
     public function show(Gallery $gallery)
     {
-        return view('galleries.show', compact('gallery'));
+        return view('galeri.show', compact('gallery'));
     }
     public function showGalleriAllPengguna()
     {
         $galleries = Gallery::where('status', 1)->get();
-        return view('galleries.show', compact('galleries'));
+        return view('galeri.show', compact('galleries'));
     }
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Gallery $gallery)
     {
-        return view('galleries.edit', compact('gallery'));
+        return view('galeri.edit', compact('gallery'));
     }
 
     /**
@@ -87,7 +87,7 @@ class GalleryController extends Controller
         $gallery->description = $request->input('description');
         $gallery->save();
 
-        return redirect()->route('galleries.index')->with('Berhasil', 'Galeri berhasil diperbarui!');
+        return redirect()->route('galeri.index')->with('Berhasil', 'Galeri berhasil diperbarui!');
     }
 
     /**

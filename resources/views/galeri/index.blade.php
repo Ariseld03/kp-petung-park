@@ -22,21 +22,21 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Contoh data galeri, dapat diulang sesuai kebutuhan -->
+            @foreach ($galleries as $galeri)
                 <tr>
-                    <td>Contoh Galeri 1</td>
-                    <td><img src="link_foto1.jpg" alt="Foto Galeri 1" style="max-width: 100px;"></td>
-                    <td>Deskripsi singkat tentang Galeri 1</td>
-                    <td>Aktif</td>
-                    <td>120</td>
-                    <td>2023-01-01</td>
-                    <td>2023-10-01</td>
+                    <td>{{$galeri->name}}</td>
+                    <td><img src="{{ $galeri->photo_link }}" alt="Foto Galeri 1" style="max-width: 100px;"></td>
+                    <td>{{$galeri->description}}</td>
+                    <td>{{$galeri->status == 1 ? 'Aktif' : 'Nonaktif' }}</td>
+                    <td>{{$galeri->number_love}}</td>
+                    <td>{{$galeri->created_at}}</td>
+                    <td>{{$galeri->created_at}}</td>
                     <td>
                         <a href="{{ url('/galeriUpdate') }}" class="btn btn-primary">Perbarui</a>
                     </td>
                     <td><a href="{{ url('/galeriDelete') }}" class="btn btn-danger">Hapus</a></td>
                 </tr>
-                <!-- Tambahkan lebih banyak baris sesuai data galeri -->
+            @endforeach
             </tbody>
         </table>
     </div>
