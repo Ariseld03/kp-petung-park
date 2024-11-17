@@ -12,7 +12,7 @@
         <div class="gallery">
             @foreach($galleries as $gallery)
                 <div class="gallery-item">
-                    <img src="{{ $gallery->photo_link }}" alt="{{ $gallery->name }}" class="gallery-img">
+                    <img src="{{  asset($gallery->photo_link) }}" alt="{{ $gallery->name }}" class="gallery-img">
                     <p>{{ $gallery->description }}</p>
                     <span class="like-icon">❤️ {{ $gallery->number_love }}</span>
                 </div>

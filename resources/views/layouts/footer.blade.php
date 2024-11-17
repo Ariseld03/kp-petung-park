@@ -89,30 +89,31 @@ footer-content {
 </style>
 <footer class="footer">
     <div class="footer-content">
-        <img src="/images/footer/logoPetungPark.png" alt="Logo Instansi" class="logo-instansi">
+        <img src="{{ asset('/images/footer/logoPetungPark.png') }}" alt="Logo Instansi" class="logo-instansi">
         <div class="alamat">
             <p><b>Alamat</b></p>
             <p>{{ $footerInfo['alamat'] }}</p>
             <div class="d-flex align-items-center">
-                <img src="{{ $footerInfo['whatsapp_logo'] }}" alt="Logo WA" class="whatsapp-logo">
+                <img src="{{ asset($footerInfo['whatsapp_logo']) }}" alt="Logo WA" class="whatsapp-logo">
                 <p>{{ $footerInfo['whatsapp'] }}</p>
             </div>
         </div>
         <div class="tautan">
             <p><b>Tautan</b></p>
-            <a href="{{ $footerInfo['alamat'] }}"><u>Desa Belik</u></a>
+            <a href="{{ asset($footerInfo['alamat']) }}"><u>Desa Belik</u></a>
         </div>
         <div class="sosmed">
             <p><b>Sosial Media</b></p>
-            <a href="{{ $footerInfo['instagram'] }}">
-                <img src="{{ $footerInfo['instagram_logo'] }}" alt="Instagram" class="logo-sosmed">
+            <a href="{{ asset($footerInfo['instagram']) }}">
+                <img src="{{ asset($footerInfo['instagram_logo']) }}" alt="Instagram" class="logo-sosmed">
             </a>
-            <a href="{{ $footerInfo['tiktok'] }}">
-                <img src="{{ $footerInfo['tiktok_logo'] }}" alt="TikTok" class="logo-sosmed">
+            <a href="{{ asset($footerInfo['tiktok']) }}">
+                <img src="{{ asset($footerInfo['tiktok_logo']) }}" alt="TikTok" class="logo-sosmed">
             </a>
-            <a href="{{ $footerInfo['youtube'] }}">
-                <img src="{{ $footerInfo['youtube_logo'] }}" alt="Youtube" class="logo-sosmed">
+            <a href="{{ asset($footerInfo['youtube']) }}">
+                <img src="{{ asset($footerInfo['youtube_logo']) }}" alt="Youtube" class="logo-sosmed">
             </a>
         </div>
     </div>
 </footer>
+

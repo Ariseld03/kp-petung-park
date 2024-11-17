@@ -9,14 +9,14 @@
             <h2>{{$aboutUs['sejarah_nama']}}</h2>
             <p>{{$aboutUs['sejarah_text']}}</p>
                 
-                <p>{{$aboutUs['sejarah_2_text']}}</p>
+            <p>{{$aboutUs['sejarah_2_text']}}</p>
         </div>
-        <img src="{{$aboutUs['gambar1']}}" alt="Gambar Info 1" class="gambar-info1">
+        <img src="{{ asset($aboutUs['gambar1']) }}" alt="Gambar Info 1" class="gambar-info1">
     </div>
 
     <!-- Info2 -->
     <div class="info2">
-        <img src="{{$aboutUs['gambar2']}}" alt="Gambar Info 2" class="gambar-info2">
+        <img src="{{ asset($aboutUs['gambar2']) }}" alt="Gambar Info 2" class="gambar-info2">
     </div>
 
     <!-- Info3 (gambar di kiri, teks di kanan) -->
@@ -27,6 +27,7 @@
 
             <p>{{$aboutUs['visi_misi_2_text']}}</p>
         </div>
-        <img src="{{$aboutUs['gambar3']}}" alt="Gambar Info 3" class="gambar-info3">
+        <img src="{{ asset($aboutUs['gambar3']) }}" alt="Gambar Info 3" class="gambar-info3">
     </div>
 @endsection
+

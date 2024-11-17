@@ -1,8 +1,7 @@
-@extends('layouts.mainAdmin') <!-- Using mainAdmin layout -->
+@extends('layouts.mainAdmin')
 
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('/css/galeri.css') }}">
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 @endsection
 
@@ -10,6 +9,19 @@
     <div class="container mt-5">
         <h1 class="text-center" style="color: #557C56;">Galeri</h1>
         <a href="{{ route('galeri.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Foto</a>
+
+        <!-- Display Success or Error Message -->
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <table class="table table-bordered">
             <thead class="thead-dark" style="background-color: #557C56; color: #FFFBE6;">
                 <tr>
@@ -28,37 +40,40 @@
             @foreach ($galleries as $galeri)
                 <tr>
                     <td>{{ $galeri->name }}</td>
-                    <td><img src="{{ $galeri->photo_link }}" alt="Foto Galeri 1" style="max-width: 100px;"></td>
+                    <td><img src="{{ asset($galeri->photo_link) }}" alt="Foto Galeri 1" style="max-width: 100px;"></td>
                     <td>{{ $galeri->description }}</td>
                     <td>{{ $galeri->status == 1 ? 'Aktif' : 'Nonaktif' }}</td>
                     <td>{{ $galeri->number_love }}</td>
                     <td>{{ $galeri->created_at }}</td>
                     <td>{{ $galeri->updated_at }}</td>
                     <td>
-                        <a href="{{ route('galeri.edit', $galeri->id) }}" class="btn btn-primary">Perbarui</a>
+                        <a href="{{ route('galeri.edit', ['gallery' => $galeri]) }}" class="btn btn-primary">Perbarui</a>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusModal-{{ $galeri->id }}">Hapus</button>
-                        
-                        <!-- Modal -->
+                        <!-- Button to trigger the nonaktif modal check -->
+                        <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $galeri->id }}, {{ $galeri->status }})">
+                            Nonaktif
+                        </button>
+
+                        <!-- Modal for nonaktif confirmation -->
                         <div class="modal fade" id="hapusModal-{{ $galeri->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $galeri->id }}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="hapusModalLabel-{{ $galeri->id }}">Konfirmasi Hapus</h5>
+                                        <h5 class="modal-title" id="hapusModalLabel-{{ $galeri->id }}">Konfirmasi Nonaktif</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        Apakah Anda yakin ingin menghapus data ini?
+                                    <div class="modal-body" id="modalMessage-{{ $galeri->id }}">
+                                        Apakah Anda yakin ingin mengubah status data ini?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                        <form action="{{ route('galeri.destroy', $galeri->id) }}" method="POST">
+                                        <form action="{{ route('galeri.destroy', $galeri->id) }}" method="POST" id="nonaktifForm-{{ $galeri->id }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                            <button type="submit" class="btn btn-danger">Nonaktifkan</button>
                                         </form>
                                     </div>
                                 </div>
@@ -91,11 +106,30 @@
             </div>
         </div>
         @endif
-
     </div>
 @endsection
+
 @section('page-js')
     <script>
+        // Function to handle the nonaktif process
+        function handleNonaktif(galleryId, status) {
+            var modalMessage = document.getElementById('modalMessage-' + galleryId);
+            var nonaktifForm = document.getElementById('nonaktifForm-' + galleryId);
+            
+            if (status === 0) {
+                // If the gallery is already nonaktif, show a custom message in the modal and prevent form submission
+                modalMessage.innerHTML = "Galeri ini sudah nonaktif.";
+                nonaktifForm.querySelector("button[type='submit']").disabled = true; // Disable the submit button
+            } else {
+                // If the gallery is active, proceed to the normal nonaktif process
+                modalMessage.innerHTML = "Apakah Anda yakin ingin mengubah status data ini?";
+                nonaktifForm.querySelector("button[type='submit']").disabled = false; // Enable the submit button
+            }
+
+            // Show the modal
+            $('#hapusModal-' + galleryId).modal('show');
+        }
+
         $(document).ready(function() {
             @if(session('Berhasil'))
                 $('#BerhasilModal').modal('show');

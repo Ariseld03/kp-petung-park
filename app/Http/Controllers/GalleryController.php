@@ -29,24 +29,34 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        // Validate the incoming data
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'status' => 'required|integer',
-            'photo_link' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'photo' => 'required|image|mimes:jpg,jpeg,png|max:10240', // Validate the file upload
+            'description' => 'nullable|longtext',
+            'status' => 'required|in:0,1',
         ]);
-
-        $gallery = new Gallery();
-        $gallery->photo_link = $request->input('photo_link');
-        $gallery->description = $request->input('description');
-        $gallery->number_love = 0;
+    
+        // If validation passes, save the gallery data
+        $gallery = new Gallery;
         $gallery->name = $request->input('name');
+        $gallery->description = $request->input('description');
         $gallery->status = $request->input('status');
+        $gallery->number_love = 0;
+        $extension = $request->file('photo')->getClientOriginalExtension();
+        
+        // Generate a new file name based on the gallery name or any custom logic
+        $newFileName = str_replace(' ', '_', strtolower($gallery->name)) . '_' . time() . '.' . $extension;
+        
+        // Save the file in 'storage/app/public/images/galeri/baru' folder
+        $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
+        
+        // Save the file path to the database with public path (this is where it will be accessed in the URL)
+        $gallery->photo_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL   
         $gallery->save();
-
+    
         return redirect()->route('galeri.index')->with('Berhasil', 'Galeri berhasil ditambahkan!');
     }
-
     /**
      * Display the specified resource.
      */
@@ -74,16 +84,27 @@ class GalleryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'status' => 'required|integer',
-            'photo_link' => 'required|string|max:255',
+            'status' => 'required|in:0,1',
             'description' => 'nullable|string',
             'number_love' => 'nullable|integer',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
         ]);
-
         $gallery->name = $request->input('name');
         $gallery->status = $request->input('status');
         $gallery->number_love = $request->input('number_love');
-        $gallery->photo_link = $request->input('photo_link');
+        if ($request->hasFile('photo')) {
+            // Get the file extension
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            
+            // Generate a new file name based on the gallery name or any custom logic
+            $newFileName = str_replace(' ', '_', strtolower($gallery->name)) . '_' . time() . '.' . $extension;
+            
+            // Save the file in 'storage/app/public/images/galeri/baru' folder
+            $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
+            
+            // Save the file path to the database with public path (this is where it will be accessed in the URL)
+            $gallery->photo_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL
+        }        
         $gallery->description = $request->input('description');
         $gallery->save();
 
@@ -94,16 +115,11 @@ class GalleryController extends Controller
      */
     public function destroy(Gallery $gallery)
     {
-        // Delete data in pivot table travel_gallery
-        if ($gallery->status == 0) {
-            $message = 'Galeri status sudah nonaktif.';
-        } else {
-            $gallery->status=0;
-            $gallery->travels()->status=0;
-            $gallery->articles()->status=0;
-            $gallery->save();
-            $message = 'Galeri berhasil dihapus.';
-        }
+        $gallery->status=0;
+        $gallery->travels()->status=0;
+        $gallery->articles()->status=0;
+        $gallery->save();
+        $message = 'Galeri berhasil dinonaktifkan.';
         return redirect()->route('galeri.index')->with('Berhasil', $message);
     }
     /**

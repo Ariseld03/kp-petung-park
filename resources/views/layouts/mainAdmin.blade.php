@@ -1,4 +1,3 @@
-<!-- views/layouts/mainAdmin.blade.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>

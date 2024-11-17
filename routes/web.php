@@ -78,10 +78,12 @@ Route::get('/staffAdd', [StaffController::class, 'add'])->name('staff.add');
 
 //Galeri
 Route::get('/galeri', [GalleryController::class, 'index'])->name('galeri.index');
-Route::post('/galeriAdd', [GalleryController::class, 'store'])->name('galeri.store'); // Handle  submission
-Route::get('/galeriAdd', [GalleryController::class, 'create'])->name('galeri.add');
-Route::get('/galeri/edit/{id}', [GalleryController::class, 'edit'])->name('galeri.edit');
-Route::post('/galeri/edit/{id}', [GalleryController::class, 'update'])->name('galeri.update');
+Route::post('/galeri', [GalleryController::class, 'store'])->name('galeri.store'); // Handle  submission
+Route::get('/galeri/add', [GalleryController::class, 'create'])->name('galeri.add');
+
+Route::get('/galeri/{gallery}', [GalleryController::class, 'edit'])->name('galeri.edit');
+Route::post('/galeri/{gallery}', [GalleryController::class, 'update'])->name('galeri.update');
+
 Route::delete('/gallery/{gallery}', [GalleryController::class, 'destroy'])->name('galeri.destroy');
 // Menu 
 Route::get('/menu', [MenuController::class, 'menu'])->name('hidangan.menu');

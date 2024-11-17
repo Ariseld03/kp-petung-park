@@ -97,7 +97,7 @@
                 @foreach ($galleryShows as $galleryShow)
                     <div class="col-md-4">
                         <div class="frame-image">
-                            <img src="{{ $galleryShow->gallery->photo_link }}" alt="{{ $galleryShow->name }}" class="galeri-image">
+                            <img src="{{ asset($galleryShow->gallery->photo_link) }}" alt="{{ $galleryShow->name }}" class="galeri-image">
                             <div class="content-container">
                                 <p class="text-image">{{ $galleryShow->name }}</p>
                                 <p class="desc-image">{{ $galleryShow->description }}</p>

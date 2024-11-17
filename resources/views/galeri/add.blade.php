@@ -10,22 +10,42 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center text-success">Tambah Galeri</h1>
-        <form action="{{ url('/galeriStore') }}" method="post" enctype="multipart/form-data">
-            @csrf <!-- Token untuk melindungi dari CSRF -->
-            
+        
+        <!-- Display validation errors as an alert -->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        
+        <form action="{{ route('galeri.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
             <div class="form-group">
-                <label for="nama">Nama:</label>
-                <input type="text" class="form-control" id="nama" name="nama" required>
+                <label for="name">Nama:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+                @error('name')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
-                <label for="foto">Foto:</label>
-                <input type="file" class="form-control" id="foto" name="foto" accept="image/*" required>
+                <label for="photo">Foto:</label>
+                <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .jpeg, .png" required>
+                @error('photo')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
-                <label for="deskripsi">Deskripsi:</label>
-                <textarea class="form-control" id="deskripsi" name="deskripsi" required></textarea>
+                <label for="description">Deskripsi:</label>
+                <textarea class="form-control" id="description" name="description"></textarea>
+                @error('description')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
@@ -34,16 +54,19 @@
                     <option value="1">Aktif</option>
                     <option value="0">Tidak Aktif</option>
                 </select>
+                @error('status')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='{{ url('/galeri') }}'">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('galeri.index') }}'">Batal</button>
             </div>
         </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
