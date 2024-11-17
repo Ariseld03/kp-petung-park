@@ -64,49 +64,58 @@ Route::post('/register', [RegisterController::class, 'register']); // Handle reg
 Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
 Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
 
-//wisata
+// wisata
 Route::get('/wisata', function () {
     return view('wisata.index');
 });
 Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
+Route::get('/wisata/add', [TravelController::class, 'add'])->name('wisata.add');
+Route::post('/wisata', [TravelController::class, 'store'])->name('wisata.store');
+Route::get('/wisata/edit/{wisata}', [TravelController::class, 'edit'])->name('wisata.edit');
+Route::post('/wisata/edit/{wisata}', [TravelController::class, 'update'])->name('wisata.update');
+Route::delete('/wisata/{wisata}', [TravelController::class, 'delete'])->name('wisata.delete');
+Route::get('/wisata/staff', [TravelController::class, 'staff'])->name('wisata.staff');
 
 // Staff
 Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
-Route::get('/staffUpdate', [StaffController::class, 'edit'])->name('staff.edit');
-Route::get('/staffDelete', [StaffController::class, 'delete'])->name('staff.delete');
-Route::get('/staffAdd', [StaffController::class, 'add'])->name('staff.add');
+Route::get('/staff/add', [StaffController::class, 'add'])->name('staff.add');
+Route::post('/staff/add', [StaffController::class, 'store'])->name('staff.store');
+Route::get('/staff/edit/{staff}', [StaffController::class, 'edit'])->name('staff.edit');
+Route::post('/staff/edit/{staff}', [StaffController::class, 'update'])->name('staff.update');
+Route::delete('/staff/{staff}', [StaffController::class, 'delete'])->name('staff.delete');
 
-//Galeri
+// Galeri
 Route::get('/galeri', [GalleryController::class, 'index'])->name('galeri.index');
-Route::post('/galeri', [GalleryController::class, 'store'])->name('galeri.store'); // Handle  submission
+Route::post('/galeri/add', [GalleryController::class, 'store'])->name('galeri.store');
 Route::get('/galeri/add', [GalleryController::class, 'create'])->name('galeri.add');
+Route::get('/galeri/edit/{gallery}', [GalleryController::class, 'edit'])->name('galeri.edit');
+Route::post('/galeri/edit/{gallery}', [GalleryController::class, 'update'])->name('galeri.update');
+Route::delete('/galeri/{gallery}', [GalleryController::class, 'destroy'])->name('galeri.destroy');
 
-Route::get('/galeri/{gallery}', [GalleryController::class, 'edit'])->name('galeri.edit');
-Route::post('/galeri/{gallery}', [GalleryController::class, 'update'])->name('galeri.update');
-
-Route::delete('/gallery/{gallery}', [GalleryController::class, 'destroy'])->name('galeri.destroy');
-// Menu 
+// Menu
 Route::get('/menu', [MenuController::class, 'menu'])->name('hidangan.menu');
-//hidangan 
+
+// Hidangan
 Route::get('/hidangan', [MenuController::class, 'index'])->name('hidangan.index');
+Route::get('/hidangan/add', [MenuController::class, 'add'])->name('hidangan.add');
+Route::post('/hidangan', [MenuController::class, 'store'])->name('hidangan.store');
+Route::get('/hidangan/edit/{hidangan}', [MenuController::class, 'edit'])->name('hidangan.edit');
+Route::post('/hidangan/edit/{hidangan}', [MenuController::class, 'update'])->name('hidangan.update');
+Route::delete('/hidangan/{hidangan}', [MenuController::class, 'delete'])->name('hidangan.delete');
 Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('hidangan.cari');
-Route::get('/hidanganUpdate/{id}', [MenuController::class, 'edit'])->name('hidangan.edit');
-Route::get('/hidanganAdd', [MenuController::class, 'add'])->name('hidangan.add');
-Route::get('/hidanganDelete', [MenuController::class, 'delete'])->name('hidangan.delete');
 
-//paket
-Route::get('/paketUpdate', [PacketController::class, 'edit'])->name('paket.edit');
-Route::get('/paketDelete', [PacketController::class, 'delete'])->name('paket.delete');
-Route::get('/paketAdd', [PacketController::class, 'delete'])->name('paket.add');
+// Paket
+Route::get('/paket/add', [PacketController::class, 'add'])->name('paket.add');
+Route::post('/paket', [PacketController::class, 'store'])->name('paket.store');
+Route::get('/paket/edit/{paket}', [PacketController::class, 'edit'])->name('paket.edit');
+Route::post('/paket/edit/{paket}', [PacketController::class, 'update'])->name('paket.update');
+Route::delete('/paket/{paket}', [PacketController::class, 'delete'])->name('paket.delete');
 
-//wisata
-Route::get('/wisataStaff', [TravelController::class, 'staff'])->name('wisata.staff');
-Route::get('/wisataUpdate', [TravelController::class, 'edit'])->name('wisata.edit');
-Route::get('/wisataDelete', [TravelController::class, 'delete'])->name('wisata.delete');
-Route::get('/wisataAdd', [TravelController::class, 'add'])->name('wisata.add');
-
-//kegiatan
-Route::get('/kegiatanUpdate', [AgendaController::class, 'edit'])->name('kegiatan.edit');
-Route::get('/kegiatanDelete', [AgendaController::class, 'delete'])->name('kegiatan.delete');
-Route::get('/kegiatanAdd', [AgendaController::class, 'add'])->name('kegiatan.add');
+// Kegiatan
 Route::get('/kegiatan', [AgendaController::class, 'index'])->name('kegiatan.index');
+Route::get('/kegiatan/add', [AgendaController::class, 'add'])->name('kegiatan.add');
+Route::post('/kegiatan', [AgendaController::class, 'store'])->name('kegiatan.store');
+Route::get('/kegiatan/edit/{kegiatan}', [AgendaController::class, 'edit'])->name('kegiatan.edit');
+Route::post('/kegiatan/edit/{kegiatan}', [AgendaController::class, 'update'])->name('kegiatan.update');
+Route::delete('/kegiatan/{kegiatan}', [AgendaController::class, 'delete'])->name('kegiatan.delete');
+
