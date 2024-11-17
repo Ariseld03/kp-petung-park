@@ -10,7 +10,9 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center text-success">Pembaruan Staff</h1>
-        <form>
+        <form action="{{ route('staf.update', ['email' => $staff->email]) }}" method="post">
+        @csrf
+        @method('PUT')
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" class="form-control" id="email" name="email" required>

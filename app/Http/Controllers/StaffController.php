@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Generic;
 use Illuminate\Http\Request;
+use App\Models\Staff;
 
 class StaffController extends Controller
 {
@@ -13,7 +14,7 @@ class StaffController extends Controller
     public function index()
     {
         $staffs = Staff::all();
-        return view('staffs.index', compact('staffs'));
+        return view('staf.index', compact('staffs'));
     }
 
     /**
@@ -37,14 +38,14 @@ class StaffController extends Controller
             'position' => 'required|string',
             'gender' => 'required|string',
             'status' => 'required|integer',
-            'staff_email' => 'required|email|exists:staffs,email',
+            'email' => 'required|email|exists:staffs,email',
         ]);
 
         Staff::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'status' => $request->input('status'),
-            'staff_email' => $request->input('staff_email'),
+            'email' => $request->input('email'),
             'date_of_birth' => $request->input('date_of_birth'),
             'phone_number' => $request->input('phone_number'),
             'position' => $request->input('position'),
@@ -67,16 +68,24 @@ class StaffController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($email)
     {
-        $staff = Staff::findOrFail($id);
-        return view('staffs.edit', compact('staff'));
+        // Retrieve the staff using the email
+        $staff = Staff::where('email', $email)->first();
+        
+        // Check if the staff exists
+        if (!$staff) {
+            return redirect()->route('staf.index')->with('error', 'Staff not found');
+        }
+    
+        // Pass the staff data to the view
+        return view('staff.edit', compact('staff'));
     }
-
+    
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $email)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -86,12 +95,17 @@ class StaffController extends Controller
             'position' => 'required|string',
             'gender' => 'required|string',
             'status' => 'required|integer',
-            'staff_email' => 'required|email',
+            'email' => 'required|email',
         ]);
 
-        $staff = Staff::findOrFail($id);
+        $staff = Staff::where('staff_email', $email)->first();
+
+        if (!$staff) {
+            return redirect()->route('staf.index')->with('Error', 'Staff not found');
+        }
+        
         $data = $request->only([
-            'name', 'description', 'status', 'staff_email', 'date_of_birth', 
+            'name', 'description', 'status', 'email', 'date_of_birth', 
             'phone_number', 'position', 'gender'
         ]);
 
@@ -101,7 +115,7 @@ class StaffController extends Controller
 
         $staff->update($data);
 
-        return redirect()->route('staffs.index')->with('Berhasil', 'Staf berhasil diupdate!');
+        return redirect()->route('staf.index')->with('Berhasil', 'Staf berhasil diupdate!');
     }
 
     /**

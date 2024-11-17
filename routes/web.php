@@ -77,12 +77,12 @@ Route::delete('/wisata/{wisata}', [TravelController::class, 'delete'])->name('wi
 Route::get('/wisata/staff', [TravelController::class, 'staff'])->name('wisata.staff');
 
 // Staff
-Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
-Route::get('/staff/add', [StaffController::class, 'add'])->name('staff.add');
-Route::post('/staff/add', [StaffController::class, 'store'])->name('staff.store');
-Route::get('/staff/edit/{staff}', [StaffController::class, 'edit'])->name('staff.edit');
-Route::post('/staff/edit/{staff}', [StaffController::class, 'update'])->name('staff.update');
-Route::delete('/staff/{staff}', [StaffController::class, 'delete'])->name('staff.delete');
+Route::get('/staf', [StaffController::class, 'index'])->name('staf.index');
+Route::get('/staf/add', [StaffController::class, 'add'])->name('staf.add');
+Route::post('/staf/add', [StaffController::class, 'store'])->name('staf.store');
+Route::get('/staf/edit/{email}', [StaffController::class, 'edit'])->name('staf.edit');
+Route::post('/staf/edit/{email}', [StaffController::class, 'update'])->name('staf.update');
+Route::delete('/staf/{email}', [StaffController::class, 'delete'])->name('staf.delete');
 
 // Galeri
 Route::get('/galeri', [GalleryController::class, 'index'])->name('galeri.index');
