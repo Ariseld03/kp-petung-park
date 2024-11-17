@@ -15,9 +15,8 @@
                         @csrf
 
                         <div class="row mb-3 form-group">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-8">
+                            <div class="col-md-12">
+                                <label for="name" class="col-form-label">{{ __('Nama') }}</label>
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Masukkan Nama Pengguna" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
@@ -29,9 +28,8 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-8">
+                            <div class="col-md-12">
+                                <label for="email" class="col-form-label">{{ __('Alamat Email') }}</label>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Email" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
@@ -43,9 +41,8 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-8">
+                            <div class="col-md-12">
+                                <label for="password" class="col-form-label">{{ __('Kata Sandi') }}</label>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan Kata Sandi" name="password" required autocomplete="new-password">
 
                                 @error('password')
@@ -57,17 +54,15 @@
                         </div>
 
                         <div class="row mb-2">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-8">
-                                <input id="password-confirm" type="password" class="form-control" placeholder="Konfirmasi Kata Sandi" name="password_confirmation" required autocomplete="new-password">
+                            <div class="col-md-12">
+                                <label for="password-confirm" class="col-form-label">{{ __('Konfirmasi Kata Sandi') }}</label>
+                                <input id="password-confirm" type="password" class="form-control" placeholder="Masukkan Kembali Kata Sandi" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="dob" class="col-md-4 col-form-label text-md-end">Tanggal Lahir</label>
-
-                            <div class="col-md-8">
+                            <div class="col-md-12">
+                                <label for="dob" class="col-form-label">Tanggal Lahir</label>
                                 <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror" value="2000-01-01" placeholder="Masukkan Tanggal Lahir" name="dob" required autocomplete="dob">
 
                                 @error('dob')
@@ -79,9 +74,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="gender" class="col-md-4 col-form-label text-md-end">Gender</label>
-                            <div class="col-md-8">
-                                <select id="gender" name="gender" class="gender-select">
+                            <div class="col-md-12">
+                                <label for="gender" class="col-form-label">Jenis Kelamin</label>
+                                <select id="gender" name="gender" class="gender-select form-control">
                                     <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
@@ -94,9 +89,8 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="phone" class="col-md-4 col-form-label text-md-end">Nomor Telepon</label>
-
-                            <div class="col-md-8">
+                            <div class="col-md-12">
+                                <label for="phone" class="col-form-label">Nomor Telepon</label>
                                 <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" placeholder="081234567890" pattern="[0-9]{10,15}" name="phone" required autocomplete="phone">
 
                                 @error('phone')
@@ -107,17 +101,18 @@
                             </div>
                         </div>
 
-                        
                         <div class="row mb-2">
-                            <div class="col-md-6 offset-md-3">
+                            <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Daftar') }}
                                 </button>
                             </div>
-                        </div><div class="signup-container d-flex align-items-center mt-4">
-                        <p class="mb-0" style="font-size: 18px;">Sudah memiliki akun?</p>
-                        <a class="btn btn-link p-0 ml-2 mb-3" style="color: #295A3F; font-size: 20px;" onclick="window.location.href='{{ route('login') }}'">{{ __('Masuk') }}</a>
-                    </div>
+                        </div>
+
+                        <div class="signup-container d-flex align-items-center mt-4">
+                            <p class="mb-0" style="font-size: 18px;">Sudah memiliki akun?</p>
+                            <a class="btn btn-link p-0 ml-2 mb-3" style="color: #295A3F; font-size: 20px;" onclick="window.location.href='{{ route('login') }}'">{{ __('Masuk') }}</a>
+                        </div>
                     </form>
             </div>
         </div>

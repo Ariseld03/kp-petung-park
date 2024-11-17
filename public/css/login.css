@@ -58,6 +58,20 @@ body {
     justify-content: center; /* Memusatkan input di dalam kolom */
 }
 
+.error-message {
+    display: flex;
+    justify-content: center; /* Rata tengah secara horizontal */
+    margin-top: 5px; /* Jarak antara input dan pesan error */
+    padding-right: 30px;
+}
+
+.error-message span {
+    display: block;
+    text-align: center; /* Memastikan teks di dalam span rata tengah */
+    font-size: 14px;
+    color: #d9534f; /* Warna merah untuk pesan error */
+}
+
 
 .invalid-feedback {
     margin-top: 1px; /* Mengatur jarak atas untuk pesan error */

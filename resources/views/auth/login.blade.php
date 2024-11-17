@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         @error('email')
-                            <div class="col-md-8 offset-md-4 mb-1 p-0">
+                            <div class="error-message col-md-8 offset-md-2">
                                 <span class="text-danger" style="font-size: 14px;">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         @error('password')
-                            <div class="col-md-8 offset-md-4 mb-1 p-0">
+                            <div class="error-message col-md-8 offset-md-2">
                                 <span class="text-danger" style="font-size: 14px;">
                                     <strong>{{ $message }}</strong>
                                 </span>

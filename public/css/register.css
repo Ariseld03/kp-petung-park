@@ -13,9 +13,10 @@ body {
 }
 
 .login-container {
-    max-width: 600px;
+    max-width: 900px;
+    margin: auto;
     background-color: rgb(255, 255, 255); 
-    padding: 40px; /* Padding untuk ruang di dalam kontainer */
+    padding: 20px; /* Padding untuk ruang di dalam kontainer */
     border-radius: 10px; /* Sudut melengkung */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Bayangan untuk efek kedalaman */
     display: flex;
@@ -31,68 +32,80 @@ body {
     margin-bottom: 40px;
 }
 
-.inputRegister input,.gender-select {
+.inputRegister input,
+.gender-select {
     font-size: 15px;
-    margin-bottom: 10px;
-    border: 6px solid #295A3F;
+    margin-bottom: 20px;
+    border: 2px solid #295A3F;
     border-radius: 10px;
     color: #295A3F;
     background-color: white;
-    width: 100%; /* Memastikan input mengisi lebar kontainer */
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    display: block;
 }
 
 .inputRegister input::placeholder {
     color: #295A3F;
 }
 
+.invalid-feedback {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+    text-align: left;
+}
 .inputRegister button {
     font-size: 24px;
+    max-width: 500px;
     font-weight: bold;
     color: white;
     background-color: #295A3F;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    width: 100%; /* Memastikan tombol mengisi lebar kontainer */
+    width: 500px;
 }
 
 .inputRegister button:hover {
     background-color: #1e4633;
 }
 
-.inputRegister label{
-    display: flex;
-    flex-direction: column;  
-    justify-content: center;  
+.inputRegister label {
+    display: block; /* Menempatkan label di atas input */
+    text-align: left; /* Menyelaraskan label ke kiri */
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #295A3F;
 }
 
 .signup-container {
     display: flex;
-    padding-top: 10px;
-    flex-direction: column; /* Mengatur elemen dalam kolom untuk memusatkan */
-    align-items: center;
-    margin-top: 20px; 
+    justify-content: center; /* Memastikan elemen berada di tengah secara horizontal */
+    align-items: center; /* Memastikan elemen berada di tengah secara vertikal */
+    margin-top: 20px;
 }
 
 .signup-container p {
-    font-size: 24px;
+    font-size: 18px;
     color: black;
-    margin: 0; /* Menghapus margin default */
+    margin-right: 10px; /* Memberikan jarak antara teks dan tombol */
 }
 
-.signup-container button {
-    font-size: 24px;
+.signup-container a {
+    font-size: 18px;
     color: #295A3F;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-decoration: underline;
+    text-decoration: underline; 
     font-weight: bold;
+    margin-top: 15px;
+    margin-left: 20px;
 }
 
-.signup-container button:hover {
+.signup-container a:hover {
     color: #1e4633;
 }
+
 
 /* Media Queries for mobile responsiveness */
 @media (max-width: 768px) {
