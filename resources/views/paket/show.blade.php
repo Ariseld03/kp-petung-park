@@ -23,12 +23,14 @@
         
         <!-- Harga dan Like Count -->
         <p>Harga: Rp{{ number_format($paket->price, 0, ',', '.') }}</p>
-        <p id="like-count">Jumlah Like: {{ $paket->number_love }}</p>
-
-        <!-- Tombol Like -->
-        <button id="like-button" onclick="addLike({{ $paket->id }})" class="like-button">
-            ❤️ Like
-        </button>
+        
+        <!-- Container untuk tombol like dan jumlah like -->
+        <div class="like-container">
+            <button id="like-button" onclick="addLike({{ $paket->id }})" class="like-button">
+                ❤️
+            </button>
+            <span id="like-count">{{ $paket->number_love }}</span>
+        </div>
 
         <!-- Menu dalam Paket -->
         <h2>Menu dalam Paket:</h2>
