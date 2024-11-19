@@ -1,20 +1,56 @@
-.paket-detail {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+html, body {
+    background-color: #D7E4C0;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
 }
 
-.paket-detail h1 {
+/* Styling untuk Paket Detail */
+.paket-detail {
+    max-width: 800px;
+    margin: 0 auto; /* Membuat konten berada di tengah */
+    padding: 20px;
+    background-color: #D7E4C0;
+    border-radius: 10px;
+}
+
+/* Agar elemen lainnya tidak menyebabkan ruang kosong */
+* {
+    box-sizing: border-box; /* Agar padding dan border tidak mempengaruhi ukuran elemen */
+}
+
+.kategori-wisata{
+    background-color: #D7E4C0;
+}
+/* Menjaga gambar agar tidak meluap */
+.paket-photo img {
+    width: 100%;
+    height: auto;
+    max-width: 100%; /* Pastikan gambar tidak melampaui lebar elemen */
+    margin: 0 auto;
+}
+.paket-detail h1, .paket-detail h2 {
     text-align: center;
     color: #333;
 }
 
-.paket-detail p {
-    margin: 10px 0;
-    color: #555;
+.kategori-header h2{
+    text-align: center;
+    padding-top: 70px;
+    background-color: #D7E4C0;
+}
+
+.paket-photo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.paket-photo img {
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .menu-list {
@@ -30,6 +66,42 @@
     border: 1px solid #ddd;
 }
 
-.menu-list li p {
-    margin: 5px 0;
+.like-button {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #7a0707;
+    transition: transform 0.2s;
+}
+
+.like-button:hover {
+    transform: scale(1.1);
+}
+
+#like-count {
+    font-weight: bold;
+    color: #7a0707;
+    margin-top: 10px;
+}
+
+.btn-kembali {
+    font-size: medium;
+    background-color: #D7E4C0;
+    color: #254336;
+    padding: 10px 15px;
+    text-decoration: none;
+    border: 0;
+    display: inline-block;
+    margin-bottom: 20px;
+    position: absolute;
+    left: 20px;
+    top: 70px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-kembali:hover {
+    background-color: #254336;
+    color: #D7E4C0;
 }

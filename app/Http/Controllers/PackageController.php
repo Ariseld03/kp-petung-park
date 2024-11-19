@@ -38,11 +38,23 @@ class PackageController extends Controller
     }
 
     public function show($id)
-{
-    $paket = Package::with('menus')->findOrFail($id);
-    return view('paket.show', compact('paket'));
-}
-
+    {
+        $paket = Package::with('menus.gallery')->findOrFail($id);
+        return view('paket.show', compact('paket'));
+    }
+    
+    public function addLike($id)
+    {
+        $paket = Package::findOrFail($id);
+        $paket->number_love += 1;
+        $paket->save();
+    
+        return response()->json([
+            'success' => true,
+            'newLikeCount' => $paket->number_love,
+        ]);
+    }
+    
 
     public function showPaketAllPengguna()
     {

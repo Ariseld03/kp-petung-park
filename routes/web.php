@@ -106,6 +106,7 @@ Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('h
 
 // Paket
 Route::get('/paket/{id}', [PackageController::class, 'show'])->name('paket.show');
+Route::post('/paket/{id}/like', [PackageController::class, 'addLike'])->name('paket.like');
 Route::get('/paket/add', [PacketController::class, 'add'])->name('paket.add');
 Route::post('/paket', [PacketController::class, 'store'])->name('paket.store');
 Route::get('/paket/edit/{paket}', [PacketController::class, 'edit'])->name('paket.edit');
