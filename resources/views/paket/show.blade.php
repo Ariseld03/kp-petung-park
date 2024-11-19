@@ -36,6 +36,7 @@
             @forelse($paket->menus as $menu)
                 <li>
                     <p><strong>Nama Menu:</strong> {{ $menu->name }}</p>
+                    <p><strong>Deskripsi:</strong> {{ $menu->description }}</p>
                 </li>
             @empty
                 <li>Tidak ada menu dalam paket ini.</li>
