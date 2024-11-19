@@ -4,15 +4,19 @@ html {
     padding: 0;
     height: 100%;
     overflow-x: hidden;
+    background-color: #246140;
 }
-
+.container-main{
+    padding-bottom: 0px;
+    background-color: #246140;
+}
 /* Styling kategori-wisata */
 .kategori-wisata {
     background-color: #246140;
     padding: 10px 0; /* Full width background */
     width: 100vw;
     position: relative;
-    min-height: 76vh; /* Pastikan kategori-wisata memenuhi tinggi layar */
+    min-height: 81vh; /* Pastikan kategori-wisata memenuhi tinggi layar */
 }
 
 .kategori-header {
@@ -33,6 +37,7 @@ html {
 .galeri-container {
     margin-top: 20px;
     margin-bottom: 30px;
+    background-color: #246140;
 }
 
 .galeri-grid {
@@ -40,6 +45,7 @@ html {
     flex-wrap: wrap;
     gap: 20px; /* Jarak antar item galeri */
     justify-content: center; /* Mengatur agar item galeri berada di tengah */
+    background-color: #246140;
 }
 
 .galeri-item {

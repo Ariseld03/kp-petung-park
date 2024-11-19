@@ -13,6 +13,7 @@ html {
     /* Full width background */
     width: 100vw;
     position: relative;
+    min-height: 81vh;
 }
 
 .kategori-makanan h2 {

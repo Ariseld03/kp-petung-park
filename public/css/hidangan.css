@@ -5,6 +5,7 @@ html {
     height: 100%;
     overflow-x: hidden;
 }
+
 /* Styling untuk tombol Kembali */
 .btn-kembali {
     font-size: medium;
@@ -33,11 +34,11 @@ html {
     padding: 10px 0; /* Full width background */
     width: 100vw;
     position: relative;
-    min-height: 76vh; /* Pastikan kategori-makanan memenuhi tinggi layar */
     display: flex;
     justify-content: center; /* Untuk memusatkan secara horizontal */
     align-items: center; /* Untuk memusatkan secara vertikal */
     flex-direction: column; /* Supaya elemen di dalamnya tersusun secara vertikal */
+    min-height: 81vh;
 }
 
 .kategori-makanan h2 {
