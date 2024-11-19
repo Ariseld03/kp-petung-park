@@ -81,7 +81,7 @@ class MenuController extends Controller
                     ->findOrFail($id); // This will throw a 404 if the menu is not found
     
         // Return a view with the menu data
-        return view('hidangan', compact('menu')); // Pass the menu object to the view
+        return view('hidangan.index', compact('menu')); // Pass the menu object to the view
     }
     
     /**

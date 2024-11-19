@@ -63,7 +63,7 @@ class CategoryController extends Controller
         $kategori = Category::with('menus') // Eager load the menus for the category
         ->findOrFail($id); // This will throw a 404 if the category is not found
         // Return a view with the category and its menus
-        dd($kategori);
+        //dd($kategori);
         return view('kategori.menu', compact('kategori'));
     }
     /**

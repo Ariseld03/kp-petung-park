@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Travel;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class TravelController extends Controller
 {
     /**
@@ -62,7 +62,7 @@ class TravelController extends Controller
         ->select('galleries.*')
         ->get();
 
-    return view('wisata', compact('travel', 'galleries'));
+    return view('wisata.index', compact('travel', 'galleries'));
 }
 
 
