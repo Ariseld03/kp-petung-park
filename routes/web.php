@@ -105,6 +105,7 @@ Route::delete('/hidangan/{hidangan}', [MenuController::class, 'delete'])->name('
 Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('hidangan.cari');
 
 // Paket
+Route::get('/paket/{id}', [PackageController::class, 'show'])->name('paket.show');
 Route::get('/paket/add', [PacketController::class, 'add'])->name('paket.add');
 Route::post('/paket', [PacketController::class, 'store'])->name('paket.store');
 Route::get('/paket/edit/{paket}', [PacketController::class, 'edit'])->name('paket.edit');

@@ -16,7 +16,8 @@
                     @endphp
                 <img src="{{ asset($photo) }}" alt="Foto {{ $perpaket->name }}">
                 <p class="judul-paket">{{ $perpaket->name }}</p>
-                <button onclick="window.location.href='{{ url('paket/'.$perpaket->id) }}'">Baca Lebih Banyak</button>
+                <button onclick="window.location.href='{{ route('paket.show', $perpaket->id) }}'">Baca Lebih Banyak</button>
+
             </div>
         @empty
             <p>Tidak ada menu paket yang tersedia saat ini.</p>
