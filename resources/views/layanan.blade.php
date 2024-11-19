@@ -5,17 +5,17 @@
 @section('container-main')
 
 <!-- Kategori Paket -->
-<div class="kategori-wisata">
+<div class="kategori-paket">
     <h2>Paket Menu</h2>
 
-    <div name="paket-menu" class="wisata-container">
+    <div name="paket-menu" class="paket-container">
         @forelse($paket as $perpaket)
-            <div class="wisata">
+            <div class="paket">
                     @php
                         $photo = $perpaket->menus->isNotEmpty() ? $perpaket->menus->first()->gallery->photo_link : '/images/footer/logoPetungPark.png';
                     @endphp
                 <img src="{{ asset($photo) }}" alt="Foto {{ $perpaket->name }}">
-                <p class="judul-wisata">{{ $perpaket->name }}</p>
+                <p class="judul-paket">{{ $perpaket->name }}</p>
                 <button onclick="window.location.href='{{ url('paket/'.$perpaket->id) }}'">Baca Lebih Banyak</button>
             </div>
         @empty
@@ -23,6 +23,7 @@
         @endforelse
     </div>
 </div>
+
 
 
 <!-- Kategori Makanan -->
