@@ -14,7 +14,17 @@
                 <div class="gallery-item">
                     <img src="{{ asset($gallery->photo_link) }}" alt="{{ $gallery->name }}" class="gallery-img">
                     <p>{{ $gallery->description }}</p>
-                    <span class="like-icon">❤️ {{ $gallery->number_love }}</span>
+
+                    <!-- Container untuk tombol like dan jumlah like -->
+                    <div class="like-container">
+                        <button class="like-button" data-gallery-id="{{ $gallery->id }}">
+                            <span id="like-count-{{ $gallery->id }}"
+                                  class="{{ $gallery->number_love % 2 === 0 ? 'even' : 'odd' }}">
+                                  {{ $gallery->number_love }}
+                            </span>
+                            <span class="like-icon">❤️</span>
+                        </button>
+                    </div>
                 </div>
             @endforeach
         </div>
@@ -40,4 +50,48 @@
             @endif
         </div>
     </div>
+@endsection
+
+@section('page-js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const likeButtons = document.querySelectorAll('.like-button');
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const galleryId = button.dataset.galleryId;
+                    const likeCount = document.getElementById(`like-count-${galleryId}`);
+                    let currentLikes = parseInt(likeCount.textContent);
+
+                    // Send request to toggle like in the backend
+                    fetch(`/galeri/${galleryId}/like`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        likeCount.textContent = data.number_love; // Update the like count displayed on the page
+                        updateLikeCountDisplay(likeCount); // Update the style (odd/even class)
+                    })
+                    .catch(error => {
+                        console.error("Error updating like:", error);
+                    });
+                });
+            });
+
+            // Update the like count's style based on odd/even value
+            function updateLikeCountDisplay(likeCount) {
+                const count = parseInt(likeCount.textContent);
+                if (count % 2 === 0) {
+                    likeCount.classList.remove('odd');
+                    likeCount.classList.add('even');
+                } else {
+                    likeCount.classList.remove('even');
+                    likeCount.classList.add('odd');
+                }
+            }
+        });
+    </script>
 @endsection
