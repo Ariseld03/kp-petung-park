@@ -96,6 +96,12 @@ html {
     font-weight: bold; /* Menebalkan teks tombol */
     transition: background-color 0.3s; /* Efek transisi saat hover */
 }
+.like-button {
+    border: none; /* Menghapus border */
+    background: none; /* Menghapus background default */
+    padding: 0; /* Menghapus padding default */
+    cursor: pointer; /* Mengubah cursor menjadi pointer */
+}
 
 .btn-kembali:hover {
     color: #000000; /* Warna teks saat hover */
