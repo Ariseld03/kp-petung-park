@@ -1,10 +1,10 @@
 html, body {
-    background-color: #D7E4C0;
+    background-color: #A0D0B3;
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
-    display: flex;
+    
     flex-direction: column; /* Menyusun elemen secara vertikal */
 }
 
@@ -12,13 +12,13 @@ html, body {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #D7E4C0;
+    background-color: #A0D0B3;
     border-radius: 10px;
     flex-grow: 1; /* Membuat paket-detail tumbuh agar mengisi ruang yang tersedia */
 }
 
 .kategori-wisata {
-    background-color: #D7E4C0;
+    background-color: #A0D0B3;
     min-height: calc(100vh - 100px); /* Sesuaikan 100px dengan tinggi footer */
 }
 
@@ -35,7 +35,7 @@ html, body {
 .kategori-header h2{
     text-align: center;
     padding-top: 70px;
-    background-color: #D7E4C0;
+    background-color: #A0D0B3;
 }
 
 .paket-photo {
@@ -56,7 +56,7 @@ html, body {
 
 .menu-list {
     list-style: none;
-    padding: 0;
+    padding: 30px;
 }
 
 .menu-list li {
@@ -87,7 +87,7 @@ html, body {
 
 .btn-kembali {
     font-size: medium;
-    background-color: #D7E4C0;
+    background-color: #A0D0B3;
     color: #254336;
     padding: 10px 15px;
     text-decoration: none;

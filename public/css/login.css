@@ -224,6 +224,7 @@ body {
 
 .inputLogin button:hover {
     background-color: #1e4633;
+    color: rgb(255, 255, 255);
 }
 
 .signup-container {

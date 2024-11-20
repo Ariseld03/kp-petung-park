@@ -91,8 +91,9 @@ html {
     margin-bottom: 20px;
     position: absolute;
     left: 20px;
-    top: 70px;
+    top: 40px;
     font-weight: bold;
+    font-size: medium;
     transition: background-color 0.3s;
 }
 

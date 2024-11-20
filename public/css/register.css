@@ -70,6 +70,7 @@ body {
 
 .inputRegister button:hover {
     background-color: #1e4633;
+    color: #ffffff;
 }
 
 .inputRegister label {

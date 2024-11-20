@@ -87,11 +87,12 @@ html {
     padding: 10px 15px; /* Padding di dalam tombol */
     text-decoration: none; /* Menghilangkan garis bawah pada link */
     border: 0px;
+    font-size: medium;
     display: inline-block; /* Menyusun tombol dalam satu baris */
     margin-bottom: 20px; /* Jarak bawah untuk memisahkan dari elemen di bawahnya */
     position: absolute; /* Menggunakan posisi absolut untuk menempatkan tombol */
     left: 20px; /* Jarak dari kiri */
-    top: 70px; /* Jarak dari atas */
+    top: 40px; /* Jarak dari atas */
     font-weight: bold; /* Menebalkan teks tombol */
     transition: background-color 0.3s; /* Efek transisi saat hover */
 }
