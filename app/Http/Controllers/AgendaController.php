@@ -146,7 +146,7 @@ public function showMendatang($id)
         $galleries = $galleries->merge($articleGalleries); // Menggabungkan hasil ke dalam koleksi
     }
 
-    return view('hidangan.index', compact('agenda', 'articles', 'galleries'));
+    return view('kegiatan.mendatang', compact('agenda', 'articles', 'galleries'));
 }
 
 
