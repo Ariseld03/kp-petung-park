@@ -19,7 +19,7 @@ class AgendaController extends Controller
     public function index()
     {
         $agendas = Agenda::all(); // Fetch all agenda records
-        return view('agendas.index', compact('agendas')); // Return view with agendas data
+        return view('kegiatan.index', compact('agendas')); // Return view with agendas data
     }
 
     /**
@@ -27,7 +27,7 @@ class AgendaController extends Controller
      */
     public function create()
     {
-        return view('agendas.create'); // Return view with form to create new agenda
+        return view('kegiatan.create'); // Return view with form to create new agenda
     }
 
     /**
@@ -57,7 +57,7 @@ class AgendaController extends Controller
             'staff_email' => $request->input('staff_email'),
         ]);
 
-        return redirect()->route('agendas.index')->with('Berhasil', 'Agenda berhasil ditambahkan.');
+        return redirect()->route('kegiatan.index')->with('Berhasil', 'Agenda berhasil ditambahkan.');
     }
 
     /**
@@ -65,7 +65,7 @@ class AgendaController extends Controller
      */
     public function show(Agenda $agenda)
     {
-        return view('agendas.show', compact('agenda')); // Return view to show agenda details
+        return view('kegiatan.show', compact('agenda')); // Return view to show agenda details
     }
 
     /**
@@ -73,7 +73,7 @@ class AgendaController extends Controller
      */
     public function edit(Agenda $agenda)
     {
-        return view('agendas.edit', compact('agenda')); // Return view with form to edit agenda
+        return view('kegiatan.edit', compact('agenda')); // Return view with form to edit agenda
     }
 
     /**
@@ -95,9 +95,9 @@ class AgendaController extends Controller
         try {
             $agenda = Agenda::findOrFail($id);
             $agenda->update($validatedData);
-            return redirect()->route('agendas.index')->with('Berhasil', 'Agenda Berhasil Diubah!');
+            return redirect()->route('kegiatan.index')->with('Berhasil', 'Agenda Berhasil Diubah!');
         } catch (Exception $e) {
-            return redirect()->route('agendas.index')->with('Gagal', 'Agenda Gagal Diubah!');
+            return redirect()->route('kegiatan.index')->with('Gagal', 'Agenda Gagal Diubah!');
         }
     }
 
@@ -111,9 +111,9 @@ class AgendaController extends Controller
             $delete = $agenda;
             $delete->status = 0;
             $agenda->update($delete);
-            return redirect()->route('agendas.delete')->with('Berhasil', 'Agenda Berhasil Dihapus!');
+            return redirect()->route('kegiatan.delete')->with('Berhasil', 'Agenda Berhasil Dihapus!');
         } catch (Exception $e) {
-            return redirect()->route('agendas.delete')->with('Gagal', 'Agenda Gagal Dihapus!');
+            return redirect()->route('kegiatan.delete')->with('Gagal', 'Agenda Gagal Dihapus!');
         }
     }
 

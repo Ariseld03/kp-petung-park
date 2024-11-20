@@ -17,7 +17,9 @@
                 <p class="harga">Harga: Rp. {{ number_format($menu->price, 0, ',', '.') }}</p>
                 <p class="rekomendasi">
                     @if($menu->status_recommended == 1)
-                        <i>Rekomendasi</i>
+                        <div class="rekomendasi-container">
+                            <img src="{{ asset('/images/beranda/logo/rekomen.png') }}" alt="Rekomendasi" class="rekomendasi-logo">
+                            <i>Rekomendasi</i></div>
                     @endif
                 </p>
                 <div class="like-container">

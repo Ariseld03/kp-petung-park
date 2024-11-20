@@ -136,7 +136,12 @@ class GalleryController extends Controller
         $sessionKey = 'liked_gallery_' . $galleryId;
         
         if (session()->has($sessionKey)) {
-            $galeri->number_love--;
+            if($galeri->number_love==0){
+                $galeri->number_love=0;
+            }
+            else{
+                $galeri->number_love--;
+            }
             session()->forget($sessionKey);
         } else {
             $galeri->number_love++;

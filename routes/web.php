@@ -39,8 +39,6 @@ Route::post('/register', [RegisterController::class, 'register_process'])->name(
 // Route::middleware(['auth'])->group(function () {
 // });
 Route::get('/beranda', [GalleryShowController::class, 'showAllPengguna'])->name('beranda');
-Route::post('/like', [GalleryController::class, 'like']);
-
 
 // Navbar 
     Route::view('/layanan', 'layanan'); 
@@ -90,9 +88,6 @@ Route::get('/galeri/edit/{gallery}', [GalleryController::class, 'edit'])->name('
 Route::post('/galeri/edit/{gallery}', [GalleryController::class, 'update'])->name('galeri.update');
 Route::delete('/galeri/{gallery}', [GalleryController::class, 'destroy'])->name('galeri.destroy');
 Route::post('/galeri/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
-
-// Menu
-Route::get('/menu', [MenuController::class, 'menu'])->name('hidangan.menu');
 
 // Hidangan
 Route::get('/hidangan', [MenuController::class, 'index'])->name('hidangan.index');

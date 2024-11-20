@@ -22,13 +22,14 @@
         <div class="kegiatan-info">
             <p><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }}</p>
             <p><strong>Lokasi:</strong> {{ $agenda->event_location }}</p>
-            <p><strong>Deskripsi:</strong> {{ $agenda->description }}</p> <!-- Ganti event_description dengan description -->
+            <p><strong>Deskripsi:</strong> </p>
+            <p style="text-align: justify;">{{ $agenda->description }}</p> <!-- Ganti event_description dengan description -->
         </div>
 
         <div class="artikel">
             <h3>Artikel Terkait</h3>
             @if($articles->isEmpty())
-                <p>Tidak ada artikel terkait.</p>
+                <p style="text-align: center;">Tidak ada artikel terkait.</p>
             @else
                 @foreach($articles as $article)
                     <div class="article">

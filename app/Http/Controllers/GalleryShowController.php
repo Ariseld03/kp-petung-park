@@ -6,6 +6,7 @@ use App\Models\GalleryShow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\SliderHome;
+use App\Models\Generic;
 
 class GalleryShowController extends Controller
 {
@@ -14,16 +15,44 @@ class GalleryShowController extends Controller
      */
     public function showAllPengguna()
     {
-        // Mengambil data galleries_show dengan status 1 dan data tambahan dari galleries
         $galleryShows = GalleryShow::where('status', 1)->get();
         $sliderHomes = SliderHome::where('status', 1)->get();
-        // dd($sliderHomes);
-        return view('beranda', compact('galleryShows','sliderHomes'));
+        
+        $info = [];
+        $data = Generic::where('status',1)->get();
+        $info = [
+            'sejarah' => null,
+            'visi_misi' => null,
+            'gambar' => null,
+        ];
+
+        foreach ($data as $item) {
+            switch ($item->key) {
+                case 'video_promosi':
+                    $info['video_promosi'] = $item->value;
+                    break;
+                case 'sejarah_beranda':
+                    $info['sejarah'] = $item->value;
+                    break;
+                case 'lokasi':
+                    $info['alamat'] = $item->value; 
+                    $info['peta_lokasi'] = $item->icon_picture_link; 
+                    break;
+                case 'jam_operasional':
+                    $info['jam'] = $item->value;
+                    $info['jam_logo'] = $item->icon_picture_link;
+                    break;  
+                case 'kontak_whatsapp':
+                    $info['telepon'] = preg_replace('/(\d{4})(?=\d)/', '$1-', $item->value);
+                    $info['telepon_logo'] = $item->icon_picture_link;
+                    break;   
+            }
+        }
+        return view('beranda', compact('galleryShows','sliderHomes','info'));
     }
     
     public function index()
     {
-        // Mengambil data galleries_show dengan status 1 dan data tambahan dari galleries
         $galleryShows = GalleryShow::all();
         return view('beranda', compact('galleryShows'));
     }

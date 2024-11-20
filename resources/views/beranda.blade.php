@@ -4,13 +4,6 @@
 @endsection
 
 @section('container-main')
-    <!-- Bagian Judul -->
-    <!-- <div class="title-section">
-                        <h1 class="title">Petung Park</h1>
-                        <p class="description">Mencari tempat jalan jalan yang ramah di kantong? Ada satu destinasi wisata yang tersembunyi di kota Mojokerto yang layak dipertimbangkan.
-                            Lokasinya terletak di Trawas, menawarkan keindahan yang luar biasa. Alam yang masih asri, pemandangan yang menakjubkan, dan udara segar yang mengalir dengan alami akan
-                            memberikan makna baru bagi liburanmu dan membantu merilekskan pikiran yang lelah.</p>
-                    </div> -->
     <section>
         <div class="slider-container">
             <div class="slider">
@@ -32,8 +25,8 @@
     <section>
         <div class="con-video">
             <iframe class="video-frame" 
-                src="https://www.youtube.com/embed/wq8MRjtlkxQ" 
-                title="YouTube video player" 
+                src="{{$info['video_promosi']}}" 
+                title="YouTube Video Player" 
                 frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen>
@@ -45,16 +38,7 @@
     <section class="bg-success text-white text-center py-5">
         <div class="container">
             <h2 class="title-beranda">SEJARAH</h2>
-            <p class="desc-beranda mt-4">Petung Park berada di Desa Belik, kata “Belik”
-                memiliki arti mata air kecil. Seperti namanya, Desa
-                Belik memang mempunyai banyak mata air kecil
-                alami, salah satunya yang berada di hutan bambu
-                Petung. Hutan bambu Petung memiliki luas sekitar
-                3,5 hektar yang ditumbuhi pohon bambu Petung
-                berusia ratusan tahun, bahkan perangkat Desa
-                menyebut hutan bambu petung di Belik ini
-                merupakan salah satu hutan bambu tertua di Jawa
-                Timur.
+            <p class="desc-beranda mt-4">{{$info['sejarah']}}
             </p>
         </div>
     </section>
@@ -66,33 +50,32 @@
             <div class="row justify-content-center mt-5">
                 <div class="col">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.217618060445!2d112.61724131177796!3d-7.659736192324794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7d92930acc995%3A0x820cde960a28c319!2sPETUNG%20PARK!5e0!3m2!1sid!2sid!4v1727851391086!5m2!1sid!2sid"
+                        src="{{$info['peta_lokasi']}}"
                         width="500" height="400" style="border:0;" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade" class="img-lokasi"></iframe>
                 </div>
                 <div class="col">
                     <div class="desc-beranda text-start">
-                        <p>Jibru, Belik, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur 61375</p>
-
+                        <p>{{$info['alamat']}}</p>
                         <div class="row align-items-end">
-                            <p><b>Telepon</b> : 0831-3281-9058
-                                <br /><b>Jam</b> : 09.00 - 17.00
+                                <p>
+                                <img src="{{asset($info['telepon_logo'])}}" alt="Logo Telepon" class="whatsapp-logo">    
+                                <b> Telepon</b> : {{$info['telepon']}}
+                                <br/>
+                                <img src="{{asset($info['jam_logo'])}}" alt="Logo Jam" class="jam-logo">
+                                <b> Jam</b> : {{$info['jam']}}
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-            {{-- <h2 class="title-konten mt-4">Denah Petung Park</h2>
-            <div class="mt-4">
-                <img src="/images/beranda/lokasi/denahImage.jpg" alt="Denah Petung Park" class="denah-image">
-            </div> --}}
         </div>
     </section>
 
     <!-- Bagian Galeri -->
     <section class="bg-custom text-white text-center py-5">
         <div class="container">
-            <h2 class="title-konten">GALERI</h2>
+            <h2 class="title-beranda">GALERI</h2>
             <div class="row justify-content-center mt-4">
                 @foreach ($galleryShows as $galleryShow)
                     <div class="col-md-4">

@@ -15,7 +15,7 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        return view('menu.index', compact('menus'));
+        return view('hidangan.index', compact('menus'));
     }
 
     /**
@@ -23,7 +23,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('menu.create');
+        return view('hidangan.create');
     }
 
     /**
@@ -42,7 +42,7 @@ class MenuController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('menu.create')->withErrors($validator)->withInput();
+            return redirect()->route('hidangan.add')->withErrors($validator)->withInput();
         }
 
         $menu = Menu::create([
@@ -56,7 +56,7 @@ class MenuController extends Controller
             'staff_email' => $request->staff_email,
         ]);
 
-        return redirect()->route('menu.index')->with('Berhasil', 'Menu berhasil ditambahkan!');
+        return redirect()->route('hidangan.index')->with('Berhasil', 'Menu berhasil ditambahkan!');
     }
 
     /**
@@ -65,13 +65,13 @@ class MenuController extends Controller
     public function show(string $id)
     {
         $menu = Menu::findOrFail($id);
-        return view('menu.show', compact('menu'));
+        return view('hidangan.show', compact('menu'));
     }
 
     public function showMenuAllPengguna()
     {
         $menus = Menu::where('status', 1)->get();
-        return view('menus.show', compact('menus'));
+        return view('hidangan.show', compact('menus'));
     }
 
     public function cariMenuDariId($id)
@@ -89,7 +89,12 @@ class MenuController extends Controller
         $sessionKey = 'liked_menu_' . $menuId;
     
         if (session()->has($sessionKey)) {
-            $menu->number_love--;
+            if($menu->number_love==0){
+                $menu->number_love=0;
+            }
+            else{
+                $menu->number_love--;
+            }
             session()->forget($sessionKey);
         } else {
             $menu->number_love++;
@@ -106,7 +111,7 @@ class MenuController extends Controller
     public function edit(string $id)
     {
         $menu = Menu::findOrFail($id);
-        return view('menu.edit', compact('menu'));
+        return view('hidangan.edit', compact('menu'));
     }
 
     /**
@@ -141,7 +146,7 @@ class MenuController extends Controller
             'staff_email' => $request->staff_email,
         ]);
 
-        return redirect()->route('menu.index')->with('success', 'Menu berhasil Diupdate!');
+        return redirect()->route('hidangan.index')->with('success', 'Menu berhasil Diupdate!');
     }
 
     /**
@@ -152,7 +157,7 @@ class MenuController extends Controller
         $menu = Menu::findOrFail($id);
         $menu->status=0;
         $menu->save();
-        return redirect()->route('menu.index')->with('Berhasil', 'Menu berhasil dihapus!');
+        return redirect()->route('hidangan.index')->with('Berhasil', 'Menu berhasil dihapus!');
     }
 }
 

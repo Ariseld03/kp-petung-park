@@ -139,7 +139,8 @@ html {
 
 /* Styling untuk kategori-paket */
 .kategori-paket {
-    background-color: #D7E4C0; 
+    /* background-color: #D7E4C0;  */
+    background-color: #A0D0B3;  
     padding: 10px 0;
     width: 100vw;
     position: relative;
@@ -233,6 +234,10 @@ html {
     text-align: center;
 }
 
+.judul-kegiatan-mendatang {
+    font-weight:600;
+}
+
 .kegiatan-mendatang table {
     width: 100%;
     border-collapse: collapse;
@@ -297,6 +302,10 @@ html {
     color: #353C14;
 }
 
+.judul-kegiatan-lalu{
+    font-weight: 600;
+}
+
 .kegiatan-lalu button {
     margin-left: 20px;
     background-color: #353C14;
@@ -308,6 +317,27 @@ html {
 
 .kegiatan-lalu button:hover {
     background-color: #2c3311;
+}
+
+@media (max-width: 1024px) {
+    .makanan {
+        width: 45%; /* Gambar dan konten makanan akan menyesuaikan dengan lebar layar */
+        margin: 10px;
+    }
+
+    .makanan img {
+        width: 100%; /* Gambar akan menyesuaikan lebar kontainer */
+        max-width: 250px; /* Lebar gambar tetap terkontrol */
+        height: 250px; /* Menjaga tinggi gambar konsisten */
+    }
+
+    .kategori-makanan h2, .kategori-wisata h2, .kategori-paket h2 {
+        font-size: 35px; /* Menurunkan ukuran font untuk header kategori */
+    }
+
+    .makanan-container, .wisata-container, .paket-container {
+        justify-content: space-evenly; /* Mengatur elemen makanan agar lebih seimbang */
+    }
 }
 
 /* Responsif untuk tampilan handphone */
@@ -355,12 +385,13 @@ html {
     }
 
     .deskripsi-kegiatan-lalu {
-        margin-left: 0;
+        margin-top: 20px;
         font-size: 14px;
+        align-items: center;
     }
 
     .judul-kegiatan-lalu {
-        margin-left: 0;
+        margin-top: 20px;
         font-size: 18px;
     }
 

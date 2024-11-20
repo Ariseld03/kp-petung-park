@@ -171,6 +171,51 @@ class GenericSeeder extends Seeder
                   alam eksotis dan relaksasi dengan harga terjangkau, ideal untuk bersantai dan menghilangkan penat.',
                 'icon_picture_link' => null, 
             ],
+            [
+                'created_at' => now(),
+                'key' => 'video_promosi',
+                'staff_email' => $staffEmails->random(),
+                'status' => 1,
+                'updated_at' => now(),
+                'value' => 'https://www.youtube.com/embed/wq8MRjtlkxQ',
+                'icon_picture_link' => $footer.'logoYoutube.png',
+            ],
+            [
+                'created_at' => now(),
+                'key' => 'sejarah_beranda',
+                'staff_email' => $staffEmails->random(),
+                'status' => 1,
+                'updated_at' => now(),
+                'value' => 'Petung Park berada di Desa Belik, kata “Belik”
+                memiliki arti mata air kecil. Seperti namanya, Desa
+                Belik memang mempunyai banyak mata air kecil
+                alami, salah satunya yang berada di hutan bambu
+                Petung. Hutan bambu Petung memiliki luas sekitar
+                3,5 hektar yang ditumbuhi pohon bambu Petung
+                berusia ratusan tahun, bahkan perangkat Desa
+                menyebut hutan bambu petung di Belik ini
+                merupakan salah satu hutan bambu tertua di Jawa
+                Timur.',
+                'icon_picture_link' => null, 
+            ],
+            [
+                'created_at' => now(),
+                'key' => 'lokasi',
+                'staff_email' => $staffEmails->random(),
+                'status' => 1,
+                'updated_at' => now(),
+                'value' => 'Jibru, Belik, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur 61375',
+                'icon_picture_link' => "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.217618060445!2d112.61724131177796!3d-7.659736192324794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7d92930acc995%3A0x820cde960a28c319!2sPETUNG%20PARK!5e0!3m2!1sid!2sid!4v1727851391086!5m2!1sid!2sid", 
+            ],
+            [
+                'created_at' => now(),
+                'key' => 'jam_operasional',
+                'staff_email' => $staffEmails->random(),
+                'status' => 1,
+                'updated_at' => now(),
+                'value' => '09.00 - 17.00',
+                'icon_picture_link' => "/images/beranda/logo/jam.png", 
+            ],
         ]);
     }
 }

@@ -7,15 +7,15 @@ html {
 }
 
 .kegiatan-detail {
-        background-color: #c2f7b5;
-        width: 100vw;
-        position: relative;
-        height: auto; /* Ubah dari min-height ke height: auto */
-        display: flex;
-        flex-direction: column;
-        color: #033a03;
-        align-items: center;  
-        text-align: center;  
+    background-color: #c2f7b5;
+    width: 100vw;
+    position: relative;
+    height: auto; /* Ubah dari min-height ke height: auto */
+    display: flex;
+    flex-direction: column;
+    color: #033a03;
+    align-items: center; 
+    justify-content: center;   
 }
 
 .kegiatan-detail h2 {
@@ -31,7 +31,6 @@ html {
     max-width: 600px; /* Menetapkan lebar maksimum untuk informasi kegiatan */
     text-align: center; /* Meratakan teks di dalam .kegiatan-info */
 }
-
 .artikel {
     display: flex; /* Mengaktifkan flexbox */
     flex-direction: column; /* Menyusun item secara vertikal */
@@ -55,7 +54,7 @@ html {
 .artikel p {
     width: 900px; /* Menetapkan lebar maksimum untuk teks */
     padding-bottom: 50px;
-    text-align: center; /* Menyelaraskan teks ke tengah */
+    text-align: justify; /* Menyelaraskan teks ke tengah */
 }
 
 .gallery {
@@ -102,6 +101,7 @@ html {
 }
 /* Responsif untuk tampilan handphone */
 @media (max-width: 768px) {
+
     .kegiatan-detail h2 {
         font-size: 24px; /* Ukuran font untuk judul kegiatan di handphone */
         padding-top: 30%; /* Mengurangi padding atas untuk tampilan handphone */

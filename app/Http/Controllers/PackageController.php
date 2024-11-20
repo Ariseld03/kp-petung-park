@@ -62,7 +62,12 @@ class PackageController extends Controller
     $sessionKey = 'liked_package_' . $id;
 
     if (session()->has($sessionKey)) {
-        $paket->number_love--;
+        if($paket->number_love==0){
+            $paket->number_love=0;
+        }
+        else{
+            $paket->number_love--;
+        }
         session()->forget($sessionKey);
     } else {
         $paket->number_love++;

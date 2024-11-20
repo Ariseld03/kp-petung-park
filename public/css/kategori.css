@@ -10,7 +10,6 @@ html {
 .kategori-makanan {
     background-color: #E2DD6C;
     padding: 10px 0;
-    /* Full width background */
     width: 100vw;
     position: relative;
     min-height: 81vh;
@@ -21,38 +20,38 @@ html {
     font-size: 40px;
     font-weight: bold;
     margin: 10px 0;
-    /* Jarak atas dan bawah*/
     text-align: center;
-    /* Judul di tengah */
     padding-top: 70px;
     padding-bottom: 30px;
 }
 
+/* Container makanan dengan Flexbox untuk responsivitas */
 .makanan-container {
     display: flex;
-    justify-content: center;
-    /* Elemen makanan rata tengah */
-    flex-wrap: wrap;
+    justify-content: space-around; /* Mengatur jarak antar elemen makanan */
+    flex-wrap: wrap; /* Membuat elemen makanan membungkus ketika ruang tidak cukup */
     padding: 0 15px;
 }
 
+/* Styling untuk tiap elemen makanan */
 .makanan {
-    width: 30%;
+    width: 30%; /* Set lebar elemen makanan menjadi 30% */
     margin: 15px;
     box-sizing: border-box;
     text-align: center;
-    /* Text pada makanan juga rata tengah */
 }
 
+/* Styling gambar makanan dengan tinggi yang konsisten */
 .makanan img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    /* Agar gambar tidak terdistorsi */
-    border: 5px solid #295A3F; 
-    border-radius: 10px; 
+    width: 100%; /* Mengatur gambar agar mengikuti lebar kontainer */
+    max-width: 300px; /* Maksimal lebar gambar 300px */
+    height: 300px; /* Set tinggi gambar secara konsisten */
+    object-fit: cover; /* Agar gambar tetap proporsional dan tidak terdistorsi */
+    border: 5px solid #295A3F;
+    border-radius: 10px;
 }
 
+/* Styling judul dan deskripsi makanan */
 .makanan .judul-makanan {
     color: #295A3F;
     font-weight: bold;
@@ -67,6 +66,7 @@ html {
     font-size: 25px;
 }
 
+/* Styling tombol untuk makanan */
 .makanan button {
     background-color: #295A3F;
     color: white;
@@ -79,48 +79,65 @@ html {
 .makanan button:hover {
     background-color: #3b7a53;
 }
+
 /* Styling untuk tombol Kembali */
 .btn-kembali {
-    background-color: #E2DD6C; /* Warna latar belakang tombol */
-    color: #295A3F; /* Warna teks tombol */
-    padding: 10px 15px; /* Padding di dalam tombol */
-    text-decoration: none; /* Menghilangkan garis bawah pada link */
+    background-color: #E2DD6C;
+    color: #295A3F;
+    padding: 10px 15px;
+    text-decoration: none;
     border: 0px;
-    display: inline-block; /* Menyusun tombol dalam satu baris */
-    margin-bottom: 20px; /* Jarak bawah untuk memisahkan dari elemen di bawahnya */
-    position: absolute; /* Menggunakan posisi absolut untuk menempatkan tombol */
-    left: 20px; /* Jarak dari kiri */
-    top: 70px; /* Jarak dari atas */
-    font-weight: bold; /* Menebalkan teks tombol */
-    transition: background-color 0.3s; /* Efek transisi saat hover */
+    display: inline-block;
+    margin-bottom: 20px;
+    position: absolute;
+    left: 20px;
+    top: 70px;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
+
 /* Hover effect untuk tombol Kembali */
 .btn-kembali:hover {
     background-color: #E2DD6C;
     color: black;
 }
 
-
-
-@media (max-width: 768px) {
-    /* Kategori Makanan */
+/* Penyesuaian untuk ukuran layar 1024px dan lebih besar */
+@media (max-width: 1024px) {
     .makanan {
-        width: 45%;
-        /* Mengubah ukuran menjadi lebih kecil agar muat 2 elemen per baris */
+        width: 45%; /* Gambar dan konten makanan akan menyesuaikan dengan lebar layar */
         margin: 10px;
     }
 
-    .kategori-header{
-        padding-top: 10%;
+    .makanan img {
+        width: 100%; /* Gambar akan menyesuaikan lebar kontainer */
+        max-width: 250px; /* Lebar gambar tetap terkontrol */
+        height: 250px; /* Menjaga tinggi gambar konsisten */
     }
+
+    .kategori-makanan h2 {
+        font-size: 35px; /* Menurunkan ukuran font untuk header kategori */
+    }
+
+    .makanan-container {
+        justify-content: space-evenly; /* Mengatur elemen makanan agar lebih seimbang */
+    }
+}
+
+/* Penyesuaian untuk perangkat lebih kecil (max-width: 768px) */
+@media (max-width: 768px) {
+    .makanan {
+        width: 45%; /* Mengubah ukuran menjadi lebih kecil agar muat 2 elemen per baris */
+        margin: 10px;
+    }
+
     .makanan img {
         width: 200px;
         height: 200px;
-
     }
-    
+
     .btn-kembali {
-        top: 70px; /* Mengatur posisi tombol untuk handphone */
-        left: 10px; /* Mengatur posisi tombol untuk handphone */
-}
+        top: 70px;
+        left: 10px;
+    }
 }

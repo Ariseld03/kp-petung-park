@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 @empty
-                    <p>Tidak ada gambar yang tersedia.</p>
+                    <p style="color: white;">Tidak ada gambar yang tersedia.</p>
                 @endforelse
             </div>
         </div>

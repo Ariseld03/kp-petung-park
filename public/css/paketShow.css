@@ -4,24 +4,22 @@ html, body {
     padding: 0;
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column; /* Menyusun elemen secara vertikal */
 }
 
-/* Styling untuk Paket Detail */
 .paket-detail {
     max-width: 800px;
-    margin: 0 auto; /* Membuat konten berada di tengah */
+    margin: 0 auto;
     padding: 20px;
     background-color: #D7E4C0;
     border-radius: 10px;
+    flex-grow: 1; /* Membuat paket-detail tumbuh agar mengisi ruang yang tersedia */
 }
 
-/* Agar elemen lainnya tidak menyebabkan ruang kosong */
-* {
-    box-sizing: border-box; /* Agar padding dan border tidak mempengaruhi ukuran elemen */
-}
-
-.kategori-wisata{
+.kategori-wisata {
     background-color: #D7E4C0;
+    min-height: calc(100vh - 100px); /* Sesuaikan 100px dengan tinggi footer */
 }
 
 .kategori-wisata p{
@@ -49,13 +47,12 @@ html, body {
 }
 
 .paket-photo img {
-    width: 300px; /* Lebar gambar seragam */
-    height: 300px; /* Tinggi gambar seragam */
-    object-fit: cover; /* Crop gambar agar sesuai */
-    border-radius: 8px; /* Opsional: Sudut membulat untuk estetika */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Opsional: bayangan */
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
 
 .menu-list {
     list-style: none;
@@ -104,21 +101,18 @@ html, body {
     transition: background-color 0.3s;
 }
 
-.btn-kembali:hover {
-    background-color: #254336;
-    color: #D7E4C0;
-}
 
+/* Penyesuaian untuk ukuran layar lebih kecil */
 @media (max-width: 768px) {
     .paket-photo img {
-        width: 200px; /* Ukuran lebih kecil di layar kecil */
+        width: 200px;
         height: 200px;
     }
 }
 
 @media (max-width: 480px) {
     .paket-photo img {
-        width: 100%; /* Lebar penuh untuk layar sangat kecil */
-        height: auto; /* Tinggi otomatis untuk mempertahankan proporsi */
+        width: 100%;
+        height: auto;
     }
 }

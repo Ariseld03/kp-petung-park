@@ -18,11 +18,12 @@ html {
     margin-bottom: 20px; /* Jarak bawah untuk memisahkan dari elemen di bawahnya */
     position: absolute; /* Menggunakan posisi absolut untuk menempatkan tombol */
     left: 20px; /* Jarak dari kiri */
-    top: 70px; /* Jarak dari atas */
-    z-index: 100; /* Memastikan berada di atas elemen lain */
+    top: 20px; /* Jarak dari atas */
+    z-index: 999; /* Pastikan tombol tetap di atas konten */
     font-weight: bold; /* Menebalkan teks tombol */
     transition: background-color 0.3s; /* Efek transisi saat hover */
 }
+
 /* Hover effect untuk tombol Kembali */
 .btn-kembali:hover {
     background-color: #E2DD6C;
@@ -59,6 +60,7 @@ html {
     margin-right: 30px; /* Jarak dari gambar ke teks */
     border: 10px solid #295A3F; 
     border-radius: 40px; 
+    object-fit: cover; /* Gambar akan diperbesar sesuai dengan ukuran border */
 }
 
 /* Container untuk gambar dan detail hidangan */
@@ -85,13 +87,13 @@ html {
 }
 
 .hidangan-detail p {
-    font-size: 15px;
+    font-size: 18px;
     margin-bottom: 50px; /* Jarak 20px di bawah deskripsi */
     color: #295A3F;
 }
 
 .hidangan-detail .harga {
-    font-size: 15px;
+    font-size: 20px;
     font-weight: normal;
     color: #295A3F;
     margin-bottom: 0px; /* Jarak 30px antara harga dan elemen di bawahnya */
@@ -108,7 +110,26 @@ html {
 .desc {
     width: 400px; /* Set lebar tetap 400px */
     margin: 0 auto; /* Memusatkan deskripsi secara horizontal jika diperlukan */
-    
+}
+
+.rekomendasi-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+.rekomendasi-container i {
+    margin-left: 10px;
+    font-size: 18px;
+    align-items: flex-end; 
+    justify-content: bottom; 
+}
+
+.rekomendasi-container img {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
 }
 
 /* Styling tombol like berbentuk hati */
@@ -124,6 +145,9 @@ html {
 /* Hover effect untuk tombol like */
 .like-button:hover {
     transform: scale(1.2); /* Memperbesar tombol saat hover */
+}
+.like-count{
+    font-size: 20px;
 }
 /* Penyesuaian untuk layar handphone */
 @media (max-width: 768px) {
@@ -148,7 +172,9 @@ html {
         margin-left: 0; /* Hilangkan jarak di layar kecil */
         text-align: center; /* Teks rata tengah pada layar kecil */
     }
-
+    .hidangan-detail h3 {
+        margin-top: 20px;
+    }
     /* Atur jarak kategori-header h2 dari atas */
     .kategori-header h2 {
         margin-top: 60px; /* Beri jarak 30px dari atas pada layar kecil */
@@ -156,5 +182,8 @@ html {
     .btn-kembali{
         top: 70px; /* Mengatur posisi tombol untuk handphone */
         left: 10px; /* Mengatur posisi tombol untuk handphone */
+    }
+    .rekomendasi-container{
+        justify-content: center;
     }
 }

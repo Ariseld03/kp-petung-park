@@ -21,7 +21,7 @@
         </div>
         
         <!-- Harga dan Like Count -->
-        <p>Harga: Rp{{ number_format($paket->price, 0, ',', '.') }}</p>
+        <p>Harga: Rp. {{ number_format($paket->price, 0, ',', '.') }}</p>
         
         <!-- Container untuk tombol like dan jumlah like -->
         <div class="like-container">
