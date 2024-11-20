@@ -14,7 +14,7 @@ class AddNumberLoveToArticlesTable extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->integer('number_love')->nullable()->default(0)->after('agenda_id');
+            $table->integer('number_love')->nullable()->default(0)->after('main_content');
         });
     }
 

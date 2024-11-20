@@ -12,7 +12,7 @@ class AddNumberLoveToTravelsTable extends Migration
     public function up(): void
     {
         Schema::table('travels', function (Blueprint $table) {
-            $table->integer('number_love')->nullable()->default(0)->after('status');
+            $table->integer('number_love')->nullable()->default(0)->after('description');
         });
     }
 
