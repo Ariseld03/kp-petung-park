@@ -157,7 +157,7 @@
                     let action = currentLikes % 2 === 0 ? 'increment' : 'decrement';
 
                     // Update like di database
-                    fetch(`/gallery/${galleryId}/like`, {
+                    fetch(`/galeri/${galleryId}/like`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

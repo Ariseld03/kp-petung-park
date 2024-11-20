@@ -48,9 +48,6 @@ Route::post('/like', [GalleryController::class, 'like']);
     // Route::view('/tentangKami', 'tentangKami');
     Route::get('/tentangKami', [GenericController::class, 'aboutUs'])->name('tentangKami');
 
-    // Gallery 
-    Route::post('/gallery/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
-
     // Agenda 
     Route::get('/kegiatan/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('kegiatan.mendatang');
     Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');
@@ -69,6 +66,7 @@ Route::get('/wisata', function () {
     return view('wisata.index');
 });
 Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
+Route::post('/wisata/like/{galleryId}', [GalleryController::class, 'like'])->name('wisata.like');
 Route::get('/wisata/add', [TravelController::class, 'add'])->name('wisata.add');
 Route::post('/wisata', [TravelController::class, 'store'])->name('wisata.store');
 Route::get('/wisata/edit/{wisata}', [TravelController::class, 'edit'])->name('wisata.edit');
@@ -91,6 +89,7 @@ Route::get('/galeri/add', [GalleryController::class, 'create'])->name('galeri.ad
 Route::get('/galeri/edit/{gallery}', [GalleryController::class, 'edit'])->name('galeri.edit');
 Route::post('/galeri/edit/{gallery}', [GalleryController::class, 'update'])->name('galeri.update');
 Route::delete('/galeri/{gallery}', [GalleryController::class, 'destroy'])->name('galeri.destroy');
+Route::post('/galeri/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
 
 // Menu
 Route::get('/menu', [MenuController::class, 'menu'])->name('hidangan.menu');
@@ -106,7 +105,7 @@ Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('h
 
 // Paket
 Route::get('/paket/{id}', [PackageController::class, 'show'])->name('paket.show');
-Route::post('/paket/{id}/like', [PackageController::class, 'addLike'])->name('paket.like');
+Route::post('/paket/{id}/like', [PackageController::class, 'like'])->name('paket.like');
 Route::get('/paket/add', [PacketController::class, 'add'])->name('paket.add');
 Route::post('/paket', [PacketController::class, 'store'])->name('paket.store');
 Route::get('/paket/edit/{paket}', [PacketController::class, 'edit'])->name('paket.edit');

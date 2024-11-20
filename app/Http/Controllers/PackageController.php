@@ -9,7 +9,7 @@ class PackageController extends Controller
     public function index()
     {
         $packages = Package::all();
-        return view('packages.index', compact('packages'));
+        return view('paket.index', compact('packages'));
     }
 
     public function create()
@@ -55,17 +55,35 @@ class PackageController extends Controller
         ]);
     }
     
+    public function like(Request $request, $id)
+{
+    $paket = Package::findOrFail($id);
 
-    public function showPaketAllPengguna()
+    $sessionKey = 'liked_package_' . $id;
+
+    if (session()->has($sessionKey)) {
+        $paket->number_love--;
+        session()->forget($sessionKey);
+    } else {
+        $paket->number_love++;
+        session()->put($sessionKey, true);
+    }
+
+    $paket->save();
+
+    return response()->json(['number_love' => $paket->number_love]);
+}
+
+    public function showPaketPengguna()
     {
         $packages = Package::where('status', 1)->get();
-        return view('packages.show', compact('package'));
+        return view('paket.show', compact('package'));
     }
 
     public function edit($id)
     {
         $package = Package::findOrFail($id);
-        return view('packages.edit', compact('package'));
+        return view('paket.edit', compact('package'));
     }
 
     public function update(Request $request, $id)
@@ -87,7 +105,7 @@ class PackageController extends Controller
             'number_love' => $request->number_love,
         ]);
 
-        return redirect()->route('packages.index')->with('Berhasil', 'Paket berhasil diupdate!');
+        return redirect()->route('paket.index')->with('Berhasil', 'Paket berhasil diupdate!');
     }
 
     public function destroy($id)
@@ -101,12 +119,12 @@ class PackageController extends Controller
 
         // $package->delete();
 
-        return redirect()->route('packages.index')->with('success', 'Paket berhasil dihapus!');
+        return redirect()->route('paket.index')->with('success', 'Paket berhasil dihapus!');
     }
     // M to M package_menus
     public function createMenuPackage(Request $request)
     {
-        return view('packages.createGallery', compact('travel'));
+        return view('paket.createGallery', compact('package'));
     }
 
     public function storeMenuPackage(Request $request)
@@ -119,7 +137,7 @@ class PackageController extends Controller
             'status' => 'required|integer',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('packages.create')->withErrors($validator)->withInput();
+            return redirect()->route('paket.create')->withErrors($validator)->withInput();
         }
         PackageMenu::create([
             'menu_id' => $request->menu_id,
@@ -131,7 +149,7 @@ class PackageController extends Controller
             'update_date' => now(),
         ]);
 
-        return redirect()->route('packages.index')->with('Berhasil', 'Paket Menu berhasil ditambahkan.');
+        return redirect()->route('paket.index')->with('Berhasil', 'Paket Menu berhasil ditambahkan.');
     }
 
     public function updateMenuPackage(Request $request, $id)
@@ -144,7 +162,7 @@ class PackageController extends Controller
             'status' => 'required|integer',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('packages.create')->withErrors($validator)->withInput();
+            return redirect()->route('paket.create')->withErrors($validator)->withInput();
         }
         $packageMenu = PackageMenu::findOrFail($id);
         $packageMenu->update([
@@ -156,11 +174,11 @@ class PackageController extends Controller
             'update_date' => now(),
         ]);
 
-        return redirect()->route('packages.index')->with('Berhasil', 'Paket Menu berhasil diupdate.');
+        return redirect()->route('paket.index')->with('Berhasil', 'Paket Menu berhasil diupdate.');
     }
     public function destroyPackageMenu(Package $package)
     {
         PackageMenu::where('package_id', $package->id)->where('status', 1)->update(['status' => 0]);
-        return redirect()->route('packages.index')->with('Berhasil', 'Paket Menu berhasil dihapus!');
+        return redirect()->route('paket.index')->with('Berhasil', 'Paket Menu berhasil dihapus!');
     }
 }

@@ -26,10 +26,11 @@
         
         <!-- Container untuk tombol like dan jumlah like -->
         <div class="like-container">
-            <button id="like-button" onclick="addLike({{ $paket->id }})" class="like-button">
-                ❤️
+            <button class="like-button" data-package-id="{{ $paket->id }}">
+                <span id="like-count"
+                    class="{{ $paket->number_love % 2 === 0 ? 'even' : 'odd' }}">{{ $paket->number_love }}</span>
+                <span class="like-icon">❤️</span>
             </button>
-            <span id="like-count">{{ $paket->number_love }}</span>
         </div>
 
         <!-- Menu dalam Paket -->
@@ -48,26 +49,46 @@
 </div>
 @endsection
 
-@section('scripts')
-<script>
-    function addLike(packageId) {
-        fetch(`/paket/${packageId}/like`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('like-count').innerText = `Jumlah Like: ${data.newLikeCount}`;
-            } else {
-                alert('Gagal menambah like.');
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-</script>
-@endsection
+@section('page-js')
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const likeButtons = document.querySelectorAll('.like-button');
+                likeButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const likeCount = button.querySelector('#like-count');
+                        let currentLikes = parseInt(likeCount.textContent);
+                        const packageId = button.dataset.packageId;
 
+                        // Send request to toggle like in the backend
+                        fetch(`/paket/${packageId}/like`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            likeCount.textContent = data.number_love; // Update the like count displayed on the page
+                            updateLikeCountDisplay(likeCount); // Update the style (odd/even class)
+                        })
+                        .catch(error => {
+                            console.error("Error updating like:", error);
+                        });
+                    });
+                });
+
+        // Update the like count's style based on odd/even value
+        function updateLikeCountDisplay(likeCount) {
+            const count = parseInt(likeCount.textContent);
+            if (count % 2 === 0) {
+                likeCount.classList.remove('odd');
+                likeCount.classList.add('even');
+            } else {
+                likeCount.classList.remove('even');
+                likeCount.classList.add('odd');
+            }
+        }
+    });
+    </script>
+@endsection

@@ -12,8 +12,8 @@ class TravelController extends Controller
      */
     public function index()
     {
-        $travels = Travel::where('status', 1)->get(); // Mengambil hanya travel dengan status 1
-        return view('layanan', compact('travels'));
+        $wisata = Travel::where('status', 1)->get(); // Mengambil hanya travel dengan status 1
+        return view('layanan', compact('wisata'));
     }
 
     /**
@@ -21,7 +21,7 @@ class TravelController extends Controller
      */
     public function create()
     {
-        return view('travels.create');
+        return view('wisata.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class TravelController extends Controller
 
         $travel->save();
 
-        return redirect()->route('travels.index')->with('Berhasil', 'Wisata berhasil ditambahkan!');
+        return redirect()->route('wisata.index')->with('Berhasil', 'Wisata berhasil ditambahkan!');
     }
 
     /**
@@ -62,7 +62,7 @@ class TravelController extends Controller
         ->select('galleries.*')
         ->get();
 
-    return view('wisata.index', compact('travel', 'galleries'));
+    return view('wisata.show', compact('travel', 'galleries'));
 }
 
 
@@ -71,7 +71,7 @@ class TravelController extends Controller
      */
     public function edit(Travel $travel)
     {
-        return view('travels.edit', compact('travel'));
+        return view('wisata.edit', compact('travel'));
     }
 
     /**
@@ -93,7 +93,7 @@ class TravelController extends Controller
 
         $travel->save();
 
-        return redirect()->route('travels.index')->with('Berhasil', 'Wisata berhasil diubah!');
+        return redirect()->route('wisata.index')->with('Berhasil', 'Wisata berhasil diubah!');
     }
     /**
      * Remove the specified resource from storage.
@@ -105,7 +105,7 @@ class TravelController extends Controller
 
         $travel->status=0;
         $travel->save();
-        return redirect()->route('travels.index')->with('Berhasil', 'Wisata berhasil dihapus!');
+        return redirect()->route('wisata.index')->with('Berhasil', 'Wisata berhasil dihapus!');
     }
     
     /**
@@ -113,7 +113,7 @@ class TravelController extends Controller
      */
     public function createTravelGallery(Travel $travel)
     {
-        return view('travels.createGallery', compact('travel'));
+        return view('wisata.createGallery', compact('travel'));
     }
 
     /**
@@ -136,7 +136,7 @@ class TravelController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('travels.index')->with('Berhasil', 'Foto di Galeri berhasil ditambahkan!' . $travel->title);
+        return redirect()->route('wisata.index')->with('Berhasil', 'Foto di Galeri berhasil ditambahkan!' . $travel->title);
     }
 
     /**
@@ -145,7 +145,7 @@ class TravelController extends Controller
     public function editGallery(Travel $travel, $id)
     {
         $gallery = DB::table('travel_gallery')->where('id', $id)->first();
-        return view('travels.editGallery', compact('travel', 'gallery'));
+        return view('wisata.editGallery', compact('travel', 'gallery'));
     }
 
     /**
@@ -167,12 +167,12 @@ class TravelController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('travels.index')->with('Berhasil', 'Foto di Wisata berhasil diubah! ' . $travel->title);
+        return redirect()->route('wisata.index')->with('Berhasil', 'Foto di Wisata berhasil diubah! ' . $travel->title);
     }
     public function destroyTravelGallery(Travel $travel)
     {
         DB::table('travel_gallery')->where('travel_id', $travel->id)->update(['status' => 0]);
-        return redirect()->route('travels.index')->with('Berhasil', 'Foto di Wisata berhasil dihapus!');
+        return redirect()->route('wisata.index')->with('Berhasil', 'Foto di Wisata berhasil dihapus!');
     }
 }
 

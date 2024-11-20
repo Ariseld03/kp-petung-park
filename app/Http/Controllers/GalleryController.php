@@ -129,19 +129,23 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function like(Request $request, $id)
-{
-    $gallery = Gallery::findOrFail($id);
+    public function like(Request $request, $galleryId)
+    {
+        $galeri = Gallery::findOrFail($galleryId);
 
-    if ($request->input('action') === 'increment') {
-        $gallery->number_love += 1; // Tambah like
-    } elseif ($request->input('action') === 'decrement') {
-        $gallery->number_love = max(0, $gallery->number_love - 1); // Kurangi like, minimal 0
+        $sessionKey = 'liked_gallery_' . $galleryId;
+        
+        if (session()->has($sessionKey)) {
+            $galeri->number_love--;
+            session()->forget($sessionKey);
+        } else {
+            $galeri->number_love++;
+            session()->put($sessionKey, true);
+        }
+    
+        $galeri->save();
+    
+        return response()->json(['number_love' => $galeri->number_love]);
     }
-
-    $gallery->save();
-
-    return response()->json(['number_love' => $gallery->number_love]);
-}
 }
 
