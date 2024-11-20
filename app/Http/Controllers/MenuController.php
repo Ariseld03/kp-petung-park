@@ -81,9 +81,25 @@ class MenuController extends Controller
                     ->findOrFail($id); // This will throw a 404 if the menu is not found
     
         // Return a view with the menu data
-        return view('hidangan.index', compact('menu')); // Pass the menu object to the view
+        return view('hidangan.show', compact('menu')); // Pass the menu object to the view
     }
+    public function like(Request $request, $menuId)
+    {
+        $menu = Menu::findOrFail($menuId);
+        $sessionKey = 'liked_menu_' . $menuId;
     
+        if (session()->has($sessionKey)) {
+            $menu->number_love--;
+            session()->forget($sessionKey);
+        } else {
+            $menu->number_love++;
+            session()->put($sessionKey, true);
+        }
+    
+        $menu->save();
+    
+        return response()->json(['number_love' => $menu->number_love]);
+    }
     /**
      * Show the form for editing the specified resource.
      */

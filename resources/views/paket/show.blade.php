@@ -15,10 +15,9 @@
     <div class="paket-detail">
         <!-- Foto Paket -->
         <div class="paket-photo">
-            @php
-                $photo = $paket->menus->isNotEmpty() ? $paket->menus->first()->gallery->photo_link : '/images/footer/logoPetungPark.png';
-            @endphp
-            <img src="{{ asset($photo) }}" alt="Foto {{ $paket->name }}" class="wisata-gambar">
+            @foreach($paket->menus as $menu)
+                <img src="{{ asset($menu->gallery->photo_link ??  '/images/footer/logoPetungPark.png') }}" alt="Foto {{ $menu->name }}">
+            @endforeach
         </div>
         
         <!-- Harga dan Like Count -->

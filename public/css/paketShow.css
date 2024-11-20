@@ -23,13 +23,12 @@ html, body {
 .kategori-wisata{
     background-color: #D7E4C0;
 }
-/* Menjaga gambar agar tidak meluap */
-.paket-photo img {
-    width: 100%;
-    height: auto;
-    max-width: 100%; /* Pastikan gambar tidak melampaui lebar elemen */
-    margin: 0 auto;
+
+.kategori-wisata p{
+    font-size: 20px;
 }
+
+/* Menjaga gambar agar tidak meluap */
 .paket-detail h1, .paket-detail h2 {
     text-align: center;
     color: #333;
@@ -42,16 +41,21 @@ html, body {
 }
 
 .paket-photo {
-    text-align: center;
-    margin-bottom: 20px;
+    display: flex; /* Mengaktifkan Flexbox */
+    flex-wrap: wrap; /* Membungkus elemen ke baris baru jika tidak cukup ruang */
+    gap: 20px; /* Jarak antar gambar lebih besar */
+    justify-content: center; /* Pusatkan gambar secara horizontal */
+    margin-bottom: 30px;
 }
 
 .paket-photo img {
-    width: 100%;
-    height: auto;
-    max-width: 400px;
-    margin: 0 auto;
+    width: 300px; /* Lebar gambar seragam */
+    height: 300px; /* Tinggi gambar seragam */
+    object-fit: cover; /* Crop gambar agar sesuai */
+    border-radius: 8px; /* Opsional: Sudut membulat untuk estetika */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Opsional: bayangan */
 }
+
 
 .menu-list {
     list-style: none;
@@ -103,4 +107,18 @@ html, body {
 .btn-kembali:hover {
     background-color: #254336;
     color: #D7E4C0;
+}
+
+@media (max-width: 768px) {
+    .paket-photo img {
+        width: 200px; /* Ukuran lebih kecil di layar kecil */
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .paket-photo img {
+        width: 100%; /* Lebar penuh untuk layar sangat kecil */
+        height: auto; /* Tinggi otomatis untuk mempertahankan proporsi */
+    }
 }

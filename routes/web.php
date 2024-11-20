@@ -101,7 +101,8 @@ Route::post('/hidangan', [MenuController::class, 'store'])->name('hidangan.store
 Route::get('/hidangan/edit/{hidangan}', [MenuController::class, 'edit'])->name('hidangan.edit');
 Route::post('/hidangan/edit/{hidangan}', [MenuController::class, 'update'])->name('hidangan.update');
 Route::delete('/hidangan/{hidangan}', [MenuController::class, 'delete'])->name('hidangan.delete');
-Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('hidangan.cari');
+Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('hidangan.show');
+Route::post('/hidangan/{menu}/like', [MenuController::class, 'like'])->name('hidangan.like');
 
 // Paket
 Route::get('/paket/{id}', [PackageController::class, 'show'])->name('paket.show');
