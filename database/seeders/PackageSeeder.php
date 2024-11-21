@@ -25,7 +25,7 @@ class PackageSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Paket Hemat SUper 8-10 Orang',
+                'name' => 'Paket Hemat 8-10 Orang',
                 'price' => 250000,
                 'status' => 1,
                 'number_love' => 0,
