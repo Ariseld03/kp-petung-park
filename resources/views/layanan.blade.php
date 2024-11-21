@@ -6,7 +6,9 @@
 
 <!-- Kategori Paket -->
 <div class="kategori-paket">
-    <h2>Paket Menu</h2>
+    <h2>Wisata Kuliner</h2>
+    <hr>
+    <h2>Menu Paket</h2>
 
     <div name="paket-menu" class="paket-container">
         @forelse($paket as $perpaket)
@@ -29,7 +31,7 @@
 
 <!-- Kategori Makanan -->
 <div class="kategori-makanan">
-    <h2>Kategori Kuliner</h2>
+    <h2>Menu Reguler</h2>
 
     <div class="makanan-container">
         @forelse($kategori as $perkategori)
@@ -49,7 +51,7 @@
 
 <!-- Kategori Wisata -->
 <div class="kategori-wisata">
-    <h2>Wisata</h2>
+    <h2>Wisata Alam</h2>
 
     <div class="wisata-container">
         @forelse($wisata as $spot)

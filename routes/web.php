@@ -41,15 +41,14 @@ Route::post('/register', [RegisterController::class, 'register_process'])->name(
 Route::get('/beranda', [GalleryShowController::class, 'showAllPengguna'])->name('beranda');
 
 // Navbar 
-    Route::view('/layanan', 'layanan'); 
-    Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
-    // Route::view('/tentangKami', 'tentangKami');
-    Route::get('/tentangKami', [GenericController::class, 'aboutUs'])->name('tentangKami');
+Route::view('/layanan', 'layanan');
+Route::get('/layanan', [AgendaController::class, 'showLayanan'])->name('layanan');
+// Route::view('/tentangKami', 'tentangKami');
+Route::get('/tentangKami', [GenericController::class, 'aboutUs'])->name('tentangKami');
 
-    // Agenda 
-    Route::get('/kegiatan/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('kegiatan.mendatang');
-    Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');
-
+// Agenda 
+Route::get('/kegiatan/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('kegiatan.mendatang');
+Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');
 
 // Registration
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register'); // Show registration form
@@ -115,4 +114,3 @@ Route::post('/kegiatan', [AgendaController::class, 'store'])->name('kegiatan.sto
 Route::get('/kegiatan/edit/{kegiatan}', [AgendaController::class, 'edit'])->name('kegiatan.edit');
 Route::post('/kegiatan/edit/{kegiatan}', [AgendaController::class, 'update'])->name('kegiatan.update');
 Route::delete('/kegiatan/{kegiatan}', [AgendaController::class, 'delete'])->name('kegiatan.delete');
-
