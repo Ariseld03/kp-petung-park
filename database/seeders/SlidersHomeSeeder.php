@@ -30,6 +30,13 @@ class SlidersHomeSeeder extends Seeder
             [
                 'name' => 'Slider 2',
                 'status' => 1,
+                'gallery_id' => 8,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Slider 3',
+                'status' => 1,
                 'gallery_id' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),

@@ -25,37 +25,49 @@ html {
     min-width: 100%;
     background-size: cover;
     background-position: center;
-    color: white;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-width: 100%;
-    position: relative; /* Make the slide relative for absolute positioning of overlay */
+    position: relative;
+    /* Make the slide relative for absolute positioning of overlay */
 }
 
-.slide::before {
+/* .slide::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.2);
     z-index: 1; 
-}
+} */
 
-.slide .text {
-    position: relative; 
-    z-index: 2;
-}
 
+.text {
+    background: rgba(0, 0, 0, 0.8);
+    /* Warna background dengan transparansi */
+    color: #fff;
+    /* Warna teks */
+    padding: 10px 20px;
+    /* Spasi di dalam latar */
+    border-radius: 10px;
+    /* Sudut membulat */
+    text-align: center;
+    max-width: 80%;
+    /* Batasi lebar teks */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    /* Efek bayangan */
+}
 
 .slide h1 {
     font-size: 5vw;
     font-weight: bold;
     z-index: 2;
+
 }
 
 .slide p {
@@ -106,9 +118,9 @@ html {
 }
 
 .con-video {
-    height: 700px; 
+    height: 700px;
     width: 1244px;
-    background-color: #ecf78e; 
+    background-color: #ecf78e;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -116,9 +128,9 @@ html {
 }
 
 .video-frame {
-    height: 100%; 
-    width: 100%; 
-    border: none; 
+    height: 100%;
+    width: 100%;
+    border: none;
 }
 
 
@@ -169,7 +181,7 @@ html {
 /* Frame for the image */
 .frame-image {
     padding: 10px;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
     background-color: white;
     box-sizing: border-box;
     display: flex;
@@ -184,7 +196,7 @@ html {
 .galeri-image {
     width: 100%;
     height: auto;
-    max-height: 180px;
+    max-height: 200px;
     object-fit: cover;
     margin-bottom: 10px;
     align-items: center;
@@ -243,7 +255,7 @@ html {
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
 }
 
-.col img{
+.col img {
     width: 20px;
     height: 20px;
     margin-right: 5px;
@@ -271,54 +283,61 @@ footer {
 }
 
 @media (max-width: 768px) {
+
     /* Slider styles */
     .col img {
         display: inline-block;
         margin-bottom: 5px;
     }
+
     .slider-container {
-        height: 50vh; 
+        height: 50vh;
     }
 
     .slide {
-        height: 50vh; 
-        padding: 40px 60px; /* More padding on small screens */
-        justify-content: center; 
+        height: 50vh;
+        padding: 40px 60px;
+        /* More padding on small screens */
+        justify-content: center;
     }
 
     .slide h1 {
-        font-size: 8vw; 
+        font-size: 8vw;
     }
 
     .slide p {
-        padding: 10px; /* Adjust text padding for smaller screens */
-        margin: 0; /* Remove any default margin */
+        padding: 10px;
+        /* Adjust text padding for smaller screens */
+        margin: 0;
+        /* Remove any default margin */
         font-size: 16px;
         text-align: center;
     }
 
     /* Title section */
     .title-section {
-        height: 50vh; 
+        height: 50vh;
         padding: 5%;
     }
 
     .title-beranda {
-        font-size: 24px; 
+        font-size: 24px;
     }
 
     .con-video {
-        width: 100%; 
+        width: 100%;
         height: 50vh;
     }
 
     /* Konten teks */
-    .desc-beranda, .desc-lokasi, .description {
+    .desc-beranda,
+    .desc-lokasi,
+    .description {
         font-size: 14px;
     }
 
     .title {
-        font-size: 12vw; 
+        font-size: 12vw;
     }
 
     .title-konten {
@@ -327,22 +346,22 @@ footer {
 
     /*Google Map*/
     .img-lokasi {
-        width: 100%; 
-        height: 250px; 
-        padding-bottom: 10px; 
+        width: 100%;
+        height: 250px;
+        padding-bottom: 10px;
     }
 
     /* Image frame */
     .frame-image {
         align-items: center;
-        height: auto; 
+        height: auto;
         width: 250px;
         margin-left: auto;
         margin-right: auto;
     }
 
     .galeri-image {
-        max-height: 150px; 
+        max-height: 150px;
         max-width: 200px;
     }
 }

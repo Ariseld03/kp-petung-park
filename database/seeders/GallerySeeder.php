@@ -22,7 +22,7 @@ class GallerySeeder extends Seeder
             [
                 'name' => 'Selamat Datang di Petung Park',
                 'photo_link' => '/images/beranda/slideshow/petungpark.jpg',
-                'description' => "Petung Park berada di Desa Belik, kata 'Belik' memiliki arti mata air kecil",
+                'description' => "Tempat wisata hidden place yang menawarkan pemandangan alam yang luas dan indah serta udara yang menyejukkan",
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 100),
                 'created_at' => now(),
@@ -85,7 +85,7 @@ class GallerySeeder extends Seeder
             [
                 'name' => 'Hutan Bambu',
                 'photo_link' => $pemandangan.'pohonBambu.JPG',
-                'description' => 'Jalur rindang dengan pepohonan bambu tinggi yang menciptakan suasana asri dan sejuk.',
+                'description' => 'Wisata hutan bambu seringkali digunakan untuk foto-foto yang aesthetic.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 100),
                 'created_at' => now(),
@@ -203,6 +203,15 @@ class GallerySeeder extends Seeder
                 'name' => 'Jalan Hutan Bambu 2',
                 'photo_link' => $pemandangan.'jalanHutanBambu_2.JPG',
                 'description' => 'Jalanan Pohon Bambu yang menakjubkan.',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 100),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Pemandangan Sawah',
+                'photo_link' => $pemandangan.'sawah.jpg',
+                'description' => 'Pemandangan alam yang akan memanjakan mata',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 100),
                 'created_at' => now(),

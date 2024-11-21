@@ -23,24 +23,39 @@ class GalleriesShowSeeder extends Seeder
 
         // Insert multiple records into the galleries_show table
         DB::table('galleries_show')->insert([
+            
             [
-                'name' => 'Gazebo Kecek Air',
+                'name' => 'Hidangan lengkap dan lezat yang cocok untuk dinikmati bersama keluarga atau teman.',
+                'status' => 1,
+                'gallery_id' => $galleryIds[11],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Wisata Hutan Bambu ini seringkali digunakan untuk spot foto-foto yang aesthetic',
+                'status' => 1,
+                'gallery_id' => $galleryIds[7],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Gazebo Kecek Air dapat digunakan sembari menikmati kuliner yang dihidangkan',
                 'status' => 1,
                 'gallery_id' => $galleryIds[1],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Hidangan Camilan Ayam Geprek',
+                'name' => 'Baby Pool dengan kedalaman rendah yang dapat dinikmati dan dirancang khusus untuk anak-anak',
                 'status' => 1,
-                'gallery_id' => $galleryIds[17],
+                'gallery_id' => $galleryIds[8],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Pujasera ',
+                'name' => 'Pemandangan alam seperti pegunungan dan sawah yang akan memanjakan mata',
                 'status' => 1,
-                'gallery_id' => $galleryIds[9],
+                'gallery_id' => $galleryIds[21],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
