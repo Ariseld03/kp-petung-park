@@ -60,6 +60,9 @@
                             <a class="nav-link" href="{{ url('/layanan') }}">Wisata</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/agenda') }}">Agenda Kegiatan</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url('/tentangKami') }}">Tentang Kami</a>
                         </li>
                     </ul>
