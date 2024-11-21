@@ -114,3 +114,6 @@ Route::post('/kegiatan', [AgendaController::class, 'store'])->name('kegiatan.sto
 Route::get('/kegiatan/edit/{kegiatan}', [AgendaController::class, 'edit'])->name('kegiatan.edit');
 Route::post('/kegiatan/edit/{kegiatan}', [AgendaController::class, 'update'])->name('kegiatan.update');
 Route::delete('/kegiatan/{kegiatan}', [AgendaController::class, 'delete'])->name('kegiatan.delete');
+
+// Agenda
+Route::get('/agenda', [AgendaController::class, 'showAgenda'])->name('agenda');

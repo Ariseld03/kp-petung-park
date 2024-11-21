@@ -13,6 +13,9 @@
                     <a class="nav-link fs-3" href="{{ url('/layanan') }}" style="color: #fff;">Layanan</a>
                 </li>
                 <li class="nav-item ms-4">
+                    <a class="nav-link fs-3" href="{{ url('/agenda') }}" style="color: #fff;">Agenda Kegiatan</a>
+                </li>
+                <li class="nav-item ms-4">
                     <a class="nav-link fs-3" href="{{ url('/tentangKami') }}" style="color: #fff;">Tentang Kami</a>
                 </li>
             </ul>

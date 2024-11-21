@@ -129,7 +129,15 @@ public function showLayanan()
     $kategori = Category::where('status', 1)->get();
     return view('layanan', compact('wisata', 'paket', 'kegiatanMendatang', 'kegiatanLalu','kategori'));
 }
-
+public function showAgenda()
+{
+    $paket = Package::where('status', 1)->get();
+    $wisata = Travel::where('status', 1)->get();
+    $kegiatanMendatang = Agenda::where('status', 1)->where('event_end_date', '>=', now())->get();
+    $kegiatanLalu = Agenda::where('status', 1)->where('event_end_date', '<', now())->get();
+    $kategori = Category::where('status', 1)->get();
+    return view('agenda', compact('kegiatanMendatang', 'kegiatanLalu'));
+}
 public function showMendatang($id)
 {
     $agenda = Agenda::findOrFail($id); 
