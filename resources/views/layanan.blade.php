@@ -6,8 +6,10 @@
 
 <!-- Kategori Paket -->
 <div class="kategori-paket">
-    <h2>Wisata Kuliner</h2>
-    <hr>
+    <div class="center-screen">
+        <h2 style="padding-bottom: 20px" style="padding-top: 10px" style="font-weight: bolder" style="font-size: x-larger"><u>Wisata Kuliner</u></h2>
+    </div>
+
     <h2>Menu Paket</h2>
 
     <div name="paket-menu" class="paket-container">
