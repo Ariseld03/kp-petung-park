@@ -10,7 +10,7 @@
                     <a class="nav-link fs-3" href="{{ url('/beranda') }}" style="color: #fff;">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fs-3" href="{{ url('/layanan') }}" style="color: #fff;">Layanan</a>
+                    <a class="nav-link fs-3" href="{{ url('/layanan') }}" style="color: #fff;">Wisata</a>
                 </li>
                 <li class="nav-item ms-4">
                     <a class="nav-link fs-3" href="{{ url('/agenda') }}" style="color: #fff;">Agenda Kegiatan</a>
