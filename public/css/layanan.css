@@ -6,6 +6,10 @@ html {
     overflow-x: hidden;
 }
 
+.zoomimg {
+    cursor: zoom-in;
+}
+
 /* Styling untuk kategori-makanan */
 .kategori-makanan {
     background-color: #E2DD6C;

@@ -50,7 +50,7 @@ class MenuSeeder extends Seeder
             [
                 'name' => 'Es Teh Manis',
                 'description' => "Es teh yang berasa manis cocok untuk mendinginkan kepala",
-                'price' => $faker->randomFloat(0, 5000, 10000),
+                'price' => 7000,
                 'status' => 1,
                 'status_recommended' => 0,
                 'number_love' => 1,
@@ -111,6 +111,19 @@ class MenuSeeder extends Seeder
                 'staff_email' => $staffEmails->random(),
                 'gallery_id' => $galleryIds[17],
                 'category_id' => $categoryIds[1],
+            ],
+            [
+                'name' => 'Es Kopi Susu',
+                'description' => "Es Kopi Susu dapat dinikmati sambil menikmati udara pegunungan yang sejuk",
+                'price' => 12000,
+                'status' => 1,
+                'status_recommended' => 0,
+                'number_love' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'staff_email' => $staffEmails->random(),
+                'gallery_id' => $galleryIds[22],
+                'category_id' =>  $categoryIds[0],
             ],
         ]);
     }

@@ -76,10 +76,10 @@
                 @foreach ($galleryShows as $galleryShow)
                     <div class="col-md-4 overflow-hidden">
                         <div class="frame-image">
-                            <img id="{{$galleryShow->id}}" src="{{ asset($galleryShow->gallery->photo_link) }}" alt="{{ $galleryShow->name }}"
-                                class="galeri-image">
+                            <img id="{{ $galleryShow->id }}" src="{{ asset($galleryShow->gallery->photo_link) }}"
+                                alt="{{ $galleryShow->name }}" class="galeri-image zoomimg">
                             <div class="content-container">
-                                <p id="text_{{$galleryShow->id}}" class="text-image">{{ $galleryShow->name }}</p>
+                                <p id="text_{{ $galleryShow->id }}" class="text-image">{{ $galleryShow->name }}</p>
                                 <p class="desc-image">{{ $galleryShow->description }}</p>
                                 <button class="like-button" data-gallery-id="{{ $galleryShow->gallery->id }}">
                                     <span id="like-count"
@@ -93,21 +93,8 @@
             </div>
         </div>
     </section>
-
-    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="max-width: 90vh;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalJudul">Judul</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="" id="modalImage" class="img-fluid" alt="Gambar Besar">
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
+@include('layouts.modalimg')
 
 @section('page-js')
     <script>
@@ -204,16 +191,6 @@
                 }
             }
         });
-        $(document).ready(function() {
-            // Ketika gambar kecil diklik
-            $(".galeri-image").click(function() {
-                var id = $(this).attr("id");
-                var tjudul = $("#text_"+id).text();
-                var src = $(this).attr("src"); 
-                $("#modalJudul").text(tjudul);
-                $("#modalImage").attr("src", src);
-                $('#imageModal').modal('show');
-            });
-        });
     </script>
+    <script src="{{ asset('/js/imagemodal.js') }}"></script>
 @endsection
