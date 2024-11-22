@@ -33,4 +33,8 @@ class Gallery extends Model
     {
         return $this->hasMany(Staff::class, 'gallery_id', 'id');
     }
+    public function packages()
+    {
+        return $this->hasMany(Package::class, 'gallery_id', 'id');
+    }
 }

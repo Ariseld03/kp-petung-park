@@ -32,9 +32,9 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         
         $this->call(CategorySeeder::class);
-        $this->call(PackageSeeder::class);
         $this->call(TravelSeeder::class);
         $this->call(GallerySeeder::class);
+        $this->call(PackageSeeder::class);
         $this->call(GalleriesShowSeeder::class);
         $this->call(StaffSeeder::class);
         $this->call(GenericSeeder::class);

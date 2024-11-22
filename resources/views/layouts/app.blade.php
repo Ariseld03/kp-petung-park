@@ -54,16 +54,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/beranda') }}">Beranda</a>
+                            <a class="nav-link" href="{{ route('beranda') }}">Beranda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/layanan') }}">Wisata</a>
+                            <a class="nav-link" href="{{ route('wisata') }}">Wisata</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/agenda') }}">Agenda</a>
+                            <a class="nav-link" href="{{ route('agenda') }}">Agenda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/tentangKami') }}">Tentang Kami</a>
+                            <a class="nav-link" href="{{ route('tentangKami') }}">Tentang Kami</a>
                         </li>
                     </ul>
 

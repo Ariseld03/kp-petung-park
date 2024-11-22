@@ -23,6 +23,7 @@ class PackageSeeder extends Seeder
                 'number_love' => 5,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'gallery_id' => 24,
             ],
             [
                 'name' => 'Paket Hemat 8-10 Orang',
@@ -31,6 +32,7 @@ class PackageSeeder extends Seeder
                 'number_love' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'gallery_id' => 25,
             ],
         ]);
     }

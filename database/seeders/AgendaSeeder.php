@@ -51,7 +51,7 @@ class AgendaSeeder extends Seeder
                 'staff_email' => $staffEmails->random(),
             ],
             [
-                'event_name' => 'Acara Pembukaaan Hutan Bambu',
+                'event_name' => 'Acara Pembukaan Hutan Bambu',
                 'event_start_date' => '2024-12-31',
                 'event_end_date' => '2024-12-31',
                 'event_location' => 'Hutan Bambu',

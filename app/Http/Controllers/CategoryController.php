@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create'); // Return view with form to create new category
+        return view('kategori.create'); // Return view with form to create new category
     }
 
     /**
@@ -41,7 +41,7 @@ class CategoryController extends Controller
             'status' => $request->input('status'),
         ]);
 
-        return redirect()->route('categories.index')->with('Berhasil', 'Kategori berhasil ditambahkan!');
+        return redirect()->route('kategori.index')->with('Berhasil', 'Kategori berhasil ditambahkan!');
     }
 
     /**
@@ -49,29 +49,21 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('categories.show', compact('categories')); 
+        return view('kategori.show', compact('categories')); 
     }
 
-    public function showKategoriAllPengguna()
-    {
-        $category = Category::where('status', 1)->get();
-        return view('kategori', compact('kategori'));
-    }
     public function cariMakananDariKategori($id)
     {
-        // Fetch the menus related to the category
-        $kategori = Category::with('menus') // Eager load the menus for the category
-        ->findOrFail($id); // This will throw a 404 if the category is not found
-        // Return a view with the category and its menus
-        //dd($kategori);
-        return view('kategori.menu', compact('kategori'));
+        $kategori = Category::with('menus') 
+        ->findOrFail($id); 
+        return view('kategori.show', compact('kategori'));
     }
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Category $category)
     {
-        return view('categories.edit', compact('categories')); 
+        return view('kategori.edit', compact('categories')); 
     }
 
     /**
@@ -87,9 +79,9 @@ class CategoryController extends Controller
         try {
             $category = Category::findOrFail($id);
             $category->update($validatedData);
-            return redirect()->route('categories.index')->with('Berhasil', 'Berhasil Update Kategori!');
+            return redirect()->route('kategori.index')->with('Berhasil', 'Berhasil Update Kategori!');
         } catch (\Exception $e) {
-            return redirect()->route('categories.index')->with('Gagal', 'Gagal Update Kategori!');
+            return redirect()->route('kategori.index')->with('Gagal', 'Gagal Update Kategori!');
         }
     }
 
@@ -105,6 +97,6 @@ class CategoryController extends Controller
         }
         $category->status=0;
         $category->save();
-        return redirect()->route('categories.index')->with('Berhasil', 'Kategori berhasil dihapus!');
+        return redirect()->route('kategori.index')->with('Berhasil', 'Kategori berhasil dihapus!');
     }
 }

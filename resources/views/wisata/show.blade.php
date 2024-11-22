@@ -8,7 +8,7 @@
     <!-- Kategori Wisata -->
     <div class="kategori-wisata">
         <div class="kategori-header">
-            <a href="{{ route('layanan') }}" class="btn-kembali">Kembali</a>
+            <a href="{{ route('wisata') }}" class="btn-kembali">Kembali</a>
             <h2>{{ $travel->name }}</h2>
         </div>
         <div class="wisata-container">

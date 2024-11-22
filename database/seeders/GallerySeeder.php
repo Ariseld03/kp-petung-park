@@ -17,6 +17,7 @@ class GallerySeeder extends Seeder
         $makanan = '/images/galeri/makanan/';
         $pemandangan = '/images/galeri/pemandangan/';
         $login = '/images/login/';
+        $paket = '/images/galeri/paket/';
 
         DB::table('galleries')->insert([
             [
@@ -156,7 +157,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Kentang Goreng',
-                'photo_link' =>$makanan.'kentangGoreng.jpg',
+                'photo_link' =>$makanan.'kentangGoreng.png',
                 'description' =>'Kentang goreng renyah dengan tekstur lembut di dalam, cocok sebagai camilan atau pelengkap makanan.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -221,6 +222,24 @@ class GallerySeeder extends Seeder
                 'name' => 'Es Kopi Susu',
                 'photo_link' => $makanan.'eskopisusu.jpg',
                 'description' => 'Es Kopi Susu dapat dinikmati sambil menikmati udara pegunungan yang sejuk',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Paket Hemat 5-6 Orang',
+                'photo_link' => $paket.'hemat.png',
+                'description' => 'Paket hemat untuk keluarga kecil.',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Paket Hemat 8-10 Orang',
+                'photo_link' => $paket.'super.png',
+                'description' => 'Paket hemat untuk keluarga besar.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),

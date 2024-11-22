@@ -17,4 +17,8 @@ class Package extends Model
     {
         return $this->belongsToMany(Menu::class, 'package_menus', 'package_id', 'menu_id');            
     }
+    public function gallery()
+    {
+        return $this->belongsTo(Gallery::class, 'gallery_id', 'id');
+    }
 }

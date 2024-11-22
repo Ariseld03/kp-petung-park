@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Package;
 use Illuminate\Http\Request;
+use App\Models\PackageMenu;
+use App\Models\Travel;
+use App\Models\Category;
 
 class PackageController extends Controller
 {
@@ -118,13 +121,7 @@ class PackageController extends Controller
         $package = Package::findOrFail($id);
         $package->status = 0;
         $package->save();
-
-        // Delete data in pivot table package_menus
-        // $package->menus()->detach();
-
-        // $package->delete();
-
-        return redirect()->route('paket.index')->with('success', 'Paket berhasil dihapus!');
+        return redirect()->route('paket.index')->with('Berhasil', 'Paket berhasil dinonaktifkan!');
     }
     // M to M package_menus
     public function createMenuPackage(Request $request)
@@ -186,4 +183,13 @@ class PackageController extends Controller
         PackageMenu::where('package_id', $package->id)->where('status', 1)->update(['status' => 0]);
         return redirect()->route('paket.index')->with('Berhasil', 'Paket Menu berhasil dihapus!');
     }
+
+    //Tambahan 
+    public function showLayanan()
+{
+    $paket = Package::where('status', 1)->get();
+    $wisata = Travel::where('status', 1)->get();
+    $kategori = Category::where('status', 1)->get();
+    return view('wisata', compact('wisata', 'paket','kategori'));
+}
 }

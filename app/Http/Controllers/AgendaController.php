@@ -119,16 +119,6 @@ class AgendaController extends Controller
 
 
 //TAMBAHAN-----------------------------------------------------------
-
-public function showLayanan()
-{
-    $paket = Package::where('status', 1)->get();
-    $wisata = Travel::where('status', 1)->get();
-    $kegiatanMendatang = Agenda::where('status', 1)->where('event_end_date', '>=', now())->get();
-    $kegiatanLalu = Agenda::where('status', 1)->where('event_end_date', '<', now())->get();
-    $kategori = Category::where('status', 1)->get();
-    return view('layanan', compact('wisata', 'paket', 'kegiatanMendatang', 'kegiatanLalu','kategori'));
-}
 public function showAgenda()
 {
     $paket = Package::where('status', 1)->get();

@@ -17,7 +17,7 @@
                 <div class="paket">
                     @php
                         $photo = $perpaket->menus->isNotEmpty()
-                            ? $perpaket->menus->first()->gallery->photo_link
+                            ? $perpaket->gallery->photo_link
                             : '/images/footer/logoPetungPark.png';
                     @endphp
                     <img id="paket_{{$perpaket->id}}" src="{{ asset($photo) }}" alt="Foto {{ $perpaket->name }}" class="zoomimg">

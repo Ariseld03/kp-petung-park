@@ -6,7 +6,7 @@
     <!-- Kategori Makanan -->
     <div class="kategori-makanan">
         <div class="kategori-header">
-            <a href="{{ url('layanan') }}" class="btn-kembali">Kembali</a>
+            <a href="{{ route('wisata') }}" class="btn-kembali">Kembali</a>
             <h2>Kategori Kuliner</h2>
         </div>
         <div class="makanan-container">

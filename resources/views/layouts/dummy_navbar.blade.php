@@ -7,16 +7,16 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item me-4">
-                    <a class="nav-link fs-3" href="{{ url('/beranda') }}" style="color: #fff;">Beranda</a>
+                    <a class="nav-link fs-3" href="{{ route('beranda') }}" style="color: #fff;">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fs-3" href="{{ url('/layanan') }}" style="color: #fff;">Wisata</a>
+                    <a class="nav-link fs-3" href="{{ route('wisata') }}" style="color: #fff;">Wisata</a>
                 </li>
                 <li class="nav-item ms-4">
-                    <a class="nav-link fs-3" href="{{ url('/agenda') }}" style="color: #fff;">Agenda Kegiatan</a>
+                    <a class="nav-link fs-3" href="{{ route('agenda') }}" style="color: #fff;">Agenda Kegiatan</a>
                 </li>
                 <li class="nav-item ms-4">
-                    <a class="nav-link fs-3" href="{{ url('/tentangKami') }}" style="color: #fff;">Tentang Kami</a>
+                    <a class="nav-link fs-3" href="{{ route('tentangKami') }}" style="color: #fff;">Tentang Kami</a>
                 </li>
             </ul>
         </div>
