@@ -10,9 +10,9 @@
             <a href="{{ route('kategori.makanan', $menu->category->id) }}" class="btn-kembali">Kembali</a>
         </div>
         <div class="hidangan-container">
-            <img src="{{ asset($menu->gallery->photo_link ?? 'https://via.placeholder.com/300x300') }}" alt="hidangan" class="hidangan-gambar">
+            <img id="{{$menu->id}}" src="{{ asset($menu->gallery->photo_link ?? 'https://via.placeholder.com/300x300') }}" alt="hidangan" class="zoomimg hidangan-gambar">
             <div class="hidangan-detail">
-                <h3>{{ $menu->name }}</h3>
+                <h3 id="text_{{$menu->id}}">{{ $menu->name }}</h3>
                 <p class="desc">{{ $menu->description }}</p>
                 <p class="harga">Harga: Rp. {{ number_format($menu->price, 0, ',', '.') }}</p>
                 <p class="rekomendasi">
@@ -32,6 +32,7 @@
         </div>
     </div>
 @endsection
+@include('layouts.modalimg')
 @section('page-js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -76,4 +77,5 @@
         });
 
     </script>
+    <script src="{{ asset('/js/imagemodal.js') }}"></script>
 @endsection

@@ -14,18 +14,20 @@
         <div class="wisata-container">
             <p>{{ $travel->description }}</p>
         </div>
-        
+
         <!-- Galeri -->
         <div class="galeri-container">
             <div class="galeri-grid">
                 @forelse($galleries as $gallery)
                     <div class="galeri-item">
-                        <img src="{{ $gallery->photo_link }}" alt="{{ $gallery->name }}">
+                        <img id="alam_{{ $gallery->id }}" class="zoomimg" src="{{ $gallery->photo_link }}"
+                            alt="{{ $gallery->name }}">
                         <p>{{ $gallery->name }}</p>
-                        <p>{{ $gallery->description }}</p>
+                        <p id="text_alam_{{ $gallery->id }}">{{ $gallery->description }}</p>
                         <div class="like-container">
                             <button class="like-button" data-gallery-id="{{ $gallery->id }}">
-                                <span id="like-count" class="{{ $gallery->number_love % 2 === 0 ? 'even' : 'odd' }}">{{ $gallery->number_love }}</span>
+                                <span id="like-count"
+                                    class="{{ $gallery->number_love % 2 === 0 ? 'even' : 'odd' }}">{{ $gallery->number_love }}</span>
                                 <span class="like-icon">❤️</span>
                             </button>
                         </div>
@@ -36,9 +38,12 @@
             </div>
         </div>
     </div>
+@endsection
+@include('layouts.modalimg')
 
+@section('page-js')
     <script>
-          document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             const likeButtons = document.querySelectorAll('.like-button');
             likeButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -49,20 +54,20 @@
 
                     // Send request to toggle like in the backend
                     fetch(`/wisata/like/${galleryId}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        },
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        likeCount.textContent = data.number_love; 
-                        updateLikeCountDisplay(likeCount); 
-                    })
-                    .catch(error => {
-                        console.error("Error updating like:", error);
-                    });
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            likeCount.textContent = data.number_love;
+                            updateLikeCountDisplay(likeCount);
+                        })
+                        .catch(error => {
+                            console.error("Error updating like:", error);
+                        });
                 });
             });
 
@@ -79,4 +84,5 @@
             }
         });
     </script>
-    
+    <script src="{{ asset('/js/imagemodal.js') }}"></script>
+@endsection

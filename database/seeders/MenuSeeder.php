@@ -35,9 +35,9 @@ class MenuSeeder extends Seeder
         // Insert multiple records into the menus table
         DB::table('menus')->insert([
             [
-                'name' => 'Kentang Goreng',
-                'description' => "Kentang Goreng yang hangat dan enak, cocok dinikmati dengan bersantai",
-                'price' => $faker->randomFloat(0, 10000, 20000),
+                'name' => 'Stik Kentang',
+                'description' => "Stik Kentang yang hangat dan enak, cocok dinikmati dengan bersantai",
+                'price' => 10000,
                 'status' => 1,
                 'status_recommended' => 1,
                 'number_love' => 1,
@@ -74,9 +74,9 @@ class MenuSeeder extends Seeder
                 'category_id' =>  $categoryIds[2],
             ],
             [
-                'name' => 'Tempe Goreng',
+                'name' => 'Tempe Mendoan',
                 'description' => 'Tempe yang dibalur tepung dan dimasak matang.',
-                'price' => $faker->randomFloat(0, 10000, 15000),
+                'price' => 10000,
                 'status' => 1,
                 'status_recommended' => 0,
                 'number_love' => $faker->numberBetween(1, 10),
@@ -87,9 +87,9 @@ class MenuSeeder extends Seeder
                 'category_id' =>  $categoryIds[3],
             ],
             [
-                'name' => 'Bebek Ngos',
+                'name' => 'Bebek Ngos Petung',
                 'description' => 'Bebek yang dibalur tepung dan dimasak matang dan dihidangkan bersama dengan sambal.',
-                'price' => $faker->randomFloat(0, 20000, 30000),
+                'price' => 28000,
                 'status' => 1,
                 'status_recommended' => 1,
                 'number_love' => $faker->numberBetween(1, 10),
@@ -102,7 +102,7 @@ class MenuSeeder extends Seeder
             [
                 'name' => 'Ayam Geprek',
                 'description' => 'Ayam krispi yang dipukul dan diberi dengan bumbu sambal pedas gurih.',
-                'price' => $faker->randomFloat(0, 10000, 30000),
+                'price' => 15000,
                 'status' => 1,
                 'status_recommended' => 1,
                 'number_love' => $faker->numberBetween(1, 10),

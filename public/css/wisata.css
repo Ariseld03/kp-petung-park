@@ -10,6 +10,9 @@ html {
     padding-bottom: 0px;
     background-color: #246140;
 }
+.zoomimg {
+    cursor: zoom-in;
+}
 /* Styling kategori-wisata */
 .kategori-wisata {
     background-color: #246140;

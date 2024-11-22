@@ -30,7 +30,7 @@ class CategorySeeder extends Seeder
             ],
             [
                 'name' => 'Hidangan Penutup',
-                'status' => 1,
+                'status' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

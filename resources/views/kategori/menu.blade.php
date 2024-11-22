@@ -12,8 +12,10 @@
         <div class="makanan-container">
             @forelse($kategori->menus as $menu)
                 <div class="makanan">
-                    <img src="{{ asset($menu->gallery->photo_link ??  '/images/footer/logoPetungPark.png') }}" alt="Foto {{ $menu->name }}">
-                    <p class="judul-makanan">{{ $menu->name }}</p>
+                    <img id="reguler_{{ $menu->id }}" class="zoomimg"
+                        src="{{ asset($menu->gallery->photo_link ?? '/images/footer/logoPetungPark.png') }}"
+                        alt="Foto {{ $menu->name }}">
+                    <p id="text_reguler_{{ $menu->id }}" class="judul-makanan">{{ $menu->name }}</p>
                     <button onclick="window.location.href='{{ url('hidangan', $menu->id) }}'">Lihat Hidangan</button>
                 </div>
             @empty
@@ -21,4 +23,10 @@
             @endforelse
         </div>
     </div>
+@endsection
+
+@include('layouts.modalimg')
+
+@section('page-js')
+    <script src="{{ asset('/js/imagemodal.js') }}"></script>
 @endsection

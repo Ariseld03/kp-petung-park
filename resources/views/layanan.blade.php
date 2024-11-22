@@ -47,7 +47,8 @@
                             : '/images/footer/logoPetungPark.png';
                     @endphp
                     <img id="reguler_{{$perkategori->id}}" src="{{ asset($fotoMakanan) }}" alt="Foto {{ $perkategori->name }}" class="zoomimg">
-                    <p id="text_reguler_{{$perkategori->id}}" class="judul-makanan">{{ $perkategori->name }}</p>
+                    <p 
+                     class="judul-makanan">{{ $perkategori->name }}</p>
                     <button onclick="window.location.href='{{ route('kategori.makanan', $perkategori->id) }}'">Lihat
                         Kategori</button>
                 </div>
