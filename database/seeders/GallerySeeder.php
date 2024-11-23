@@ -122,7 +122,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Bebek Goreng Ngos',
-                'photo_link' => $makanan . 'bebekngos.jpg',
+                'photo_link' => $makanan . 'bebekngos.JPG',
                 'description' => 'Bebek goreng yang empuk dan gurih dengan bumbu tradisional, disajikan dengan sambal pedas.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
