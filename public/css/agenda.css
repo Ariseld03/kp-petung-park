@@ -6,6 +6,10 @@
     position: relative;
 }
 
+.zoomimg {
+    cursor: zoom-in;
+}
+
 .kegiatan h2 {
     color: #353C14;
     font-size: 40px;
@@ -72,7 +76,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    /* width: 80%; */
     padding-bottom: 10px;
 }
 

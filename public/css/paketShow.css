@@ -8,6 +8,10 @@ html, body {
     flex-direction: column; /* Menyusun elemen secara vertikal */
 }
 
+.zoomimg {
+    cursor: zoom-in;
+}
+
 .paket-detail {
     max-width: 800px;
     margin: 0 auto;

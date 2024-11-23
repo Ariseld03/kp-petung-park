@@ -22,7 +22,7 @@ return new class extends Migration
             // Define foreign key constraints
             // $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
-            $table->foreign('menu_category_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->foreign('menu_category_id')->references('category_id')->on('menus')->onDelete('cascade');
 
             $table->primary(['package_id', 'menu_id','menu_category_id']);
         });

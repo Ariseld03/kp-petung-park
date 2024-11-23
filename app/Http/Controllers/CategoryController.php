@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
-   /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
-    {   
+    {
         $kategori = Category::where('status', 1)->get();
         return view('kategori.index', compact('kategori'));
     }
@@ -49,13 +49,14 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('kategori.show', compact('categories')); 
+        return view('kategori.show', compact('categories'));
     }
 
     public function cariMakananDariKategori($id)
     {
-        $kategori = Category::with('menus') 
-        ->findOrFail($id); 
+        $kategori = Category::with(['menus' => function ($query) {
+            $query->where('status', 1);
+        }])->findOrFail($id);
         return view('kategori.show', compact('kategori'));
     }
     /**
@@ -63,7 +64,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('kategori.edit', compact('categories')); 
+        return view('kategori.edit', compact('categories'));
     }
 
     /**
@@ -92,10 +93,10 @@ class CategoryController extends Controller
     {
         $menus = Menu::where('category_id', $category->id)->get();
         foreach ($menus as $menu) {
-            $menu->status=0;
+            $menu->status = 0;
             $menu->save();
         }
-        $category->status=0;
+        $category->status = 0;
         $category->save();
         return redirect()->route('kategori.index')->with('Berhasil', 'Kategori berhasil dihapus!');
     }

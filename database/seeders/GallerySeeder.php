@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Faker\Factory as Faker;
+
 class GallerySeeder extends Seeder
 {
     /**
@@ -31,7 +32,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Gazebo Kecek Air',
-                'photo_link' => $pemandangan.'gazeboKecek.JPG',
+                'photo_link' => $pemandangan . 'gazeboKecek.JPG',
                 'description' => "Terdapat air di bawah gazebo yang dapat bermain air atau berkecek ria",
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -40,7 +41,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Acara Pelatihan Prima',
-                'photo_link' => $pemandangan.'pelatihanPrima_3.jpg',
+                'photo_link' => $pemandangan . 'pelatihanPrima_3.jpg',
                 'description' => "Pelatihan Pelayanan Prima diselenggarakan oleh Ubaya",
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -49,7 +50,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Gazebo Lesehan',
-                'photo_link' => $pemandangan.'rapatPengembanganDesaWisata.JPG',
+                'photo_link' => $pemandangan . 'rapatPengembanganDesaWisata.JPG',
                 'description' => $faker->sentence,
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -58,7 +59,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Jalan Hutan Bambu',
-                'photo_link' => $pemandangan.'jalanHutanBambu.JPG',
+                'photo_link' => $pemandangan . 'jalanHutanBambu.JPG',
                 'description' => 'Jalur rindang dengan pepohonan bambu tinggi yang menciptakan suasana asri dan sejuk.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -67,7 +68,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Gazebo',
-                'photo_link' => $pemandangan.'gazeboUntukAcara.JPG',
+                'photo_link' => $pemandangan . 'gazeboUntukAcara.JPG',
                 'description' => 'Tempat bersantai dengan pemandangan alam terbuka yang cocok untuk beristirahat setelah beraktivitas.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -76,7 +77,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Sumber Air',
-                'photo_link' => $pemandangan.'sumberMataAir.JPG',
+                'photo_link' => $pemandangan . 'sumberMataAir.JPG',
                 'description' => 'Aliran air alami yang jernih dan segar, menjadi daya tarik utama di sekitar kawasan wisata.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -85,7 +86,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Hutan Bambu',
-                'photo_link' => $pemandangan.'pohonBambu.JPG',
+                'photo_link' => $pemandangan . 'pohonBambu.JPG',
                 'description' => 'Wisata hutan bambu seringkali digunakan untuk foto-foto yang aesthetic.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -94,7 +95,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Kolam Bayi',
-                'photo_link' => $pemandangan.'kolamBayi.JPG',
+                'photo_link' => $pemandangan . 'kolamBayi.JPG',
                 'description' => 'Kolam renang aman dengan kedalaman rendah yang dirancang khusus untuk anak-anak.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -112,7 +113,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Tempe Goreng',
-                'photo_link' => $makanan.'tempeGoreng.jpg',
+                'photo_link' => $makanan . 'tempeGoreng.jpg',
                 'description' => 'Tempe goreng renyah yang disajikan dengan sambal khas, cocok sebagai camilan atau lauk.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -121,7 +122,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Bebek Goreng Ngos',
-                'photo_link' => $makanan.'bebekngos.jpg',
+                'photo_link' => $makanan . 'bebekngos.jpg',
                 'description' => 'Bebek goreng yang empuk dan gurih dengan bumbu tradisional, disajikan dengan sambal pedas.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -130,7 +131,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Paket Hemat Makanan 5-6 Orang',
-                'photo_link' => $makanan.'pakethemat.jpg',
+                'photo_link' => $makanan . 'pakethemat.jpg',
                 'description' => 'Hidangan lengkap dan lezat yang cocok untuk dinikmati bersama keluarga atau teman.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -139,7 +140,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Nasi Goreng',
-                'photo_link' => $makanan.'nasigorengpetung.jpg',
+                'photo_link' => $makanan . 'nasigorengpetung.jpg',
                 'description' => 'Nasi goreng khas dengan campuran sayuran dan daging, disajikan hangat dengan pelengkap kerupuk.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -148,7 +149,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Es Teh Manis',
-                'photo_link' => $makanan.'esTehManis.jpeg',
+                'photo_link' => $makanan . 'esTehManis.jpeg',
                 'description' => 'Minuman segar dengan rasa teh manis yang dingin, pas untuk menghilangkan dahaga.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -157,8 +158,8 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Kentang Goreng',
-                'photo_link' =>$makanan.'kentangGoreng.png',
-                'description' =>'Kentang goreng renyah dengan tekstur lembut di dalam, cocok sebagai camilan atau pelengkap makanan.',
+                'photo_link' => $makanan . 'kentangGoreng.png',
+                'description' => 'Kentang goreng renyah dengan tekstur lembut di dalam, cocok sebagai camilan atau pelengkap makanan.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),
@@ -166,7 +167,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Es Krim Stroberi',
-                'photo_link' => $makanan.'icecreamstraw.jpg',
+                'photo_link' => $makanan . 'icecreamstraw.jpg',
                 'description' => 'Es krim stroberi yang manis dan lembut, memberikan sensasi segar dengan rasa buah yang alami.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -175,7 +176,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Ayam Geprek',
-                'photo_link' => $makanan.'ayamsambaltrancam.jpg',
+                'photo_link' => $makanan . 'ayamsambaltrancam.jpg',
                 'description' => 'Ayam goreng yang digeprek dengan sambal pedas, disajikan dengan nasi hangat dan lalapan.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -184,7 +185,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Profile Picture',
-                'photo_link' => $login.'profilePic.jpg',
+                'photo_link' => $login . 'profilePic.jpg',
                 'description' => 'Saya Amel sebagai admin.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -193,7 +194,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Kemah',
-                'photo_link' => $pemandangan.'kemah.jpg',
+                'photo_link' => $pemandangan . 'kemah.jpg',
                 'description' => 'Tidur dan bersantai sembari menikmati keindahan alam.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -202,7 +203,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Jalan Hutan Bambu 2',
-                'photo_link' => $pemandangan.'jalanHutanBambu_2.JPG',
+                'photo_link' => $pemandangan . 'jalanHutanBambu_2.JPG',
                 'description' => 'Jalanan Pohon Bambu yang menakjubkan.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -211,7 +212,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Pemandangan Sawah',
-                'photo_link' => $pemandangan.'sawah.jpg',
+                'photo_link' => $pemandangan . 'sawah.jpg',
                 'description' => 'Pemandangan alam yang akan memanjakan mata',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -220,7 +221,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Es Kopi Susu',
-                'photo_link' => $makanan.'eskopisusu.jpg',
+                'photo_link' => $makanan . 'eskopisusu.jpg',
                 'description' => 'Es Kopi Susu dapat dinikmati sambil menikmati udara pegunungan yang sejuk',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -229,7 +230,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Paket Hemat 5-6 Orang',
-                'photo_link' => $paket.'hemat.png',
+                'photo_link' => $paket . 'hemat.png',
                 'description' => 'Paket hemat untuk keluarga kecil.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
@@ -238,13 +239,114 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Paket Hemat 8-10 Orang',
-                'photo_link' => $paket.'super.png',
+                'photo_link' => $paket . 'super.png',
                 'description' => 'Paket hemat untuk keluarga besar.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'Soft Opening Petung Park',
+                'photo_link' => $pemandangan . 'softopeningpetung.jpg',
+                'description' => 'Soft Opening Petung Park',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Sambang Desa oleh Menteri Desa',
+                'photo_link' => $pemandangan . 'sambangdesa1.jpg',
+                'description' => 'Foto Bersama Bapak Menteri dengan Perangkat Desa serta pengelola Petung Park',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Atraksi Budaya Lokal',
+                'photo_link' => $pemandangan . 'eventbudaya.jpg',
+                'description' => 'Event Budaya Lokal terlaksana dengan sangat baik dan ramai pengunjung',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Pelatihan Pelayanan Prima',
+                'photo_link' => $pemandangan . 'pelatihanprima1.jpg',
+                'description' => 'Trainer dari Pelatihan Pelayanan Prima adalah Bapak Hayomi',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Ayam Goreng',
+                'photo_link' => $makanan . 'ayamgoreng.jpg',
+                'description' => 'Ayam goreng yang lezat dan disajikan dengan nasi hangat',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Tahu Goreng',
+                'photo_link' => $makanan . 'tahugoreng.jpg',
+                'description' => 'Tahu goreng yang lezat dan empuk',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Tempe Goreng',
+                'photo_link' => $makanan . 'tempegoreng.jpg',
+                'description' => 'Tempe Goreng yang lezat dan empuk',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Tempe Goreng',
+                'photo_link' => $makanan . 'tempegoreng.jpg',
+                'description' => 'Tempe Goreng yang lezat dan empuk',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Dr. (H.C.) Drs. H. Abdul Halim Iskandar, M.Pd',
+                'photo_link' => $pemandangan . 'halimmeja.jpg',
+                'description' => 'Bapak Menteri sedang berdiskusi sembari menyantap makanan dari petung park',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Pelatihan Pelayanan Prima',
+                'photo_link' => $pemandangan . 'pelatihanprima.jpg',
+                'description' => 'Pengelola wisata sedang sharing pengalaman pada sesi diskusi',
+                'status' => 1,
+                'number_love' => $faker->numberBetween(0, 20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            
+            // [
+            //     'name' => 'Pelatihan Ekowisata',
+            //     'photo_link' => $pemandangan . 'pelatihanekowisata.jpg',
+            //     'description' => 'Pelatihan Ekowisata',
+            //     'status' => 1,
+            //     'number_love' => $faker->numberBetween(0, 20),
+            //     'created_at' => now(),
+            //     'updated_at' => now(),
+            // ],
+            
         ]);
     }
 }

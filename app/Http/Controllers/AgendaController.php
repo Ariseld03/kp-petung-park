@@ -89,7 +89,7 @@ class AgendaController extends Controller
             'event_location' => 'required|string|max:255',
             'status' => 'required|integer',
             'description' => 'nullable|string',
-            'staff_email' => 'required|email|exists:staffs,email', 
+            'staff_email' => 'required|email|exists:staffs,email',
         ]);
         // Find and update the Agenda record
         try {
@@ -118,53 +118,49 @@ class AgendaController extends Controller
     }
 
 
-//TAMBAHAN-----------------------------------------------------------
-public function showAgenda()
-{
-    $paket = Package::where('status', 1)->get();
-    $wisata = Travel::where('status', 1)->get();
-    $kegiatanMendatang = Agenda::where('status', 1)->where('event_end_date', '>=', now())->get();
-    $kegiatanLalu = Agenda::where('status', 1)->where('event_end_date', '<', now())->get();
-    $kategori = Category::where('status', 1)->get();
-    return view('agenda', compact('kegiatanMendatang', 'kegiatanLalu'));
-}
-public function showMendatang($id)
-{
-    $agenda = Agenda::findOrFail($id); 
+    //TAMBAHAN-----------------------------------------------------------
+    public function showAgenda()
+    {
+        $kegiatanMendatang = Agenda::where('status', 1)->where('event_end_date', '>=', now())->orderBy('event_end_date', 'desc')->get();
+        $kegiatanLalu = Agenda::where('status', 1)->where('event_end_date', '<', now())->orderBy('event_end_date', 'desc')->get();
+        $kategori = Category::where('status', 1)->get();
+        return view('agenda', compact('kegiatanMendatang', 'kegiatanLalu'));
+    }
+    public function showMendatang($id)
+    {
+        $agenda = Agenda::findOrFail($id);
 
-    $articles = Article::where('status', 1)->where('agenda_id', $agenda->id)->get();
+        $articles = Article::where('status', 1)->where('agenda_id', $agenda->id)->get();
 
-    // Mengambil galeri terkait dengan artikel yang ditampilkan
-    $galleries = collect(); // Inisialisasi sebagai koleksi
-    foreach ($articles as $article) {
-        $articleGalleries = $article->galleries()
-            ->where('article_gallery.status', 1)
-            ->get();
-        
-        $galleries = $galleries->merge($articleGalleries); // Menggabungkan hasil ke dalam koleksi
+        // Mengambil galeri terkait dengan artikel yang ditampilkan
+        $galleries = collect(); // Inisialisasi sebagai koleksi
+        foreach ($articles as $article) {
+            $articleGalleries = $article->galleries()
+                ->where('article_gallery.status', 1)
+                ->get();
+
+            $galleries = $galleries->merge($articleGalleries); // Menggabungkan hasil ke dalam koleksi
+        }
+
+        return view('kegiatan.mendatang', compact('agenda', 'articles', 'galleries'));
     }
 
-    return view('kegiatan.mendatang', compact('agenda', 'articles', 'galleries'));
-}
 
+    public function showLalu($id)
+    {
+        $agenda = Agenda::findOrFail($id);
 
-public function showLalu($id)
-{
-    $agenda = Agenda::findOrFail($id);
+        $articles = Article::where('status', 1)->where('agenda_id', $agenda->id)->get();
 
-    $articles = Article::where('status', 1)->where('agenda_id', $agenda->id)->get();
+        $galleries = collect();
+        foreach ($articles as $article) {
+            $articleGalleries = $article->galleries()
+                ->where('article_gallery.status', 1)
+                ->get();
 
-    $galleries = collect();
-    foreach ($articles as $article) {
-        $articleGalleries = $article->galleries()
-            ->where('article_gallery.status', 1)
-            ->get();
-        
-        $galleries = $galleries->merge($articleGalleries);
+            $galleries = $galleries->merge($articleGalleries);
+        }
+
+        return view('kegiatan.lalu', compact('agenda', 'articles', 'galleries'));
     }
-
-    return view('kegiatan.lalu', compact('agenda', 'articles', 'galleries'));
 }
-
-}
-

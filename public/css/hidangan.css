@@ -39,7 +39,7 @@ html {
     width: 100vw;
     position: relative;
     display: flex;
-    flex-direction: column; /* Mengatur elemen secara vertikal */
+    /* flex-direction: column;  */
     justify-content: flex-start; /* Untuk menempatkan tombol di awal */
     align-items: flex-start; /* Agar tombol di kiri */
     min-height: 81vh;
@@ -70,9 +70,10 @@ html {
 .hidangan-container {
     display: flex;
     align-items: flex-start;
-    margin-top: 0; /* Hilangkan margin agar container benar-benar di tengah */
+    margin-top: 100px;
     padding: 20px;
     justify-content: center; /* Memusatkan konten secara horizontal */
+    margin: 50 auto;
 }
 
 /* Styling untuk Judul, Deskripsi, dan Harga hidangan */
