@@ -329,7 +329,7 @@ class GallerySeeder extends Seeder
             ],
             [
                 'name' => 'Pelatihan Pelayanan Prima',
-                'photo_link' => $pemandangan . 'pelatihanprima.jpg',
+                'photo_link' => $pemandangan . 'pelatihanhayomi.jpg',
                 'description' => 'Pengelola wisata sedang sharing pengalaman pada sesi diskusi',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
