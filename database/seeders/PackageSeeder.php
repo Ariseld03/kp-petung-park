@@ -26,7 +26,7 @@ class PackageSeeder extends Seeder
                 'gallery_id' => 24,
             ],
             [
-                'name' => 'Paket Hemat 8-10 Orang',
+                'name' => 'Paket Super 8-10 Orang',
                 'price' => 250000,
                 'status' => 1,
                 'number_love' => 0,

@@ -238,9 +238,9 @@ class GallerySeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Paket Hemat 8-10 Orang',
+                'name' => 'Paket Super 8-10 Orang',
                 'photo_link' => $paket . 'super.png',
-                'description' => 'Paket hemat untuk keluarga besar.',
+                'description' => 'Paket Super untuk keluarga besar.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),

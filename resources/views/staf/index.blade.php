@@ -1,10 +1,26 @@
-@extends('layouts.mainAdmin')
+@section('content')
+    @if ($message = Session::get('Berhasil'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
 
-@section('page-css')
-    <link rel="stylesheet" href="{{ asset('css/staffShow.css') }}">
-@endsection
+    @if ($message = Session::get('error'))
+        <div class="alert alert-danger">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
 
-@section ('content')
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="container mt-5">
         <h1 class="text-center" style="color: #557C56;">Tabel Staff</h1>
         <a href="{{ route('staf.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Staff</a>
@@ -54,10 +70,5 @@
         </table>
     </div>
 @endsection
-
-@section('page-js')
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-@endsection
+@extends('layouts.mainAdmin')
 

@@ -116,3 +116,45 @@
 .kegiatan-lalu button:hover {
     background-color: #2c3311;
 }
+@media (max-width: 1024px) {
+    .kegiatan-lalu img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .kegiatan-mendatang {
+        width: 90%;
+    }
+ 
+    .kegiatan-lalu {
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .kegiatan-lalu img {
+        width: 80%;
+        height: auto;
+    }
+
+    .deskripsi-kegiatan-lalu {
+        margin-top: 20px;
+        font-size: 14px;
+        align-items: center;
+    }
+
+    .judul-kegiatan-lalu {
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+    .kegiatan-lalu button {
+        margin-top: 10px;
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}

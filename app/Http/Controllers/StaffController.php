@@ -70,16 +70,12 @@ class StaffController extends Controller
      */
     public function edit($email)
     {
-        // Retrieve the staff using the email
         $staff = Staff::where('email', $email)->first();
         
-        // Check if the staff exists
         if (!$staff) {
             return redirect()->route('staf.index')->with('error', 'Staff not found');
         }
-    
-        // Pass the staff data to the view
-        return view('staff.edit', compact('staff'));
+        return view('staf.edit', compact('staff'));
     }
     
     /**
@@ -87,6 +83,7 @@ class StaffController extends Controller
      */
     public function update(Request $request, $email)
     {
+        dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'password' => 'nullable|string',
