@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Travel;
+use App\Models\Gallery;
+use App\Models\TravelGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class TravelController extends Controller
@@ -12,16 +14,17 @@ class TravelController extends Controller
      */
     public function index()
     {
-        $wisata = Travel::where('status', 1)->get(); // Mengambil hanya travel dengan status 1
-        return view('layanan', compact('wisata'));
+        $wisatas = Travel::all();
+        return view('wisata.index', compact('wisatas'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function add()
     {
-        return view('wisata.create');
+        $galleries = Gallery::where('status', 1)->get();
+        return view('wisata.add', compact('galleries'));
     }
 
     /**
@@ -30,21 +33,35 @@ class TravelController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'status' => 'required|integer',
-            'description' => 'required',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'photos' => 'required|array', // Validate photos as an array
+            'photos.*' => 'integer|exists:galleries,id', // Ensure each photo ID exists in the gallery
         ]);
+        try{
+            $travel = new Travel([
+                'name' => $request->get('name'),
+                'status' => 1,
+                'description' => $request->get('description'),
+                'number_love' => 0,
+            ]);
+            $name = $request->get('name');
+            $travel->save();
+            foreach($request->get('photos') as $galleryId){
+                $travelGallery = new TravelGallery([
+                    'gallery_id' => $galleryId,
+                    'travel_id' => $travel->id,
+                    'name_collage' => 'Kolase '. $name,
+                    'status' => 1,
+                ]);
+                $travelGallery->save();
+            }
+            return redirect()->route('wisata.index')->with('success', 'Wisata berhasil ditambahkan!');
 
-        $travel = new Travel([
-            'title' => $request->get('title'),
-            'status' => $request->get('status'),
-            'description' => $request->get('description'),
-            'number_love' => 0,
-        ]);
-
-        $travel->save();
-
-        return redirect()->route('wisata.index')->with('success', 'Wisata berhasil ditambahkan!');
+        }
+        catch(\Exception $e){
+            return redirect()->route('wisata.add')->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -82,7 +99,7 @@ class TravelController extends Controller
         $request->validate([
             'title' => 'required',
             'status' => 'required|tinyint',
-            'description' => 'required|longtext',
+            'description' => 'nullable|longtext',
             'number_love' => 'nullable|integer',
         ]);
 
@@ -98,14 +115,12 @@ class TravelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Travel $travel)
+    public function delete(Travel $wisata)
     {
-        // Delete data in pivot table travel_gallery
-        //$travel->galleries()->detach();
-
-        $travel->status=0;
-        $travel->save();
-        return redirect()->route('wisata.index')->with('success', 'Wisata berhasil dihapus!');
+        $wisata->status = 0;
+        $wisata->save();
+    
+        return redirect()->route('wisata.index')->with('success', 'Wisata berhasil dinonaktifkan!');
     }
     
     /**

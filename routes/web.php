@@ -97,6 +97,7 @@ Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategor
 Route::get('/paket/{id}', [PackageController::class, 'show'])->name('paket.show');
 Route::post('/paket/{id}/like', [PackageController::class, 'like'])->name('paket.like');
 // Admin CRUD Paket
+Route::get('/admin/paket', [PacketController::class, 'index'])->name('paket.index');
 Route::get('/admin/paket/add', [PacketController::class, 'add'])->name('paket.add');
 Route::post('/admin/paket/add', [PacketController::class, 'store'])->name('paket.store');
 Route::get('/admin/paket/edit/{paket}', [PacketController::class, 'edit'])->name('paket.edit');
@@ -111,3 +112,11 @@ Route::post('/admin/kegiatan/add', [AgendaController::class, 'store'])->name('ke
 Route::get('/admin/kegiatan/edit/{kegiatan}', [AgendaController::class, 'edit'])->name('kegiatan.edit');
 Route::post('/admin/kegiatan/edit/{kegiatan}', [AgendaController::class, 'update'])->name('kegiatan.update');
 Route::delete('/admin/kegiatan/{kegiatan}', [AgendaController::class, 'delete'])->name('kegiatan.delete');
+
+// Admin CRUD Wisata
+Route::get('/admin/artikel', [TravelController::class, 'index'])->name('artikel.index');
+Route::get('/admin/artikel/add', [TravelController::class, 'add'])->name('artikel.add');
+Route::post('/admin/artikel/add', [TravelController::class, 'store'])->name('artikel.store');
+Route::get('/admin/artikel/edit/{artikel}', [TravelController::class, 'edit'])->name('artikel.edit');
+Route::post('/admin/artikel/edit/{artikel}', [TravelController::class, 'update'])->name('artikel.update');
+Route::delete('/admin/artikel/{artikel}', [TravelController::class, 'delete'])->name('artikel.destroy');

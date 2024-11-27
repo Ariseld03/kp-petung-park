@@ -1,4 +1,7 @@
 @extends('layouts.mainAdmin')
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('css/staffAdd.css') }}">
+@endsection
 @section('content')
 <body>
     <div class="container mt-5">

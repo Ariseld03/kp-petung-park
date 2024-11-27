@@ -9,13 +9,6 @@
         <h1 class="text-center" style="color: #557C56;">Galeri</h1>
         <a href="{{ route('galeri.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Foto</a>
 
-        <!-- Display Success or Error Message -->
-        @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-
         <table class="table table-bordered">
             <thead class="thead-dark" style="background-color: #557C56; color: #FFFBE6;">
                 <tr>
