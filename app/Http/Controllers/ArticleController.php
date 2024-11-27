@@ -47,7 +47,7 @@ class ArticleController extends Controller
             'agenda_id' => $request->input('agenda_id'),
         ]);
 
-        return redirect()->route('articles.index')->with('Berhasil', 'Artikel berhasil ditambahkan!');
+        return redirect()->route('articles.index')->with('success', 'Artikel berhasil ditambahkan!');
     }
 
     /**
@@ -88,9 +88,9 @@ class ArticleController extends Controller
         try {
             $article = Article::findOrFail($id);
             $article->update($validatedData);
-            return redirect()->route('articles.index')->with('Berhasil', 'Article berhasil Diupdate!');
+            return redirect()->route('articles.index')->with('success', 'Article berhasil Diupdate!');
         } catch (Exception $e) {
-            return redirect()->route('articles.index')->with('Gagal', 'Article Gagal Diupdate!');
+            return redirect()->route('articles.index')->with('error', 'Article Gagal Diupdate!');
         }
     }
     /**
@@ -102,9 +102,9 @@ class ArticleController extends Controller
             $delete = $article;
             $article->status = 0;
             $article->update($delete);
-            return redirect()->route('articles.index')->with('Berhasil', 'Artikel Berhasil Dihapus!');
+            return redirect()->route('articles.index')->with('success', 'Artikel Berhasil Dihapus!');
         } catch (Exception $e) {
-            return redirect()->route('articles.index')->with('Gagal', 'Artikel Gagal Dihapus!');
+            return redirect()->route('articles.index')->with('error', 'Artikel Gagal Dihapus!');
         }
     }
     // M to M article_gallery
@@ -125,7 +125,7 @@ class ArticleController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        return redirect()->route('articles.index')->with('Berhasil', 'Foto di Artikel Berhasil Ditambah!');
+        return redirect()->route('articles.index')->with('success', 'Foto di Artikel Berhasil Ditambah!');
         // response()->json(['success' => true, 'message' => 'Gallery added successfully.']);
     }
 
@@ -146,9 +146,9 @@ class ArticleController extends Controller
                 'status' => $validatedData['status'],
                 'updated_at' => now(),
             ]);
-            return redirect()->route('articles.index')->with('Berhasil', 'Foto di Artikel Berhasil Diubah!');
+            return redirect()->route('articles.index')->with('success', 'Foto di Artikel Berhasil Diubah!');
         } catch (Exception $e) {
-            return redirect()->route('articles.index')->with('Gagal', 'Foto di Artikel Gagal Diubah!');
+            return redirect()->route('articles.index')->with('error', 'Foto di Artikel Gagal Diubah!');
         }
     }
     public function deleteArticleGallery(Request $request, string $id)
@@ -158,14 +158,14 @@ class ArticleController extends Controller
             $delete->status = 0;
             $request = Article::findOrFail($id);
             $request->update($delete);
-            return redirect()->route('articleGalleries.index')->with('Berhasil', 'Foto di Artikel Berhasil Dihapus!');
+            return redirect()->route('articleGalleries.index')->with('success', 'Foto di Artikel Berhasil Dihapus!');
         } catch (Exception $e) {
-            return redirect()->route('articleGalleries.index')->with('Gagal', 'Foto di Artikel Gagal Dihapus!');
+            return redirect()->route('articleGalleries.index')->with('error', 'Foto di Artikel Gagal Dihapus!');
         }
     }
     public function destroyArticleGallery(Article $article)
     {
         Article::findOrFail($article->id)->update(['status' => 0]);
-        return redirect()->route('articles.index')->with('Berhasil', 'Foto di Artikel berhasil dihapus!');
+        return redirect()->route('articles.index')->with('success', 'Foto di Artikel berhasil dihapus!');
     }
 }

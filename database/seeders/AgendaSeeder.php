@@ -18,10 +18,10 @@ class AgendaSeeder extends Seeder
         $faker = Faker::create();
 
         // Retrieve a list of existing staff emails
-        $staffEmails = DB::table('staffs')->pluck('email');
+        $userId = DB::table('users')->pluck('id');
 
         // Ensure we have at least one staff to reference
-        if ($staffEmails->isEmpty()) {
+        if ($userId->isEmpty()) {
             $this->command->info('No staff found. Please seed the staffs table first.');
             return;
         }
@@ -37,7 +37,7 @@ class AgendaSeeder extends Seeder
                 'description' => 'Soft Opening Petung Park pada tanggal 18 November 2022. Ayo datang dan nikmati suasana baru. Nikmati makanan dan minuman yang sangat enak',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
             ],
             [
                 'event_name' => 'Soft Opening Baby Pool',
@@ -48,7 +48,7 @@ class AgendaSeeder extends Seeder
                 'description' => 'Ayo datang pada Soft Opening Baby Pool yang sangat Kids Friendly !!',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
             ],
             [
                 'event_name' => 'Sambang Desa dengan Menteri Desa, Pembangunan Daerah Tertinggal, dan Transmigrasi, Dr. (H.C.) Drs. H. Abdul Halim Iskandar, M.Pd',
@@ -59,7 +59,7 @@ class AgendaSeeder extends Seeder
                 'description' => 'Mengunjungi Petung Park (Taman Bambu Petung), Desa Belik, Kec. Trawas, Kab. Mojokerto oleh Bapak Dr. (H.C.) Drs. H. Abdul Halim Iskandar, M.Pd ',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
             ],
             [
                 'event_name' => 'Atraksi Budaya Lokal (Senam Sehat, Jalan Santai, Pencak Silat dan Bantengan)',
@@ -70,7 +70,7 @@ class AgendaSeeder extends Seeder
                 'description' => 'Ayo Ramaikan Event yang sangat dinanti oleh masyarakat yaitu Event Budaya Lokal. Terdapat banyak event yaitu Senam Sehat, Jalan Santai, Pencak Silat dan Bantengan.',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
             ],
             [
                 'event_name' => 'Pelatihan Pelayanan Prima',
@@ -81,7 +81,7 @@ class AgendaSeeder extends Seeder
                 'description' => 'Pelatihan yang diselenggarakan oleh Universitas Surabaya (Ubaya) untuk pengelola atau staff desa wisata petung park dengan tema Pelatihan Pelayanan Prima',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
             ],
             // [
             //     'event_name' => 'Pelatihan Ekowisata dan Kelembagaan Wisata',
@@ -92,7 +92,7 @@ class AgendaSeeder extends Seeder
             //     'description' => 'Pelatihan yang diselenggarakan oleh Universitas Surabaya (Ubaya) untuk pengelola atau staff desa wisata petung park dengan tema Pelatihan Ekowisata dan Kelembagaan Wisata',
             //     'created_at' => now(),
             //     'updated_at' => now(),
-            //     'staff_email' => $staffEmails->random(),
+            //     'user_id' => $userId->random(),
             // ],
             // [
             //     'event_name' => 'Hash Oktober 2024',
@@ -103,7 +103,7 @@ class AgendaSeeder extends Seeder
             //     'description' => 'Kegiatan Hash Oktober 2024 diikuti oleh kelompok pelari dan pejalan kaki dari berbagai daerah, melintasi jalur menantang di Hutan Bambu. Acara ini menggabungkan olahraga, petualangan, dan kebersamaan, dengan titik akhir di lokasi perkemahan yang asri.',
             //     'created_at' => now(),
             //     'updated_at' => now(),
-            //     'staff_email' => $staffEmails->random(),
+            //     'user_id' => $userId->random(),
             // ],
         ]);
     }

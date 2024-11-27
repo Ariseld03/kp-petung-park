@@ -18,10 +18,10 @@ class GenericSeeder extends Seeder
         $faker = Faker::create();
         $footer = '/images/footer/';
         // Retrieve a list of existing staff emails
-        $staffEmails = DB::table('staffs')->pluck('email');
+        $userId = DB::table('users')->pluck('id');
 
         // Ensure we have at least one staff to reference
-        if ($staffEmails->isEmpty()) {
+        if ($userId->isEmpty()) {
             $this->command->info('No staff found. Please seed the staffs table first.');
             return;
         }
@@ -31,7 +31,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'link_tautan_website_desa',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'https://belik-mjkkab.desa.id/',
@@ -40,7 +40,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'sosial_media_instagram',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'https://www.instagram.com/petungparktrawasnew/?hl=en',
@@ -49,7 +49,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'sosial_media_tiktok',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'https://www.tiktok.com/@petungparktrawasnew?fbclid=PAZXh0bgNhZW0CMTEAAaavE7U4_iIUJ6DVAe5el2Frdvv4r1PWGBSwhBr5yTyBKjsFqaTEgp6-sSU_aem_wy-t6MY_1yGqZyNJmIjecQ',
@@ -58,7 +58,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'sosial_media_youtube',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'https://youtube.com/channel/UCL5gPtEXsolRhYjpbXLYgmg',
@@ -67,7 +67,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'alamat_petung_park_trawas',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'Jibru, Belik, Trawas, Mojokerto Regency, East Java 61375',
@@ -76,7 +76,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'teks_footer',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => '©2024 Petung Park Trawas. All rights reserved.',
@@ -85,7 +85,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'kontak_whatsapp',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => '083132819058',
@@ -94,7 +94,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'gambar_baris_1',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'baris pertama',
@@ -103,7 +103,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'gambar_baris_2',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' =>'baris kedua',
@@ -112,7 +112,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'gambar_baris_3',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'baris ketiga',
@@ -121,7 +121,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'visi_misi',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'Mewujudkan Dusun Jibru, Desa Belik sebagai desa mandiri dengan 
@@ -134,7 +134,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'visi_misi_2',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'Menjaga kelestarian bambu petung sebagai ikon wisata dan sumber daya alam, serta 
@@ -147,7 +147,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'sejarah',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'Petung Park, terletak di Desa Belik yang memiliki arti 
@@ -161,7 +161,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'sejarah_2',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'Petung Park menawarkan pemandangan sawah hijau, hutan bambu yang rimbun,
@@ -174,7 +174,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'video_promosi',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'https://www.youtube.com/embed/wq8MRjtlkxQ',
@@ -183,7 +183,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'sejarah_beranda',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'Petung Park berada di Desa Belik, kata “Belik”
@@ -201,7 +201,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'lokasi',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => 'Jibru, Belik, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur 61375',
@@ -210,7 +210,7 @@ class GenericSeeder extends Seeder
             [
                 'created_at' => now(),
                 'key' => 'jam_operasional',
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'status' => 1,
                 'updated_at' => now(),
                 'value' => '09.00 - 17.00',

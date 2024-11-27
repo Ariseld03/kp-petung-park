@@ -9,9 +9,9 @@ class Menu extends Model
 {
     use HasFactory;
     protected $table = 'menus';
-    public function staff()
+    public function user()
     {
-        return $this->belongsTo(Staff::class, 'staff_email', 'email');
+        return $this->belongsTo(Staff::class, 'user_id', 'id');
     }
     public function category()
     {

@@ -18,13 +18,13 @@ class ArticleSeeder extends Seeder
         $faker = Faker::create();
 
         // Retrieve a list of existing staff emails
-        $staffEmails = DB::table('staffs')->pluck('email');
+        $userId = DB::table('users')->pluck('id');
 
         // Retrieve a list of existing agenda IDs
         $agendaIds = DB::table('agendas')->orderBy('id')->pluck('id');
 
         // Ensure we have at least one staff and one agenda to reference
-        if ($staffEmails->isEmpty() || $agendaIds->isEmpty()) {
+        if ($userId->isEmpty() || $agendaIds->isEmpty()) {
             $this->command->info('No staff or agendas found. Please seed the staffs and agendas tables first.');
             return;
         }
@@ -40,7 +40,7 @@ class ArticleSeeder extends Seeder
             //       mengamati bintang di langit malam yang jernih, serta menikmati api unggun bersama teman atau keluarga. Dengan fasilitas yang nyaman dan lingkungan yang asri, 
             //       Petung Park menjadi tempat yang sempurna untuk merasakan kedamaian dan keindahan alam, menjadikan momen kemah kali ini penuh kesan dan kebahagiaan.',
             //     'status' => 1,
-            //     'staff_email' => $staffEmails->random(),
+            //     'user_id' => $userId->random(),
             //     'number_love' => $faker->numberBetween(0, 100),
             //     'agenda_id' => $agendaIds[3],
             //     'created_at' => now(),
@@ -55,7 +55,7 @@ class ArticleSeeder extends Seeder
                   Pembukaan Wisata Hutan Bambu di Petung Park menjadi langkah positif dalam memperkaya destinasi wisata alam di daerah ini, 
                   menawarkan keindahan yang menenangkan sekaligus memberikan ruang bagi pengunjung untuk berinteraksi dengan alam secara langsung.',
                 'status' => 1,
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'agenda_id' => $agendaIds[0],
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),
@@ -70,7 +70,7 @@ class ArticleSeeder extends Seeder
                   Suasana pedesaan yang tenang dan jauh dari keramaian kota memberikan sensasi liburan yang menyejukkan hati dan pikiran. Baby pool ini tidak hanya menawarkan kesenangan bagi anak-anak, tetapi juga 
                   menjadi tempat bagi keluarga untuk merasakan kebersamaan dan harmoni dengan alam sekitar.',
                 'status' => 1,
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'agenda_id' =>  $agendaIds[1],
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),
@@ -82,7 +82,7 @@ class ArticleSeeder extends Seeder
                 Desa ini memiliki lahan kurang lebih 5 hektar kebun bambu petung. Sementara masih dimanfaatkan 5% dari luas lahan untuk rumah makan yang terbuat dari bambu petung. 
                 Menu masakannya banyak, ada bebek mentok, ada lele, aneka lalapan, urap dan lain lain. Percaya Desa, Desa Bisa!',
                 'status' => 1,
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'agenda_id' =>  $agendaIds[2],
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),
@@ -94,7 +94,7 @@ class ArticleSeeder extends Seeder
                 kearifan lokal belum dijadikan sebagai salah satu atraksi untuk menarik wisatawan. Budaya lokal yang dimiliki antara lain tari daerah yang biasanya ditampilkan anak-anak SD, pencak silat, dan bentengan. 
                 Pada 25 Agustus 2024, bersamaan dengan peringatan kemerdekaan Indonesia yang ke-79, ditampilkan budaya lokal untuk mengenalkan ke masyarakat dan meningkatkan pengunjung. Masyarakat sangat antusias mengikuti pertunjukkan budaya local ini. Setelah acara doorprize kemerdekaan, Masyarakat setia menanti pertunjukkan. Wisatawa juga antusias melihat pertunjukkan sambil menikmati menu makanan Petung Park.',
                 'status' => 1,
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'agenda_id' =>  $agendaIds[3],
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),
@@ -104,7 +104,7 @@ class ArticleSeeder extends Seeder
                 'title' => 'Pelatihan Pelayanan Prima',
                 'main_content' => 'Pelatihan pelayanan prima dilakukan pada tanggal 13 September 2024 di Petung Park. Narasumber pada pelatihan ini adalah Bapak Hayomi Gunawan, SH. MK. CHt atau biasa di panggil Pak Bram. Narasumber adalah seorang pakar komunikasi, motivator, penyiar yang sangat menguasai topik terkait pelayanan prima ke pelanggan. Pada kegiatan ini, peserta selain mendapat materi juga diajak langsung untuk praktek dalam melayani pelanggan. Selain itu peserta diminta untuk mempresentasikan hasil diskusi terkait topik kerjasama dalam tim. Namun karena keterbatasan waktu, topik manajemen komplain belum terbahas. Hal ini disebabkan peserta sangat antusias untuk berdiskusi terkait pelayanan prima, sehingga tanpa sadar waktu sudah habis.',
                 'status' => 1,
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'agenda_id' =>  $agendaIds[4],
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),
@@ -114,7 +114,7 @@ class ArticleSeeder extends Seeder
             //     'title' => 'Pelatihan Ekowisata dan Kelembagaan Wisata',
             //     'main_content' => 'Pelatihan Ekowisata dan kelembagaan wisata diberikan pada hari Jumat, 6 September 2024 di Petung Park dengan narasumber Bapak Joko Mijiarto, S.Hut., M.Si. Narasumber merupakan salah satu anggota tim pengabdian dengan kepakaran ekowisata. Materi pelatihan dapat dilihat pada materi ekowisata. Pada pelatihan ini, selain memberikan materi terkait, narasumber juga mengajak peserta untuk menggali potensi desa yang bisa dikembangkan sehingga bisa mendukung pengembangan desa wisata.',
             //     'status' => 1,
-            //     'staff_email' => $staffEmails->random(),
+            //     'user_id' => $userId->random(),
             //     'agenda_id' =>  $agendaIds[6],
             //     'number_love' => $faker->numberBetween(0, 20),
             //     'created_at' => now(),
@@ -129,7 +129,7 @@ class ArticleSeeder extends Seeder
             //       tracking di Hutan Bambu Petung Park Hash menjanjikan sensasi petualangan yang unik dan penuh kegembiraan. Suasana yang asri, ditambah dengan kesempatan untuk bersosialisasi dengan sesama pecinta alam, 
             //       menjadikan event ini sebagai salah satu kegiatan outdoor paling dinantikan di tahun ini.',
             //     'status' => 1,
-            //     'staff_email' => $staffEmails->random(),
+            //     'user_id' => $userId->random(),
             //     'agenda_id' =>  $agendaIds[4],
             //     'number_love' => $faker->numberBetween(0, 100),
             //     'created_at' => now(),

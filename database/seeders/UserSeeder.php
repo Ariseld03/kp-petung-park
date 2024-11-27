@@ -2,19 +2,18 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Faker\Factory as Faker;
 
-class StaffSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $faker = Faker::create();
 
@@ -28,7 +27,7 @@ class StaffSeeder extends Seeder
         }
 
         // Insert multiple records into the staffs table
-        DB::table('staffs')->insert([
+        DB::table('users')->insert([
             [
                 'email' => 'Griseldaamelia68@gmail.com',
                 'name' => 'Amel',
@@ -56,8 +55,8 @@ class StaffSeeder extends Seeder
                 'gallery_id' => $galleryIds[18],
             ],
             [
-                'email' => 'staff@gmail.com',
-                'name' => 'staff',
+                'email' => 'Magdalena@gmail.com',
+                'name' => 'Magda',
                 'password' => bcrypt('12345678'),
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,
@@ -69,8 +68,8 @@ class StaffSeeder extends Seeder
                 'gallery_id' => $galleryIds[18],
             ],
             [
-                'email' => 'anotherstaff@gmail.com',
-                'name' => 'staff',
+                'email' => 'handoyo@gmail.com',
+                'name' => 'Handoyo',
                 'password' => bcrypt('12345678'),
                 'date_of_birth' => $faker->date(),
                 'phone_number' => $faker->phoneNumber,

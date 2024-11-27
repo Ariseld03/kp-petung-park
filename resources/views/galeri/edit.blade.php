@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> <!-- Menghubungkan Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('css/galeriUpdate.css') }}"> <!-- Menghubungkan file CSS -->
-    <title>Perbarui Galeri</title>
-</head>
+@extends('layouts.mainAdmin')
+@section('content')
 <body>
     <div class="container mt-5">
         <h1 class="text-center text-success">Perbarui Galeri</h1>
@@ -23,7 +16,7 @@
         @endif
 
         <form action="{{ route('galeri.update', ['gallery' => $gallery->id]) }}" method="post" enctype="multipart/form-data">
-            @csrf <!-- Tambahkan token CSRF untuk keamanan -->
+            @csrf 
             
             <div class="form-group">
                 <label for="name">Nama:</label>
@@ -81,7 +74,4 @@
         </form>
     </div>
 </body>
-</html>
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+@endsection

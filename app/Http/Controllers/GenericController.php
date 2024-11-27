@@ -46,7 +46,7 @@ class GenericController extends Controller
             'staff_email' => $request->input('staff_email'),
         ]);
 
-        return redirect()->route('generics.index')->with('Berhasil', 'Data umum berhasil ditambahkan!');
+        return redirect()->route('generics.index')->with('success', 'Data umum berhasil ditambahkan!');
     }
 
     /**
@@ -123,7 +123,7 @@ class GenericController extends Controller
         $generic->status = $request->input('status');
         $generic->save();
 
-        return redirect()->route('generics.index')->with('Berhasil', 'Data umum berhasil diubah!');
+        return redirect()->route('generics.index')->with('success', 'Data umum berhasil diubah!');
     }
 
     /**
@@ -134,7 +134,7 @@ class GenericController extends Controller
         $generic->status = 0;
         $generic->save();
 
-        return redirect()->route('generics.index')->with('Berhasil', 'Data umum berhasil dihapus!');
+        return redirect()->route('generics.index')->with('success', 'Data umum berhasil dihapus!');
     }
 }
 

@@ -57,7 +57,7 @@ class AgendaController extends Controller
             'staff_email' => $request->input('staff_email'),
         ]);
 
-        return redirect()->route('kegiatan.index')->with('Berhasil', 'Agenda berhasil ditambahkan.');
+        return redirect()->route('kegiatan.index')->with('success', 'Agenda berhasil ditambahkan.');
     }
 
     /**
@@ -95,9 +95,9 @@ class AgendaController extends Controller
         try {
             $agenda = Agenda::findOrFail($id);
             $agenda->update($validatedData);
-            return redirect()->route('kegiatan.index')->with('Berhasil', 'Agenda Berhasil Diubah!');
+            return redirect()->route('kegiatan.index')->with('success', 'Agenda Berhasil Diubah!');
         } catch (Exception $e) {
-            return redirect()->route('kegiatan.index')->with('Gagal', 'Agenda Gagal Diubah!');
+            return redirect()->route('kegiatan.index')->with('error', 'Agenda Gagal Diubah!');
         }
     }
 
@@ -111,9 +111,9 @@ class AgendaController extends Controller
             $delete = $agenda;
             $delete->status = 0;
             $agenda->update($delete);
-            return redirect()->route('kegiatan.delete')->with('Berhasil', 'Agenda Berhasil Dihapus!');
+            return redirect()->route('kegiatan.delete')->with('success', 'Agenda Berhasil Dihapus!');
         } catch (Exception $e) {
-            return redirect()->route('kegiatan.delete')->with('Gagal', 'Agenda Gagal Dihapus!');
+            return redirect()->route('kegiatan.delete')->with('error', 'Agenda Gagal Dihapus!');
         }
     }
 

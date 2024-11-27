@@ -5,7 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\{Category, Package, Travel, Gallery, GalleryShow, Staff, Agenda, Article, Menu, Generic, PackageMenu, TravelGallery, ArticleGallery, SliderHome};
+use App\Models\{Category, Package, User, Travel, Gallery, GalleryShow, Agenda, Article, Menu, Generic, PackageMenu, TravelGallery, ArticleGallery, SliderHome};
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         Travel::truncate();
         Gallery::truncate();
         GalleryShow::truncate();
-        Staff::truncate();
+        User::truncate();
         Generic::truncate();
         Agenda::truncate();
         Article::truncate();
@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GallerySeeder::class);
         $this->call(PackageSeeder::class);
         $this->call(GalleriesShowSeeder::class);
-        $this->call(StaffSeeder::class);
+        $this->call(UserSeeder::class);
         $this->call(GenericSeeder::class);
         $this->call(AgendaSeeder::class);
         $this->call(ArticleSeeder::class);
@@ -45,11 +45,5 @@ class DatabaseSeeder extends Seeder
         $this->call(TravelGallerySeeder::class);
         $this->call(ArticleGallerySeeder::class);
         $this->call(SlidersHomeSeeder::class);
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }

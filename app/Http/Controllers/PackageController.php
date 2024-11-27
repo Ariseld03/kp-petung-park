@@ -37,7 +37,7 @@ class PackageController extends Controller
             'number_love' => 0,
         ]);
 
-        return redirect()->route('packages.index')->with('Berhasil', 'Paket berhasil ditambahkan!');
+        return redirect()->route('packages.index')->with('success', 'Paket berhasil ditambahkan!');
     }
 
     public function show($id)
@@ -113,7 +113,7 @@ class PackageController extends Controller
             'number_love' => $request->number_love,
         ]);
 
-        return redirect()->route('paket.index')->with('Berhasil', 'Paket berhasil diupdate!');
+        return redirect()->route('paket.index')->with('success', 'Paket berhasil diupdate!');
     }
 
     public function destroy($id)
@@ -121,7 +121,7 @@ class PackageController extends Controller
         $package = Package::findOrFail($id);
         $package->status = 0;
         $package->save();
-        return redirect()->route('paket.index')->with('Berhasil', 'Paket berhasil dinonaktifkan!');
+        return redirect()->route('paket.index')->with('success', 'Paket berhasil dinonaktifkan!');
     }
     // M to M package_menus
     public function createMenuPackage(Request $request)
@@ -151,7 +151,7 @@ class PackageController extends Controller
             'update_date' => now(),
         ]);
 
-        return redirect()->route('paket.index')->with('Berhasil', 'Paket Menu berhasil ditambahkan.');
+        return redirect()->route('paket.index')->with('success', 'Paket Menu berhasil ditambahkan.');
     }
 
     public function updateMenuPackage(Request $request, $id)
@@ -176,12 +176,12 @@ class PackageController extends Controller
             'update_date' => now(),
         ]);
 
-        return redirect()->route('paket.index')->with('Berhasil', 'Paket Menu berhasil diupdate.');
+        return redirect()->route('paket.index')->with('success', 'Paket Menu berhasil diupdate.');
     }
     public function destroyPackageMenu(Package $package)
     {
         PackageMenu::where('package_id', $package->id)->where('status', 1)->update(['status' => 0]);
-        return redirect()->route('paket.index')->with('Berhasil', 'Paket Menu berhasil dihapus!');
+        return redirect()->route('paket.index')->with('success', 'Paket Menu berhasil dihapus!');
     }
 
     //Tambahan 

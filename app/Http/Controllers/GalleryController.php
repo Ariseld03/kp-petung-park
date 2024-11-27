@@ -55,7 +55,7 @@ class GalleryController extends Controller
         $gallery->photo_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL   
         $gallery->save();
     
-        return redirect()->route('galeri.index')->with('Berhasil', 'Galeri berhasil ditambahkan!');
+        return redirect()->route('galeri.index')->with('success', 'Galeri berhasil ditambahkan!');
     }
     /**
      * Display the specified resource.
@@ -108,7 +108,7 @@ class GalleryController extends Controller
         $gallery->description = $request->input('description');
         $gallery->save();
 
-        return redirect()->route('galeri.index')->with('Berhasil', 'Galeri berhasil diperbarui!');
+        return redirect()->route('galeri.index')->with('success', 'Galeri berhasil diperbarui!');
     }
     /**
      * Remove the specified resource from storage.
@@ -120,7 +120,7 @@ class GalleryController extends Controller
         $gallery->articles()->status=0;
         $gallery->save();
         $message = 'Galeri berhasil dinonaktifkan.';
-        return redirect()->route('galeri.index')->with('Berhasil', $message);
+        return redirect()->route('galeri.index')->with('success', $message);
     }
     /**
      * Like or unlike a gallery.

@@ -80,7 +80,7 @@ class GalleryShowController extends Controller
             'status' => $request->input('status'),
             'gallery_id' => $request->input('gallery_id'),
         ]);
-        return redirect()->route('galleryShows.index')->with('Berhasil', 'Tampilan Galeri berhasil ditambahkan!');
+        return redirect()->route('galleryShows.index')->with('success', 'Tampilan Galeri berhasil ditambahkan!');
     }
 
     /**
@@ -115,7 +115,7 @@ class GalleryShowController extends Controller
         $galleryShow->gallery_id = $request->input('gallery_id');
         $galleryShow->save();
 
-        return redirect()->route('galleryShows.index')->with('Berhasil', 'Tampilan Galeri berhasil diperbarui!');
+        return redirect()->route('galleryShows.index')->with('success', 'Tampilan Galeri berhasil diperbarui!');
     }
 
     /**
@@ -126,7 +126,7 @@ class GalleryShowController extends Controller
         $galleryShow->status=0;
         $galleryShow->save();
 
-        return redirect()->route('galleryShows.index')->with('Berhasil', 'Tampilan Galeri berhasil dihapus!');
+        return redirect()->route('galleryShows.index')->with('success', 'Tampilan Galeri berhasil dihapus!');
     }
 }
 

@@ -16,18 +16,11 @@ class MenuSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-
-        // Retrieve a list of existing staff emails
-        $staffEmails = DB::table('staffs')->pluck('email');
-
-        // Retrieve a list of existing gallery IDs
+        $userId = DB::table('users')->pluck('id');
         $galleryIds = DB::table('galleries')->orderBy('id')->pluck('id');
-
-        // Retrieve a list of existing category IDs
         $categoryIds = DB::table('categories')->orderBy('id')->pluck('id');
 
-        // Ensure we have at least one staff, gallery, and category to reference
-        if ($staffEmails->isEmpty() || $galleryIds->isEmpty() || $categoryIds->isEmpty()) {
+        if ($userId->isEmpty() || $galleryIds->isEmpty() || $categoryIds->isEmpty()) {
             $this->command->info('No staff, galleries, or categories found. Please seed the related tables first.');
             return;
         }
@@ -43,7 +36,7 @@ class MenuSeeder extends Seeder
                 'number_love' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'gallery_id' => $galleryIds[15],
                 'category_id' => $categoryIds[3],
             ],
@@ -56,7 +49,7 @@ class MenuSeeder extends Seeder
                 'number_love' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'gallery_id' => $galleryIds[14],
                 'category_id' =>  $categoryIds[0],
             ],
@@ -69,7 +62,7 @@ class MenuSeeder extends Seeder
                 'number_love' => $faker->numberBetween(1, 10),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'gallery_id' => $galleryIds[16],
                 'category_id' =>  $categoryIds[2],
             ],
@@ -82,7 +75,7 @@ class MenuSeeder extends Seeder
                 'number_love' => $faker->numberBetween(1, 10),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'gallery_id' => $galleryIds[10],
                 'category_id' =>  $categoryIds[3],
             ],
@@ -95,7 +88,7 @@ class MenuSeeder extends Seeder
                 'number_love' => $faker->numberBetween(1, 10),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'gallery_id' => $galleryIds[11],
                 'category_id' =>  $categoryIds[1],
             ],
@@ -108,7 +101,7 @@ class MenuSeeder extends Seeder
                 'number_love' => $faker->numberBetween(1, 10),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'gallery_id' => $galleryIds[17],
                 'category_id' => $categoryIds[1],
             ],
@@ -121,7 +114,7 @@ class MenuSeeder extends Seeder
                 'number_love' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'gallery_id' => $galleryIds[22],
                 'category_id' =>  $categoryIds[0],
             ],
@@ -134,7 +127,7 @@ class MenuSeeder extends Seeder
                 'number_love' => $faker->numberBetween(1, 10),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'gallery_id' => $galleryIds[29],
                 'category_id' => $categoryIds[1],
             ],
@@ -147,7 +140,7 @@ class MenuSeeder extends Seeder
                 'number_love' => $faker->numberBetween(1, 10),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'gallery_id' => $galleryIds[30],
                 'category_id' => $categoryIds[3],
             ],
@@ -160,7 +153,7 @@ class MenuSeeder extends Seeder
                 'number_love' => $faker->numberBetween(1, 10),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'staff_email' => $staffEmails->random(),
+                'user_id' => $userId->random(),
                 'gallery_id' => $galleryIds[31],
                 'category_id' => $categoryIds[3],
             ],

@@ -17,13 +17,13 @@ class Agenda extends Model
         'event_location',
         'status',
         'description',
-        'staff_email',
+        'user_id',
     ];
 
     // Define the relationship with Staff
     public function staff()
     {
-        return $this->belongsTo(Staff::class, 'staff_email', 'email');
+        return $this->belongsTo(Staff::class, 'user_id', 'id');
     }
     public function articles()
     {

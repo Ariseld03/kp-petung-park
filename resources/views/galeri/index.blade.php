@@ -2,7 +2,6 @@
 
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('/css/galeri.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 @endsection
 
 @section('content')
@@ -11,11 +10,6 @@
         <a href="{{ route('galeri.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Foto</a>
 
         <!-- Display Success or Error Message -->
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
         @if(session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
@@ -84,28 +78,6 @@
             @endforeach
             </tbody>
         </table>
-
-        <!-- Berhasil Modal -->
-        @if(session('Berhasil'))
-        <div class="modal fade" id="BerhasilModal" tabindex="-1" role="dialog" aria-labelledby="BerhasilModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="BerhasilModalLabel">Berhasil</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        {{ session('Berhasil') }}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
     </div>
 @endsection
 
@@ -131,7 +103,7 @@
         }
 
         $(document).ready(function() {
-            @if(session('Berhasil'))
+            @if(session('success'))
                 $('#BerhasilModal').modal('show');
             @endif
         });

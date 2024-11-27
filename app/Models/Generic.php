@@ -9,8 +9,8 @@ class Generic extends Model
 {
     // use HasFactory;
     protected $table = 'generic';
-    public function staff()
+    public function user()
     {
-        return $this->belongsTo(Staff::class, 'staff_email', 'email');
+        return $this->belongsTo(Staff::class, 'user_id', 'id');
     }
 }

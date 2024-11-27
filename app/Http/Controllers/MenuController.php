@@ -56,7 +56,7 @@ class MenuController extends Controller
             'staff_email' => $request->staff_email,
         ]);
 
-        return redirect()->route('hidangan.index')->with('Berhasil', 'Menu berhasil ditambahkan!');
+        return redirect()->route('hidangan.index')->with('success', 'Menu berhasil ditambahkan!');
     }
 
     /**
@@ -157,7 +157,7 @@ class MenuController extends Controller
         $menu = Menu::findOrFail($id);
         $menu->status=0;
         $menu->save();
-        return redirect()->route('hidangan.index')->with('Berhasil', 'Menu berhasil dihapus!');
+        return redirect()->route('hidangan.index')->with('success', 'Menu berhasil dihapus!');
     }
 }
 

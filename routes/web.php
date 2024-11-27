@@ -11,7 +11,7 @@ use App\Http\Controllers\GenericController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\SliderHomeController;
-use App\Http\Controllers\StaffController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\TravelController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
@@ -61,12 +61,12 @@ Route::delete('/admin/wisata/{wisata}', [TravelController::class, 'delete'])->na
 Route::get('/admin/wisata/staff', [TravelController::class, 'staff'])->name('wisata.staff');
 
 // Admin CRUD Staff
-Route::get('/admin/staf', [StaffController::class, 'index'])->name('staf.index');
-Route::get('/admin/staf/add', [StaffController::class, 'add'])->name('staf.add');
-Route::post('/admin/staf/add', [StaffController::class, 'store'])->name('staf.store');
-Route::get('/admin/staf/edit/{email}', [StaffController::class, 'edit'])->name('staf.edit');
-Route::post('/admin/staf/edit/{email}', [StaffController::class, 'update'])->name('staf.update');
-Route::delete('/admin/staf/{email}', [StaffController::class, 'delete'])->name('staf.delete');
+Route::get('/admin/staf', [UserController::class, 'index'])->name('staf.index');
+Route::get('/admin/staf/add', [UserController::class, 'add'])->name('staf.add');
+Route::post('/admin/staf/add', [UserController::class, 'store'])->name('staf.store');
+Route::get('/admin/staf/edit/{user}', [UserController::class, 'edit'])->name('staf.edit');
+Route::post('/admin/staf/edit/{user}', [UserController::class, 'update'])->name('staf.update');
+Route::delete('/admin/staf/{user}', [UserController::class, 'destroy'])->name('staf.destroy');
 
 // Galeri
 Route::post('/galeri/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');

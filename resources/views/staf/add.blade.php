@@ -1,25 +1,18 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> <!-- Menghubungkan Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('css/staffAdd.css') }}"> <!-- Menghubungkan file CSS -->
-    <title>Tambah Staff</title>
-</head>
+@extends('layouts.mainAdmin')
+@section('content')
 <body>
     <div class="container mt-5">
         <h1 class="text-center text-success">Tambah Staff</h1>
-        <form action="{{ url('/staffStore') }}" method="POST">
+        <form action="{{ route('staf.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                <input type="email" class="form-control" id="email" name="email" required autocomplete="email">
             </div>
 
             <div class="form-group">
                 <label for="name">Nama:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control" id="name" name="name" required autocomplete="name">
             </div>
 
             <div class="form-group">
@@ -34,7 +27,7 @@
 
             <div class="form-group">
                 <label for="phone">Nomor Telepon:</label>
-                <input type="tel" class="form-control" id="phone" name="phone_number" required>
+                <input type="tel" class="form-control" id="phone" name="phone_number" required autocomplete="tel">
             </div>
 
             <div class="form-group">
@@ -42,27 +35,54 @@
                 <select class="form-control" id="position" name="position" required>
                     <option value="Admin">Admin</option>
                     <option value="Staff">Staff</option>
-                    <option value="Manager">Manager</option>
+                    <option value="User">User</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="gender">Jenis Kelamin:</label>
                 <select class="form-control" id="gender" name="gender" required>
-                    <option value="Pria">Pria</option>
-                    <option value="Wanita">Wanita</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="photo">Foto:</label>
+                <select class="form-control" id="photo" name="photo">
+                    <option value="" selected disabled>Pilih Foto Baru</option>
+                    @foreach($galleries as $gallery)
+                            <option value="{{ $gallery->id }}" data-img-src="{{ asset($gallery->photo_link) }}">
+                                {{ $gallery->name }}
+                            </option>
+                    @endforeach
+                </select>
+                <br>
+                <div id="preview-photo" class="text-center">
+                    <img src="" style="max-width: 100px; display: none;">
+                </div>
             </div>
 
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='{{ url('/staffShow') }}'">Kembali</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('staf.index') }}'">Kembali</button>
             </div>
         </form>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>
+@endsection
+@section('page-js')
+<script>
+     document.getElementById('photo').addEventListener('change', function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var imgSrc = selectedOption.dataset.imgSrc;
+            var imgElement = document.querySelector('#preview-photo img');
+            if (imgSrc) {
+                imgElement.src = imgSrc;
+                imgElement.style.display = 'block';
+            } else {
+                imgElement.style.display = 'none';
+            }
+        });
+</script>
+@endsection

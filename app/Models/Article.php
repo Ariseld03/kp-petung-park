@@ -13,9 +13,9 @@ class Article extends Model
     {
         return $this->belongsToMany(Gallery::class, 'article_gallery', 'article_id', 'gallery_id');
     }
-    public function staff()
+    public function user()
     {
-        return $this->belongsTo(Staff::class, 'staff_email', 'email');
+        return $this->belongsTo(Staff::class, 'user_id', 'id');
     }
     public function agenda()
     {

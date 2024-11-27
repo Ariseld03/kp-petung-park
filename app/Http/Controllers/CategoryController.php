@@ -41,7 +41,7 @@ class CategoryController extends Controller
             'status' => $request->input('status'),
         ]);
 
-        return redirect()->route('kategori.index')->with('Berhasil', 'Kategori berhasil ditambahkan!');
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan!');
     }
 
     /**
@@ -80,9 +80,9 @@ class CategoryController extends Controller
         try {
             $category = Category::findOrFail($id);
             $category->update($validatedData);
-            return redirect()->route('kategori.index')->with('Berhasil', 'Berhasil Update Kategori!');
+            return redirect()->route('kategori.index')->with('success', 'Berhasil Update Kategori!');
         } catch (\Exception $e) {
-            return redirect()->route('kategori.index')->with('Gagal', 'Gagal Update Kategori!');
+            return redirect()->route('kategori.index')->with('error', 'Gagal Update Kategori!');
         }
     }
 
@@ -98,6 +98,6 @@ class CategoryController extends Controller
         }
         $category->status = 0;
         $category->save();
-        return redirect()->route('kategori.index')->with('Berhasil', 'Kategori berhasil dihapus!');
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus!');
     }
 }

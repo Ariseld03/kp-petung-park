@@ -44,7 +44,7 @@ class TravelController extends Controller
 
         $travel->save();
 
-        return redirect()->route('wisata.index')->with('Berhasil', 'Wisata berhasil ditambahkan!');
+        return redirect()->route('wisata.index')->with('success', 'Wisata berhasil ditambahkan!');
     }
 
     /**
@@ -93,7 +93,7 @@ class TravelController extends Controller
 
         $travel->save();
 
-        return redirect()->route('wisata.index')->with('Berhasil', 'Wisata berhasil diubah!');
+        return redirect()->route('wisata.index')->with('success', 'Wisata berhasil diubah!');
     }
     /**
      * Remove the specified resource from storage.
@@ -105,7 +105,7 @@ class TravelController extends Controller
 
         $travel->status=0;
         $travel->save();
-        return redirect()->route('wisata.index')->with('Berhasil', 'Wisata berhasil dihapus!');
+        return redirect()->route('wisata.index')->with('success', 'Wisata berhasil dihapus!');
     }
     
     /**
@@ -136,7 +136,7 @@ class TravelController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('wisata.index')->with('Berhasil', 'Foto di Galeri berhasil ditambahkan!' . $travel->title);
+        return redirect()->route('wisata.index')->with('success', 'Foto di Galeri berhasil ditambahkan!' . $travel->title);
     }
 
     /**
@@ -167,12 +167,12 @@ class TravelController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('wisata.index')->with('Berhasil', 'Foto di Wisata berhasil diubah! ' . $travel->title);
+        return redirect()->route('wisata.index')->with('success', 'Foto di Wisata berhasil diubah! ' . $travel->title);
     }
     public function destroyTravelGallery(Travel $travel)
     {
         DB::table('travel_gallery')->where('travel_id', $travel->id)->update(['status' => 0]);
-        return redirect()->route('wisata.index')->with('Berhasil', 'Foto di Wisata berhasil dihapus!');
+        return redirect()->route('wisata.index')->with('success', 'Foto di Wisata berhasil dihapus!');
     }
 }
 
