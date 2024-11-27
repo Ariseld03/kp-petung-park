@@ -32,8 +32,6 @@
         </div>
     </div>
 
-
-
     <!-- Kategori Makanan -->
     <div class="kategori-makanan">
         <h2>Menu Reguler</h2>
@@ -72,7 +70,7 @@
                     @endphp
                     <img id="alam_{{$spot->id}}" src="{{ asset($photo) }}" alt="Foto {{ $spot->name }}" class="zoomimg">
                     <p id="text_alam_{{$spot->id}}"class="judul-wisata">{{ $spot->name }}</p>
-                    <button onclick="window.location.href='{{ url('wisata/' . $spot->id) }}'">Baca Lebih Banyak</button>
+                    <button onclick="window.location.href='{{ route('wisata.show', $spot->id) }}'">Baca Lebih Banyak</button>
                 </div>
             @empty
                 <p>Tidak ada wisata yang tersedia saat ini.</p>

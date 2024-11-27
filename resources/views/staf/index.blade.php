@@ -1,21 +1,8 @@
 @extends('layouts.mainAdmin')
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('css/staffShow.css') }}">
+@endsection
 @section('content')
-
-@if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
-
-@if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 <div class="container-fluid mt-5">
     <h1 class="text-center" style="color: #557C56;">Tabel Pegawai</h1>

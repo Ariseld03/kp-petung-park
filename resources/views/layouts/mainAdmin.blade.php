@@ -9,7 +9,8 @@
     @yield('page-css') <!-- Optional: CSS tambahan khusus halaman -->
 </head>
 <body>
-    @include('layouts.headerAdmin') <!-- Menyertakan header admin -->
+@include('layouts.headerAdmin') <!-- Menyertakan header admin -->
+    <main class="py-4">
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -19,14 +20,11 @@
                 </ul>
             </div>
         @endif
-
-        {{-- Display custom error message for server errors --}}
         @if (session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
         @endif
-    <main class="py-4">
         @yield('content') <!-- Tempat untuk konten halaman -->
     </main>
 
@@ -34,7 +32,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-    @if(session('Berhasil'))
+    
+    @if(session('success'))
         <div class="modal fade" id="BerhasilModal" tabindex="-1" role="dialog" aria-labelledby="BerhasilModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -48,7 +47,7 @@
                         {{ session('success') }}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="$('#BerhasilModal').modal('hide');">OK</button>
                     </div>
                 </div>
             </div>

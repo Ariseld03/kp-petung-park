@@ -27,7 +27,7 @@
                 <tr>
                     <td>{{ $wisata->name }}</td>
                     <td>{{ $wisata->description }}</td>
-                    <td>{{ $wisata->status == 1 ? 'Aktif' : 'Nonaktif' }}</td>
+                    <td>{{ $wisata->status }}</td>
                     <td>{{ $wisata->number_love }}</td>
                     <td>
                     @if ($wisata->galleries->isNotEmpty())
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                        <form action="{{ route('wisata.delete', $wisata->id) }}" method="POST" id="nonaktifForm-{{ $wisata->id }}">
+                                        <form action="{{ route('wisata.destroy', $wisata->id) }}" method="POST" id="nonaktifForm-{{ $wisata->id }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Nonaktifkan</button>

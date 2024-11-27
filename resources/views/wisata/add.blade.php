@@ -1,34 +1,36 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> <!-- Menghubungkan Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('css/wisataAdd.css') }}"> <!-- Menghubungkan file CSS -->
-    <title>Tambah Wisata</title>
-</head>
-<body>
+@extends('layouts.mainAdmin')
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('css/wisataAdd.css') }}">
+@endsection
+@section('content')
     <div class="container mt-5">
         <h1 class="text-center text-success">Tambah Wisata</h1>
-        <form action="{{ url('/wisataStore') }}" method="post" enctype="multipart/form-data">
-            @csrf <!-- Token untuk melindungi dari CSRF -->
+        <form action="{{ route('wisata.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="name">Nama:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Deskripsi:</label>
+                <textarea class="form-control" id="description" name="description" required></textarea>
+            </div>
             
             <div class="form-group">
-                <label for="nama">Nama:</label>
-                <input type="text" class="form-control" id="nama" name="nama" required>
-            </div>
-
-            <div class="form-group">
-                <label for="deskripsi">Deskripsi:</label>
-                <textarea class="form-control" id="deskripsi" name="deskripsi" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="status">Status:</label>
-                <select class="form-control" id="status" name="status">
-                    <option value="1">Aktif</option>
-                    <option value="0">Tidak Aktif</option>
+                <label for="photos">Foto:</label>
+                <select class="form-control" id="photos" name="photos[]" multiple>
+                    <option value="" disabled>Pilih Foto</option>
+                    @foreach($galleries as $gallery)
+                        <option value="{{ $gallery->id }}" data-img-src="{{ asset($gallery->photo_link) }}">
+                            {{ $gallery->name }}
+                        </option>
+                    @endforeach
                 </select>
+                <br>
+                <div id="preview-photos" class="text-center">
+                    <!-- Previews of selected photos will be dynamically added here -->
+                </div>
             </div>
 
             <div class="text-center">
@@ -37,9 +39,24 @@
             </div>
         </form>
     </div>
+@endsection
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+@section('page-js')
+<script>
+    document.getElementById('photos').addEventListener('change', function() {
+        var previewContainer = document.getElementById('preview-photos');
+        previewContainer.innerHTML = ''; // Clear previous previews
+
+        Array.from(this.selectedOptions).forEach(option => {
+            var imgSrc = option.dataset.imgSrc;
+            if (imgSrc) {
+                var imgElement = document.createElement('img');
+                imgElement.src = imgSrc;
+                imgElement.style.maxWidth = '100px';
+                imgElement.style.margin = '5px';
+                previewContainer.appendChild(imgElement);
+            }
+        });
+    });
+</script>
+@endsection

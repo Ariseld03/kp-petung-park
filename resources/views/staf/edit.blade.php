@@ -1,5 +1,7 @@
 @extends('layouts.mainAdmin')
-
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('css/staffUpdate.css') }}">
+@endsection
 @section('content')
     <div class="container mt-5">
         <h2 class="text-center text-success">Pembaruan Staff</h2>
