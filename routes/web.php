@@ -60,6 +60,10 @@ Route::post('/admin/wisata/edit/{wisata}', [TravelController::class, 'update'])-
 Route::delete('/admin/wisata/{wisata}', [TravelController::class, 'delete'])->name('wisata.delete');
 Route::get('/admin/wisata/staff', [TravelController::class, 'staff'])->name('wisata.staff');
 
+Route::get('/admin/wisata/gallery/edit/{foto_wisata}', [TravelController::class, 'edit'])->name('wisata.gallery.edit');
+Route::post('/admin/wisata/gallery/edit/{foto_wisata}', [TravelController::class, 'update'])->name('wisata.gallery.update');
+Route::delete('/admin/wisata/gallery/{foto_wisata}', [TravelController::class, 'delete'])->name('wisata.gallery.delete');
+
 // Admin CRUD Staff
 Route::get('/admin/staf', [UserController::class, 'index'])->name('staf.index');
 Route::get('/admin/staf/add', [UserController::class, 'add'])->name('staf.add');
