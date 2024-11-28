@@ -86,31 +86,34 @@ class TravelController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Travel $travel)
+    public function edit(Travel $wisata)
     {
-        return view('wisata.edit', compact('travel'));
+        $galleries = Gallery::where('status', 1)->get();
+        return view('wisata.edit', compact('wisata', 'galleries'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Travel $travel)
+    public function update(Request $request, Travel $wisata)
     {
-        $request->validate([
-            'title' => 'required',
-            'status' => 'required|tinyint',
-            'description' => 'nullable|longtext',
-            'number_love' => 'nullable|integer',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'status' => 'required|integer',
+                'description' => 'nullable|string',
+                'number_love' => 'nullable|integer',
+            ]);
+            $wisata->name = $request->get('name');
+            $wisata->status = $request->get('status');
+            $wisata->description = $request->get('description');
+            $wisata->number_love = $request->get('number_love');
+            $wisata->save();
 
-        $travel->title = $request->get('title');
-        $travel->status = $request->get('status');
-        $travel->description = $request->get('description');
-        $travel->number_love = $request->get('number_love');
-
-        $travel->save();
-
-        return redirect()->route('wisata.index')->with('success', 'Wisata berhasil diubah!');
+            return redirect()->route('wisata.index')->with('success', 'Wisata berhasil diubah!');
+        } catch (\Exception $e) {
+            return redirect()->route('wisata.edit', $travel->id)->with('error', $e->getMessage());
+        }
     }
     /**
      * Remove the specified resource from storage.
@@ -150,7 +153,15 @@ class TravelController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
+        foreach($request->get('new_photos') as $galleryId){
+            $travelGallery = new TravelGallery([
+                'gallery_id' => $galleryId,
+                'travel_id' => $travel->id,
+                'name_collage' => 'Kolase '. $name,
+                'status' => 1,
+            ]);
+            $travelGallery->save();
+        }
         return redirect()->route('wisata.index')->with('success', 'Foto di Galeri berhasil ditambahkan!' . $travel->title);
     }
 
@@ -172,6 +183,10 @@ class TravelController extends Controller
             'gallery_id' => 'required|integer',
             'name_collage' => 'required|string',
             'status' => 'required|integer',
+            'new_photos' => 'nullable|array', // Validate photos as an array
+            'new_photos.*' => 'integer|exists:galleries,id', // Ensure each photo ID exists in the gallery
+
+
         ]);
 
         DB::table('travel_gallery')->where('id', $id)->update([

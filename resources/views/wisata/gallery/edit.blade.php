@@ -2,7 +2,7 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="judul">Update Wisata</h1>
-        <form action="{{ route('wisata.update', ['wisata' => $wisata->id])}}" method="POST">
+        <form action="{{ route('wisata.update', $wisata->id) }}" method="POST">
             @csrf
             @method('POST')
             <div class="form-group">
@@ -22,12 +22,6 @@
                     <option value="0" {{ $wisata->status == 0 ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
-
-            <div class="form-group">
-                <label for="number_love">Jumlah Like:</label>
-                <input type="number" class="form-control" id="number_love" name="number_love" value="{{ $wisata->number_love }}" required>
-            </div>
-            
             <div class="form-group">
                 <label for="old_photos">Foto Saat Ini:</label>
                 <div class="col-md-4 d-flex align-items-center justify-content-center" style="flex-wrap: wrap;">
@@ -40,11 +34,45 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="new_photos">Foto Baru:</label>
+                <select class="form-control" id="new_photos" name="new_photos[]" multiple>
+                    <option value="" disabled>Pilih Foto</option>
+                    @foreach($galleries as $gallery)
+                        <option value="{{ $gallery->id }}" data-img-src="{{ asset($gallery->photo_link) }}">
+                            {{ $gallery->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <br>
+                <div id="preview-new-photo" class="text-center">
+                    <!-- Previews of selected photos will be dynamically added here -->
+                </div>
+            </div>
             <button type="submit" class="btn btn-success">Simpan</button>
             <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('wisata.index') }}'">Kembali</button>
         </form>
     </div>
 @endsection
 @section('page-js')
+<script>
+       document.getElementById('new_photos').addEventListener('change', function() {
+            var selectedOptions = this.selectedOptions;
+            var previewContainer = document.getElementById('preview-new-photo');
+            previewContainer.innerHTML = ''; // Clear previous previews
+
+            Array.from(selectedOptions).forEach(option => {
+                var imgSrc = option.dataset.imgSrc;
+                if (imgSrc) {
+                    var imgElement = document.createElement('img');
+                    imgElement.src = imgSrc;
+                    imgElement.style.maxWidth = '100px';
+                    imgElement.style.margin = '5px';
+                    previewContainer.appendChild(imgElement);
+                }
+            });
+        });
+
+    </script>
 @endsection
 
