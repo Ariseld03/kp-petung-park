@@ -72,12 +72,12 @@ class TravelController extends Controller
     $travel = Travel::findOrFail($id);
     
     // Mengambil data gallery yang berhubungan dengan travel ini
-    $galleries = DB::table('galleries')
-        ->join('travel_gallery', 'galleries.id', '=', 'travel_gallery.gallery_id')
-        ->where('travel_gallery.travel_id', $id)
-        ->where('travel_gallery.status', 1)
-        ->select('galleries.*')
-        ->get();
+    $galleries = TravelGallery::where('travel_id', $id)
+    ->where('status', 1)
+    ->with('gallery') 
+    ->get()
+    ->pluck('gallery'); 
+
 
     return view('wisata.show', compact('travel', 'galleries'));
 }
@@ -108,6 +108,7 @@ class TravelController extends Controller
             $wisata->status = $request->get('status');
             $wisata->description = $request->get('description');
             $wisata->number_love = $request->get('number_love');
+            $wisata->updated_at = now();
             $wisata->save();
 
             return redirect()->route('wisata.index')->with('success', 'Wisata berhasil diubah!');
@@ -122,87 +123,115 @@ class TravelController extends Controller
     {
         $wisata->status = 0;
         $wisata->save();
-    
+
+        TravelGallery::where('travel_id', $wisata->id)->update(['status' => 0]);
+
         return redirect()->route('wisata.index')->with('success', 'Wisata berhasil dinonaktifkan!');
     }
     
     /**
      * M to M for pivot table travel_gallery
      */
-    public function createTravelGallery(Travel $travel)
+    
+    /**
+     * Display a listing of the resource for pivot table travel_gallery.
+     */
+    public function indexTravelGallery()
     {
-        return view('wisata.createGallery', compact('travel'));
+        $collages = TravelGallery::all();
+
+        return view('wisata.gallery.index', compact('collages'));
+    }
+     public function addTravelGallery()
+    {
+        $travels = Travel::where('status', 1)->get();
+        $galleries = Gallery::where('status', 1)->get();
+        return view('wisata.gallery.add', compact('travels', 'galleries'));
     }
 
     /**
      * Store a newly created resource in storage for pivot table travel_gallery.
      */
-    public function storeGallery(Request $request, Travel $travel)
+    public function storeTravelGallery(Request $request, Travel $travel)
     {
         $request->validate([
+            'travel_id' => 'required|integer',
             'gallery_id' => 'required|integer',
             'name_collage' => 'required|string',
             'status' => 'required|integer',
         ]);
-
-        DB::table('travel_gallery')->insert([
-            'travel_id' => $travel->id,
-            'gallery_id' => $request->get('gallery_id'),
-            'name_collage' => $request->get('name_collage'),
-            'status' => $request->get('status'),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $name= $request->get('name_collage');
         foreach($request->get('new_photos') as $galleryId){
             $travelGallery = new TravelGallery([
                 'gallery_id' => $galleryId,
                 'travel_id' => $travel->id,
                 'name_collage' => 'Kolase '. $name,
                 'status' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
             $travelGallery->save();
         }
-        return redirect()->route('wisata.index')->with('success', 'Foto di Galeri berhasil ditambahkan!' . $travel->title);
+        return redirect()->route('wisata.gallery.index')->with('success', 'Foto di Galeri berhasil ditambahkan!' . $travel->title);
     }
 
     /**
      * Show the form for editing the specified resource in pivot table travel_gallery.
      */
-    public function editGallery(Travel $travel, $id)
+    public function editTravelGallery(Request $request)
     {
-        $gallery = DB::table('travel_gallery')->where('id', $id)->first();
-        return view('wisata.editGallery', compact('travel', 'gallery'));
-    }
+        $selectedCollage = TravelGallery::with(['travel', 'gallery'])
+                                        ->where('travel_id', $request->get('travel_id'))
+                                        ->where('gallery_id', $request->get('gallery_id'))
+                                        ->first(); 
+    
+        $travels = Travel::where('status', 1)->get();
+        $galleries = Gallery::where('status', 1)->get();
 
+        if (!$selectedCollage) {
+            return redirect()->route('wisata.gallery.index')
+                             ->with('error', 'The selected collage with travel_id ' . $request->get('travel_id') . ' and gallery_id ' . $request->get('gallery_id') . ' was not found.');
+        }
+    
+        return view('wisata.gallery.edit', compact('travels', 'galleries', 'selectedCollage'));
+    }
+    
+    
     /**
      * Update the specified resource in storage for pivot table travel_gallery.
      */
-    public function updateGallery(Request $request, Travel $travel, $id)
+    public function updateTravelGallery(Request $request)
     {
         $request->validate([
+            'travel_id' => 'required|integer',
             'gallery_id' => 'required|integer',
             'name_collage' => 'required|string',
             'status' => 'required|integer',
+            'new_travels' => 'nullable|array', 
+            'new_travels.*' => 'integer|exists:travels,id',
             'new_photos' => 'nullable|array', // Validate photos as an array
             'new_photos.*' => 'integer|exists:galleries,id', // Ensure each photo ID exists in the gallery
-
-
         ]);
 
-        DB::table('travel_gallery')->where('id', $id)->update([
-            'travel_id' => $travel->id,
-            'gallery_id' => $request->get('gallery_id'),
-            'name_collage' => $request->get('name_collage'),
-            'status' => $request->get('status'),
-            'updated_at' => now(),
-        ]);
+        TravelGallery::where('travel_id', $request->get('travel_id'))
+                    ->where('gallery_id', $request->get('gallery_id'))
+                    ->update([
+                        'name_collage' => $request->get('name_collage'),
+                        'status' => $request->get('status'),
+                        'updated_at' => now(),
+                    ]);
 
-        return redirect()->route('wisata.index')->with('success', 'Foto di Wisata berhasil diubah! ' . $travel->title);
+        return redirect()->route('wisata.gallery.index')->with('success', 'Foto di Wisata berhasil diubah! ');
     }
-    public function destroyTravelGallery(Travel $travel)
+    public function deleteTravelGallery($gallery, $travel)
     {
-        DB::table('travel_gallery')->where('travel_id', $travel->id)->update(['status' => 0]);
-        return redirect()->route('wisata.index')->with('success', 'Foto di Wisata berhasil dihapus!');
+        TravelGallery::where('travel_id', $travel)
+                    ->where('gallery_id', $gallery)
+                    ->update([
+                        'status' => 0,
+                        'updated_at' => now(),
+                    ]);
+        return redirect()->route('wisata.gallery.index')->with('success', 'Foto di Wisata berhasil dinonaktifkan!');
     }
 }
 

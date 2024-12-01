@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -101,6 +102,7 @@ class ArticleController extends Controller
         try {
             $delete = $article;
             $article->status = 0;
+            ArticleGallery::where('article_id', $article->id)->update(['status' => 0]);
             $article->update($delete);
             return redirect()->route('articles.index')->with('success', 'Artikel Berhasil Dihapus!');
         } catch (Exception $e) {
