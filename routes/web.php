@@ -60,13 +60,13 @@ Route::post('/admin/wisata/edit/{wisata}', [TravelController::class, 'update'])-
 Route::delete('/admin/wisata/{wisata}', [TravelController::class, 'delete'])->name('wisata.delete');
 Route::get('/admin/wisata/staff', [TravelController::class, 'staff'])->name('wisata.staff');
 
-Route::get('/admin/wisata/gallery', [TravelController::class, 'indexTravelGallery'])->name('wisata.gallery.index');
-Route::post('/admin/wisata/gallery/edit-form', [TravelController::class, 'editTravelGallery'])->name('wisata.gallery.edit');
-Route::get('/admin/wisata/gallery/edit-form', [TravelController::class, 'editTravelGallery']);
-Route::post('/admin/wisata/gallery/edit', [TravelController::class, 'updateTravelGallery'])->name('wisata.gallery.update');
-Route::get('/admin/wisata/gallery/add', [TravelController::class, 'addTravelGallery'])->name('wisata.gallery.add');
-Route::post('/admin/wisata/gallery/add', [TravelController::class, 'createTravelGallery'])->name('wisata.gallery.create');
-Route::post('/wisata/gallery/delete', [YourController::class, 'deleteTravelGallery'])->name('wisata.gallery.delete');
+Route::get('/admin/wisata/galeri', [TravelController::class, 'indexTravelGallery'])->name('wisata.gallery.index');
+Route::post('/admin/wisata/galeri/edit-form', [TravelController::class, 'editTravelGallery'])->name('wisata.gallery.edit');
+Route::get('/admin/wisata/galeri/edit-form', [TravelController::class, 'editTravelGallery']);
+Route::post('/admin/wisata/galeri/edit', [TravelController::class, 'updateTravelGallery'])->name('wisata.gallery.update');
+Route::get('/admin/wisata/galeri/add', [TravelController::class, 'addTravelGallery'])->name('wisata.gallery.add');
+Route::post('/admin/wisata/galeri/add', [TravelController::class, 'storeTravelGallery'])->name('wisata.gallery.store');
+Route::post('/wisata/galeri/delete', [YourController::class, 'deleteTravelGallery'])->name('wisata.gallery.delete');
 
 // Admin CRUD Staff
 Route::get('/admin/staf', [UserController::class, 'index'])->name('staf.index');

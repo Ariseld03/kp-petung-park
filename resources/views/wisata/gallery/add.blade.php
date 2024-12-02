@@ -4,21 +4,32 @@
 @endsection
 @section('content')
     <div class="container mt-5">
-        <h1 class="text-center text-success">Tambah Wisata</h1>
-        <form action="{{ route('wisata.store') }}" method="post" enctype="multipart/form-data">
+        <h1 class="text-center text-success">Tambah Galeri Wisata</h1>
+        <form action="{{ route('wisata.gallery.store') }}" method="post" enctype="multipart/form-data">
             @csrf
+            @method('POST')
             <div class="form-group">
-                <label for="name">Nama:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <label for="name_collage">Nama Kolase :</label>
+                <input type="text" class="form-control" id="name_collage" name="name_collage" required>
             </div>
 
             <div class="form-group">
                 <label for="description">Deskripsi:</label>
                 <textarea class="form-control" id="description" name="description" required></textarea>
             </div>
-            
             <div class="form-group">
-                <label for="photos">Foto:</label>
+                <label for="travel_id"> Pilih Wisata :</label>
+                <select class="form-control" id="travel_id" name="travel_id">
+                    <option value="" disabled selected>Pilih Wisata</option>
+                    @foreach($travels as $travel)
+                        <option value="{{ $travel->id }}">
+                            {{ $travel->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="photos">Galeri:</label>
                 <select class="form-control" id="photos" name="photos[]" multiple>
                     <option value="" disabled>Pilih Foto</option>
                     @foreach($galleries as $gallery)
@@ -29,13 +40,12 @@
                 </select>
                 <br>
                 <div id="preview-photos" class="text-center">
-                    <!-- Previews of selected photos will be dynamically added here -->
                 </div>
             </div>
 
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='{{ url('/wisataStaff') }}'">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('wisata.gallery.index') }}'">Batal</button>
             </div>
         </form>
     </div>

@@ -26,14 +26,6 @@
             </div>
         @endif
         @yield('content') <!-- Tempat untuk konten halaman -->
-    </main>
-
-    <!-- Optional: Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    @if(session('success'))
         <div class="modal fade" id="BerhasilModal" tabindex="-1" role="dialog" aria-labelledby="BerhasilModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -47,12 +39,30 @@
                         {{ session('success') }}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="$('#BerhasilModal').modal('hide');">OK</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
                     </div>
                 </div>
             </div>
         </div>
-    @endif
+    </div>
+    </main>
+
+    <!-- Optional: Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            @if(session('success'))
+                $('#BerhasilModal').modal('show');
+            @endif
+        });
+        $(document).on('click', '[data-dismiss="modal"], .close', function (e) {
+                // Close the modal
+                var modalId = $(this).closest('.modal').attr('id');
+                $('#' + modalId).modal('hide');
+            });
+    </script>
     @yield('page-js') <!-- Optional: JS tambahan khusus halaman -->
 </body>
 </html>

@@ -35,8 +35,8 @@ class TravelController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'photos' => 'required|array', // Validate photos as an array
-            'photos.*' => 'integer|exists:galleries,id', // Ensure each photo ID exists in the gallery
+            'photos' => 'required|array', 
+            'photos.*' => 'integer|exists:galleries,id', 
         ]);
         try{
             $travel = new Travel([
@@ -151,19 +151,21 @@ class TravelController extends Controller
     /**
      * Store a newly created resource in storage for pivot table travel_gallery.
      */
-    public function storeTravelGallery(Request $request, Travel $travel)
+    public function storeTravelGallery(Request $request)
     {
         $request->validate([
-            'travel_id' => 'required|integer',
-            'gallery_id' => 'required|integer',
+            'travel_id' => 'required|integer|exists:travels,id',
+            'photos' => 'required|integer|exists:galleries,id',
+            'photos' => 'required|array', 
+            'photos.*' => 'integer|exists:galleries,id', 
             'name_collage' => 'required|string',
-            'status' => 'required|integer',
         ]);
         $name= $request->get('name_collage');
-        foreach($request->get('new_photos') as $galleryId){
+        $galleryIds= $request->get('photos');
+        foreach($galleryIds as $galleryId){
             $travelGallery = new TravelGallery([
                 'gallery_id' => $galleryId,
-                'travel_id' => $travel->id,
+                'travel_id' => $request->get('travel_id'),
                 'name_collage' => 'Kolase '. $name,
                 'status' => 1,
                 'created_at' => now(),
@@ -171,7 +173,7 @@ class TravelController extends Controller
             ]);
             $travelGallery->save();
         }
-        return redirect()->route('wisata.gallery.index')->with('success', 'Foto di Galeri berhasil ditambahkan!' . $travel->title);
+        return redirect()->route('wisata.gallery.index')->with('success', 'Foto di Galeri berhasil ditambahkan!');
     }
 
     /**

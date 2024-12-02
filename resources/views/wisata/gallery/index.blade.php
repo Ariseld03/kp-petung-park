@@ -107,12 +107,3 @@
     </div>
 @endsection
 
-@section('page-js')
-    <script>
-        $(document).ready(function() {
-            @if(session('success'))
-                alert('{{ session('success') }}');
-            @endif
-        });
-    </script>
-@endsection

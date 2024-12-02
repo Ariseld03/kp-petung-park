@@ -2,15 +2,13 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="judul">Update Galeri Wisata</h1>
-        <form action="{{ route('wisata.gallery.update')}}" method="POST">
+        <form action="{{ route('wisata.gallery.update')}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <input type="hidden" name="travel_id" value="{{ $selectedCollage->travel_id }}">
 
-            <!-- Add the gallery_id of selectedCollage -->
             <input type="hidden" name="gallery_id[]" value="{{ $selectedCollage->gallery->id }}">
 
-            <!-- Add gallery_id of existing galleries, excluding the selectedCollage's gallery -->
             @foreach($existingGallery as $foto)
                 @if ($foto->gallery->id !== $selectedCollage->gallery->id) 
                     <input type="hidden" name="gallery_id[]" value="{{ $foto->gallery->id }}">
@@ -107,7 +105,6 @@
                 }
             });
         });
-
     </script>
 @endsection
 
