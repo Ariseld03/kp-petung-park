@@ -66,7 +66,7 @@ Route::get('/admin/wisata/gallery/edit-form', [TravelController::class, 'editTra
 Route::post('/admin/wisata/gallery/edit', [TravelController::class, 'updateTravelGallery'])->name('wisata.gallery.update');
 Route::get('/admin/wisata/gallery/add', [TravelController::class, 'addTravelGallery'])->name('wisata.gallery.add');
 Route::post('/admin/wisata/gallery/add', [TravelController::class, 'createTravelGallery'])->name('wisata.gallery.create');
-Route::delete('/admin/wisata/gallery/{gallery}/{travel}', [TravelController::class, 'deleteTravelGallery'])->name('wisata.gallery.delete');
+Route::post('/wisata/gallery/delete', [YourController::class, 'deleteTravelGallery'])->name('wisata.gallery.delete');
 
 // Admin CRUD Staff
 Route::get('/admin/staf', [UserController::class, 'index'])->name('staf.index');

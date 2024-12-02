@@ -6,7 +6,17 @@
             @csrf
             @method('POST')
             <input type="hidden" name="travel_id" value="{{ $selectedCollage->travel_id }}">
-            <input type="hidden" name="gallery_id" value="{{ $selectedCollage->gallery_id }}">    
+
+            <!-- Add the gallery_id of selectedCollage -->
+            <input type="hidden" name="gallery_id[]" value="{{ $selectedCollage->gallery->id }}">
+
+            <!-- Add gallery_id of existing galleries, excluding the selectedCollage's gallery -->
+            @foreach($existingGallery as $foto)
+                @if ($foto->gallery->id !== $selectedCollage->gallery->id) 
+                    <input type="hidden" name="gallery_id[]" value="{{ $foto->gallery->id }}">
+                @endif
+            @endforeach
+   
             <div class="form-group">
                 <label for="name_collage">Nama Kolase:</label>
                 <input type="text" class="form-control" id="name_collage" name="name_collage" value="{{ $selectedCollage->name_collage }}" required>
@@ -19,11 +29,11 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="old_travel_name">Nama Wisata Saat Ini :</label>
-                <div class="col-md-4 d-flex align-items-center justify-content-center" style="flex-wrap: wrap;">
+                <label name="travel_id">Nama Wisata :</label>
+                <div class="col-md-4 d-flex align-items-center justify-content-left" style="flex-wrap: wrap;">
                     @if ($selectedCollage->travel)
                         <div>
-                            <label for="old_travel_name" >
+                            <label name="old_travel_name" >
                                 {{ $selectedCollage->travel->name }}
                             </label>
                         </div>
@@ -34,27 +44,25 @@
             </div>
 
             <div class="form-group">
-                <label for="new_travels">Nama Wisata Baru:</label>
-                <select class="form-control" id="new_travels" name="new_travels[]" multiple>
-                    <option value="" disabled>Pilih Foto</option>
-                    @foreach($travels as $wisata)
-                        <option value="{{ $wisata->id }}">
-                            {{ $wisata->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="old_gallery_name">Nama Galeri Saat Ini :</label>
+                <label name="old_gallery_name">Nama Galeri Saat Ini :</label>
                 <div class="col-md-4 d-flex align-items-center justify-content-center" style="flex-wrap: wrap;">
                     @if ($selectedCollage->gallery)
-                        <div style="margin: 10px; display: flex; align-items: center;">
-                            <label for="old_gallery_name" style="margin-right: 10px;">
-                                {{ $selectedCollage->gallery->name }}
-                            </label>
-                            <img src="{{ asset($selectedCollage->gallery->photo_link) }}" width="100" height="100" style="object-fit: contain;" alt="Foto Galeri">
-                        </div>
+                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap;">
+                            <li style="margin: 10px;">
+                                <label name="old_gallery_name" style="margin-right: 10px;">
+                                    {{ $selectedCollage->gallery->name }}
+                                </label>
+                                <img src="{{ asset($selectedCollage->gallery->photo_link) }}" width="50" height="50" style="object-fit: cover;" alt="Foto Galeri">
+                            </li>
+                            @foreach($existingGallery as $foto)
+                            <li style="margin: 10px;">
+                                <label  style="margin-right: 10px;">
+                                    {{ $foto->gallery->name }}
+                                </label>
+                                <img src="{{ asset($foto->gallery->photo_link) }}" alt="Foto" width="50" height="50" style="object-fit: cover;">
+                            </li>
+                            @endforeach
+                        </ul>
                     @else
                         <p>No Gallery data available.</p>
                     @endif

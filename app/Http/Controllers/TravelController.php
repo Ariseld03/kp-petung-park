@@ -139,7 +139,6 @@ class TravelController extends Controller
     public function indexTravelGallery()
     {
         $collages = TravelGallery::all();
-
         return view('wisata.gallery.index', compact('collages'));
     }
      public function addTravelGallery()
@@ -184,16 +183,19 @@ class TravelController extends Controller
                                         ->where('travel_id', $request->get('travel_id'))
                                         ->where('gallery_id', $request->get('gallery_id'))
                                         ->first(); 
-    
-        $travels = Travel::where('status', 1)->get();
+        $existingGallery = TravelGallery::with(['travel', 'gallery'])
+                                        ->where('travel_id', $request->get('travel_id'))
+                                        ->where('gallery_id', '<>', $request->get('gallery_id'))
+                                        ->get(); 
+        
         $galleries = Gallery::where('status', 1)->get();
 
         if (!$selectedCollage) {
             return redirect()->route('wisata.gallery.index')
-                             ->with('error', 'The selected collage with travel_id ' . $request->get('travel_id') . ' and gallery_id ' . $request->get('gallery_id') . ' was not found.');
+                             ->with('error', 'The selected collage with travel_id and gallery_id  was not found.');
         }
     
-        return view('wisata.gallery.edit', compact('travels', 'galleries', 'selectedCollage'));
+        return view('wisata.gallery.edit', compact('galleries', 'selectedCollage', 'existingGallery'));
     }
     
     
@@ -201,37 +203,97 @@ class TravelController extends Controller
      * Update the specified resource in storage for pivot table travel_gallery.
      */
     public function updateTravelGallery(Request $request)
-    {
-        $request->validate([
-            'travel_id' => 'required|integer',
-            'gallery_id' => 'required|integer',
-            'name_collage' => 'required|string',
-            'status' => 'required|integer',
-            'new_travels' => 'nullable|array', 
-            'new_travels.*' => 'integer|exists:travels,id',
-            'new_photos' => 'nullable|array', // Validate photos as an array
-            'new_photos.*' => 'integer|exists:galleries,id', // Ensure each photo ID exists in the gallery
-        ]);
+{
+    $request->validate([
+        'travel_id' => 'required|integer',
+        'gallery_id' => 'required|array', // Ensure old gallery IDs are provided as an array
+        'gallery_id.*' => 'integer|exists:galleries,id', // Ensure each old gallery ID exists
+        'name_collage' => 'required|string',
+        'status' => 'required|integer',
+        'new_photos' => 'nullable|array', // Validate new photos as an array
+        'new_photos.*' => 'integer|exists:galleries,id', // Ensure each new photo ID exists
+    ]);
 
-        TravelGallery::where('travel_id', $request->get('travel_id'))
-                    ->where('gallery_id', $request->get('gallery_id'))
-                    ->update([
-                        'name_collage' => $request->get('name_collage'),
-                        'status' => $request->get('status'),
-                        'updated_at' => now(),
-                    ]);
+    try {
+        $travelId = $request->get('travel_id');
+        $oldGalleryIds = $request->get('gallery_id');
+        $nameCollage = $request->get('name_collage');
+        $status = $request->get('status');
+        $newGalleryIds = $request->get('new_photos', []);
+        if (!empty($newGalleryIds)) {
+              // Ensure that the old and new gallery IDs are integers
+                $oldGalleryIds = array_map('intval', $oldGalleryIds);
+                $newGalleryIds = array_map('intval', $newGalleryIds);
 
-        return redirect()->route('wisata.gallery.index')->with('success', 'Foto di Wisata berhasil diubah! ');
+                // Step 1: Find the galleries that need to be removed
+                // Remove galleries that are in the old data but not in the new data
+                $galleryIdsToRemove = array_diff($oldGalleryIds, $newGalleryIds);
+
+
+                // Delete the galleries that need to be removed
+                if (!empty($galleryIdsToRemove)) {
+                    TravelGallery::where('travel_id', $travelId)
+                                ->whereIn('gallery_id', $galleryIdsToRemove)
+                                ->delete();
+                }
+
+                // Step 2: Add the new gallery ids that aren't already in the database
+                $existingGalleryIds = TravelGallery::where('travel_id', $travelId)
+                                                ->whereIn('gallery_id', $newGalleryIds)
+                                                ->pluck('gallery_id')
+                                                ->toArray();
+
+                // Find the new gallery IDs that don't exist in the database
+                $filteredNewGalleryIds = array_diff($newGalleryIds, $existingGalleryIds);
+
+            // Insert the new gallery records
+            foreach ($filteredNewGalleryIds as $galleryId) {
+                TravelGallery::create([
+                    'travel_id' => $travelId,
+                    'gallery_id' => $galleryId,
+                    'name_collage' => $nameCollage,
+                    'status' => $status,
+                    'updated_at' => now(),
+                    'created_at' => now(),
+                ]);
+            }
+        } else {
+            // If no new photos, update existing records with new details
+            TravelGallery::where('travel_id', $travelId)
+                         ->whereIn('gallery_id', $oldGalleryIds)
+                         ->update([
+                             'name_collage' => $nameCollage,
+                             'status' => $status,
+                             'updated_at' => now(),
+                         ]);
+        }
+    
+        return redirect()->route('wisata.gallery.index')->with('success', 'Data kolase berhasil diperbarui!');
+    } catch (\Exception $e) {
+        return redirect()->route('wisata.gallery.edit', [
+            'travel_id' => $request->get('travel_id'),
+            'gallery_id' => $oldGalleryIds
+        ])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
     }
-    public function deleteTravelGallery($gallery, $travel)
-    {
+    
+}
+
+public function deleteTravelGallery($gallery, $travel)
+{
+    try {
+        // Update all matching records to status 0
         TravelGallery::where('travel_id', $travel)
-                    ->where('gallery_id', $gallery)
-                    ->update([
-                        'status' => 0,
-                        'updated_at' => now(),
-                    ]);
-        return redirect()->route('wisata.gallery.index')->with('success', 'Foto di Wisata berhasil dinonaktifkan!');
+            ->where('gallery_id', $gallery)
+            ->update([
+                'status' => 0,
+                'updated_at' => now(),
+            ]);
+
+        return redirect()->route('wisata.gallery.index')->with('success', 'Kolase berhasil dinonaktifkan!');
+    } catch (\Exception $e) {
+        return redirect()->route('wisata.gallery.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
     }
+}
+
 }
 
