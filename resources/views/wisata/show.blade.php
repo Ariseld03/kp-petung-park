@@ -9,10 +9,10 @@
     <div class="kategori-wisata">
         <div class="kategori-header">
             <a href="{{ route('wisata') }}" class="btn-kembali">Kembali</a>
-            <h2>{{ $travel->name }}</h2>
+            <h2>{{ $spot->name }}</h2>
         </div>
         <div class="wisata-container">
-            <p>{{ $travel->description }}</p>
+            <p>{{ $spot->description }}</p>
         </div>
 
         <!-- Galeri -->
@@ -50,7 +50,7 @@
                     const likeCount = button.querySelector('#like-count');
                     let currentLikes = parseInt(likeCount.textContent);
                     const galleryId = button.dataset.galleryId;
-                    const travelId = "{{ $travel->id }}";
+                    const travelId = "{{ $spot->id }}";
 
                     // Send request to toggle like in the backend
                     fetch(`/wisata/like/${galleryId}`, {

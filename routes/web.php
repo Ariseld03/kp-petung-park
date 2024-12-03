@@ -87,30 +87,29 @@ Route::post('/admin/galeri/edit/{gallery}', [GalleryController::class, 'update']
 Route::delete('/admin/galeri/{gallery}', [GalleryController::class, 'destroy'])->name('galeri.destroy');
 
 // Hidangan
-Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('hidangan.show');
-Route::post('/hidangan/{menu}/like', [MenuController::class, 'like'])->name('hidangan.like');
+Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('menu.hidangan.show');
+Route::post('/hidangan/{menu}/like', [MenuController::class, 'like'])->name('menu.hidangan.like');
 // Admin CRUD Hidangan
-Route::get('/admin/hidangan', [MenuController::class, 'index'])->name('hidangan.index');
-Route::get('/admin/hidangan/add', [MenuController::class, 'add'])->name('hidangan.add');
-Route::post('/admin/hidangan/add', [MenuController::class, 'store'])->name('hidangan.store');
-Route::get('/admin/hidangan/edit/{hidangan}', [MenuController::class, 'edit'])->name('hidangan.edit');
-Route::post('/admin/hidangan/edit/{hidangan}', [MenuController::class, 'update'])->name('hidangan.update');
-Route::delete('/admin/hidangan/{hidangan}', [MenuController::class, 'delete'])->name('hidangan.delete');
+Route::get('/admin/menu', [MenuController::class, 'index'])->name('menu.index');
+Route::get('/admin/hidangan/add', [MenuController::class, 'add'])->name('menu.hidangan.add');
+Route::post('/admin/hidangan/add', [MenuController::class, 'store'])->name('menu.hidangan.store');
+Route::get('/admin/hidangan/edit/{hidangan}', [MenuController::class, 'edit'])->name('menu.hidangan.edit');
+Route::post('/admin/hidangan/edit/{hidangan}', [MenuController::class, 'update'])->name('menu.hidangan.update');
+Route::delete('/admin/hidangan/{hidangan}', [MenuController::class, 'delete'])->name('menu.hidangan.delete');
 
 // Kategori
 Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
 Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
 
 // Paket
-Route::get('/paket/{id}', [PackageController::class, 'show'])->name('paket.show');
-Route::post('/paket/{id}/like', [PackageController::class, 'like'])->name('paket.like');
+Route::get('/paket/{id}', [PackageController::class, 'show'])->name('menu.menu.paket.show');
+Route::post('/paket/{id}/like', [PackageController::class, 'like'])->name('menu.paket.like');
 // Admin CRUD Paket
-Route::get('/admin/paket', [PacketController::class, 'index'])->name('paket.index');
-Route::get('/admin/paket/add', [PacketController::class, 'add'])->name('paket.add');
-Route::post('/admin/paket/add', [PacketController::class, 'store'])->name('paket.store');
-Route::get('/admin/paket/edit/{paket}', [PacketController::class, 'edit'])->name('paket.edit');
-Route::post('/admin/paket/edit/{paket}', [PacketController::class, 'update'])->name('paket.update');
-Route::delete('/admin/paket/{paket}', [PacketController::class, 'delete'])->name('paket.delete');
+Route::get('/admin/paket/add', [PackageController::class, 'add'])->name('menu.paket.add');
+Route::post('/admin/paket/add', [PackageController::class, 'store'])->name('menu.paket.store');
+Route::get('/admin/paket/edit/{package}', [PackageController::class, 'edit'])->name('menu.paket.edit');
+Route::post('/admin/paket/edit/{package}', [PackageController::class, 'update'])->name('menu.paket.update');
+Route::delete('/admin/paket/{package}', [PackageController::class, 'delete'])->name('menu.paket.delete');
 
 // Kegiatan
 // Admin CRUD Kegiatan

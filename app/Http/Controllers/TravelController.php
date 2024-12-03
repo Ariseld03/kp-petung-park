@@ -14,8 +14,8 @@ class TravelController extends Controller
      */
     public function index()
     {
-        $wisatas = Travel::all();
-        return view('wisata.index', compact('wisatas'));
+        $spots = Travel::all();
+        return view('wisata.index', compact('spots'));
     }
 
     /**
@@ -69,7 +69,7 @@ class TravelController extends Controller
      */
     public function show($id)
 {
-    $travel = Travel::findOrFail($id);
+    $spot = Travel::findOrFail($id);
     
     // Mengambil data gallery yang berhubungan dengan travel ini
     $galleries = TravelGallery::where('travel_id', $id)
@@ -79,7 +79,7 @@ class TravelController extends Controller
     ->pluck('gallery'); 
 
 
-    return view('wisata.show', compact('travel', 'galleries'));
+    return view('wisata.show', compact('spot', 'galleries'));
 }
 
 
@@ -143,9 +143,9 @@ class TravelController extends Controller
     }
      public function addTravelGallery()
     {
-        $travels = Travel::where('status', 1)->get();
+        $spots = Travel::where('status', 1)->get();
         $galleries = Gallery::where('status', 1)->get();
-        return view('wisata.gallery.add', compact('travels', 'galleries'));
+        return view('wisata.gallery.add', compact('spots', 'galleries'));
     }
 
     /**

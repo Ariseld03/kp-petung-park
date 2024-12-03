@@ -8,7 +8,7 @@
     <div class="kategori-wisata">
         <!-- Kategori Header for Paket -->
         <div class="kategori-header">
-            <a href="{{ url('wisata') }}" class="btn-kembali">Kembali</a>
+            <a href="{{ route('wisata') }}" class="btn-kembali">Kembali</a>
             <h2 id="text_{{$paket->id}}">{{ $paket->name }}</h2>
         </div>
 

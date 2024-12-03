@@ -21,9 +21,9 @@
                 <label for="travel_id"> Pilih Wisata :</label>
                 <select class="form-control" id="travel_id" name="travel_id">
                     <option value="" disabled selected>Pilih Wisata</option>
-                    @foreach($spots as $spot)
-                        <option value="{{ $spot->id }}">
-                            {{ $spot->name }}
+                    @foreach($travels as $travel)
+                        <option value="{{ $travel->id }}">
+                            {{ $travel->name }}
                         </option>
                     @endforeach
                 </select>

@@ -23,45 +23,45 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($wisatas as $wisata)
+                @foreach($spots as $spot)
                 <tr>
-                    <td>{{ $wisata->name }}</td>
-                    <td>{{ $wisata->description }}</td>
-                    <td>{{ $wisata->status == 1 ? 'Aktif' : 'Nonaktif' }}</td>
-                    <td>{{ $wisata->number_love }}</td>
+                    <td>{{ $spot->name }}</td>
+                    <td>{{ $spot->description }}</td>
+                    <td>{{ $spot->status == 1 ? 'Aktif' : 'Nonaktif' }}</td>
+                    <td>{{ $spot->number_love }}</td>
                     <td>
-                    @if ($wisata->galleries->isNotEmpty())
-                        @foreach ($wisata->galleries as $gallery)
+                    @if ($spot->galleries->isNotEmpty())
+                        @foreach ($spot->galleries as $gallery)
                             <img src="{{ asset($gallery->photo_link) }}" alt="Foto" style="max-width: 100px;">
                         @endforeach
                     @else
                         Tidak ada foto
                     @endif
                     </td>
-                    <td>{{ $wisata->created_at->format('d-m-Y') }}</td>
-                    <td>{{ $wisata->updated_at->format('d-m-Y') }}</td>
+                    <td>{{ $spot->created_at->format('d-m-Y') }}</td>
+                    <td>{{ $spot->updated_at->format('d-m-Y') }}</td>
                     <td>
-                        <a href="{{ route('wisata.edit', $wisata->id) }}" class="btn btn-primary">Perbarui</a>
+                        <a href="{{ route('wisata.edit', $spot->id) }}" class="btn btn-primary">Perbarui</a>
                     </td>
                     <td>
-                         <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $wisata->id }}, {{ $wisata->status }})">
+                         <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $spot->id }}, {{ $spot->status }})">
                             Nonaktif
                         </button>
-                        <div class="modal fade" id="hapusModal-{{ $wisata->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $wisata->id }}" aria-hidden="true">
+                        <div class="modal fade" id="hapusModal-{{ $spot->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $spot->id }}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="hapusModalLabel-{{ $wisata->id }}">Konfirmasi Nonaktif</h5>
+                                        <h5 class="modal-title" id="hapusModalLabel-{{ $spot->id }}">Konfirmasi Nonaktif</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body" id="modalMessage-{{ $wisata->id }}">
+                                    <div class="modal-body" id="modalMessage-{{ $spot->id }}">
                                         Apakah Anda yakin ingin mengubah status data ini?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                        <form action="{{ route('wisata.delete', $wisata->id) }}" method="POST" id="nonaktifForm-{{ $wisata->id }}">
+                                        <form action="{{ route('wisata.delete', $spot->id) }}" method="POST" id="nonaktifForm-{{ $spot->id }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Nonaktifkan</button>

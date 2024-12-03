@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use App\Models\Category;
+use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,8 +15,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::all();
-        return view('hidangan.index', compact('menus'));
+        $packages = Package::all();
+        $menus= Menu::all();
+        return view('menu.index', compact('packages','menus'));
     }
 
     /**
@@ -23,7 +25,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('hidangan.create');
+        return view('menu.hidangan.create');
     }
 
     /**
@@ -42,7 +44,7 @@ class MenuController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('hidangan.add')->withErrors($validator)->withInput();
+            return redirect()->route('menu.hidangan.add')->withErrors($validator)->withInput();
         }
 
         $menu = Menu::create([
@@ -56,7 +58,7 @@ class MenuController extends Controller
             'staff_email' => $request->staff_email,
         ]);
 
-        return redirect()->route('hidangan.index')->with('success', 'Menu berhasil ditambahkan!');
+        return redirect()->route('menu.hidangan.index')->with('success', 'Menu berhasil ditambahkan!');
     }
 
     /**
@@ -65,13 +67,13 @@ class MenuController extends Controller
     public function show(string $id)
     {
         $menu = Menu::findOrFail($id);
-        return view('hidangan.show', compact('menu'));
+        return view('menu.hidangan.show', compact('menu'));
     }
 
     public function showMenuAllPengguna()
     {
         $menus = Menu::where('status', 1)->get();
-        return view('hidangan.show', compact('menus'));
+        return view('menu.hidangan.show', compact('menus'));
     }
 
     public function cariMenuDariId($id)
@@ -81,7 +83,7 @@ class MenuController extends Controller
                     ->findOrFail($id); // This will throw a 404 if the menu is not found
     
         // Return a view with the menu data
-        return view('hidangan.show', compact('menu')); // Pass the menu object to the view
+        return view('menu.hidangan.show', compact('menu')); // Pass the menu object to the view
     }
     public function like(Request $request, $menuId)
     {
@@ -111,7 +113,7 @@ class MenuController extends Controller
     public function edit(string $id)
     {
         $menu = Menu::findOrFail($id);
-        return view('hidangan.edit', compact('menu'));
+        return view('menu.hidangan.edit', compact('menu'));
     }
 
     /**
@@ -146,7 +148,7 @@ class MenuController extends Controller
             'staff_email' => $request->staff_email,
         ]);
 
-        return redirect()->route('hidangan.index')->with('success', 'Menu berhasil Diupdate!');
+        return redirect()->route('menu.hidangan.index')->with('success', 'Menu berhasil Diupdate!');
     }
 
     /**
@@ -157,7 +159,7 @@ class MenuController extends Controller
         $menu = Menu::findOrFail($id);
         $menu->status=0;
         $menu->save();
-        return redirect()->route('hidangan.index')->with('success', 'Menu berhasil dihapus!');
+        return redirect()->route('menu.hidangan.index')->with('success', 'Menu berhasil dihapus!');
     }
 }
 

@@ -77,13 +77,10 @@
                             <a class="nav-link" href="{{ route('galeri.index') }}">Galeri</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('hidangan.index') }}">Menu/Hidangan</a>
+                            <a class="nav-link" href="{{ route('menu.index') }}">Menu/Hidangan</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('kategori.index') }}">Kategori</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('paket.index') }}">Paket</a>
                         </li>
                     </ul>
 

@@ -9,10 +9,7 @@ class Package extends Model
 {
     protected $table = 'packages';
     use HasFactory;
-    // public function menus()
-    // {
-    //     return $this->belongsToMany(Menu::class, 'package_menus', 'package_id', 'menu_id');
-    // }
+    protected $fillable = ['name', 'description', 'price', 'status', 'number_love', 'gallery_id'];
     public function menus()
     {
         return $this->belongsToMany(Menu::class, 'package_menus', 'package_id', 'menu_id');            
