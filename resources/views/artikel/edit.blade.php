@@ -1,41 +1,37 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> <!-- Menghubungkan Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('css/wisataUpdate.css') }}"> <!-- Menghubungkan file CSS -->
-    <title>Update Wisata</title>
-</head>
-<body>
+@extends('layouts.mainAdmin')
+
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('css/wisataUpdate.css') }}">
+@endsection
+
+@section('content')
     <div class="container mt-5">
-        <h1 class="judul">Update Wisata</h1>
-        <form>
+        <h1 class="judul">Update Artikel</h1>
+        <form action="{{ route('artikel.update', $artikel->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+
             <div class="form-group">
-                <label for="nama">Nama Wisata:</label>
-                <input type="text" class="form-control" id="nama" name="nama" required>
+                <label for="title">Judul:</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ $artikel->title }}" required>
             </div>
 
             <div class="form-group">
-                <label for="deskripsi">Deskripsi:</label>
-                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" required></textarea>
+                <label for="content">Konten:</label>
+                <textarea class="form-control" id="content" name="content" rows="4" required>{{ $artikel->content }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
-                    <option value="aktif">Aktif</option>
-                    <option value="nonaktif">Nonaktif</option>
+                    <option value="aktif" {{ $artikel->status == '1' ? 'selected' : '' }}>Aktif</option>
+                    <option value="nonaktif" {{ $artikel->status == '0' ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
 
-            <button type="button" class="btn btn-success" onclick="location.href='{{ url('/wisataStaff') }}'">Simpan</button>
-            <button type="button" class="btn btn-secondary" onclick="location.href='{{ url('/wisataStaff') }}'">Kembali</button>
+            <button type="submit" class="btn btn-success">Simpan</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='{{ url('/artikelStaff') }}'">Kembali</button>
         </form>
     </div>
+@endsection
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>

@@ -19,7 +19,7 @@ class GalleryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function add()
     {
         return view('galeri.add');
     }
@@ -34,14 +34,13 @@ class GalleryController extends Controller
             'name' => 'required|string|max:255',
             'photo' => 'required|image|mimes:jpg,jpeg,png|max:10240', // Validate the file upload
             'description' => 'nullable|longtext',
-            'status' => 'required|in:0,1',
         ]);
     
         // If validation passes, save the gallery data
         $gallery = new Gallery;
         $gallery->name = $request->input('name');
         $gallery->description = $request->input('description');
-        $gallery->status = $request->input('status');
+        $gallery->status = 1;
         $gallery->number_love = 0;
         $extension = $request->file('photo')->getClientOriginalExtension();
         
@@ -113,7 +112,7 @@ class GalleryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Gallery $gallery)
+    public function delete(Gallery $gallery)
     {
         $gallery->status=0;
         $gallery->travels()->status=0;

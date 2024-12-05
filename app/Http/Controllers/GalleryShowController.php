@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\SliderHome;
 use App\Models\Generic;
+use App\Models\Gallery;
 
 class GalleryShowController extends Controller
 {
@@ -53,15 +54,16 @@ class GalleryShowController extends Controller
     
     public function index()
     {
-        $galleryShows = GalleryShow::all();
-        return view('beranda', compact('galleryShows'));
+        $shows = GalleryShow::all();
+        return view('galeri.show.index', compact('shows'));
     }
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function add()
     {
-        return view('gallery-shows.create');
+        $galleries= Gallery::where('status', 1)->get();
+        return view('galeri.show.add', compact('galleries'));
     }
 
     /**
@@ -71,16 +73,18 @@ class GalleryShowController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'status' => 'required|integer',
-            'gallery_id' => 'required|integer|exists:galleries,id',
+            'photos' => 'required|array',
+            'photos.*' => 'integer|exists:galleries,id',
         ]);
 
-        GalleryShow::create([
-            'name' => $request->input('name'),
-            'status' => $request->input('status'),
-            'gallery_id' => $request->input('gallery_id'),
-        ]);
-        return redirect()->route('galleryShows.index')->with('success', 'Tampilan Galeri berhasil ditambahkan!');
+        foreach ($request->input('galleries') as $gallery_id) {
+            GalleryShow::create([
+                'name' => $request->input('name'),
+                'status' => 1,
+                'gallery_id' => $gallery_id,
+            ]);
+        }
+        return redirect()->route('galeri.show.index')->with('success', 'Tampilan Galeri berhasil ditambahkan!');
     }
 
     /**
@@ -88,15 +92,23 @@ class GalleryShowController extends Controller
      */
     public function show(GalleryShow $galleryShow)
     {
-        return view('galleryShows.show', compact('galleryShow'));
+        return view('galeri.show', compact('galleryShow'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(GalleryShow $galleryShow)
+    public function edit($gallery)
     {
-        return view('galleryShows.edit', compact('galleryShow'));
+        $show = GalleryShow::find($gallery);
+
+        if (!$show || Gallery::where('status', 1)->where('id', $show->gallery_id)->doesntExist()) {
+            $galleries = Gallery::where('status', 1)->get();
+        } else {
+            $galleries = Gallery::where('status', 1)->whereNotIn('id', [$show->gallery_id])->get();
+        }
+
+        return view('galeri.show.edit', compact('show', 'galleries'));
     }
 
     /**
@@ -107,26 +119,36 @@ class GalleryShowController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'status' => 'required|integer',
-            'gallery_id' => 'required|integer|exists:galleries,id',
+            'photos' => 'nullable|array', 
+            'photos.*' => 'integer|exists:galleries,id', 
         ]);
-        
-        $galleryShow->name = $request->input('name');
-        $galleryShow->status = $request->input('status');
-        $galleryShow->gallery_id = $request->input('gallery_id');
-        $galleryShow->save();
-
-        return redirect()->route('galleryShows.index')->with('success', 'Tampilan Galeri berhasil diperbarui!');
+        $galleryIds= $request->get('photos');
+        if (!is_null($galleryIds) && !empty($galleryIds)) {
+            foreach($galleryIds as $galleryId){
+                $galleryShow->name = $request->input('name');
+                $galleryShow->status = $request->input('status');
+                $galleryShow->gallery_id = $galleryId;
+                $galleryShow->updated_at = now();
+                $galleryShow->saveQuietly();
+            }
+        } else {
+            $galleryShow->name = $request->input('name');
+            $galleryShow->status = $request->input('status');
+            $galleryShow->updated_at = now();
+            $galleryShow->saveQuietly();
+        }
+        return redirect()->route('galeri.show.index')->with('success', 'Tampilan Galeri berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(GalleryShow $galleryShow)
+    public function delete($gallery)
     {
+        $galleryShow= GalleryShow::findorFail($gallery);
         $galleryShow->status=0;
         $galleryShow->save();
-
-        return redirect()->route('galleryShows.index')->with('success', 'Tampilan Galeri berhasil dihapus!');
+        return redirect()->route('galeri.show.index')->with('success', 'Tampilan Galeri berhasil dinonaktifkan!');
     }
 }
 

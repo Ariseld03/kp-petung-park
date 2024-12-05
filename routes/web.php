@@ -81,10 +81,26 @@ Route::post('/galeri/{id}/like', [GalleryController::class, 'like'])->name('gall
 // Admin CRUD Galeri
 Route::get('/admin/galeri', [GalleryController::class, 'index'])->name('galeri.index');
 Route::post('/admin/galeri/add', [GalleryController::class, 'store'])->name('galeri.store');
-Route::get('/admin/galeri/add', [GalleryController::class, 'create'])->name('galeri.add');
+Route::get('/admin/galeri/add', [GalleryController::class, 'add'])->name('galeri.add');
 Route::get('/admin/galeri/edit/{gallery}', [GalleryController::class, 'edit'])->name('galeri.edit');
 Route::post('/admin/galeri/edit/{gallery}', [GalleryController::class, 'update'])->name('galeri.update');
-Route::delete('/admin/galeri/{gallery}', [GalleryController::class, 'destroy'])->name('galeri.destroy');
+Route::delete('/admin/galeri/{gallery}', [GalleryController::class, 'delete'])->name('galeri.delete');
+
+//Admin CRUD Galeri Show 
+Route::get('/admin/galeri-show', [GalleryShowController::class, 'index'])->name('galeri.show.index');
+Route::post('/admin/galeri-show/add', [GalleryShowController::class, 'store'])->name('galeri.show.store');
+Route::get('/admin/galeri-show/add', [GalleryShowController::class, 'add'])->name('galeri.show.add');
+Route::get('/admin/galeri-show/edit/{gallery}', [GalleryShowController::class, 'edit'])->name('galeri.show.edit');
+Route::post('/admin/galeri-show/edit/{gallery}', [GalleryShowController::class, 'update'])->name('galeri.show.update');
+Route::delete('/admin/galeri-show/{gallery}', [GalleryShowController::class, 'delete'])->name('galeri.show.delete');
+
+//Admin CRUD Galeri Slider 
+Route::get('/admin/galeri-slider', [SliderHomeController::class, 'index'])->name('galeri.slider.index');
+Route::post('/admin/galeri-slider/add', [SliderHomeController::class, 'store'])->name('galeri.slider.store');
+Route::get('/admin/galeri-slider/add', [SliderHomeController::class, 'add'])->name('galeri.slider.add');
+Route::get('/admin/galeri-slider/edit/{gallery}', [SliderHomeController::class, 'edit'])->name('galeri.slider.edit');
+Route::post('/admin/galeri-slider/edit/{gallery}', [SliderHomeController::class, 'update'])->name('galeri.slider.update');
+Route::delete('/admin/galeri-slider/{gallery}', [SliderHomeController::class, 'delete'])->name('galeri.slider.delete');
 
 // Hidangan
 Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('menu.hidangan.show');

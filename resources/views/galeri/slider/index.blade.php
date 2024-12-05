@@ -1,21 +1,20 @@
 @extends('layouts.mainAdmin')
 
 @section('page-css')
-    <link rel="stylesheet" href="{{ asset('css/wisataStaff.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/galeri.css') }}">
 @endsection
 
-@section ('content')
+@section('content')
     <div class="container mt-5">
-        <h1 class="text-center" style="color: #557C56;">Daftar Artikel</h1>
-        <a href="{{ route('artikel.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Artikel</a>
+        <h1 class="text-center" style="color: #557C56;">Home Slider</h1>
+        <a href="{{ route('galeri.slider.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Foto</a>
+
         <table class="table table-bordered">
-            <thead class="thead-dark">
+            <thead class="thead-dark" style="background-color: #557C56; color: #FFFBE6;">
                 <tr>
-                    <th>Judul</th>
-                    <th>Konten</th>
+                    <th>Nama</th>
+                    <th>Foto</th>
                     <th>Status</th>
-                    <th>Jumlah Like</th>
-                    <th>Gambar</th>
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Diubah</th>
                     <th>Perbarui</th>
@@ -23,45 +22,38 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($artikels as $artikel)
+            @foreach ($sliders as $slider)
                 <tr>
-                    <td>{{ $artikel->title }}</td>
-                    <td>{{ Str::limit($artikel->content, 50) }}</td>
-                    <td>{{ $artikel->status == 1 ? 'Aktif' : 'Nonaktif' }}</td>
-                    <td>{{ $artikel->likes_count }}</td>
+                    <td>{{ $slider->name }}</td>
+                    <td><img src="{{ asset($slider->gallery->photo_link) }}" alt="Foto slider 1" style="max-width: 100px;"></td>
+                    <td>{{ $slider->status == 1 ? 'Aktif' : 'Nonaktif' }}</td>
+                    <td>{{ $slider->created_at }}</td>
+                    <td>{{ $slider->updated_at }}</td>
                     <td>
-                    @if ($artikel->images->isNotEmpty())
-                        @foreach ($artikel->images as $image)
-                            <img src="{{ asset($image->path) }}" alt="Foto" style="max-width: 100px;">
-                        @endforeach
-                    @else
-                        Tidak ada foto
-                    @endif
-                    </td>
-                    <td>{{ $artikel->created_at->format('d-m-Y') }}</td>
-                    <td>{{ $artikel->updated_at->format('d-m-Y') }}</td>
-                    <td>
-                        <a href="{{ route('artikel.edit', $artikel->id) }}" class="btn btn-primary">Perbarui</a>
+                        <a href="{{ route('galeri.slider.edit', ['gallery' => $slider]) }}" class="btn btn-primary">Perbarui</a>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $artikel->id }}, {{ $artikel->status }})">
+                        <!-- Button to trigger the nonaktif modal check -->
+                        <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $slider->id }}, {{ $slider->status }})">
                             Nonaktif
                         </button>
-                        <div class="modal fade" id="hapusModal-{{ $artikel->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $artikel->id }}" aria-hidden="true">
+
+                        <!-- Modal for nonaktif confirmation -->
+                        <div class="modal fade" id="hapusModal-{{ $slider->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $slider->id }}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="hapusModalLabel-{{ $artikel->id }}">Konfirmasi Nonaktif</h5>
+                                        <h5 class="modal-title" id="hapusModalLabel-{{ $slider->id }}">Konfirmasi Nonaktif</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body" id="modalMessage-{{ $artikel->id }}">
+                                    <div class="modal-body" id="modalMessage-{{ $slider->id }}">
                                         Apakah Anda yakin ingin mengubah status data ini?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                        <form action="{{ route('artikel.destroy', $artikel->id) }}" method="POST" id="nonaktifForm-{{ $artikel->id }}">
+                                        <form action="{{ route('galeri.slider.delete', $slider->id) }}" method="POST" id="nonaktifForm-{{ $slider->id }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Nonaktifkan</button>
@@ -72,7 +64,7 @@
                         </div>
                     </td>
                 </tr>
-                @endforeach
+            @endforeach
             </tbody>
         </table>
     </div>
@@ -80,18 +72,23 @@
 
 @section('page-js')
     <script>
-        function handleNonaktif(artikelId, status) {
-            var modalMessage = document.getElementById('modalMessage-' + artikelId);
-            var nonaktifForm = document.getElementById('nonaktifForm-' + artikelId);
+        // Function to handle the nonaktif process
+        function handleNonaktif(galleryId, status) {
+            var modalMessage = document.getElementById('modalMessage-' + galleryId);
+            var nonaktifForm = document.getElementById('nonaktifForm-' + galleryId);
             
             if (status === 0) {
-                modalMessage.innerHTML = "Artikel ini sudah nonaktif.";
+                // If the gallery is already nonaktif, show a custom message in the modal and prevent form submission
+                modalMessage.innerHTML = "slider ini sudah nonaktif.";
                 nonaktifForm.querySelector("button[type='submit']").disabled = true; // Disable the submit button
             } else {
+                // If the gallery is active, proceed to the normal nonaktif process
                 modalMessage.innerHTML = "Apakah Anda yakin ingin mengubah status data ini?";
                 nonaktifForm.querySelector("button[type='submit']").disabled = false; // Enable the submit button
             }
-            $('#hapusModal-' + artikelId).modal('show');
+
+            // Show the modal
+            $('#hapusModal-' + galleryId).modal('show');
         }
 
         $(document).ready(function() {
