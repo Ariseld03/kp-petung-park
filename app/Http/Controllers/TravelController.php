@@ -208,12 +208,12 @@ class TravelController extends Controller
 {
     $request->validate([
         'travel_id' => 'required|integer',
-        'gallery_id' => 'required|array', // Ensure old gallery IDs are provided as an array
-        'gallery_id.*' => 'integer|exists:galleries,id', // Ensure each old gallery ID exists
+        'gallery_id' => 'required|array', 
+        'gallery_id.*' => 'integer|exists:galleries,id', 
         'name_collage' => 'required|string',
         'status' => 'required|integer',
-        'new_photos' => 'nullable|array', // Validate new photos as an array
-        'new_photos.*' => 'integer|exists:galleries,id', // Ensure each new photo ID exists
+        'new_photos' => 'nullable|array',
+        'new_photos.*' => 'integer|exists:galleries,id', 
     ]);
 
     try {

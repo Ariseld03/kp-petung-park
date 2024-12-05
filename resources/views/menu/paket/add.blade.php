@@ -21,20 +21,30 @@
             </div>
 
             <div class="form-group">
-                <label for="recommendation">Rekomendasi:</label>
-                <select class="form-control" id="recommendation" name="recommendation">
-                    <option value="1">Ya</option>
-                    <option value="0">Tidak</option>
+                <label for="menus">Menu:</label>
+                <select class="form-control" id="menus" name="menus[]" multiple required>
+                    @foreach ($menus as $menu)
+                        <option value="{{$menu->id}}" data-img-src="{{ asset($menu->gallery->photo_link) }}">{{$menu->name}}</option>
+                    @endforeach
                 </select>
+                <br>
+                <div id="preview-menus" class="text-center">
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="menu">Menu:</label>
-                <select class="form-control" id="menu" name="menu_id[]" multiple>
-                    @foreach ($menus as $menu)
-                        <option value="{{$menu->id}}">{{$menu->name}}</option>
+                <label for="photo">Foto:</label>
+                <select class="form-control" id="photo" name="photo" required>
+                    <option value="" selected disabled>Pilih Foto Paket</option>
+                    @foreach($galleries as $gallery)
+                        <option value="{{ $gallery->id }}" data-img-src="{{ asset($gallery->photo_link) }}">
+                            {{ $gallery->name }}
+                        </option>
                     @endforeach
                 </select>
+                <br>
+                <div id="preview-photo" class="text-center">
+                </div>
             </div>
 
             <div class="text-center">
@@ -46,5 +56,36 @@
 @endsection
 
 @section('page-js')
+<script>
+    document.getElementById('menus').addEventListener('change', function() {
+        var previewContainer = document.getElementById('preview-menus');
+        previewContainer.innerHTML = ''; // Clear previous previews
 
+        Array.from(this.selectedOptions).forEach(option => {
+            var imgSrc = option.dataset.imgSrc;
+            if (imgSrc) {
+                var imgElement = document.createElement('img');
+                imgElement.src = imgSrc;
+                imgElement.style.maxWidth = '100px';
+                imgElement.style.margin = '5px';
+                previewContainer.appendChild(imgElement);
+            }
+        });
+    });
+    document.getElementById('photo').addEventListener('change', function() {
+        var previewContainer = document.getElementById('preview-photo');
+        previewContainer.innerHTML = ''; // Clear previous previews
+
+        Array.from(this.selectedOptions).forEach(option => {
+            var imgSrc = option.dataset.imgSrc;
+            if (imgSrc) {
+                var imgElement = document.createElement('img');
+                imgElement.src = imgSrc;
+                imgElement.style.maxWidth = '100px';
+                imgElement.style.margin = '5px';
+                previewContainer.appendChild(imgElement);
+            }
+        });
+    });
+</script>
 @endsection

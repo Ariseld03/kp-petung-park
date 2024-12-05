@@ -130,9 +130,9 @@ class GallerySeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Paket Hemat Makanan 5-6 Orang',
-                'photo_link' => $makanan . 'pakethemat.jpg',
-                'description' => 'Hidangan lengkap dan lezat yang cocok untuk dinikmati bersama keluarga atau teman.',
+                'name' => 'Pisang Coklat',
+                'photo_link' => $makanan . 'pisangCoklat.jpg',
+                'description' => 'Pisang coklat yang lembut dan manis dengan pelengkap seperti gula dan cokelat, cocok untuk camilan sehari-hari.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),

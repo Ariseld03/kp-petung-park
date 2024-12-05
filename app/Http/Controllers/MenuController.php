@@ -154,12 +154,12 @@ class MenuController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete(string $id)
     {
         $menu = Menu::findOrFail($id);
         $menu->status=0;
         $menu->save();
-        return redirect()->route('menu.hidangan.index')->with('success', 'Menu berhasil dihapus!');
+        return redirect()->route('menu.index')->with('success', true);
     }
 }
 

@@ -7,6 +7,8 @@ use App\Models\PackageMenu;
 use App\Models\Travel;
 use App\Models\Category;
 use App\Models\Menu;
+use App\Models\Gallery;
+use App\Models\TravelGallery;
 use Illuminate\Support\Facades\Validator;
 
 class PackageController extends Controller
@@ -18,7 +20,10 @@ class PackageController extends Controller
     public function add()
     {
         $menus = Menu::where('status', 1)->get();
-        return view('menu.paket.add', compact('menus'));
+        $galleries = Gallery::where('status', 1)
+                            ->where('name', 'like', '%paket%')
+                            ->get();
+        return view('menu.paket.add', compact('menus','galleries'));
     }
 
     public function store(Request $request)
@@ -26,16 +31,37 @@ class PackageController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'price' => 'required|double',
-            'status' => 'required|integer',
+            'status' => 'required|integer|in:0,1',
+            'menus' => 'required|array',
+            'menus.*' => 'integer|exists:menus,id', 
+            'photos' => 'required|array',
+            'photos.*' => 'integer|exists:galleries,id', 
         ]);
-        $package = Package::create([
-            'name' => $request->name,
-            'price' => $request->price,
-            'status' => $request->status,
-            'number_love' => 0,
-        ]);
-
-        return redirect()->route('menu.paket.index')->with('success', 'Paket berhasil ditambahkan!');
+        
+        $packagePhotos = $request->get('gallery_id'); 
+        $menus = $request->get('menus'); 
+        $galleryId = $request->get('photo');      
+            $package = new Package([
+                'name' => $request->name,
+                'price' => $request->price,
+                'status' => 1,
+                'number_love' => 0,
+                'gallery_id' => $galleryId,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            $package->save();
+        foreach($menus as $menu){
+            $menu = Menu::findOrFail($menu);
+            $travelGallery = new PackageMenu([
+                'package_id' => $package->id,
+                'menu_id' => $menu->id,
+                'menu_category_id' => $menu->category->id,
+                'status' => 1,
+            ]);
+            $travelGallery->save();
+        }
+        return redirect()->route('menu.index')->with('success', 'Paket berhasil ditambahkan!');
     }
 
     public function show($id)
@@ -53,7 +79,10 @@ class PackageController extends Controller
     public function edit($id)
     {
         $package = Package::findOrFail($id);
-        return view('menu.paket.edit', compact('package'));
+        $galleries = Gallery::where('status', 1)
+        ->where('name', 'like', '%paket%')
+        ->get();
+        return view('menu.paket.edit', compact('package', 'galleries'));
     }
 
     public function update(Request $request, Package $package)
@@ -63,8 +92,15 @@ class PackageController extends Controller
             'price' => 'required|double',
             'status' => 'required|integer',
             'number_love' => 'nullable|integer',
+            'new_photo' => 'nullable|integer|exists:galleries,id',
         ]);
+
         $package = Package::findOrFail($package->id);
+
+        if ($request->has('new_photo')) {
+            $package->gallery_id = $request->new_photo;
+        }
+
         $package->update([
             'name' => $request->name,
             'price' => $request->price,
@@ -73,15 +109,17 @@ class PackageController extends Controller
             'update_date' => now(),
         ]);
 
+        $package->save();
+
         return redirect()->route('menu.index')->with('success', 'Paket berhasil diupdate!');
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         $package = Package::findOrFail($id);
         $package->status = 0;
         $package->save();
-        return redirect()->route('menu.paket.index')->with('success', 'Paket berhasil dinonaktifkan!');
+        return redirect()->route('menu.index')->with('success', true);;
     }
 
     // M to M package_menus

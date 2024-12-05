@@ -63,7 +63,6 @@ class ArticleController extends Controller
     {
         $articles = Article::where('status', 1)->get();
         return view('artikel', compact('artikel'));
-        // return view('articles.show', compact('article'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -83,7 +82,7 @@ class ArticleController extends Controller
             'main_content' => 'required|date',
             'status' => 'required|date',
             'number_love' => 'nullable|integer',
-            'staff_email' => 'required|email|exists:staffs,email',
+            'user_id' => 'required|email|exists:users,id',
             'agenda_id' => 'required|exists:agendas,id',
         ]);
         try {
@@ -128,7 +127,6 @@ class ArticleController extends Controller
             'updated_at' => now(),
         ]);
         return redirect()->route('articles.index')->with('success', 'Foto di Artikel Berhasil Ditambah!');
-        // response()->json(['success' => true, 'message' => 'Gallery added successfully.']);
     }
 
     /**

@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('packages', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->double('price', 15, 2);
-            $table->tinyinteger('status')->default(0); 
-            $table->integer('number_love')->nullable();
-            $table->timestamps();
+        Schema::table('package_menus', function (Blueprint $table) {
+            $table->tinyinteger('status')->default(0);
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('packages');
+        Schema::table('package_menus', function (Blueprint $table) {
+            $table->dropColumn('status');
+        });
     }
 };

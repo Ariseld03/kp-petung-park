@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longtext('description');
-            $table->double('price');
+            $table->double('price', 15, 2);
             $table->tinyinteger('status')->default(0);
             $table->tinyinteger('status_recommended')->default(0);
             $table->integer('number_love')->nullable();

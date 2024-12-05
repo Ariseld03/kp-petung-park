@@ -20,7 +20,6 @@
             <div class="form-group">
                 <label for="photos">Foto:</label>
                 <select class="form-control" id="photos" name="photos[]" multiple>
-                    <option value="" disabled>Pilih Foto</option>
                     @foreach($galleries as $gallery)
                         <option value="{{ $gallery->id }}" data-img-src="{{ asset($gallery->photo_link) }}">
                             {{ $gallery->name }}
