@@ -27,16 +27,17 @@
             </div>
 
             <div class="form-group">
-                <label for="photo">Foto Saat Ini:</label>
+                <label for="old_photo">Foto Saat Ini:</label>
                 <div class="col-md-4">
-                    <img src="{{ asset($gallery->photo_link) }}" id="old_photo" alt="Foto sebelumnya" style="max-width: 100px;">
+                    <img src="{{ asset($gallery->photo_link) }}" id="old_photo" name = "old_photo" alt="Foto sebelumnya" style="max-width: 100px;">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-8">
-                    <input type="file" class="form-control-file" id="photo" name="photo" accept=".jpg, .jpeg, .png">
-                    @error('photo')
+                <label for="file">Upload Foto Baru:</label>
+                    <input type="file" class="form-control-file" id="file" name="file" accept=".jpg, .jpeg, .png">
+                    @error('file')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
                 </div>
@@ -74,4 +75,6 @@
         </form>
     </div>
 </body>
+@endsection
+@section('page-js')
 @endsection

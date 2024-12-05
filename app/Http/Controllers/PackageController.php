@@ -56,7 +56,6 @@ class PackageController extends Controller
             $travelGallery = new PackageMenu([
                 'package_id' => $package->id,
                 'menu_id' => $menu->id,
-                'menu_category_id' => $menu->category->id,
                 'status' => 1,
             ]);
             $travelGallery->save();
@@ -125,21 +124,19 @@ class PackageController extends Controller
     // M to M package_menus
     public function createMenuPackage(Request $request)
     {
-        return view('menu.paket.addGallery', compact('package'));
+        return view('menu.menupaket.add', compact('package'));
     }
 
     public function storeMenuPackage(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'menu_id' => 'required|integer|exists:menus,id',
-            'menu_category_id' => 'required|integer|exists:menu_categories,id',
             'package_id' => 'required|integer|exists:packages,id',
             'name' => 'required|string|max:255',
             'status' => 'required|integer',
         ]);
         PackageMenu::create([
             'menu_id' => $request->menu_id,
-            'menu_category_id' => $request->menu_category_id,
             'package_id' => $request->package_id,
             'name' => $request->name,
             'status' => $request->status,
@@ -147,14 +144,18 @@ class PackageController extends Controller
             'update_date' => now(),
         ]);
 
-        return redirect()->route('menu.paket.index')->with('success', 'Paket Menu berhasil ditambahkan.');
+        return redirect()->route('menu.menupaket.index')->with('success', 'Paket Menu berhasil ditambahkan.');
     }
-
+    public function editMenuPackage($id)
+    {
+        $packageMenu = PackageMenu::findOrFail($id);
+        $menus = Menu::where('status', 1)->get();
+        return view('menu.menupaket.edit', compact('packageMenu', 'menus'));
+    }
     public function updateMenuPackage(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'menu_id' => 'required|integer|exists:menus,id',
-            'menu_category_id' => 'required|integer|exists:menu_categories,id',
             'package_id' => 'required|integer|exists:packages,id',
             'name' => 'required|string|max:255',
             'status' => 'required|integer',
@@ -162,20 +163,19 @@ class PackageController extends Controller
         $packageMenu = PackageMenu::findOrFail($id);
         $packageMenu->update([
             'menu_id' => $request->menu_id,
-            'menu_category_id' => $request->menu_category_id,
             'package_id' => $request->package_id,
             'name' => $request->name,
             'status' => $request->status,
             'update_date' => now(),
         ]);
 
-        return redirect()->route('menu.paket.index')->with('success', 'Paket Menu berhasil diupdate.');
+        return redirect()->route('menu.menupaket.index')->with('success', 'Paket Menu berhasil diupdate.');
     }
 
     public function destroyPackageMenu(Package $package)
     {
         PackageMenu::where('package_id', $package->id)->where('status', 1)->update(['status' => 0]);
-        return redirect()->route('menu.paket.index')->with('success', 'Paket Menu berhasil dihapus!');
+        return redirect()->route('menu.menupaket.index')->with('success', 'Paket Menu berhasil dihapus!');
     }
 
     //Tambahan 
@@ -185,22 +185,6 @@ class PackageController extends Controller
         $wisata = Travel::where('status', 1)->get();
         $kategori = Category::where('status', 1)->get();
         return view('wisata', compact('wisata', 'paket', 'kategori'));
-    }
-
-    public function addLike($id)
-    {
-        $paket = Package::findOrFail($id);
-        $paket->number_love += 1;
-        $paket->save();
-        return redirect()->route('menu.paket.index')->with('success', 'Terimakasih atas apresiasi Anda terhadap paket ini!');
-    }
-
-    public function removeLike($id)
-    {
-        $paket = Package::findOrFail($id);
-        $paket->number_love -= 1;
-        $paket->save();
-        return redirect()->route('menu.paket.index')->with('success', 'Apresiasi Anda terhadap paket ini telah dicabut!');
     }
     
     public function like(Request $request, $id)

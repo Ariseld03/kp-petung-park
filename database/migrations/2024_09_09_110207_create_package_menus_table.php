@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('package_menus', function (Blueprint $table) {
             $table->unsignedBigInteger('package_id');
             $table->unsignedBigInteger('menu_id');
-            $table->unsignedBigInteger('menu_category_id');
 
             // Add timestamps if you need created_at and updated_at columns
             $table->timestamps();
@@ -22,9 +21,8 @@ return new class extends Migration
             // Define foreign key constraints
             // $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
-            $table->foreign('menu_category_id')->references('category_id')->on('menus')->onDelete('cascade');
 
-            $table->primary(['package_id', 'menu_id','menu_category_id']);
+            $table->primary(['package_id', 'menu_id']);
         });
     }
 
@@ -34,10 +32,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('package_menus', function (Blueprint $table) {
-            $table->dropPrimary(['menu_id','package_id','menu_category_id']);
+            $table->dropPrimary(['menu_id','package_id']);
             $table->dropForeign(['menu_id']);
-            $table->dropForeign(['menu_category_id']);
-            $table->dropColumn(['menu_id','package_id','menu_category_id']);
+            $table->dropColumn(['menu_id','package_id']);
         });
         Schema::dropIfExists('package_menus');
     }

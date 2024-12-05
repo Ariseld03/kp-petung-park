@@ -9,6 +9,17 @@ class Menu extends Model
 {
     use HasFactory;
     protected $table = 'menus';
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'status',
+        'status_recommended',
+        'number_love',
+        'category_id',
+        'user_id',
+        'gallery_id'
+    ];
     public function user()
     {
         return $this->belongsTo(Staff::class, 'user_id', 'id');
@@ -25,11 +36,5 @@ class Menu extends Model
     public function packages()
     {
         return $this->belongsToMany(Package::class, 'package_menus', 'menu_id', 'package_id');
-    }
-    
-    // Define the many-to-many relationship with MenuCategory if needed
-    public function menuCategories()
-    {
-        return $this->belongsToMany(MenuCategory::class, 'package_menus', 'menu_id', 'menu_category_id');
     }
 }

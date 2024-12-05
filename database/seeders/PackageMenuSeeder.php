@@ -35,7 +35,6 @@ class PackageMenuSeeder extends Seeder
             [
                 'package_id' => $packageIds[0],
                 'menu_id' => $menuIds[4],
-                'menu_category_id' => $menuCategoryIds[1],
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -43,7 +42,6 @@ class PackageMenuSeeder extends Seeder
             [
                 'package_id' => $packageIds[0],
                 'menu_id' => $menuIds[7],
-                'menu_category_id' => $menuCategoryIds[2],
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -51,7 +49,6 @@ class PackageMenuSeeder extends Seeder
             [
                 'package_id' => $packageIds[0],
                 'menu_id' => $menuIds[8],
-                'menu_category_id' => $menuCategoryIds[3],
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -59,7 +56,6 @@ class PackageMenuSeeder extends Seeder
             [
                 'package_id' => $packageIds[0],
                 'menu_id' => $menuIds[9],
-                'menu_category_id' => $menuCategoryIds[3],
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -69,7 +65,6 @@ class PackageMenuSeeder extends Seeder
             [
                 'package_id' => $packageIds[1],
                 'menu_id' => $menuIds[4],
-                'menu_category_id' => $menuCategoryIds[1],
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -77,7 +72,6 @@ class PackageMenuSeeder extends Seeder
             [
                 'package_id' => $packageIds[1],
                 'menu_id' => $menuIds[7],
-                'menu_category_id' => $menuCategoryIds[2],
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -85,7 +79,6 @@ class PackageMenuSeeder extends Seeder
             [
                 'package_id' => $packageIds[1],
                 'menu_id' => $menuIds[8],
-                'menu_category_id' => $menuCategoryIds[3],
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -93,7 +86,6 @@ class PackageMenuSeeder extends Seeder
             [
                 'package_id' => $packageIds[1],
                 'menu_id' => $menuIds[9],
-                'menu_category_id' => $menuCategoryIds[3],
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),

@@ -86,12 +86,12 @@ class GalleryController extends Controller
             'status' => 'required|in:0,1',
             'description' => 'nullable|string',
             'number_love' => 'nullable|integer',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
+            'file' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
         ]);
         $gallery->name = $request->input('name');
         $gallery->status = $request->input('status');
         $gallery->number_love = $request->input('number_love');
-        if ($request->hasFile('photo')) {
+        if ($request->hasFile('file')) {
             // Get the file extension
             $extension = $request->file('photo')->getClientOriginalExtension();
             
@@ -103,7 +103,7 @@ class GalleryController extends Controller
             
             // Save the file path to the database with public path (this is where it will be accessed in the URL)
             $gallery->photo_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL
-        }        
+        }     
         $gallery->description = $request->input('description');
         $gallery->save();
 

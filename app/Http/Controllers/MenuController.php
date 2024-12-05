@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\User;
+use App\Models\Gallery;
 use App\Models\Category;
 use App\Models\Package;
 use Illuminate\Http\Request;
@@ -23,9 +25,12 @@ class MenuController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return view('menu.hidangan.create');
+    public function add()
+    {       
+        $categories = Category::where('status', 1)->get();
+        $users = User::where('status', 1)->get();
+        $galleries = Gallery::where('status', 1)->get();
+        return view('menu.hidangan.add', compact('categories', 'users', 'galleries'));
     }
 
     /**
@@ -38,27 +43,24 @@ class MenuController extends Controller
             'description' => 'required|string',
             'price' => 'required|double',
             'status' => 'required|integer',
-            'status_recommend' => 'required|integer',
+            'recommendation' => 'required|integer',
             'category_id' => 'required|integer|exists:categories,id',
-            'staff_email' => 'required|email|exists:staffs,email',
+            'user_id' => 'required|email|exists:users,id',
+            'gallery_id' => 'required|integer|exists:galleries,id',
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->route('menu.hidangan.add')->withErrors($validator)->withInput();
-        }
-
         $menu = Menu::create([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
-            'status' => $request->status,
-            'status_recommend' => $request->status_recommend,
+            'status' => 1,
+            'status_recommended' => $request->recommendation,
             'number_love' => 0,
             'category_id' => $request->category_id,
-            'staff_email' => $request->staff_email,
+            'user_id' => $request->user_id,
+            'gallery_id' => $request->gallery_id,
         ]);
 
-        return redirect()->route('menu.hidangan.index')->with('success', 'Menu berhasil ditambahkan!');
+        return redirect()->route('menu.index')->with('success', 'Menu berhasil ditambahkan!');
     }
 
     /**
@@ -78,13 +80,12 @@ class MenuController extends Controller
 
     public function cariMenuDariId($id)
     {
-        // Retrieve the menu with the given ID
-        $menu = Menu::with('category') // Eager load the related category
-                    ->findOrFail($id); // This will throw a 404 if the menu is not found
+        $menu = Menu::with('category')
+                    ->findOrFail($id);
     
-        // Return a view with the menu data
-        return view('menu.hidangan.show', compact('menu')); // Pass the menu object to the view
+        return view('menu.hidangan.show', compact('menu'));
     }
+
     public function like(Request $request, $menuId)
     {
         $menu = Menu::findOrFail($menuId);
@@ -107,13 +108,17 @@ class MenuController extends Controller
     
         return response()->json(['number_love' => $menu->number_love]);
     }
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
         $menu = Menu::findOrFail($id);
-        return view('menu.hidangan.edit', compact('menu'));
+        $categories = Category::where('status', 1)->get();
+        $users = User::where('status', 1)->get();
+        $galleries = Gallery::where('status', 1)->get();
+        return view('menu.hidangan.edit', compact('menu', 'categories', 'users', 'galleries'));
     }
 
     /**
@@ -124,32 +129,33 @@ class MenuController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|double',
-            'status' => 'required|integer',
-            'status_recommend' => 'required|integer',
-            'number_love' => 'nullable|integer',
+            'price' => 'required|numeric',
+            'status' => 'required|integer|in:1,0',
+            'recommendation' => 'required|integer',
+            'number_love' => 'required|integer',
             'category_id' => 'required|integer|exists:categories,id',
-            'staff_email' => 'required|email|exists:staffs,email',
+            'user_id' => 'required|integer|exists:users,id',
+            'gallery_id' => 'required|integer|exists:galleries,id',
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->route('menu.edit', $id)->withErrors($validator)->withInput();
-        }
-
+    
         $menu = Menu::findOrFail($id);
+    
+        // Update menu fields first
         $menu->update([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
             'status' => $request->status,
-            'status_recommend' => $request->status_recommend,
+            'status_recommended' => $request->recommendation,
             'number_love' => $request->number_love,
             'category_id' => $request->category_id,
-            'staff_email' => $request->staff_email,
+            'user_id' => $request->user_id,
+            'gallery_id' => $request->gallery_id,
+            'update_date' => now(),
         ]);
-
-        return redirect()->route('menu.hidangan.index')->with('success', 'Menu berhasil Diupdate!');
+        return redirect()->route('menu.index')->with('success', 'Menu berhasil Diupdate!');
     }
+    
 
     /**
      * Remove the specified resource from storage.

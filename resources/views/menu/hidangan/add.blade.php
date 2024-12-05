@@ -1,53 +1,71 @@
+@extends('layouts.main')
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('/css/hidanganAdd.css') }}">
+@endsection
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> <!-- Menghubungkan Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('css/hidanganAdd.css') }}"> <!-- Menghubungkan file CSS -->
     <title>Tambah Hidangan</title>
 </head>
 <body>
     <div class="container mt-5">
         <h1 class="text-center text-success">Tambah Hidangan</h1>
-        <form action="{{ url('/hidanganStore') }}" method="post" enctype="multipart/form-data">
-            @csrf <!-- Token untuk melindungi dari CSRF -->
-            
+        <form action="{{ route('menu.hidangan.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
             <div class="form-group">
-                <label for="nama">Nama Hidangan:</label>
-                <input type="text" class="form-control" id="nama" name="nama" required>
+                <label for="name">Nama Hidangan:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
             </div>
-
             <div class="form-group">
-                <label for="harga">Harga:</label>
-                <input type="number" class="form-control" id="harga" name="harga" required>
+                <label for="description">Deskripsi:</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
             </div>
-
             <div class="form-group">
-                <label for="status">Status:</label>
-                <select class="form-control" id="status" name="status">
-                    <option value="1">Aktif</option>
-                    <option value="0">Tidak Aktif</option>
-                </select>
+                <label for="price">Harga:</label>
+                <input type="number" class="form-control" id="price" name="price" value="{{ old('price') }}" required>
             </div>
-
             <div class="form-group">
-                <label for="rekomendasi">Rekomendasi:</label>
-                <select class="form-control" id="rekomendasi" name="rekomendasi">
+                <label for="recommendation">Rekomendasi:</label>
+                <select class="form-control" id="recommendation" name="recommendation" required>
                     <option value="1">Ya</option>
                     <option value="0">Tidak</option>
                 </select>
             </div>
+    
+            <div class="form-group">
+                <label for="user_id">User:</label>
+                <select class="form-control" id="user_id" name="user_id" required>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
+            <div class="form-group">
+                <label for="category_id">Kategori:</label>
+                <select class="form-control" id="category_id" name="category_id" required>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="gallery_id">Foto:</label>
+                <select class="form-control" id="gallery_id" name="gallery_id" required>
+                    @foreach($galleries as $gallery)
+                        <option value="{{ $gallery->id }}" data-img-src="{{ asset($gallery->photo_link) }}">{{ $gallery->name }}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='{{ url('/menu') }}'">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('menu.index') }}'">Batal</button>
             </div>
         </form>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
