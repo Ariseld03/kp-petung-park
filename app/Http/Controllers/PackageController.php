@@ -15,6 +15,8 @@ class PackageController extends Controller
 {
     public function index()
     {
+        $packages = Package::all();
+        return view('menu.paket.index', compact('packages'));
     }
 
     public function add()
@@ -122,7 +124,11 @@ class PackageController extends Controller
     }
 
     // M to M package_menus
-    public function createMenuPackage(Request $request)
+    public function indexMenuPackage(){
+        $packagemenus = PackageMenu::with('menu')->get();
+        return view('menu.menupaket.index', compact('packagemenus'));
+    }
+    public function addMenuPackage()
     {
         return view('menu.menupaket.add', compact('package'));
     }
@@ -148,26 +154,82 @@ class PackageController extends Controller
     }
     public function editMenuPackage($id)
     {
-        $packageMenu = PackageMenu::findOrFail($id);
+        $packageMenus = PackageMenu::with('menu')->where('package_id', $id)->get();
         $menus = Menu::where('status', 1)->get();
-        return view('menu.menupaket.edit', compact('packageMenu', 'menus'));
+        return view('menu.menupaket.edit', compact('packageMenus', 'menus', 'id')); // Pass $id (package_id) to the view
     }
+    
     public function updateMenuPackage(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'menu_id' => 'required|integer|exists:menus,id',
+            'menu_id' => 'required|array', 
+            'menu_id.*' => 'integer|exists:menus,id', 
             'package_id' => 'required|integer|exists:packages,id',
-            'name' => 'required|string|max:255',
             'status' => 'required|integer',
+            'new_menus' => 'nullable|array',
+            'new_menus.*' => 'integer|exists:menus,id',
         ]);
-        $packageMenu = PackageMenu::findOrFail($id);
-        $packageMenu->update([
-            'menu_id' => $request->menu_id,
-            'package_id' => $request->package_id,
-            'name' => $request->name,
-            'status' => $request->status,
-            'update_date' => now(),
-        ]);
+
+        try {
+            $packageId = $request->get('package_id');
+            $oldGalleryIds = $request->get('gallery_id');
+            $status = $request->get('status');
+            $newGalleryIds = $request->get('new_menus', []);
+            if (!empty($newGalleryIds)) {
+                  // Ensure that the old and new gallery IDs are integers
+                    $oldGalleryIds = array_map('intval', $oldGalleryIds);
+                    $newGalleryIds = array_map('intval', $newGalleryIds);
+    
+                    // Step 1: Find the galleries that need to be removed
+                    // Remove galleries that are in the old data but not in the new data
+                    $galleryIdsToRemove = array_diff($oldGalleryIds, $newGalleryIds);
+    
+    
+                    // Delete the galleries that need to be removed
+                    if (!empty($galleryIdsToRemove)) {
+                        TravelGallery::where('package_id', $packageId)
+                                    ->whereIn('gallery_id', $galleryIdsToRemove)
+                                    ->delete();
+                    }
+    
+                    // Step 2: Add the new gallery ids that aren't already in the database
+                    $existingGalleryIds = TravelGallery::where('package_id', $packageId)
+                                                    ->whereIn('gallery_id', $newGalleryIds)
+                                                    ->pluck('gallery_id')
+                                                    ->toArray();
+    
+                    // Find the new gallery IDs that don't exist in the database
+                    $filteredNewGalleryIds = array_diff($newGalleryIds, $existingGalleryIds);
+    
+                // Insert the new gallery records
+                foreach ($filteredNewGalleryIds as $galleryId) {
+                    TravelGallery::create([
+                        'package_id' => $packageId,
+                        'gallery_id' => $galleryId,
+                        'name_collage' => $nameCollage,
+                        'status' => $status,
+                        'updated_at' => now(),
+                        'created_at' => now(),
+                    ]);
+                }
+            } else {
+                // If no new photos, update existing records with new details
+                TravelGallery::where('package_id', $packageId)
+                             ->whereIn('gallery_id', $oldGalleryIds)
+                             ->update([
+                                 'name_collage' => $nameCollage,
+                                 'status' => $status,
+                                 'updated_at' => now(),
+                             ]);
+            }
+        
+            return redirect()->route('wisata.gallery.index')->with('success', 'Data kolase berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return redirect()->route('wisata.gallery.edit', [
+                'package_id' => $request->get('package_id'),
+                'gallery_id' => $oldGalleryIds
+            ])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
 
         return redirect()->route('menu.menupaket.index')->with('success', 'Paket Menu berhasil diupdate.');
     }

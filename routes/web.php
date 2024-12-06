@@ -126,6 +126,13 @@ Route::post('/admin/paket/add', [PackageController::class, 'store'])->name('menu
 Route::get('/admin/paket/edit/{package}', [PackageController::class, 'edit'])->name('menu.paket.edit');
 Route::post('/admin/paket/edit/{package}', [PackageController::class, 'update'])->name('menu.paket.update');
 Route::delete('/admin/paket/{package}', [PackageController::class, 'delete'])->name('menu.paket.delete');
+//Paket Menu
+Route::get('/admin/paket-menu', [PackageController::class, 'indexMenuPackage'])->name('menu.menupaket.index');
+Route::get('/admin/paket-menu/add', [PackageController::class, 'addMenuPackage'])->name('menu.menupaket.add');
+Route::post('/admin/paket-menu/add', [PackageController::class, 'storeMenuPackage'])->name('menu.menupaket.store');
+Route::get('/admin/paket-menu/edit/{packagemenu}', [PackageController::class, 'editMenuPackage'])->name('menu.menupaket.edit');
+Route::post('/admin/paket-menu/edit/{packagemenu}', [PackageController::class, 'updateMenuPackage'])->name('menu.menupaket.update');
+Route::delete('/admin/paket-menu/{packagemenu}', [PackageController::class, 'deleteMenuPackage'])->name('menu.menupaket.delete');
 
 // Kegiatan
 // Admin CRUD Kegiatan

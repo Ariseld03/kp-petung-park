@@ -3,12 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PackageMenu extends Pivot
-{
-    // You can add any additional methods or properties here if needed
+{   
+    use HasFactory;
     protected $table = 'package_menus';
+    public function package()
+    {
+        return $this->belongsTo(Package::class, 'package_id');
+    }
 
-    // Optional: Specify any additional fields that should be mass assignable
-    protected $fillable = ['package_id', 'menu_id', 'status', 'created_at', 'updated_at'];
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class, 'menu_id');
+    }
+
 }
