@@ -50,52 +50,73 @@
                             <td>{{ $package->updated_at->format('d-m-Y') }}</td>
 
                             {{-- Update Button --}}
-                            <td>
-                                <form action="{{ route('menu.menupaket.edit', ['packagemenu' => $package->package->id]) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary">Perbarui</button>
-                                </form>
+                            <td>                            
+                                <button class="btn btn-primary" onclick="location.href='{{ route('menu.menupaket.edit', ['packagemenu' => $package->package->id]) }}'">Perbarui</button>
                             </td>
-
-                            {{-- Deactivate Button --}}
                             <td>
                                 <button type="button" 
-                                        class="btn btn-danger" 
-                                        data-toggle="modal" 
-                                        data-target="#hapusModal-{{ $package->id }}">
+                                        class="btn btn-danger"  
+                                        onclick="handleNonaktif({{ $package->package->id }}, {{ $package->status }})">
                                     Nonaktif
                                 </button>
-                            </td>
-                        </tr>
-
-                        {{-- Modal for Deactivation --}}
-                        <div class="modal fade" id="hapusModal-{{ $package->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $package->id }}" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="hapusModalLabel-{{ $package->id }}">Konfirmasi Nonaktif</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Apakah Anda yakin ingin mengubah status data ini?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                        <form action="{{ route('wisata.gallery.delete', ['packagemenu' => $package->package->id]) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger">Nonaktifkan</button>
-                                        </form>
+                                {{-- Modal for Deactivation --}}
+                                <div class="modal fade" id="hapusModal-{{ $package->package->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $package->package->id }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="hapusModalLabel-{{ $package->package->id }}">Konfirmasi Nonaktif</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p id="modalMessage-{{ $package->package->id }}">Apakah Anda yakin ingin mengubah status data ini?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                <form action="{{ route('menu.menupaket.delete', ['packagemenu' => $package->package->id]) }}" method="POST" id="nonaktifForm-{{ $package->package->id }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Nonaktifkan</button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </td>
+                        </tr>
                     @endif
                 @endforeach
             </tbody>
-
         </table>
     </div>
 @endsection
 
+@section('page-js')
+    <script>
+       function handleNonaktif(packageId, status) {
+        // Ensure elements exist before manipulating them
+        var modalMessage = document.getElementById('modalMessage-' + packageId);
+        var nonaktifForm = document.getElementById('nonaktifForm-' + packageId);
+
+        if (modalMessage && nonaktifForm) {
+            if (status === 0) {
+                modalMessage.innerHTML = "Paket ini sudah nonaktif.";
+                nonaktifForm.querySelector("button[type='submit']").disabled = true; // Disable the submit button
+            } else {
+                modalMessage.innerHTML = "Apakah Anda yakin ingin mengubah status data ini?";
+                nonaktifForm.querySelector("button[type='submit']").disabled = false; // Enable the submit button
+            }
+            $('#hapusModal-' + packageId).modal('show'); // Show the modal
+        } else {
+            console.error("Modal or form elements are missing for package ID:", packageId);
+        }
+    }
+
+    $(document).ready(function () {
+        @if(session('success'))
+            $('#BerhasilModal').modal('show');
+        @endif
+    });
+    </script>
+@endsection

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PackageMenu extends Pivot
 {   
-    use HasFactory;
+    // use HasFactory;
     protected $table = 'package_menus';
     public function package()
     {

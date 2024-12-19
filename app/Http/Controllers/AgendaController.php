@@ -25,9 +25,9 @@ class AgendaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function add()
     {
-        return view('kegiatan.create'); // Return view with form to create new agenda
+        return view('kegiatan.add'); // Return view with form to create new agenda
     }
 
     /**

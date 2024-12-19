@@ -3,15 +3,16 @@
     <div class="container mt-5">
         <h1 class="judul" style = "text-align: center;">Update Menu Paket</h1>
         <form action="{{ route('menu.menupaket.update', ['packagemenu' => $id]) }}" method="POST">
-        <input type="hidden" name="menu_id[]" value="{{ $packageMenus->menu->id }}">
             @csrf
             @method('POST')
             <div class="form-group">
                 <label name="current_menu_name">Menu Saat Ini :</label>
                 <div class="col-md-4 align-items-center justify-content-center" style="flex-wrap: wrap;">
-                    @if ($packageMenus && $packageMenus->isNotEmpty())
+                    @if ($packageMenus)
                         @foreach($packageMenus as $packageMenu)
-                            @if ($packageMenu->menu && $packageMenu->menu->gallery)
+                        <input type="hidden" name="package_id" value="{{ $packageMenu->package->id }}">
+                        <input type="hidden" name="menu_id[]" value="{{ $packageMenu->menu->id }}">
+                            @if ($packageMenu->menu->gallery)
                                 <ul style="list-style: none; padding: 0; margin: 0;">
                                     <li style="margin: 10px; display: flex; align-items: center;">
                                         <img src="{{ asset($packageMenu->menu->gallery->photo_link) }}" width="50" height="50" style="object-fit: cover; margin-right: 10px;" alt="Foto Menu">
@@ -37,8 +38,8 @@
             </div>
 
             <div class="form-group">
-                <label for="new_photos">Foto Baru:</label>
-                <select class="form-control" id="new_photos" name="new_photos[]" multiple>
+                <label for="new_menus">Ganti Menu Baru:</label>
+                <select class="form-control" id="new_menus" name="new_menus[]" multiple>
                     <option value="" disabled>Pilih Foto</option>
                     @if(!empty($menus) && is_iterable($menus))
                         @foreach($menus as $menu)

@@ -26,7 +26,7 @@ return new class extends Migration
     {
         // Recreate the 'staffs' table
         Schema::create('staffs', function (Blueprint $table) {
-            $table->string('email')->primary();
+            $table->string('email');
             $table->string('name');
             $table->string('password');
             $table->date('date_of_birth');

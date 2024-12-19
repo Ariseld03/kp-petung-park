@@ -1,40 +1,31 @@
 @extends('layouts.mainAdmin')
 @section('page-css')
-    <link rel="stylesheet" href="{{ asset('css/wisataAdd.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/paketAdd.css') }}">
 @endsection
 @section('content')
     <div class="container mt-5">
-        <h1 class="text-center text-success">Tambah Galeri Wisata</h1>
-        <form action="{{ route('wisata.gallery.store') }}" method="post" enctype="multipart/form-data">
+        <h1 class="text-center text-success">Tambah Galeri Paket Menu</h1>
+        <form action="{{ route('menu.menupaket.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="form-group">
-                <label for="name_collage">Nama Kolase :</label>
-                <input type="text" class="form-control" id="name_collage" name="name_collage" required>
-            </div>
-
-            <div class="form-group">
-                <label for="description">Deskripsi:</label>
-                <textarea class="form-control" id="description" name="description" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="travel_id"> Pilih Wisata :</label>
-                <select class="form-control" id="travel_id" name="travel_id">
-                    <option value="" disabled selected>Pilih Wisata</option>
-                    @foreach($spots as $spot)
-                        <option value="{{ $spot->id }}">
-                            {{ $spot->name }}
+                <label for="package_id"> Pilih Paket :</label>
+                <select class="form-control" id="package_id" name="package_id">
+                    <option value="" disabled selected>Pilih Paket</option>
+                    @foreach($packages as $package)
+                        <option value="{{ $package->id }}">
+                            {{ $package->name }}
                         </option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label for="photos">Galeri:</label>
-                <select class="form-control" id="photos" name="photos[]" multiple>
-                    <option value="" disabled>Pilih Foto</option>
-                    @foreach($galleries as $gallery)
-                        <option value="{{ $gallery->id }}" data-img-src="{{ asset($gallery->photo_link) }}">
-                            {{ $gallery->name }}
+                <label for="menus">Menu:</label>
+                <select class="form-control" id="menus" name="menus[]" multiple>
+                    <option value="" disabled>Pilih Menu</option>
+                    @foreach($menus as $menu)
+                        <option value="{{ $menu->id }}" data-img-src="{{ asset($menu->gallery->photo_link) }}">
+                            {{ $menu->name }}
                         </option>
                     @endforeach
                 </select>
@@ -45,7 +36,7 @@
 
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('wisata.gallery.index') }}'">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('menu.menupaket.index') }}'">Batal</button>
             </div>
         </form>
     </div>
@@ -53,7 +44,7 @@
 
 @section('page-js')
 <script>
-    document.getElementById('photos').addEventListener('change', function() {
+    document.getElementById('menus').addEventListener('change', function() {
         var previewContainer = document.getElementById('preview-photos');
         previewContainer.innerHTML = ''; // Clear previous previews
 

@@ -130,36 +130,49 @@ class PackageController extends Controller
     }
     public function addMenuPackage()
     {
-        return view('menu.menupaket.add', compact('package'));
+        $packages = Package::where('status', 1)->get();
+        $menus = Menu::where('status', 1)->get();
+        return view('menu.menupaket.add', compact('packages', 'menus'));
     }
 
     public function storeMenuPackage(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'menu_id' => 'required|integer|exists:menus,id',
+            'menus' => 'required|array', 
+            'menus.*' => 'integer|exists:menus,id', 
             'package_id' => 'required|integer|exists:packages,id',
-            'name' => 'required|string|max:255',
-            'status' => 'required|integer',
-        ]);
-        PackageMenu::create([
-            'menu_id' => $request->menu_id,
-            'package_id' => $request->package_id,
-            'name' => $request->name,
-            'status' => $request->status,
-            'create_date' => now(),
-            'update_date' => now(),
         ]);
 
+        $existingMenus = PackageMenu::where('package_id', $request->package_id)
+                                    ->pluck('menu_id')
+                                    ->toArray();
+
+        $newMenus = array_diff($request->menus, $existingMenus);
+
+        if (count($newMenus) == 0) {
+            return redirect()->back()->with('error', 'Data sudah ada!');
+        }
+
+        foreach ($newMenus as $menuId) {
+            PackageMenu::create([
+                'menu_id' => $menuId,
+                'package_id' => $request->package_id,
+                'status' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
         return redirect()->route('menu.menupaket.index')->with('success', 'Paket Menu berhasil ditambahkan.');
-    }
+    }   
     public function editMenuPackage($id)
     {
-        $packageMenus = PackageMenu::with('menu')->where('package_id', $id)->get();
+        $packageMenus = PackageMenu::with(['package','menu'])->where('package_id', $id)->get();
         $menus = Menu::where('status', 1)->get();
-        return view('menu.menupaket.edit', compact('packageMenus', 'menus', 'id')); // Pass $id (package_id) to the view
+        return view('menu.menupaket.edit', compact('packageMenus', 'menus', 'id'));
     }
     
-    public function updateMenuPackage(Request $request, $id)
+    public function updateMenuPackage(Request $request, $packagemenu)
     {
         $validator = Validator::make($request->all(), [
             'menu_id' => 'required|array', 
@@ -172,72 +185,69 @@ class PackageController extends Controller
 
         try {
             $packageId = $request->get('package_id');
-            $oldGalleryIds = $request->get('gallery_id');
+            $oldMenuIds = $request->get('menu_id');
             $status = $request->get('status');
-            $newGalleryIds = $request->get('new_menus', []);
-            if (!empty($newGalleryIds)) {
-                  // Ensure that the old and new gallery IDs are integers
-                    $oldGalleryIds = array_map('intval', $oldGalleryIds);
-                    $newGalleryIds = array_map('intval', $newGalleryIds);
+            $newMenuIds = $request->get('new_menus', []);
+            if (!empty($newMenuIds)) {
+                  // Ensure that the old and new Menu IDs are integers
+                    $oldMenuIds = array_map('intval', $oldMenuIds);
+                    $newMenuIds = array_map('intval', $newMenuIds);
     
                     // Step 1: Find the galleries that need to be removed
                     // Remove galleries that are in the old data but not in the new data
-                    $galleryIdsToRemove = array_diff($oldGalleryIds, $newGalleryIds);
+                    $menuIdsToRemove = array_diff($oldMenuIds, $newMenuIds);
     
     
                     // Delete the galleries that need to be removed
-                    if (!empty($galleryIdsToRemove)) {
-                        TravelGallery::where('package_id', $packageId)
-                                    ->whereIn('gallery_id', $galleryIdsToRemove)
+                    if (!empty($menuIdsToRemove)) {
+                        PackageMenu::where('package_id', $packageId)
+                                    ->whereIn('menu_id', $menuIdsToRemove)
                                     ->delete();
                     }
     
-                    // Step 2: Add the new gallery ids that aren't already in the database
-                    $existingGalleryIds = TravelGallery::where('package_id', $packageId)
-                                                    ->whereIn('gallery_id', $newGalleryIds)
-                                                    ->pluck('gallery_id')
+                    // Step 2: Add the new Menu ids that aren't already in the database
+                    $existingMenuIds = PackageMenu::where('package_id', $packageId)
+                                                    ->whereIn('menu_id', $newMenuIds)
+                                                    ->pluck('menu_id')
                                                     ->toArray();
     
-                    // Find the new gallery IDs that don't exist in the database
-                    $filteredNewGalleryIds = array_diff($newGalleryIds, $existingGalleryIds);
+                    // Find the new Menu IDs that don't exist in the database
+                    $filteredNewMenuIds = array_diff($newMenuIds, $existingMenuIds);
     
-                // Insert the new gallery records
-                foreach ($filteredNewGalleryIds as $galleryId) {
-                    TravelGallery::create([
+                foreach ($filteredNewMenuIds as $menuId) {
+                    PackageMenu::create([
                         'package_id' => $packageId,
-                        'gallery_id' => $galleryId,
-                        'name_collage' => $nameCollage,
+                        'menu_id' => $menuId,
                         'status' => $status,
                         'updated_at' => now(),
                         'created_at' => now(),
                     ]);
                 }
             } else {
-                // If no new photos, update existing records with new details
-                TravelGallery::where('package_id', $packageId)
-                             ->whereIn('gallery_id', $oldGalleryIds)
+                PackageMenu::where('package_id', $packageId)
+                             ->whereIn('menu_id', $oldMenuIds)
                              ->update([
-                                 'name_collage' => $nameCollage,
                                  'status' => $status,
                                  'updated_at' => now(),
                              ]);
             }
         
-            return redirect()->route('wisata.gallery.index')->with('success', 'Data kolase berhasil diperbarui!');
+            return redirect()->route('menu.menupaket.index')->with('success', 'Data kolase berhasil diperbarui!');
         } catch (\Exception $e) {
-            return redirect()->route('wisata.gallery.edit', [
+            return redirect()->route('menu.menupaket.edit', [
+                'packagemenu' => $packagemenu,
                 'package_id' => $request->get('package_id'),
-                'gallery_id' => $oldGalleryIds
+                'menu_id' => $oldMenuIds
             ])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
 
         return redirect()->route('menu.menupaket.index')->with('success', 'Paket Menu berhasil diupdate.');
     }
 
-    public function destroyPackageMenu(Package $package)
+    public function deleteMenuPackage($packageMenu)
     {
-        PackageMenu::where('package_id', $package->id)->where('status', 1)->update(['status' => 0]);
-        return redirect()->route('menu.menupaket.index')->with('success', 'Paket Menu berhasil dihapus!');
+        PackageMenu::where('package_id', $packageMenu)->where('status', 1)->update(['status' => 0]);
+        return redirect()->route('menu.menupaket.index')->with('success', 'Paket Menu berhasil dinonaktifkan!');
     }
 
     //Tambahan 
