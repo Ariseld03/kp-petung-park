@@ -15,7 +15,7 @@ class Article extends Model
     }
     public function user()
     {
-        return $this->belongsTo(Staff::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function agenda()
     {

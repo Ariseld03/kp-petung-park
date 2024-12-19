@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\ArticleGallery;
+use App\Models\Agenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -15,7 +16,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::all(); 
-        return view('articles.index', compact('articles')); 
+        return view('artikel.index', compact('articles')); 
     }
 
     /**
@@ -23,7 +24,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        return view('artikel.create');
     }
 
     /**
@@ -35,20 +36,19 @@ class ArticleController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'main_content' => 'required|date',
-            'status' => 'required|date',
-            'staff_email' => 'required|email|exists:staffs,email',
+            'user_id' => 'required|integer|exists:users,id',
             'agenda_id' => 'required|integer|exists:agendas,id',
         ]);
         Article::create([
             'title' => $request->input('title'),
             'main_content' => $request->input('main_content'),
-            'status' => $request->input('status'),
+            'status' => 1,
             'number_love' => 0,
-            'staff_email' => $request->input('staff_email'),
+            'user_id' => 1,
             'agenda_id' => $request->input('agenda_id'),
         ]);
 
-        return redirect()->route('articles.index')->with('success', 'Artikel berhasil ditambahkan!');
+        return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');
     }
 
     /**
@@ -57,7 +57,7 @@ class ArticleController extends Controller
     public function showArtikelAllPengguna()
     {
         $articles = Article::where('status', 1)->get();
-        return view('articles.show', compact('article'));
+        return view('artikel.show', compact('article'));
     }
     public function show(Article $article)
     {
@@ -67,9 +67,11 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Article $article)
+    public function edit(Article $artikel)
     {
-        return view('articles.edit', compact('article'));
+        $artikel = Article::with('agenda')->findOrFail($artikel->id);
+        $agendas = Agenda::where('status', 1)->get();
+        return view('artikel.edit', compact('artikel', 'agendas'));
     }
 
     /**
@@ -88,25 +90,20 @@ class ArticleController extends Controller
         try {
             $article = Article::findOrFail($id);
             $article->update($validatedData);
-            return redirect()->route('articles.index')->with('success', 'Article berhasil Diupdate!');
+            return redirect()->route('artikel.index')->with('success', 'Article berhasil Diupdate!');
         } catch (Exception $e) {
-            return redirect()->route('articles.index')->with('error', 'Article Gagal Diupdate!');
+            return redirect()->route('artikel.index')->with('error', 'Article Gagal Diupdate!');
         }
     }
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Article $article)
+    public function delete(Article $artikel)
     {
-        try {
-            $delete = $article;
-            $article->status = 0;
-            ArticleGallery::where('article_id', $article->id)->update(['status' => 0]);
-            $article->update($delete);
-            return redirect()->route('articles.index')->with('success', 'Artikel Berhasil Dihapus!');
-        } catch (Exception $e) {
-            return redirect()->route('articles.index')->with('error', 'Artikel Gagal Dihapus!');
-        }
+        $artikel->status = 0;
+        $artikel->save();
+        ArticleGallery::where('article_id', $artikel->id)->update(['status' => 0]);
+        return redirect()->route('artikel.index')->with('success', 'Artikel berhasil dinonaktifkan!');
     }
     // M to M article_gallery
     /**
@@ -126,7 +123,7 @@ class ArticleController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        return redirect()->route('articles.index')->with('success', 'Foto di Artikel Berhasil Ditambah!');
+        return redirect()->route('artikel.index')->with('success', 'Foto di Artikel Berhasil Ditambah!');
     }
 
     /**
@@ -146,9 +143,9 @@ class ArticleController extends Controller
                 'status' => $validatedData['status'],
                 'updated_at' => now(),
             ]);
-            return redirect()->route('articles.index')->with('success', 'Foto di Artikel Berhasil Diubah!');
+            return redirect()->route('artikel.index')->with('success', 'Foto di Artikel Berhasil Diubah!');
         } catch (Exception $e) {
-            return redirect()->route('articles.index')->with('error', 'Foto di Artikel Gagal Diubah!');
+            return redirect()->route('artikel.index')->with('error', 'Foto di Artikel Gagal Diubah!');
         }
     }
     public function deleteArticleGallery(Request $request, string $id)
@@ -166,6 +163,6 @@ class ArticleController extends Controller
     public function destroyArticleGallery(Article $article)
     {
         Article::findOrFail($article->id)->update(['status' => 0]);
-        return redirect()->route('articles.index')->with('success', 'Foto di Artikel berhasil dihapus!');
+        return redirect()->route('artikel.index')->with('success', 'Foto di Artikel berhasil dihapus!');
     }
 }

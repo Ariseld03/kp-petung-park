@@ -144,9 +144,9 @@ Route::post('/admin/kegiatan/edit/{kegiatan}', [AgendaController::class, 'update
 Route::delete('/admin/kegiatan/{kegiatan}', [AgendaController::class, 'delete'])->name('kegiatan.delete');
 
 // Admin CRUD Wisata
-Route::get('/admin/artikel', [TravelController::class, 'index'])->name('artikel.index');
-Route::get('/admin/artikel/add', [TravelController::class, 'add'])->name('artikel.add');
-Route::post('/admin/artikel/add', [TravelController::class, 'store'])->name('artikel.store');
-Route::get('/admin/artikel/edit/{artikel}', [TravelController::class, 'edit'])->name('artikel.edit');
-Route::post('/admin/artikel/edit/{artikel}', [TravelController::class, 'update'])->name('artikel.update');
-Route::delete('/admin/artikel/{artikel}', [TravelController::class, 'delete'])->name('artikel.destroy');
+Route::get('/admin/artikel', [ArticleController::class, 'index'])->name('artikel.index');
+Route::get('/admin/artikel/add', [ArticleController::class, 'add'])->name('artikel.add');
+Route::post('/admin/artikel/add', [ArticleController::class, 'store'])->name('artikel.store');
+Route::get('/admin/artikel/edit/{artikel}', [ArticleController::class, 'edit'])->name('artikel.edit');
+Route::post('/admin/artikel/edit/{artikel}', [ArticleController::class, 'update'])->name('artikel.update');
+Route::delete('/admin/artikel/{artikel}', [ArticleController::class, 'delete'])->name('artikel.delete');

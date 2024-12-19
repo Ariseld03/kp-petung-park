@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Agenda extends Model
 {
-    // use HasFactory;
-    // Specify the table if it's not following Laravel's naming convention
+    use HasFactory;
     protected $table = 'agendas';
     protected $fillable = [
         'event_name',
@@ -21,9 +20,9 @@ class Agenda extends Model
     ];
 
     // Define the relationship with Staff
-    public function staff()
+    public function user()
     {
-        return $this->belongsTo(Staff::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function articles()
     {

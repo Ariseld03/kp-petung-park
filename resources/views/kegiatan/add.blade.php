@@ -1,14 +1,24 @@
 @extends('layouts.mainAdmin')
 @section('page-css')
-    <link rel="stylesheet" href="{{ asset('css/staffAdd.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/kegiatanAdd.css') }}">
 @endsection
 @section('content')
 <body>
     <div class="container mt-5">
+        <br>
+        @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        <br>
         <h1 class="text-center text-success">Tambah Kegiatan</h1>
         <form action="{{ route('kegiatan.store') }}" method="post" enctype="multipart/form-data">
-            @csrf <!-- Token untuk melindungi dari CSRF -->
-
+            @csrf
             <div class="form-group">
                 <label for="nama">Nama Kegiatan:</label>
                 <input type="text" class="form-control" id="nama" name="nama" required>
@@ -30,21 +40,13 @@
             </div>
 
             <div class="form-group">
-                <label for="status">Status:</label>
-                <select class="form-control" id="status" name="status">
-                    <option value="1">Aktif</option>
-                    <option value="0">Tidak Aktif</option>
-                </select>
-            </div>
-
-            <div class="form-group">
                 <label for="deskripsi">Deskripsi:</label>
-                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" required></textarea>
+                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4"></textarea>
             </div>
 
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='{{ url('/kegiatan') }}'">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('kegiatan.index') }}'">Batal</button>
             </div>
         </form>
     </div>

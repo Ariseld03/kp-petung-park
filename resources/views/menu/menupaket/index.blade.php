@@ -59,7 +59,6 @@
                                         onclick="handleNonaktif({{ $package->package->id }}, {{ $package->status }})">
                                     Nonaktif
                                 </button>
-                                {{-- Modal for Deactivation --}}
                                 <div class="modal fade" id="hapusModal-{{ $package->package->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $package->package->id }}" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">

@@ -7,7 +7,7 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="text-center" style="color: #557C56;">Kegiatan</h1>
-        <a href="{{ url('/kegiatanAdd') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Kegiatan</a>
+        <a href="{{ route('kegiatan.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Kegiatan</a>
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
@@ -25,28 +25,81 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Contoh data kegiatan, dapat diulang sesuai kebutuhan -->
-                <tr>
-                    <td>Contoh Kegiatan 1</td>
-                    <td>2023-01-01</td>
-                    <td>2023-01-05</td>
-                    <td>Lokasi Contoh</td>
-                    <td>Aktif</td>
-                    <td>Deskripsi singkat kegiatan 1</td>
-                    <td>2023-01-01</td>
-                    <td>2023-01-02</td>
-                    <td>staff@example.com</td>
-                    <td><a href="{{ url('/kegiatanUpdate') }}" class="btn btn-primary">Perbarui</a></td>
-                    <td><a href="{{ url('/kegiatanDelete') }}" class="btn btn-danger">Hapus</a></td>
-                </tr>
-                <!-- Tambahkan lebih banyak baris sesuai data kegiatan -->
+                @foreach($kegiatan as $perkegiatan)
+                    <tr>
+                        <td>{{ $perkegiatan->event_name }}</td>
+                        <td>{{ $perkegiatan->event_start_date }}</td>
+                        <td>{{ $perkegiatan->event_end_date }}</td>
+                        <td>{{ $perkegiatan->event_location }}</td>
+                        <td>{{ $perkegiatan->status ? 'Aktif' : 'Nonaktif' }}</td>
+                        <td>{{ $perkegiatan->description }}</td>
+                        <td>{{ $perkegiatan->created_at }}</td>
+                        <td>{{ $perkegiatan->updated_at }}</td>
+                        <td>{{ $perkegiatan->user->name }}</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="location.href='{{ route('kegiatan.edit', $perkegiatan->id)}}'">Perbarui</button>
+                        </td>
+                        <td> 
+                            <button type="button" 
+                                        class="btn btn-danger"  
+                                        onclick="handleNonaktif({{ $perkegiatan->id }}, {{ $perkegiatan->status }})">
+                                    Nonaktif
+                            </button>
+                            <div class="modal fade" id="hapusModal-{{ $perkegiatan->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $perkegiatan->id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="hapusModalLabel-{{ $perkegiatan->id }}">Konfirmasi Nonaktif</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="modalMessage-{{ $perkegiatan->id }}">Apakah Anda yakin ingin mengubah status data ini?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            <form action="{{ route('kegiatan.delete', ['kegiatan' => $perkegiatan->id]) }}" method="POST" id="nonaktifForm-{{ $perkegiatan->id }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Nonaktifkan</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
 @endsection
 
 @section('page-js')
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+       function handleNonaktif(agendaId, status) {
+        var modalMessage = document.getElementById('modalMessage-' + agendaId);
+        var nonaktifForm = document.getElementById('nonaktifForm-' + agendaId);
+
+        if (modalMessage && nonaktifForm) {
+            if (status === 0) {
+                modalMessage.innerHTML = "Jadwal kegiatan ini sudah nonaktif.";
+                nonaktifForm.querySelector("button[type='submit']").disabled = true; // Disable the submit button
+            } else {
+                modalMessage.innerHTML = "Apakah Anda yakin ingin mengubah status data ini?";
+                nonaktifForm.querySelector("button[type='submit']").disabled = false; // Enable the submit button
+            }
+            $('#hapusModal-' + agendaId).modal('show'); // Show the modal
+        } else {
+            console.error("Modal or form elements are missing for kegiatan ID:", agendaId);
+        }
+    }
+
+    $(document).ready(function () {
+        @if(session('success'))
+            $('#BerhasilModal').modal('show');
+        @endif
+    });
+    </script>
 @endsection

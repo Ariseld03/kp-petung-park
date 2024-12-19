@@ -18,8 +18,8 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        $agendas = Agenda::all(); // Fetch all agenda records
-        return view('kegiatan.index', compact('agendas')); // Return view with agendas data
+        $kegiatan = Agenda::with('user')->get();
+        return view('kegiatan.index', compact('kegiatan'));
     }
 
     /**
@@ -33,32 +33,33 @@ class AgendaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+        public function store(Request $request)
     {
-        // Validate the request
-        $request->validate([
-            'event_name' => 'required|string|max:255',
-            'event_start_date' => 'required|date',
-            'event_end_date' => 'required|date',
-            'event_location' => 'required|string|max:255',
-            'status' => 'required|integer',
-            'description' => 'nullable|string',
-            'staff_email' => 'required|email|exists:staffs,email', // Ensure staff email exists in staff table
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            'lokasi' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
         ]);
 
-        // Create a new Agenda record
-        Agenda::create([
-            'event_name' => $request->input('event_name'),
-            'event_start_date' => $request->input('event_start_date'),
-            'event_end_date' => $request->input('event_end_date'),
-            'event_location' => $request->input('event_location'),
-            'status' => $request->input('status'),
-            'description' => $request->input('description'),
-            'staff_email' => $request->input('staff_email'),
-        ]);
+        try {
+            Agenda::create([
+                'event_name' => $request->input('nama'),
+                'event_start_date' => $request->input('tanggal_mulai'),
+                'event_end_date' => $request->input('tanggal_selesai'),
+                'event_location' => $request->input('lokasi'),
+                'status' => 1,
+                'description' => $request->input('deskripsi'),
+                'user_id' => 1, // Assuming user ID is statically assigned
+            ]);
 
-        return redirect()->route('kegiatan.index')->with('success', 'Agenda berhasil ditambahkan.');
+            return redirect()->route('kegiatan.index')->with('success', 'Agenda berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return redirect()->route('kegiatan.add')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
+
 
     /**
      * Display the specified resource.
@@ -71,9 +72,9 @@ class AgendaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Agenda $agenda)
+    public function edit(Agenda $kegiatan)
     {
-        return view('kegiatan.edit', compact('agenda')); // Return view with form to edit agenda
+        return view('kegiatan.edit', compact('kegiatan')); // Return view with form to edit agenda
     }
 
     /**
@@ -81,20 +82,24 @@ class AgendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validate the request
         $validatedData = $request->validate([
-            'event_name' => 'required|string|max:255',
-            'event_start_date' => 'required|date',
-            'event_end_date' => 'required|date',
-            'event_location' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            'lokasi' => 'required|string|max:255',
             'status' => 'required|integer',
-            'description' => 'nullable|string',
-            'staff_email' => 'required|email|exists:staffs,email',
+            'deskripsi' => 'nullable|string',
         ]);
-        // Find and update the Agenda record
         try {
             $agenda = Agenda::findOrFail($id);
-            $agenda->update($validatedData);
+            $agenda->event_name = $request->get('nama');
+            $agenda->event_start_date = $request->get('tanggal_mulai');
+            $agenda->event_end_date = $request->get('tanggal_selesai');
+            $agenda->event_location = $request->get('lokasi');
+            $agenda->status = $request->get('status');
+            $agenda->description = $request->get('deskripsi');
+            // $agenda->user_id = $request->get('user_id');
+            $agenda->save();
             return redirect()->route('kegiatan.index')->with('success', 'Agenda Berhasil Diubah!');
         } catch (Exception $e) {
             return redirect()->route('kegiatan.index')->with('error', 'Agenda Gagal Diubah!');
@@ -104,16 +109,14 @@ class AgendaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Agenda $agenda)
+    public function delete(Agenda $kegiatan)
     {
-        $agenda->delete();
         try {
-            $delete = $agenda;
-            $delete->status = 0;
-            $agenda->update($delete);
-            return redirect()->route('kegiatan.delete')->with('success', 'Agenda Berhasil Dihapus!');
+            $kegiatan->status = 0;
+            $kegiatan->save();
+            return redirect()->route('kegiatan.index')->with('success', 'Agenda Berhasil Dinonaktifkan!');
         } catch (Exception $e) {
-            return redirect()->route('kegiatan.delete')->with('error', 'Agenda Gagal Dihapus!');
+            return redirect()->route('kegiatan.index')->with('error', 'Agenda Gagal Dinonaktifkan!');
         }
     }
 
@@ -131,9 +134,7 @@ class AgendaController extends Controller
         $agenda = Agenda::findOrFail($id);
 
         $articles = Article::where('status', 1)->where('agenda_id', $agenda->id)->get();
-
-        // Mengambil galeri terkait dengan artikel yang ditampilkan
-        $galleries = collect(); // Inisialisasi sebagai koleksi
+        $galleries = collect(); 
         foreach ($articles as $article) {
             $articleGalleries = $article->galleries()
                 ->where('article_gallery.status', 1)

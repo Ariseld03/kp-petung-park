@@ -29,9 +29,9 @@ class Gallery extends Model
     {
         return $this->hasMany(GalleriesShow::class, 'gallery_id', 'id');
     }
-    public function staffs()
+    public function users()
     {
-        return $this->hasMany(Staff::class, 'gallery_id', 'id');
+        return $this->hasMany(User::class, 'gallery_id', 'id');
     }
     public function packages()
     {

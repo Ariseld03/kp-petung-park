@@ -23,45 +23,45 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($artikels as $artikel)
+                @foreach($articles as $article)
                 <tr>
-                    <td>{{ $artikel->title }}</td>
-                    <td>{{ Str::limit($artikel->content, 50) }}</td>
-                    <td>{{ $artikel->status == 1 ? 'Aktif' : 'Nonaktif' }}</td>
-                    <td>{{ $artikel->likes_count }}</td>
+                    <td>{{ $article->title }}</td>
+                    <td>{{ Str::limit($article->main_content, 50) }}</td>
+                    <td>{{ $article->status == 1 ? 'Aktif' : 'Nonaktif' }}</td>
+                    <td>{{ $article->number_love }}</td>
                     <td>
-                    @if ($artikel->images->isNotEmpty())
-                        @foreach ($artikel->images as $image)
-                            <img src="{{ asset($image->path) }}" alt="Foto" style="max-width: 100px;">
+                    @if ($article->gallery)
+                        @foreach ($article->gallery as $image)
+                            <img src="{{ asset($image->photo_link) }}" alt="Foto" style="max-width: 100px;">
                         @endforeach
                     @else
                         Tidak ada foto
                     @endif
                     </td>
-                    <td>{{ $artikel->created_at->format('d-m-Y') }}</td>
-                    <td>{{ $artikel->updated_at->format('d-m-Y') }}</td>
+                    <td>{{ $article->created_at }}</td>
+                    <td>{{ $article->updated_at }}</td>
                     <td>
-                        <a href="{{ route('artikel.edit', $artikel->id) }}" class="btn btn-primary">Perbarui</a>
+                        <a href="{{ route('artikel.edit', $article->id) }}" class="btn btn-primary">Perbarui</a>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $artikel->id }}, {{ $artikel->status }})">
+                        <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $article->id }}, {{ $article->status }})">
                             Nonaktif
                         </button>
-                        <div class="modal fade" id="hapusModal-{{ $artikel->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $artikel->id }}" aria-hidden="true">
+                        <div class="modal fade" id="hapusModal-{{ $article->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $article->id }}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="hapusModalLabel-{{ $artikel->id }}">Konfirmasi Nonaktif</h5>
+                                        <h5 class="modal-title" id="hapusModalLabel-{{ $article->id }}">Konfirmasi Nonaktif</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body" id="modalMessage-{{ $artikel->id }}">
+                                    <div class="modal-body" id="modalMessage-{{ $article->id }}">
                                         Apakah Anda yakin ingin mengubah status data ini?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                        <form action="{{ route('artikel.destroy', $artikel->id) }}" method="POST" id="nonaktifForm-{{ $artikel->id }}">
+                                        <form action="{{ route('artikel.delete', $article->id) }}" method="POST" id="nonaktifForm-{{ $article->id }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Nonaktifkan</button>
@@ -80,9 +80,9 @@
 
 @section('page-js')
     <script>
-        function handleNonaktif(artikelId, status) {
-            var modalMessage = document.getElementById('modalMessage-' + artikelId);
-            var nonaktifForm = document.getElementById('nonaktifForm-' + artikelId);
+        function handleNonaktif(articleId, status) {
+            var modalMessage = document.getElementById('modalMessage-' + articleId);
+            var nonaktifForm = document.getElementById('nonaktifForm-' + articleId);
             
             if (status === 0) {
                 modalMessage.innerHTML = "Artikel ini sudah nonaktif.";
@@ -91,7 +91,7 @@
                 modalMessage.innerHTML = "Apakah Anda yakin ingin mengubah status data ini?";
                 nonaktifForm.querySelector("button[type='submit']").disabled = false; // Enable the submit button
             }
-            $('#hapusModal-' + artikelId).modal('show');
+            $('#hapusModal-' + articleId).modal('show');
         }
 
         $(document).ready(function() {
