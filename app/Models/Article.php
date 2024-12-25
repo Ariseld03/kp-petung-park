@@ -9,6 +9,14 @@ class Article extends Model
 {
     use HasFactory;
     protected $table = 'articles';
+    protected $fillable=  [
+        'title',
+        'main_content',
+        'number_love',
+        'status',
+        'agenda_id',
+        'user_id',
+    ];
     public function galleries()
     {
         return $this->belongsToMany(Gallery::class, 'article_gallery', 'article_id', 'gallery_id');

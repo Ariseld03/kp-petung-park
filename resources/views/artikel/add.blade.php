@@ -19,10 +19,14 @@
             </div>
 
             <div class="form-group">
-                <label for="status">Status:</label>
-                <select class="form-control" id="status" name="status">
-                    <option value="1">Aktif</option>
-                    <option value="0">Tidak Aktif</option>
+                <label for="agenda_id"> Pilih Kegiatan :</label>
+                <select class="form-control" id="agenda_id" name="agenda_id">
+                    <option value="" disabled>Pilih Kegiatan</option>
+                    @foreach($agendas as $agenda)
+                        <option value="{{ $agenda->id }}">
+                            {{ $agenda->event_name }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 

@@ -7,7 +7,7 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="text-center" style="color: #557C56;">Daftar kolase</h1>
-        <a href="{{ route('wisata.gallery.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah kolase</a>
+        <a href="{{ route('artikel.galeri.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah kolase</a>
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
@@ -22,15 +22,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($collages->groupBy('travel_id') as $travelId => $groupedCollages)
+                @foreach($collages->groupBy('article_id') as $articleId => $groupedCollages)
                     <tr>
-                        <!-- Combine cells for travel-related data -->
                         <td rowspan="{{ $groupedCollages->count() }}">{{ $groupedCollages->first()->name_collage }}</td>
                         <td rowspan="{{ $groupedCollages->count() }}">
                             {{ $groupedCollages->first()->status == 1 ? 'Aktif' : 'Nonaktif' }}
                         </td>
                         <td rowspan="{{ $groupedCollages->count() }}">
-                            {{ $groupedCollages->first()->travel->name }}
+                            {{ $groupedCollages->first()->article->title }}
                         </td>
                         <td>
                             @if ($groupedCollages->first()->gallery && !empty($groupedCollages->first()->gallery->photo_link))
@@ -46,9 +45,9 @@
                             {{ $groupedCollages->first()->updated_at->format('d-m-Y') }}
                         </td>
                         <td rowspan="{{ $groupedCollages->count() }}">
-                            <form action="{{ route('wisata.gallery.edit') }}" method="POST" style="display:inline;">
+                            <form action="{{ route('artikel.galeri.edit') }}" method="POST" style="display:inline;">
                                 @csrf
-                                <input type="hidden" name="travel_id" value="{{ $groupedCollages->first()->travel_id }}">
+                                <input type="hidden" name="article_id" value="{{ $groupedCollages->first()->article_id }}">
                                 <input type="hidden" name="gallery_id" value="{{ $groupedCollages->first()->gallery_id }}">
                                 <input type="hidden" name="name_collage" value="{{ $groupedCollages->first()->name_collage }}">
                                 <input type="hidden" name="status" value="{{ $groupedCollages->first()->status }}">
@@ -59,13 +58,13 @@
                             <button type="button" 
                                     class="btn btn-danger" 
                                     data-toggle="modal" 
-                                    data-target="#hapusModal-{{ $travelId }}">
+                                    data-target="#hapusModal-{{ $articleId }}">
                                 Nonaktif
                             </button>
                         </td>
                     </tr>
 
-                    <!-- Display additional gallery images for this travel -->
+                    <!-- Display additional gallery images for this article -->
                     @foreach($groupedCollages->skip(1) as $kolase)
                         <tr>
                             <td>
@@ -79,11 +78,11 @@
                     @endforeach
 
                     <!-- Modal -->
-                    <div class="modal fade" id="hapusModal-{{ $travelId }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $travelId }}" aria-hidden="true">
+                    <div class="modal fade" id="hapusModal-{{ $articleId }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $articleId }}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="hapusModalLabel-{{ $travelId }}">Konfirmasi Nonaktif</h5>
+                                    <h5 class="modal-title" id="hapusModalLabel-{{ $articleId }}">Konfirmasi Nonaktif</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -93,7 +92,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                    <form action="{{ route('wisata.gallery.delete', ['travel' => $travelId]) }}" method="POST">
+                                    <form action="{{ route('artikel.galeri.delete', ['artikel' => $articleId]) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-danger">Nonaktifkan</button>
                                     </form>

@@ -30,8 +30,8 @@
                     <td>{{ $article->status == 1 ? 'Aktif' : 'Nonaktif' }}</td>
                     <td>{{ $article->number_love }}</td>
                     <td>
-                    @if ($article->gallery)
-                        @foreach ($article->gallery as $image)
+                    @if ($article->galleries)
+                        @foreach ($article->galleries as $image)
                             <img src="{{ asset($image->photo_link) }}" alt="Foto" style="max-width: 100px;">
                         @endforeach
                     @else

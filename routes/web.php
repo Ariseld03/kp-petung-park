@@ -66,7 +66,7 @@ Route::get('/admin/wisata/galeri/edit-form', [TravelController::class, 'editTrav
 Route::post('/admin/wisata/galeri/edit', [TravelController::class, 'updateTravelGallery'])->name('wisata.gallery.update');
 Route::get('/admin/wisata/galeri/add', [TravelController::class, 'addTravelGallery'])->name('wisata.gallery.add');
 Route::post('/admin/wisata/galeri/add', [TravelController::class, 'storeTravelGallery'])->name('wisata.gallery.store');
-Route::post('/wisata/galeri/delete', [YourController::class, 'deleteTravelGallery'])->name('wisata.gallery.delete');
+Route::post('/wisata/galeri/delete', [TravelController::class, 'deleteTravelGallery'])->name('wisata.gallery.delete');
 
 // Admin CRUD Staff
 Route::get('/admin/staf', [UserController::class, 'index'])->name('staf.index');
@@ -143,10 +143,19 @@ Route::get('/admin/kegiatan/edit/{kegiatan}', [AgendaController::class, 'edit'])
 Route::post('/admin/kegiatan/edit/{kegiatan}', [AgendaController::class, 'update'])->name('kegiatan.update');
 Route::delete('/admin/kegiatan/{kegiatan}', [AgendaController::class, 'delete'])->name('kegiatan.delete');
 
-// Admin CRUD Wisata
+// Admin CRUD Artikel
 Route::get('/admin/artikel', [ArticleController::class, 'index'])->name('artikel.index');
 Route::get('/admin/artikel/add', [ArticleController::class, 'add'])->name('artikel.add');
 Route::post('/admin/artikel/add', [ArticleController::class, 'store'])->name('artikel.store');
 Route::get('/admin/artikel/edit/{artikel}', [ArticleController::class, 'edit'])->name('artikel.edit');
 Route::post('/admin/artikel/edit/{artikel}', [ArticleController::class, 'update'])->name('artikel.update');
 Route::delete('/admin/artikel/{artikel}', [ArticleController::class, 'delete'])->name('artikel.delete');
+
+// Admin CRUD Artikel Galeri
+Route::get('/admin/artikel/galeri', [ArticleController::class, 'indexArticleGallery'])->name('artikel.galeri.index');
+Route::post('/admin/artikel/galeri/edit-form', [ArticleController::class, 'editArticleGallery'])->name('artikel.galeri.edit');
+Route::get('/admin/artikel/galeri/edit-form', [ArticleController::class, 'editArticleGallery']);
+Route::post('/admin/artikel/galeri/edit', [ArticleController::class, 'updateArticleGallery'])->name('artikel.galeri.update');
+Route::get('/admin/artikel/galeri/add', [ArticleController::class, 'addArticleGallery'])->name('artikel.galeri.add');
+Route::post('/admin/artikel/galeri/add', [ArticleController::class, 'storeArticleGallery'])->name('artikel.galeri.store');
+Route::post('/artikel/galeri/delete', [ArticleController::class, 'deleteArticleGallery'])->name('artikel.galeri.delete');

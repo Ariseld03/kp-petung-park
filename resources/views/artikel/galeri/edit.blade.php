@@ -1,11 +1,11 @@
 @extends('layouts.mainAdmin')
 @section('content')
     <div class="container mt-5">
-        <h1 class="judul">Update Galeri Wisata</h1>
-        <form action="{{ route('wisata.gallery.update')}}" method="POST" enctype="multipart/form-data">
+        <h1 class="judul">Update Galeri Artikel</h1>
+        <form action="{{ route('artikel.galeri.update')}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('POST')
-            <input type="hidden" name="travel_id" value="{{ $selectedCollage->travel_id }}">
+            <input type="hidden" name="article_id" value="{{ $selectedCollage->article_id }}">
 
             <input type="hidden" name="gallery_id[]" value="{{ $selectedCollage->gallery->id }}">
 
@@ -27,16 +27,16 @@
                 </select>
             </div>
             <div class="form-group">
-                <label name="travel_id">Nama Wisata :</label>
+                <label name="article_id">Nama Artikel :</label>
                 <div class="col-md-4 d-flex align-items-center justify-content-left" style="flex-wrap: wrap;">
-                    @if ($selectedCollage->travel)
+                    @if ($selectedCollage->article)
                         <div>
-                            <label name="old_travel_name" >
-                                {{ $selectedCollage->travel->name }}
+                            <label name="old_article_name" >
+                                {{ $selectedCollage->article->title }}
                             </label>
                         </div>
                     @else
-                        <p>No Travel data available.</p>
+                        <p>No Article data available.</p>
                     @endif
                 </div>
             </div>
@@ -83,7 +83,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-success">Simpan</button>
-            <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('wisata.gallery.index') }}'">Kembali</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('artikel.galeri.index') }}'">Kembali</button>
         </form>
     </div>
 @endsection

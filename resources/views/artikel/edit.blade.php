@@ -17,8 +17,8 @@
             </div>
 
             <div class="form-group">
-                <label for="content">Konten:</label>
-                <textarea class="form-control" id="content" name="content" style="min-height: 300px;" rows="4" required>{{ $artikel->main_content }}</textarea>
+                <label for="main_content">Konten:</label>
+                <textarea class="form-control" id="main_content" name="main_content" style="min-height: 300px;" rows="4" required>{{ $artikel->main_content }}</textarea>
             </div>
 
             <div class="form-group">
@@ -29,8 +29,8 @@
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
-                    <option value="aktif" {{ $artikel->status == '1' ? 'selected' : '' }}>Aktif</option>
-                    <option value="nonaktif" {{ $artikel->status == '0' ? 'selected' : '' }}>Nonaktif</option>
+                    <option value="1" {{ $artikel->status == '1' ? 'selected' : '' }}>Aktif</option>
+                    <option value="0" {{ $artikel->status == '0' ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
             <div class="form-group">

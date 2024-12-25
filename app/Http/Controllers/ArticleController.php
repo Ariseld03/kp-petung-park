@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\ArticleGallery;
+use App\Models\Gallery;
 use App\Models\Agenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -22,9 +23,10 @@ class ArticleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function add()
     {
-        return view('artikel.create');
+        $agendas = Agenda::where('status', 1)->get();
+        return view('artikel.add', compact('agendas'));
     }
 
     /**
@@ -35,19 +37,18 @@ class ArticleController extends Controller
         // Validate the request
         $request->validate([
             'title' => 'required|string|max:255',
-            'main_content' => 'required|date',
-            'user_id' => 'required|integer|exists:users,id',
+            'content' => 'required|string',
             'agenda_id' => 'required|integer|exists:agendas,id',
         ]);
-        Article::create([
+        $article = new Article([
+            'user_id' => 2,
             'title' => $request->input('title'),
-            'main_content' => $request->input('main_content'),
+            'main_content' => $request->input('content'),
             'status' => 1,
             'number_love' => 0,
-            'user_id' => 1,
             'agenda_id' => $request->input('agenda_id'),
         ]);
-
+        $article->save();
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');
     }
 
@@ -79,12 +80,11 @@ class ArticleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validatedData->validate([
+        $validatedData= $request->validate([
             'title' => 'required|string|max:255',
-            'main_content' => 'required|date',
-            'status' => 'required|date',
-            'number_love' => 'nullable|integer',
-            'user_id' => 'required|email|exists:users,id',
+            'main_content' => 'required|string',
+            'status' => 'required|integer',
+            'number_love' => 'required|integer',
             'agenda_id' => 'required|exists:agendas,id',
         ]);
         try {
@@ -109,23 +109,64 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage for pivot table article_gallery
      */
-    public function storeGallery(Request $request, string $id)
-    {
-        $validatedData = $request->validate([
-            'gallery_id' => 'required|integer|exists:galleries,id',
-            'name_collage' => 'required|string|max:255',
-            'status' => 'required|integer|in:0,1',
-        ]);
-        $article = Article::findOrFail($id);
-        $article->galleries()->attach($validatedData['gallery_id'], [
-            'name_collage' => $validatedData['name_collage'],
-            'status' => $validatedData['status'],
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        return redirect()->route('artikel.index')->with('success', 'Foto di Artikel Berhasil Ditambah!');
-    }
 
+
+     public function indexArticleGallery()
+     {
+         $collages = ArticleGallery::all();
+         return view('artikel.galeri.index', compact('collages'));
+     }
+      public function addArticleGallery()
+     {
+         $spots = Article::where('status', 1)->get();
+         $galleries = Gallery::where('status', 1)->get();
+         return view('artikel.galeri.add', compact('spots', 'galleries'));
+     }
+ 
+    public function storeArticleGallery(Request $request, string $id)
+    {
+        $request->validate([
+            'article_id' => 'required|integer|exists:articles,id',
+            'photos' => 'required|integer|exists:galleries,id',
+            'photos' => 'required|array', 
+            'photos.*' => 'integer|exists:galleries,id', 
+            'name_collage' => 'required|string',
+        ]);
+        $name= $request->get('name_collage');
+        $galleryIds= $request->get('photos');
+        foreach($galleryIds as $galleryId){
+            $articleGallery = new ArticleGallery([
+                'gallery_id' => $galleryId,
+                'article_id' => $request->get('article_id'),
+                'name_collage' => 'Kolase '. $name,
+                'status' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            $articleGallery->save();
+        }
+        return redirect()->route('artikel.galeri.index')->with('success', 'Foto di Galeri berhasil ditambahkan!');
+    }
+    public function editArticleGallery(Request $request)
+    {
+        $selectedCollage = ArticleGallery::with(['article', 'gallery'])
+                                        ->where('article_id', $request->get('article_id'))
+                                        ->where('gallery_id', $request->get('gallery_id'))
+                                        ->first(); 
+        $existingGallery = ArticleGallery::with(['article', 'gallery'])
+                                        ->where('article_id', $request->get('article_id'))
+                                        ->where('gallery_id', '<>', $request->get('gallery_id'))
+                                        ->get(); 
+        
+        $galleries = Gallery::where('status', 1)->get();
+
+        if (!$selectedCollage) {
+            return redirect()->route('artikel.galeri.index')
+                             ->with('error', 'The selected collage with article_id and gallery_id  was not found.');
+        }
+    
+        return view('artikel.galeri.edit', compact('galleries', 'selectedCollage', 'existingGallery'));
+    }
     /**
      * Update the specified resource in storage for pivot table article_gallery
      */
