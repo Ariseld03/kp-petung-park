@@ -280,12 +280,11 @@ class TravelController extends Controller
     
 }
 
-public function deleteTravelGallery($gallery, $travel)
+public function deleteTravelGallery($travel)
 {
     try {
         // Update all matching records to status 0
         TravelGallery::where('travel_id', $travel)
-            ->where('gallery_id', $gallery)
             ->update([
                 'status' => 0,
                 'updated_at' => now(),

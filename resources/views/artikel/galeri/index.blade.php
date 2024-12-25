@@ -49,14 +49,13 @@
                                 @csrf
                                 <input type="hidden" name="article_id" value="{{ $groupedCollages->first()->article_id }}">
                                 <input type="hidden" name="gallery_id" value="{{ $groupedCollages->first()->gallery_id }}">
-                                <input type="hidden" name="name_collage" value="{{ $groupedCollages->first()->name_collage }}">
-                                <input type="hidden" name="status" value="{{ $groupedCollages->first()->status }}">
                                 <button type="submit" class="btn btn-primary">Perbarui</button>
                             </form>
                         </td>
                         <td rowspan="{{ $groupedCollages->count() }}">
                             <button type="button" 
                                     class="btn btn-danger" 
+                                    onclick="handleNonaktif('{{ $groupedCollages->first()->article_id }}', '{{ $groupedCollages->first()->status }}')">
                                     data-toggle="modal" 
                                     data-target="#hapusModal-{{ $articleId }}">
                                 Nonaktif
@@ -64,7 +63,6 @@
                         </td>
                     </tr>
 
-                    <!-- Display additional gallery images for this article -->
                     @foreach($groupedCollages->skip(1) as $kolase)
                         <tr>
                             <td>
@@ -77,7 +75,6 @@
                         </tr>
                     @endforeach
 
-                    <!-- Modal -->
                     <div class="modal fade" id="hapusModal-{{ $articleId }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $articleId }}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -104,5 +101,26 @@
             </tbody>
         </table>
     </div>
+@endsection
+@section('page-js')
+    <script>
+         function handleNonaktif(wisataId, status) {
+            var modal = $('#hapusModal-' + wisataId);
+            if (status === '0') {
+                modal.find('.modal-body').text("Kolase wisata ini sudah nonaktif.");
+                modal.find("button[type='submit']").prop('disabled', true);
+            } else {
+                modal.find('.modal-body').text("Apakah Anda yakin ingin mengubah status data ini?");
+                modal.find("button[type='submit']").prop('disabled', false);
+            }
+            modal.modal('show');
+        }
+
+        $(document).ready(function() {
+            @if(session('success'))
+                $('#BerhasilModal').modal('show');
+            @endif
+        });
+    </script>
 @endsection
 

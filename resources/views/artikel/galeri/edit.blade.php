@@ -79,7 +79,6 @@
                 </select>
                 <br>
                 <div id="preview-new-photo" class="text-center">
-                    <!-- Previews of selected photos will be dynamically added here -->
                 </div>
             </div>
             <button type="submit" class="btn btn-success">Simpan</button>

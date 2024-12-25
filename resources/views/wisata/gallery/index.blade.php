@@ -58,10 +58,31 @@
                         <td rowspan="{{ $groupedCollages->count() }}">
                             <button type="button" 
                                     class="btn btn-danger" 
-                                    data-toggle="modal" 
-                                    data-target="#hapusModal-{{ $travelId }}">
+                                    onclick="handleNonaktif('{{ $groupedCollages->first()->travel_id }}', '{{ $groupedCollages->first()->status }}')">
                                 Nonaktif
                             </button>
+                            <div class="modal fade" id="hapusModal-{{$groupedCollages->first()->travel_id}}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{$groupedCollages->first()->travel_id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="hapusModalLabel-{{$groupedCollages->first()->travel_id}}">Konfirmasi Nonaktif</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin mengubah status data ini?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            <form action="{{ route('wisata.gallery.delete', ['travel' => $groupedCollages->first()->travel_id]) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger">Nonaktifkan</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
 
@@ -77,33 +98,30 @@
                             </td>
                         </tr>
                     @endforeach
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="hapusModal-{{ $travelId }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $travelId }}" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="hapusModalLabel-{{ $travelId }}">Konfirmasi Nonaktif</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    Apakah Anda yakin ingin mengubah status data ini?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                    <form action="{{ route('wisata.gallery.delete', ['travel' => $travelId]) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-danger">Nonaktifkan</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 @endforeach
             </tbody>
         </table>
     </div>
+@endsection
+@section('page-js')
+    <script>
+         function handleNonaktif(wisataId, status) {
+            var modal = $('#hapusModal-' + wisataId);
+            if (status === '0') {
+                modal.find('.modal-body').text("Kolase wisata ini sudah nonaktif.");
+                modal.find("button[type='submit']").prop('disabled', true);
+            } else {
+                modal.find('.modal-body').text("Apakah Anda yakin ingin mengubah status data ini?");
+                modal.find("button[type='submit']").prop('disabled', false);
+            }
+            modal.modal('show');
+        }
+
+        $(document).ready(function() {
+            @if(session('success'))
+                $('#BerhasilModal').modal('show');
+            @endif
+        });
+    </script>
 @endsection
 

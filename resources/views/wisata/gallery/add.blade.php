@@ -14,10 +14,6 @@
             </div>
 
             <div class="form-group">
-                <label for="description">Deskripsi:</label>
-                <textarea class="form-control" id="description" name="description" required></textarea>
-            </div>
-            <div class="form-group">
                 <label for="travel_id"> Pilih Wisata :</label>
                 <select class="form-control" id="travel_id" name="travel_id">
                     <option value="" disabled selected>Pilih Wisata</option>

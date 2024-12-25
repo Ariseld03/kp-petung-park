@@ -5,7 +5,7 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="text-center text-success">Tambah Galeri Wisata</h1>
-        <form action="{{ route('wisata.galeri.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('artikel.galeri.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="form-group">
@@ -14,16 +14,12 @@
             </div>
 
             <div class="form-group">
-                <label for="description">Deskripsi:</label>
-                <textarea class="form-control" id="description" name="description" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="travel_id"> Pilih Wisata :</label>
-                <select class="form-control" id="travel_id" name="travel_id">
+                <label for="article_id"> Pilih Artikel :</label>
+                <select class="form-control" id="article_id" name="article_id">
                     <option value="" disabled selected>Pilih Wisata</option>
-                    @foreach($travels as $travel)
-                        <option value="{{ $travel->id }}">
-                            {{ $travel->name }}
+                    @foreach($articles as $article)
+                        <option value="{{ $article->id }}">
+                            {{ $article->title }}
                         </option>
                     @endforeach
                 </select>
@@ -45,7 +41,7 @@
 
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('wisata.galeri.index') }}'">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('artikel.galeri.index') }}'">Batal</button>
             </div>
         </form>
     </div>

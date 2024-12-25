@@ -39,6 +39,8 @@ class ArticleController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'agenda_id' => 'required|integer|exists:agendas,id',
+            'photos' => 'required|array', 
+            'photos.*' => 'integer|exists:galleries,id', 
         ]);
         $article = new Article([
             'user_id' => 2,
@@ -49,6 +51,16 @@ class ArticleController extends Controller
             'agenda_id' => $request->input('agenda_id'),
         ]);
         $article->save();
+        $name = $request->get('title');
+        foreach($request->get('photos') as $galleryId){
+            $articleGallery = new ArticleGallery([
+                'gallery_id' => $galleryId,
+                'article_id' => $article->id,
+                'name_collage' => 'Kolase '. $name,
+                'status' => 1,
+            ]);
+            $articleGallery->save();
+        }
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');
     }
 
@@ -118,16 +130,15 @@ class ArticleController extends Controller
      }
       public function addArticleGallery()
      {
-         $spots = Article::where('status', 1)->get();
+         $articles = Article::where('status', 1)->get();
          $galleries = Gallery::where('status', 1)->get();
-         return view('artikel.galeri.add', compact('spots', 'galleries'));
+         return view('artikel.galeri.add', compact('articles', 'galleries'));
      }
  
-    public function storeArticleGallery(Request $request, string $id)
+    public function storeArticleGallery(Request $request)
     {
         $request->validate([
             'article_id' => 'required|integer|exists:articles,id',
-            'photos' => 'required|integer|exists:galleries,id',
             'photos' => 'required|array', 
             'photos.*' => 'integer|exists:galleries,id', 
             'name_collage' => 'required|string',
@@ -164,46 +175,91 @@ class ArticleController extends Controller
             return redirect()->route('artikel.galeri.index')
                              ->with('error', 'The selected collage with article_id and gallery_id  was not found.');
         }
-    
         return view('artikel.galeri.edit', compact('galleries', 'selectedCollage', 'existingGallery'));
     }
     /**
      * Update the specified resource in storage for pivot table article_gallery
      */
-    public function updateArticleGallery(Request $request, string $id)
+    public function updateArticleGallery(Request $request)
     {
-        $validatedData = $request->validate([
-            'gallery_id' => 'required|integer|exists:galleries,id',
-            'name_collage' => 'required|string|max:255',
-            'status' => 'required|integer|in:0,1',
+        $request->validate([
+            'article_id' => 'required|integer',
+            'gallery_id' => 'required|array', 
+            'gallery_id.*' => 'integer|exists:galleries,id', 
+            'name_collage' => 'required|string',
+            'status' => 'required|integer',
+            'new_photos' => 'nullable|array',
+            'new_photos.*' => 'integer|exists:galleries,id', 
         ]);
+    
         try {
-            $article = Article::findOrFail($id);
-            $article->galleries()->updateExistingPivot($validatedData['gallery_id'], [
-                'name_collage' => $validatedData['name_collage'],
-                'status' => $validatedData['status'],
-                'updated_at' => now(),
-            ]);
-            return redirect()->route('artikel.index')->with('success', 'Foto di Artikel Berhasil Diubah!');
-        } catch (Exception $e) {
-            return redirect()->route('artikel.index')->with('error', 'Foto di Artikel Gagal Diubah!');
+            $articleId = $request->get('article_id');
+            $oldGalleryIds = $request->get('gallery_id');
+            $nameCollage = $request->get('name_collage');
+            $status = $request->get('status');
+            $newGalleryIds = $request->get('new_photos', []);
+            if (!empty($newGalleryIds)) {
+                    $oldGalleryIds = array_map('intval', $oldGalleryIds);
+                    $newGalleryIds = array_map('intval', $newGalleryIds);
+    
+                    $galleryIdsToRemove = array_diff($oldGalleryIds, $newGalleryIds);
+    
+    
+                    if (!empty($galleryIdsToRemove)) {
+                        ArticleGallery::where('article_id', $articleId)
+                                    ->whereIn('gallery_id', $galleryIdsToRemove)
+                                    ->delete();
+                    }
+    
+                    $existingGalleryIds = ArticleGallery::where('article_id', $articleId)
+                                                    ->whereIn('gallery_id', $newGalleryIds)
+                                                    ->pluck('gallery_id')
+                                                    ->toArray();
+    
+                    $filteredNewGalleryIds = array_diff($newGalleryIds, $existingGalleryIds);
+    
+                foreach ($filteredNewGalleryIds as $galleryId) {
+                    ArticleGallery::create([
+                        'article_id' => $articleId,
+                        'gallery_id' => $galleryId,
+                        'name_collage' => $nameCollage,
+                        'status' => $status,
+                        'updated_at' => now(),
+                        'created_at' => now(),
+                    ]);
+                }
+            } else {
+                ArticleGallery::where('article_id', $articleId)
+                             ->whereIn('gallery_id', $oldGalleryIds)
+                             ->update([
+                                 'name_collage' => $nameCollage,
+                                 'status' => $status,
+                                 'updated_at' => now(),
+                             ]);
+            }
+        
+            return redirect()->route('artikel.galeri.index')->with('success', 'Data kolase berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return redirect()->route('artikel.galeri.edit', [
+                'article_id' => $request->get('article_id'),
+                'gallery_id' => $oldGalleryIds
+            ])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
+        
     }
-    public function deleteArticleGallery(Request $request, string $id)
+    public function deleteArticleGallery($artikel)
     {
         try {
-            $delete= $request;
-            $delete->status = 0;
-            $request = Article::findOrFail($id);
-            $request->update($delete);
-            return redirect()->route('articleGalleries.index')->with('success', 'Foto di Artikel Berhasil Dihapus!');
-        } catch (Exception $e) {
-            return redirect()->route('articleGalleries.index')->with('error', 'Foto di Artikel Gagal Dihapus!');
+            // Update all matching records to status 0
+            ArticleGallery::where('article_id', $artikel)
+                ->update([
+                    'status' => 0,
+                    'updated_at' => now(),
+                ]);
+    
+            return redirect()->route('artikel.galeri.index')->with('success', 'Kolase berhasil dinonaktifkan!');
+        } catch (\Exception $e) {
+            return redirect()->route('artikel.galeri.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-    }
-    public function destroyArticleGallery(Article $article)
-    {
-        Article::findOrFail($article->id)->update(['status' => 0]);
-        return redirect()->route('artikel.index')->with('success', 'Foto di Artikel berhasil dihapus!');
     }
 }

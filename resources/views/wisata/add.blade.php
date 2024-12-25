@@ -28,7 +28,6 @@
                 </select>
                 <br>
                 <div id="preview-photos" class="text-center">
-                    <!-- Previews of selected photos will be dynamically added here -->
                 </div>
             </div>
 

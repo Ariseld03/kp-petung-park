@@ -66,7 +66,7 @@ Route::get('/admin/wisata/galeri/edit-form', [TravelController::class, 'editTrav
 Route::post('/admin/wisata/galeri/edit', [TravelController::class, 'updateTravelGallery'])->name('wisata.gallery.update');
 Route::get('/admin/wisata/galeri/add', [TravelController::class, 'addTravelGallery'])->name('wisata.gallery.add');
 Route::post('/admin/wisata/galeri/add', [TravelController::class, 'storeTravelGallery'])->name('wisata.gallery.store');
-Route::post('/wisata/galeri/delete', [TravelController::class, 'deleteTravelGallery'])->name('wisata.gallery.delete');
+Route::post('admin/wisata/galeri/delete/{travel}', [TravelController::class, 'deleteTravelGallery'])->name('wisata.gallery.delete');
 
 // Admin CRUD Staff
 Route::get('/admin/staf', [UserController::class, 'index'])->name('staf.index');
@@ -158,4 +158,4 @@ Route::get('/admin/artikel/galeri/edit-form', [ArticleController::class, 'editAr
 Route::post('/admin/artikel/galeri/edit', [ArticleController::class, 'updateArticleGallery'])->name('artikel.galeri.update');
 Route::get('/admin/artikel/galeri/add', [ArticleController::class, 'addArticleGallery'])->name('artikel.galeri.add');
 Route::post('/admin/artikel/galeri/add', [ArticleController::class, 'storeArticleGallery'])->name('artikel.galeri.store');
-Route::post('/artikel/galeri/delete', [ArticleController::class, 'deleteArticleGallery'])->name('artikel.galeri.delete');
+Route::post('/admin/artikel/galeri/delete/{artikel}', [ArticleController::class, 'deleteArticleGallery'])->name('artikel.galeri.delete');

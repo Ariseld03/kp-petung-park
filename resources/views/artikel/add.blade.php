@@ -30,6 +30,20 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label for="photos">Foto:</label>
+                <select class="form-control" id="photos" name="photos[]" multiple>
+                    @foreach($galleries as $gallery)
+                        <option value="{{ $gallery->id }}" data-img-src="{{ asset($gallery->photo_link) }}">
+                            {{ $gallery->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <br>
+                <div id="preview-photos" class="text-center">
+                </div>
+            </div>
+
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>
                 <button type="button" class="btn btn-secondary" onclick="location.href='{{ url('/artikelStaff') }}'">Batal</button>
