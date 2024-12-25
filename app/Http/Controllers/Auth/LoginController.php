@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Staff;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -41,7 +41,7 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        $user = Staff::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
 
         if ($user && Hash::check($request->input('password'), $user->password)) {
             // Attempt to authenticate the user (this will also start the session)

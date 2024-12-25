@@ -49,7 +49,7 @@
                 <a class="navbar-brand" href="{{ route('staf.index') }}">
                     <img src="{{ asset('/images/footer/logoPetungPark.png') }}" alt="Logo" width="40"
                         height="40" class="d-inline-block align-text-top">
-                    {{ Auth::check() ? Auth::user()->name : 'Admin' }}
+                    Petung Park
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

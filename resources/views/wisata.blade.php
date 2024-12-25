@@ -22,7 +22,7 @@
                     @endphp
                     <img id="paket_{{$perpaket->id}}" src="{{ asset($photo) }}" alt="Foto {{ $perpaket->name }}" class="zoomimg">
                     <p id="text_paket_{{$perpaket->id}}" class="judul-paket">{{ $perpaket->name }}</p>
-                    <button onclick="window.location.href='{{ route('paket.show', $perpaket->id) }}'">Baca Lebih
+                    <button onclick="window.location.href='{{ route('menu.paket.show', $perpaket->id) }}'">Baca Lebih
                         Banyak</button>
 
                 </div>
