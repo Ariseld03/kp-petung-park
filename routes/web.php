@@ -44,20 +44,32 @@ Route::middleware('guest')->group(function () {
 // Logout Route
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+// Navbar 
+Route::get('/beranda', [GalleryShowController::class, 'showAllPengguna'])->name('beranda');
+Route::get('/wisata', [PackageController::class, 'showLayanan'])->name('wisata');
+Route::get('/agenda', [AgendaController::class, 'showAgenda'])->name('agenda');
+Route::get('/tentangKami', [GenericController::class, 'aboutUs'])->name('tentangKami');
+
+// Agenda 
+Route::get('/kegiatan/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('kegiatan.mendatang');
+Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');
+
+// Wisata
+Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
+Route::post('/wisata/like/{galleryId}', [GalleryController::class, 'like'])->name('wisata.like');
+
+// Galeri
+Route::post('/galeri/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
+
+ // Kategori
+ Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
+ Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
+
+ // Paket
+ Route::get('/paket/{id}', [PackageController::class, 'show'])->name('menu.paket.show');
+ Route::post('/paket/{id}/like', [PackageController::class, 'like'])->name('menu.paket.like');
+
 Route::middleware('auth')->group(function () {
-    // Navbar 
-    Route::get('/beranda', [GalleryShowController::class, 'showAllPengguna'])->name('beranda');
-    Route::get('/wisata', [PackageController::class, 'showLayanan'])->name('wisata');
-    Route::get('/agenda', [AgendaController::class, 'showAgenda'])->name('agenda');
-    Route::get('/tentangKami', [GenericController::class, 'aboutUs'])->name('tentangKami');
-
-    // Agenda 
-    Route::get('/kegiatan/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('kegiatan.mendatang');
-    Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');
-
-    // wisata
-    Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
-    Route::post('/wisata/like/{galleryId}', [GalleryController::class, 'like'])->name('wisata.like');
     // Admin CRUD Wisata
     Route::get('/admin/wisata', [TravelController::class, 'index'])->name('wisata.index');
     Route::get('/admin/wisata/add', [TravelController::class, 'add'])->name('wisata.add');
@@ -83,8 +95,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/staf/edit/{user}', [UserController::class, 'update'])->name('staf.update');
     Route::delete('/admin/staf/{user}', [UserController::class, 'destroy'])->name('staf.destroy');
 
-    // Galeri
-    Route::post('/galeri/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
     // Admin CRUD Galeri
     Route::get('/admin/galeri', [GalleryController::class, 'index'])->name('galeri.index');
     Route::post('/admin/galeri/add', [GalleryController::class, 'store'])->name('galeri.store');
@@ -120,13 +130,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/hidangan/edit/{hidangan}', [MenuController::class, 'update'])->name('menu.hidangan.update');
     Route::delete('/admin/hidangan/{hidangan}', [MenuController::class, 'delete'])->name('menu.hidangan.delete');
 
-    // Kategori
-    Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
-    Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
-
-    // Paket
-    Route::get('/paket/{id}', [PackageController::class, 'show'])->name('menu.paket.show');
-    Route::post('/paket/{id}/like', [PackageController::class, 'like'])->name('menu.paket.like');
     // Admin CRUD Paket
     Route::get('/admin/paket/add', [PackageController::class, 'add'])->name('menu.paket.add');
     Route::post('/admin/paket/add', [PackageController::class, 'store'])->name('menu.paket.store');
@@ -141,7 +144,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/paket-menu/edit/{packagemenu}', [PackageController::class, 'updateMenuPackage'])->name('menu.menupaket.update');
     Route::delete('/admin/paket-menu/{packagemenu}', [PackageController::class, 'deleteMenuPackage'])->name('menu.menupaket.delete');
 
-    // Kegiatan
     // Admin CRUD Kegiatan
     Route::get('/admin/kegiatan', [AgendaController::class, 'index'])->name('kegiatan.index');
     Route::get('/admin/kegiatan/add', [AgendaController::class, 'add'])->name('kegiatan.add');
