@@ -44,6 +44,7 @@ Route::middleware('guest')->group(function () {
 // Logout Route
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::middleware('auth')->group(function () {
 // Navbar 
 Route::get('/beranda', [GalleryShowController::class, 'showAllPengguna'])->name('beranda');
 Route::get('/wisata', [PackageController::class, 'showLayanan'])->name('wisata');
@@ -69,7 +70,6 @@ Route::post('/galeri/{id}/like', [GalleryController::class, 'like'])->name('gall
  Route::get('/paket/{id}', [PackageController::class, 'show'])->name('menu.paket.show');
  Route::post('/paket/{id}/like', [PackageController::class, 'like'])->name('menu.paket.like');
 
-Route::middleware('auth')->group(function () {
     // Admin CRUD Wisata
     Route::get('/admin/wisata', [TravelController::class, 'index'])->name('wisata.index');
     Route::get('/admin/wisata/add', [TravelController::class, 'add'])->name('wisata.add');
