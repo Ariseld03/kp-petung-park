@@ -24,14 +24,14 @@ html {
 
 .kegiatan-detail h2 {
     padding-top: 90px;
-    padding-bottom: 5px;
+    padding-bottom: 2px;
     font-weight: bold;
     text-align: center; /* Menyelarankan teks ke tengah */
     font-size: 40px;
 }
 
 .kegiatan-info {
-    padding-bottom: 20px;
+    padding-bottom: 5px;
     max-width: 600px; /* Menetapkan lebar maksimum untuk informasi kegiatan */
     text-align: center; /* Meratakan teks di dalam .kegiatan-info */
 }
@@ -65,7 +65,8 @@ html {
     display: flex; /* Mengaktifkan Flexbox */
     flex-wrap: wrap; /* Memungkinkan item membungkus ke baris berikutnya */
     justify-content: center; /* Menyelaraskan gambar ke tengah */
-    margin-top: 20px; /* Jarak atas antara galeri dan konten lain */
+    margin-top: 5px; /* Jarak atas antara galeri dan konten lain */
+    padding-bottom: 20px;
 }
 
 .gallery-item {

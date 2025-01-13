@@ -9,6 +9,14 @@
         <a href="{{ url()->previous() }}" class="btn-kembali">Kembali</a>
         <h2>{{ $agenda->event_name }}</h2>
 
+        <div class="kegiatan-info">
+                    <p><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} -
+                        {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }}</p>
+                    <p><strong>Lokasi:</strong> {{ $agenda->event_location }}</p>
+                    <p><strong>Deskripsi: <br></strong></p>
+                    <p style="text-align: justify;"> {{ $agenda->description }}</p>
+                </div>
+                
         <div class="gallery">
             @foreach ($galleries as $gallery)
                 <div class="gallery-item">
@@ -30,13 +38,7 @@
             @endforeach
         </div>
 
-        <div class="kegiatan-info">
-            <p><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} -
-                {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }}</p>
-            <p><strong>Lokasi:</strong> {{ $agenda->event_location }}</p>
-            <p><strong>Deskripsi: <br></strong></p>
-            <p style="text-align: justify;"> {{ $agenda->description }}</p>
-        </div>
+        
 
         <div class="artikel">
             <h3>Artikel Terkait</h3>
