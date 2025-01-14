@@ -55,7 +55,7 @@
                         <td rowspan="{{ $groupedCollages->count() }}">
                             <button type="button" 
                                     class="btn btn-danger" 
-                                    onclick="handleNonaktif('{{ $groupedCollages->first()->article_id }}', '{{ $groupedCollages->first()->status }}')">
+                                    onclick="handleNonaktif('{{ $groupedCollages->first()->article_id }}', '{{ $groupedCollages->first()->status }}')"
                                     data-toggle="modal" 
                                     data-target="#hapusModal-{{ $articleId }}">
                                 Nonaktif

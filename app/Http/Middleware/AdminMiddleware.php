@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class StaffMiddleware 
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,7 @@ class StaffMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->position === 'Staff') {
-            return $next($request);
-        }
-        else if (Auth::check() && Auth::user()->position === 'Admin') {
+        if (Auth::check() && Auth::user()->position === 'Admin') {
             return $next($request);
         }
         return redirect()->route('beranda');

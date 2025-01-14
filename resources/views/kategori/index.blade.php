@@ -1,26 +1,81 @@
-@extends('layouts.main')
+@extends('layouts.mainAdmin')
+
 @section('page-css')
-    <link rel="stylesheet" href="{{ asset('/css/kategori.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/category.css') }}">
 @endsection
-@section('container-main')
-    <!-- Kategori Makanan -->
-    <div class="kategori-makanan">
-        <div class="kategori-header">
-            <a href="{{ route('wisata') }}" class="btn-kembali">Kembali</a>
-            <h2>Kategori Kuliner</h2>
-        </div>
-        <div class="makanan-container">
-        @forelse($kategori as $perkategori)
-            <div class="makanan">
-                    @php
-                    $fotoMakanan = $perkategori->menus->isNotEmpty() ? $perkategori->menus->first()->gallery->photo_link : "/images/footer/logoPetungPark.png";
-                    @endphp
-                <img src="{{ asset($fotoMakanan) }}" alt="Foto {{$perkategori->name }}">
-                <p class="judul-makanan">{{$perkategori->name }}</p>
-                <button onclick="window.location.href='{{ route('kategori.makanan', $perkategori->id) }}'">Lihat Kategori</button>
-            </div>
-        @empty
-            <p>Tidak ada menu yang tersedia saat ini.</p>
-        @endforelse
+
+@section('content')
+    <div class="container mt-5">
+        <h1 class="text-center" style="color: #557C56;">Kategori</h1>
+
+        <!-- Tabel Kategori -->
+        <a class="btn btn-warning mb-3" style="font-weight: bold;" onclick="location.href='{{ route('kategori.add') }}'">Tambah Kategori</a>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nama</th>
+                    <th>Status</th>
+                    <th>Tanggal Dibuat</th>
+                    <th>Tanggal Diubah</th>
+                    <th>Perbarui</th>
+                    <th>Hapus</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($categories as $category)
+                    <tr>
+                        <td>{{ $category->name }}</td>
+                        <td>{{ $category->status ? 'Aktif' : 'Nonaktif' }}</td>
+                        <td>{{ $category->created_at->format('d-m-Y') }}</td>
+                        <td>{{ $category->updated_at->format('d-m-Y') }}</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="location.href='{{ route('kategori.edit', $category->id) }}'">Perbarui</button>
+                        </td>
+                        <td>
+                        <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $category->id }}, {{ (int)$category->status }}, 'category')">
+                            Nonaktif
+                        </button>
+
+                            <div class="modal fade" id="hapusModal-category-{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-category-{{ $category->id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="hapusModalLabel-category-{{ $category->id }}">Konfirmasi Nonaktif</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body" id="modalMessage-category-{{ $category->id }}">
+                                            Apakah Anda yakin ingin mengubah status kategori ini?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            <form action="{{ route('kategori.delete', $category->id) }}" method="POST" id="nonaktifForm-category-{{ $category->id }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Nonaktifkan</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection
+
+@section('page-js')
+<script src="{{ asset('js/modalHandler.js') }}"></script>
+@if(session('success') === true)
+    <script>
+        $(document).ready(function() {
+            $('#BerhasilModal').modal('show');
+            $('#BerhasilModal .modal-body').html('Data berhasil dinonaktifkan');
+        });
+    </script>
+@endif
+@endsection
+

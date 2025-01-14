@@ -5,7 +5,7 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="text-center text-success">Tambah Galeri Wisata</h1>
-        <form action="{{ route('wisata.gallery.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('wisata.galeri.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="form-group">
@@ -41,7 +41,7 @@
 
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('wisata.gallery.index') }}'">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('wisata.galeri.index') }}'">Batal</button>
             </div>
         </form>
     </div>

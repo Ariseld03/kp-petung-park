@@ -1,0 +1,117 @@
+@extends('layouts.mainAdmin')
+
+@section('page-css')
+    <style>
+        @media (min-width: 992px) { /* For larger screens */
+            .btn-custom {
+                margin-bottom: 8px; /* Reduce vertical gap */
+                width: 100%;        /* Ensure buttons take full width of column */
+            }
+            .row-custom {
+                gap: 10px; /* Reduce horizontal gap between columns */
+                justify-content: center; /* Center buttons horizontally */
+            }
+        }
+
+        @media (max-width: 991px) { /* For smaller screens */
+            .btn-custom {
+                margin-bottom: 16px; /* Increase vertical gap */
+            }
+        }
+    </style>
+@endsection
+
+@section('content')
+<style>
+    @media (min-width: 992px) { /* For larger screens */
+        .btn-custom {
+            margin-bottom: 8px; /* Reduce vertical gap */
+            width: 100%;        /* Ensure buttons take full width of column */
+        }
+        .row-custom {
+            gap: 10px; /* Reduce horizontal gap between columns */
+            justify-content: center; /* Center buttons horizontally */
+        }
+    }
+
+    @media (max-width: 991px) { /* For smaller screens */
+        .btn-custom {
+            margin-bottom: 16px; /* Increase vertical gap */
+        }
+    }
+</style>
+
+<div class="container mt-5">
+    <h1 class="text-center" style="color: #557C56;">Berikut Menu Admin</h1>
+
+    <!-- Artikel & Kategori Section -->
+    <div class="row row-custom mt-5">
+        <h3 class="text-center mb-4" style="color: #295A3F;">Artikel & Kategori</h3>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('artikel.index') }}">Artikel</a>
+        </div>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('artikel.galeri.index') }}">Kolase Foto Artikel</a>
+        </div>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('kategori.index') }}">Kategori</a>
+        </div>
+    </div>
+
+    <!-- Wisata Section -->
+    <div class="row row-custom mt-5">
+        <h3 class="text-center mb-4" style="color: #295A3F;">Wisata</h3>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('wisata.index') }}">Wisata</a>
+        </div>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('wisata.galeri.index') }}">Kolase Foto Wisata</a>
+        </div>
+    </div>
+
+    <!-- Pegawai Section -->
+    <div class="row row-custom mt-5">
+        <h3 class="text-center mb-4" style="color: #295A3F;">Pegawai</h3>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('staf.index') }}">Pegawai</a>
+        </div>
+    </div>
+
+    <!-- Menu Section -->
+    <div class="row row-custom mt-5">
+        <h3 class="text-center mb-4" style="color: #295A3F;">Hidangan & Paket</h3>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('menu.index') }}">Hidangan/Paket</a>
+        </div>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('menu.menupaket.index') }}">Kolase Menu Paket</a>
+        </div>
+    </div>
+
+    <!-- Kegiatan & Galeri Section -->
+    <div class="row row-custom mt-5">
+        <h3 class="text-center mb-4" style="color: #295A3F;">Kegiatan & Galeri</h3>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('kegiatan.index') }}">Kegiatan</a>
+        </div>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('galeri.index') }}">Galeri</a>
+        </div>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('galeri.slider.index') }}">Galeri Slider</a>
+        </div>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('galeri.show.index') }}">Galeri Show</a>
+        </div>
+    </div>
+
+    <!-- Generic Section -->
+    <div class="row row-custom mt-5">
+        <h3 class="text-center mb-4" style="color: #295A3F;">Generic</h3>
+        <div class="col-lg-2 col-md-4 d-flex justify-content-center">
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('generic.index') }}">Generic</a>
+        </div>
+    </div>
+</div>
+@endsection
+

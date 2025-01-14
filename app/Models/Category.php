@@ -9,6 +9,10 @@ class Category extends Model
 {
     use HasFactory;
     protected $table = 'categories';
+    protected $fillable = [
+        'name',
+        'status',
+    ];
     public function menus()
     {
         return $this->hasMany(Menu::class, 'category_id', 'id');

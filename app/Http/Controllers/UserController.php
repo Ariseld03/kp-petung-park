@@ -71,10 +71,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function showAdminPage()
     {
-        $staff = User::findOrFail($id);
-        return view('staf.show', compact('staff'));
+        return view('admin.index');
     }
 
     /**

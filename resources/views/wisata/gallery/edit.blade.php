@@ -2,7 +2,7 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="judul">Update Galeri Wisata</h1>
-        <form action="{{ route('wisata.gallery.update')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('wisata.galeri.update')}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <input type="hidden" name="travel_id" value="{{ $selectedCollage->travel_id }}">
@@ -82,7 +82,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-success">Simpan</button>
-            <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('wisata.gallery.index') }}'">Kembali</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('wisata.galeri.index') }}'">Kembali</button>
         </form>
     </div>
 @endsection

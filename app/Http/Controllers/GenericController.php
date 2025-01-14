@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Generic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class GenericController extends Controller
 {
@@ -14,15 +16,15 @@ class GenericController extends Controller
     public function index()
     {
         $generics = Generic::all();
-        return view('generics.index', compact('generics'));
+        return view('generic.index', compact('generics'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function add()
     {
-        return view('generics.create');
+        return view('generic.add');
     }
 
     /**
@@ -32,29 +34,78 @@ class GenericController extends Controller
     {
         $request->validate([
             'key' => 'required|string|max:255',
-            'value' => 'required|longtext',
-            'status' => 'required|integer',
-            'icon_picture_link' => 'string|max:255',
-            'staff_email' => 'required|email|exists:staffs,email',
+            'value' => 'required|string|max:255',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
         ]);
 
-        Generic::create([
-            'key' => $request->input('key'),
-            'value' => $request->input('value'),
-            'status' => $request->input('status'),
-            'icon_picture_link' => $request->input('icon_picture_link'),
-            'staff_email' => $request->input('staff_email'),
-        ]);
+        $generic = new Generic;
+        $generic->key = $request->input('key');
+        $generic->value = $request->input('value');
+        $generic->status = 1;
+        $generic->user_id = Auth::user()->id;
+        $extension = $request->file('photo')->getClientOriginalExtension();
+        
+        // Generate a new file name based on the gallery name or any custom logic
+        $newFileName = str_replace(' ', '_', strtolower($generic->key)) . '_' . time() . '.' . $extension;
+        
+        // Save the file in 'storage/app/public/images/galeri/baru' folder
+        $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
+        
+        // Save the file path to the database with public path (this is where it will be accessed in the URL)
+        $generic->icon_picture_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL   
+        $generic->created_at = now();
+        $generic->updated_at = now();
+        $generic->save();
 
-        return redirect()->route('generics.index')->with('success', 'Data umum berhasil ditambahkan!');
+        return redirect()->route('generic.index')->with('success', 'Data umum berhasil ditambahkan!');
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified resource.
      */
-    public function show(Generic $generic)
+    public function edit(Generic $generic)
     {
-        return view('generics.show', compact('generic'));
+        return view('generic.edit', compact('generic'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Generic $generic)
+    {
+        $request->validate([
+            'key' => 'required|string|max:255',
+            'value' => 'required|string|max:255',
+            'status' => 'required|integer',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
+        ]);       
+        $generic->key = $request->input('key');
+        $generic->value = $request->input('value');
+        $generic->status = $request->input('status');
+        if ($request->hasFile('photo')) {
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            
+            $newFileName = str_replace(' ', '_', strtolower($generic->name)) . '_' . time() . '.' . $extension;
+            
+            $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
+            
+            $generic->photo_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL
+        }  
+        $generic->updated_at = now();      
+        $generic->save();
+
+        return redirect()->route('generic.index')->with('success', 'Data umum berhasil diubah!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function delete(Generic $generic)
+    {
+        $generic->status = 0;
+        $generic->save();
+
+        return redirect()->route('generic.index')->with('success', 'Data umum berhasil dinonaktifkan!');
     }
     public function aboutUs()
     {
@@ -95,46 +146,6 @@ class GenericController extends Controller
             }
         }
         return view('tentangKami', compact('aboutUs'));
-    }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Generic $generic)
-    {
-        return view('generics.edit', compact('generic'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Generic $generic)
-    {
-        $request->validate([
-            'key' => 'required|string|max:255',
-            'value' => 'required|longtext',
-            'status' => 'required|integer',
-            'icon_picture_link' => 'string|max:255',
-            'staff_email' => 'required|email|exists:staffs,email',
-        ]);
-        $generic->key = $request->input('key');
-        $generic->value = $request->input('value');
-        $generic->icon_picture_link = $request->input('icon_picture_link');
-        $generic->staff_email = $request->input('staff_email');
-        $generic->status = $request->input('status');
-        $generic->save();
-
-        return redirect()->route('generics.index')->with('success', 'Data umum berhasil diubah!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Generic $generic)
-    {
-        $generic->status = 0;
-        $generic->save();
-
-        return redirect()->route('generics.index')->with('success', 'Data umum berhasil dihapus!');
     }
 }
 

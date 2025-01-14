@@ -65,6 +65,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('tentangKami') }}">Tentang Kami</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}">Keluar</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

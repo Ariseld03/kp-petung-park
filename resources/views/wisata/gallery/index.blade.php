@@ -7,7 +7,7 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="text-center" style="color: #557C56;">Daftar kolase</h1>
-        <a href="{{ route('wisata.gallery.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah kolase</a>
+        <a href="{{ route('wisata.galeri.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah kolase</a>
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
@@ -46,7 +46,7 @@
                             {{ $groupedCollages->first()->updated_at->format('d-m-Y') }}
                         </td>
                         <td rowspan="{{ $groupedCollages->count() }}">
-                            <form action="{{ route('wisata.gallery.edit') }}" method="POST" style="display:inline;">
+                            <form action="{{ route('wisata.galeri.edit') }}" method="POST" style="display:inline;">
                                 @csrf
                                 <input type="hidden" name="travel_id" value="{{ $groupedCollages->first()->travel_id }}">
                                 <input type="hidden" name="gallery_id" value="{{ $groupedCollages->first()->gallery_id }}">
@@ -75,7 +75,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                            <form action="{{ route('wisata.gallery.delete', ['travel' => $groupedCollages->first()->travel_id]) }}" method="POST">
+                                            <form action="{{ route('wisata.galeri.delete', ['travel' => $groupedCollages->first()->travel_id]) }}" method="POST">
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger">Nonaktifkan</button>
                                             </form>
