@@ -7,7 +7,7 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="text-center" style="color: #557C56;">Generic</h1>
-        <a href="{{ route('generic.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Data Generic</a>
+        <a href="{{ route('generic.create') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Data Generic</a>
 
         <table class="table table-bordered">
             <thead class="thead-dark" style="background-color: #557C56; color: #FFFBE6;">

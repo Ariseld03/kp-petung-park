@@ -62,14 +62,6 @@
                 @enderror
             </div>
 
-            <div class="form-group">
-                <label for="number_love">Jumlah Like:</label>
-                <input type="number" class="form-control" id="number_love" name="number_love" value="{{ old('number_love', $gallery->number_love) }}" required>
-                @error('number_love')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                @enderror
-            </div>
-
             <button type="submit" class="btn btn-success">Perbarui</button>
             <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('galeri.index') }}'">Batal</button>
         </form>

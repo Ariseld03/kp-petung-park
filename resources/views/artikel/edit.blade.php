@@ -22,11 +22,6 @@
             </div>
 
             <div class="form-group">
-                <label for="number_love">Jumlah Like:</label>
-                <input type="number" class="form-control" id="number_love" name="number_love" value="{{ $artikel->number_love }}" required>
-            </div>
-
-            <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
                     <option value="1" {{ $artikel->status == '1' ? 'selected' : '' }}>Aktif</option>

@@ -21,10 +21,10 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function add()
+    public function create()
     {
         $galleries = Gallery::where('status', 1)->get();
-        return view('staf.add', compact('galleries'));
+        return view('staf.create', compact('galleries'));
     }
 
     /**

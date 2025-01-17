@@ -25,12 +25,12 @@ class MenuController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function add()
+    public function create()
     {       
         $categories = Category::where('status', 1)->get();
         $users = User::where('status', 1)->get();
         $galleries = Gallery::where('status', 1)->get();
-        return view('menu.hidangan.add', compact('categories', 'users', 'galleries'));
+        return view('menu.hidangan.create', compact('categories', 'users', 'galleries'));
     }
 
     /**

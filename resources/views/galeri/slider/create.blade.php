@@ -39,7 +39,6 @@
 @endsection
 @section('page-js')
 <script>
-
     document.getElementById('photos').addEventListener('change', function() {
         var previewContainer = document.getElementById('preview-photo');
         previewContainer.innerHTML = ''; // Clear previous previews

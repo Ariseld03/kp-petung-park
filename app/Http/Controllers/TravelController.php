@@ -21,10 +21,10 @@ class TravelController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function add()
+    public function create()
     {
         $galleries = Gallery::where('status', 1)->get();
-        return view('wisata.add', compact('galleries'));
+        return view('wisata.create', compact('galleries'));
     }
 
     /**
@@ -102,12 +102,10 @@ class TravelController extends Controller
                 'name' => 'required|string|max:255',
                 'status' => 'required|integer',
                 'description' => 'nullable|string',
-                'number_love' => 'nullable|integer',
             ]);
             $wisata->name = $request->get('name');
             $wisata->status = $request->get('status');
             $wisata->description = $request->get('description');
-            $wisata->number_love = $request->get('number_love');
             $wisata->updated_at = now();
             $wisata->save();
 
@@ -129,6 +127,48 @@ class TravelController extends Controller
         return redirect()->route('wisata.index')->with('success', 'Wisata berhasil dinonaktifkan!');
     }
     
+    public function like(Request $request, $travelId)
+    {
+        // Check if the user is authenticated
+        if (!auth()->check()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        // Retrieve the gallery or return a 404 error if not found
+        $travel = Article::findOrFail($travelId);
+
+        // Generate a unique session key for the gallery
+        $sessionKey = 'liked_article_' . $travelId;
+
+        // Check if the user has already liked the gallery
+        if (session()->has($sessionKey)) {
+            // Decrease the like count only if it's greater than zero
+            if ($gallery->number_love > 0) {
+                $gallery->number_love--;
+            }
+
+            // Remove the like session key
+            session()->forget($sessionKey);
+            $action = 'unliked'; // Specify the action
+        } else {
+            // Increase the like count
+            $travel->number_love++;
+
+            // Store the like in the session
+            session()->put($sessionKey, true);
+            $action = 'liked'; // Specify the action
+        }
+
+        // Save the updated gallery data
+        $travel->save();
+
+        // Return a JSON response with the updated like count and action
+        return response()->json([
+            'number_love' => $travel->number_love,
+            'action' => $action,
+        ]);
+    }
+
     /**
      * M to M for pivot table travel_gallery
      */

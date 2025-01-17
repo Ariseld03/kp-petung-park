@@ -10,7 +10,7 @@
 
         <!-- Tabel Paket -->
         <h2 class="judul-paket" style="color: #557C56;">Paket</h2>
-        <a class="btn btn-warning mb-3" style="font-weight: bold;" onclick="location.href='{{ route('menu.paket.add') }}'">Tambah Paket</a>
+        <a class="btn btn-warning mb-3" style="font-weight: bold;" onclick="location.href='{{ route('menu.paket.create') }}'">Tambah Paket</a>
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
@@ -72,7 +72,7 @@
 
         <!-- Tabel Hidangan -->
         <h2 class="hidangan-title" style="color: #557C56;">Hidangan</h2>
-        <button id="addRowHidangan" class="btn btn-warning mb-3" style="font-weight: bold;" onclick="location.href='{{ route('menu.hidangan.add') }}'">Tambah Hidangan</button>
+        <button id="addRowHidangan" class="btn btn-warning mb-3" style="font-weight: bold;" onclick="location.href='{{ route('menu.hidangan.create') }}'">Tambah Hidangan</button>
         <div class="hidangan-menu">
             <table class="table table-bordered">
                 <thead class="thead-dark">

@@ -19,13 +19,13 @@ class PackageController extends Controller
         return view('menu.paket.index', compact('packages'));
     }
 
-    public function add()
+    public function create()
     {
         $menus = Menu::where('status', 1)->get();
         $galleries = Gallery::where('status', 1)
                             ->where('name', 'like', '%paket%')
                             ->get();
-        return view('menu.paket.add', compact('menus','galleries'));
+        return view('menu.paket.create', compact('menus','galleries'));
     }
 
     public function store(Request $request)

@@ -22,9 +22,9 @@ class GenericController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function add()
+    public function create()
     {
-        return view('generic.add');
+        return view('generic.create');
     }
 
     /**

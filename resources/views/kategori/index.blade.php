@@ -9,7 +9,7 @@
         <h1 class="text-center" style="color: #557C56;">Kategori</h1>
 
         <!-- Tabel Kategori -->
-        <a class="btn btn-warning mb-3" style="font-weight: bold;" onclick="location.href='{{ route('kategori.add') }}'">Tambah Kategori</a>
+        <a class="btn btn-warning mb-3" style="font-weight: bold;" onclick="location.href='{{ route('kategori.create') }}'">Tambah Kategori</a>
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>

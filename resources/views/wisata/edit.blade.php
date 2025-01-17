@@ -22,11 +22,6 @@
                     <option value="0" {{ $wisata->status == 0 ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
-
-            <div class="form-group">
-                <label for="number_love">Jumlah Like:</label>
-                <input type="number" class="form-control" id="number_love" name="number_love" value="{{ $wisata->number_love }}" required>
-            </div>
             
             <div class="form-group">
                 <label for="old_photos">Foto Saat Ini:</label>

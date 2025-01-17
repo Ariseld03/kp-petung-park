@@ -6,7 +6,7 @@
 
 <div class="container-fluid mt-5">
     <h1 class="text-center" style="color: #557C56;">Tabel Pegawai</h1>
-    <a href="{{ route('staf.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Pegawai</a>
+    <a href="{{ route('staf.create') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Pegawai</a>
 
     <div class="table-responsive">
         <table class="table table-bordered">

@@ -7,7 +7,7 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="text-center" style="color: #557C56;">Daftar kolase</h1>
-        <a href="{{ route('menu.menupaket.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah kolase</a>
+        <a href="{{ route('menu.menupaket.create') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah kolase</a>
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>

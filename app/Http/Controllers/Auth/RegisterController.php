@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Gallery;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -23,61 +25,67 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
-    protected $redirectTo = '/login';
+    protected $redirectTo = '/beranda';
 
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:staffs'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'position' => ['required', 'string'],
-            'date_of_birth' => ['required', 'date'],
-            'gender' => ['required', 'string'],
-            'phone_number' => ['required', 'numeric'],
-            'status' => ['required', 'tinyinteger'],
-            'gallery_id' => ['required', 'integer'],
-        ]);
-    }
-
     protected function create(array $data)
     {
-        return Staff::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'position' => $data['role'],
-            'date_of_birth' => $data['tanggalLahir'],
+            'date_of_birth' => $data['dob'],
+            'position' => 'user',
             'gender' => $data['gender'],
-            'phone_number' => $data['nomorHp'],
-            'status' => $data['status'],
-            'gallery_id' => $data['fotoProfil'],
+            'phone_number' => $data['phone'],
+            'status' => 1,
+            'gallery_id' => null,
         ]);
     }
 
     // Menambahkan metode register
     public function register_process(Request $request)
     {
-        // Validasi input
-        $this->validator($request->all())->validate();
+        if ($request->password != $request->password_confirmation) {
+            return back()->withErrors(['password' => 'Kata sandi tidak sama dengan konfirmasi kata sandi.']);
+        }
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'dob' => ['required', 'date'],
+            'gender' => ['required', 'string'],
+            'phone' => ['required', 'string', 'max:15'],
+        ], [
+            'email.unique' => 'Email sudah terdaftar.',
+            'email.required' => 'Email harus diisi.',
+            'password.required' => 'Kata sandi harus diisi.',
+            'password.min' => 'Kata sandi harus terdiri dari minimal 8 karakter.',
+            'password.confirmed' => 'Kata sandi tidak sama dengan konfirmasi kata sandi.',
+            'name.required' => 'Nama harus diisi.',
+            'dob.required' => 'Tanggal lahir harus diisi.',
+            'gender.required' => 'Jenis kelamin harus diisi.',
+            'phone.required' => 'Nomor telepon harus diisi.',
+        ]);
+        
+        // Optional: Add a manual check for email uniqueness if necessary
+        if (User::where('email', $request->email)->exists()) {
+            return back()->withErrors(['email' => 'Email sudah digunakan.']);
+        }
 
-        // Buat user baru
         $user = $this->create($request->all());
-
-        // Autentikasi pengguna setelah registrasi
+        
         Auth::login($user);
-
-        // Redirect setelah registrasi berhasil
-        return redirect($this->redirectTo);
+        return redirect($this->redirectTo)->with('success', 'Selamat datang, registrasi berhasil!');
     }
     public function register()
     {
-        return view('auth.register');
+        $galleries = Gallery::all();
+        return view('auth.register', compact('galleries'));
     }
     public function logout(Request $request)
     {

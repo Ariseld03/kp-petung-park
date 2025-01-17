@@ -81,29 +81,30 @@
             var password = $('#password').val();
 
             $.ajax({
-                type: 'POST',
-                url: '/login-process',
-                data: {
-                    email: email,
-                    password: password,
-                    '_token': '{{ csrf_token() }}',
-                    'expectsJson': true
-                },
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                dataType: 'json',
-                success: function(response) {
-                    // Handle the response
-                    console.log(response);
-                    if (response.success) {
-                        window.location.href = "{{ route('beranda') }}";
-                    } else {
-                        alert(response.message);
-                    }
+            type: 'POST',
+            url: '/login-process',
+            data: {
+                email: email,
+                password: password,
+                '_token': '{{ csrf_token() }}',
+                'expectsJson': true
+            },
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            dataType: 'json',
+            success: function(response) {
+                // Handle the response
+                console.log(response);
+                if (response.success) {
+                    window.location.href = "{{ route('beranda') }}";
+                } else {
+                    alert(response.message);
                 }
-            });
+            }
+        });
+
         });
     });
 </script>

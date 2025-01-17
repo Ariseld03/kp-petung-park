@@ -25,9 +25,9 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function add()
+    public function create()
     {
-        return view('kategori.add'); // Return view with form to create new category
+        return view('kategori.create'); // Return view with form to create new category
     }
 
     /**

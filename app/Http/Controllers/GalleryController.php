@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 
+
 class GalleryController extends Controller
 {
     /**
@@ -19,9 +20,9 @@ class GalleryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function add()
+    public function create()
     {
-        return view('galeri.add');
+        return view('galeri.create');
     }
 
     /**
@@ -85,12 +86,10 @@ class GalleryController extends Controller
             'name' => 'required|string|max:255',
             'status' => 'required|in:0,1',
             'description' => 'nullable|string',
-            'number_love' => 'nullable|integer',
             'file' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
         ]);
         $gallery->name = $request->input('name');
         $gallery->status = $request->input('status');
-        $gallery->number_love = $request->input('number_love');
         if ($request->hasFile('file')) {
             // Get the file extension
             $extension = $request->file('photo')->getClientOriginalExtension();
@@ -130,26 +129,45 @@ class GalleryController extends Controller
      */
     public function like(Request $request, $galleryId)
     {
-        $galeri = Gallery::findOrFail($galleryId);
-
-        $sessionKey = 'liked_gallery_' . $galleryId;
-        
-        if (session()->has($sessionKey)) {
-            if($galeri->number_love==0){
-                $galeri->number_love=0;
-            }
-            else{
-                $galeri->number_love--;
-            }
-            session()->forget($sessionKey);
-        } else {
-            $galeri->number_love++;
-            session()->put($sessionKey, true);
+        // Check if the user is authenticated
+        if (!auth()->check()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
-    
-        $galeri->save();
-    
-        return response()->json(['number_love' => $galeri->number_love]);
+
+        // Retrieve the gallery or return a 404 error if not found
+        $gallery = Gallery::findOrFail($galleryId);
+
+        // Generate a unique session key for the gallery
+        $sessionKey = 'liked_gallery_' . $galleryId;
+
+        // Check if the user has already liked the gallery
+        if (session()->has($sessionKey)) {
+            // Decrease the like count only if it's greater than zero
+            if ($gallery->number_love > 0) {
+                $gallery->number_love--;
+            }
+
+            // Remove the like session key
+            session()->forget($sessionKey);
+            $action = 'unliked'; // Specify the action
+        } else {
+            // Increase the like count
+            $gallery->number_love++;
+
+            // Store the like in the session
+            session()->put($sessionKey, true);
+            $action = 'liked'; // Specify the action
+        }
+
+        // Save the updated gallery data
+        $gallery->save();
+
+        // Return a JSON response with the updated like count and action
+        return response()->json([
+            'number_love' => $gallery->number_love,
+            'action' => $action,
+        ]);
     }
+
 }
 

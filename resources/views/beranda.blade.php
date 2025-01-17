@@ -99,98 +99,85 @@
 @section('page-js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const likeButtons = document.querySelectorAll('.like-button');
-            const slider = document.querySelector('.slider');
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
+        const likeButtons = document.querySelectorAll('.like-button');
+        const slider = document.querySelector('.slider');
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
 
-            let currentIndex = 0;
+        let currentIndex = 0;
 
-            function updateSliderPosition() {
-                const offset = -currentIndex * 100; // Calculate offset based on currentIndex
-                slider.style.transform = `translateX(${offset}%)`; // Apply the transformation
-            }
+        function updateSliderPosition() {
+            const offset = -currentIndex * 100; // Calculate offset based on currentIndex
+            slider.style.transform = `translateX(${offset}%)`; // Apply the transformation
+        }
 
-            nextBtn.addEventListener('click', function() {
-                console.log("Next button clicked"); // Debugging
-                currentIndex = (currentIndex + 1) % slides.length; // Move to the next slide
-                updateSliderPosition();
-            });
-
-            prevBtn.addEventListener('click', function() {
-                console.log("Prev button clicked"); // Debugging
-                currentIndex = (currentIndex - 1 + slides.length) % slides
-                    .length; // Move to the previous slide
-                updateSliderPosition();
-            });
-
-            // Initial call to position the slider correctly on page load
+        nextBtn.addEventListener('click', function() {
+            currentIndex = (currentIndex + 1) % slides.length; // Move to the next slide
             updateSliderPosition();
-
-            // Auto-slide functionality
-            const autoSlideInterval = 3000; // Change slide every 3 seconds
-
-            function autoSlide() {
-                currentIndex = (currentIndex + 1) % slides.length; // Move to the next slide
-                updateSliderPosition();
-            }
-
-            // Start auto-slide
-            let autoSlideTimer = setInterval(autoSlide, autoSlideInterval);
-
-            // Pause auto-slide on hover
-            document.querySelector('.slider-container').addEventListener('mouseover', () => {
-                clearInterval(autoSlideTimer); // Stop auto-slide
-            });
-
-            document.querySelector('.slider-container').addEventListener('mouseout', () => {
-                autoSlideTimer = setInterval(autoSlide, autoSlideInterval); // Resume auto-slide
-            });
-
-            likeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const likeCount = button.querySelector('#like-count');
-                    let currentLikes = parseInt(likeCount.textContent);
-                    const galleryId = button.dataset.galleryId;
-
-                    // Toggle logic untuk like
-                    let action = currentLikes % 2 === 0 ? 'increment' : 'decrement';
-
-                    // Update like di database
-                    fetch(`/galeri/${galleryId}/like`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            },
-                            body: JSON.stringify({
-                                action: action
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            likeCount.textContent = data
-                                .number_love; // Update tampilan dengan nilai dari server
-                            updateLikeCountDisplay(likeCount); // Update warna
-                        })
-                        .catch(error => {
-                            console.error("Ada kesalahan saat mengubah like:", error);
-                        });
-                });
-            });
-
-            function updateLikeCountDisplay(likeCount) {
-                const count = parseInt(likeCount.textContent);
-                if (count % 2 === 0) {
-                    likeCount.classList.remove('odd');
-                    likeCount.classList.add('even');
-                } else {
-                    likeCount.classList.remove('even');
-                    likeCount.classList.add('odd');
-                }
-            }
         });
+
+        prevBtn.addEventListener('click', function() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length; // Move to the previous slide
+            updateSliderPosition();
+        });
+
+        updateSliderPosition();
+
+        const autoSlideInterval = 3000; // Change slide every 3 seconds
+        let autoSlideTimer = setInterval(() => {
+            currentIndex = (currentIndex + 1) % slides.length; // Move to the next slide
+            updateSliderPosition();
+        }, autoSlideInterval);
+
+        document.querySelector('.slider-container').addEventListener('mouseover', () => {
+            clearInterval(autoSlideTimer); // Stop auto-slide
+        });
+
+        document.querySelector('.slider-container').addEventListener('mouseout', () => {
+            autoSlideTimer = setInterval(() => {
+                currentIndex = (currentIndex + 1) % slides.length; // Resume auto-slide
+                updateSliderPosition();
+            }, autoSlideInterval);
+        });
+
+        likeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const likeCount = button.querySelector('#like-count');
+                const galleryId = button.dataset.galleryId;
+
+                fetch(`/galeri/${galleryId}/like`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        likeCount.textContent = data.number_love; // Update like count
+                        showAlert(data.action === 'liked' ? 'You liked this gallery!' : 'You unliked this gallery.');
+                    })
+                    .catch(error => {
+                        console.error("Error updating like:", error);
+                        showAlert('An error occurred while updating your like. Please try again.', true);
+                    });
+            });
+        });
+
+        function showAlert(message, isError = false) {
+            const alertBox = document.createElement('div');
+            alertBox.className = `alert-box ${isError ? 'alert-error' : 'alert-success'}`;
+            alertBox.textContent = message;
+
+            document.body.appendChild(alertBox);
+
+            setTimeout(() => {
+                alertBox.remove();
+            }, 3000); // Remove alert after 3 seconds
+        }
+    });
+
     </script>
     <script src="{{ asset('/js/imagemodal.js') }}"></script>
 @endsection

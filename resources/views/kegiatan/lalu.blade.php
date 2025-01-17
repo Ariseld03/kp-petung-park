@@ -39,7 +39,7 @@
 
         
         <div class="artikel">
-            <h3>Artikel Terkait</h3>
+            <!-- <h3>Artikel Terkait</h3> -->
             @if ($articles->isEmpty())
                 <p style="text-align: center;">Tidak ada artikel terkait.</p>
             @else
@@ -47,6 +47,15 @@
                     <div class="article">
                         {{-- <h4>{{ $article->title }}</h4> --}}
                         <p>{{ $article->main_content }}</p>
+                    </div>
+                    <div class="like-container">
+                        <button class="like-button" data-gallery-id="{{ $article->id }}">
+                            <span id="like-count-{{ $article->id }}"
+                                class="{{ $article->number_love % 2 === 0 ? 'even' : 'odd' }}">
+                                {{ $article->number_love }}
+                            </span>
+                            <span class="like-icon">❤️</span>
+                        </button>
                     </div>
                 @endforeach
             @endif

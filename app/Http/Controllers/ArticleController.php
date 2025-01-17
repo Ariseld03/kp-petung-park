@@ -23,10 +23,10 @@ class ArticleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function add()
+    public function create()
     {
         $agendas = Agenda::where('status', 1)->get();
-        return view('artikel.add', compact('agendas'));
+        return view('artikel.create', compact('agendas'));
     }
 
     /**
@@ -63,7 +63,7 @@ class ArticleController extends Controller
         }
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');
     }
-
+    
     /**
      * Display the specified resource.
      */
@@ -96,15 +96,14 @@ class ArticleController extends Controller
             'title' => 'required|string|max:255',
             'main_content' => 'required|string',
             'status' => 'required|integer',
-            'number_love' => 'required|integer',
             'agenda_id' => 'required|exists:agendas,id',
         ]);
         try {
             $article = Article::findOrFail($id);
             $article->update($validatedData);
-            return redirect()->route('artikel.index')->with('success', 'Article berhasil Diupdate!');
+            return redirect()->route('artikel.index')->with('success', 'Artikel berhasil Diupdate!');
         } catch (Exception $e) {
-            return redirect()->route('artikel.index')->with('error', 'Article Gagal Diupdate!');
+            return redirect()->route('artikel.index')->with('error', 'Artikel Gagal Diupdate!');
         }
     }
     /**
@@ -117,6 +116,49 @@ class ArticleController extends Controller
         ArticleGallery::where('article_id', $artikel->id)->update(['status' => 0]);
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil dinonaktifkan!');
     }
+
+    public function like(Request $request, $articleId)
+    {
+        // Check if the user is authenticated
+        if (!auth()->check()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        // Retrieve the gallery or return a 404 error if not found
+        $article = Article::findOrFail($articleId);
+
+        // Generate a unique session key for the gallery
+        $sessionKey = 'liked_article_' . $articleId;
+
+        // Check if the user has already liked the gallery
+        if (session()->has($sessionKey)) {
+            // Decrease the like count only if it's greater than zero
+            if ($gallery->number_love > 0) {
+                $gallery->number_love--;
+            }
+
+            // Remove the like session key
+            session()->forget($sessionKey);
+            $action = 'unliked'; // Specify the action
+        } else {
+            // Increase the like count
+            $article->number_love++;
+
+            // Store the like in the session
+            session()->put($sessionKey, true);
+            $action = 'liked'; // Specify the action
+        }
+
+        // Save the updated gallery data
+        $article->save();
+
+        // Return a JSON response with the updated like count and action
+        return response()->json([
+            'number_love' => $article->number_love,
+            'action' => $action,
+        ]);
+    }
+
     // M to M article_gallery
     /**
      * Store a newly created resource in storage for pivot table article_gallery

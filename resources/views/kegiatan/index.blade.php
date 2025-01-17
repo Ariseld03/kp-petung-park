@@ -7,7 +7,7 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="text-center" style="color: #557C56;">Kegiatan</h1>
-        <a href="{{ route('kegiatan.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Kegiatan</a>
+        <a href="{{ route('kegiatan.create') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Kegiatan</a>
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>

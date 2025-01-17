@@ -35,28 +35,30 @@ class LoginController extends Controller
     }
     public function login_process(Request $request)
     {
-        $redirectTo = '/beranda';
         // Validate input
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        $user = User::where('email', $request->email)->first();
 
-        if ($user && Hash::check($request->input('password'), $user->password)) {
-            // Attempt to authenticate the user (this will also start the session)
-            if (Auth::attempt($request->only('email', 'password'))) {
-                $request->session()->put('user', Auth::user());
-                return redirect()->intended($redirectTo)->with('Berhasil', 'Login Sukses!');
+        $credentials = $request->only('email', 'password');
+        $remember = $request->has('remember'); // Check if "remember" is checked
+
+        // Attempt to authenticate the user
+        if (Auth::attempt($credentials, $remember)) {
+            // Save the remember_token to the user's account if needed
+            if ($remember) {
+                $user = Auth::user();
+                if (is_null($user->remember_token)) {
+                    $user->remember_token = bin2hex(random_bytes(64)); // Generate a random token
+                    $user->save();
+                }
             }
+
+            return redirect()->intended('/beranda')->with('Berhasil', 'Login Sukses!');
         }
-    
-        if (!$user) {
-            return redirect()->back()->withErrors([
-                'email' => 'Email tidak ditemukan dalam sistem kami.'
-            ])->withInput();
-        }
-        return redirect()->back()->withErrors(['Password' => 'Kata Sandi yang Anda masukkan salah.'])->withInput();
+
+        return redirect()->back()->withErrors(['email' => 'Email atau kata sandi salah.'])->withInput();
     }
 
     public function login()
@@ -66,6 +68,10 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         // Logout the user
+        $user = Auth::user();
+        $user->remember_token = null;
+        $user->save();
+
         Auth::logout();
 
         // Invalidate the session to clear session data

@@ -7,7 +7,7 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="text-center" style="color: #557C56;">Galeri Show</h1>
-        <a href="{{ route('galeri.show.add') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Foto</a>
+        <a href="{{ route('galeri.show.create') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Foto</a>
 
         <table class="table table-bordered">
             <thead class="thead-dark" style="background-color: #557C56; color: #FFFBE6;">

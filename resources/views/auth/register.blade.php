@@ -11,7 +11,7 @@
         <div class="col-md-8 d-flex align-items-center justify-content-center">
             <div class="login-container">
                 <div class="login-title">Daftar</div>
-                    <form method="POST" class="inputRegister" action="{{ route('register') }}">
+                    <form action="{{ route('register_process') }}" method="POST" class="inputRegister" >
                         @csrf
 
                         <div class="row mb-3 form-group">
@@ -100,7 +100,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-2">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary">
