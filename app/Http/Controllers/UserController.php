@@ -6,6 +6,7 @@ use App\Models\Generic;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Gallery;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -35,17 +36,29 @@ class UserController extends Controller
         try {
             $request->validate([
                 'name' => 'required|string|max:255',
-                'password' => 'required|string',
+                'password' => 'required|string|confirmed',
                 'date_of_birth' => 'required|date',
                 'phone_number' => 'required|string|max:15',
                 'position' => 'required|string',
                 'gender' => 'required|string',
                 'email' => 'required|email',
                 'photo' => 'nullable|integer|exists:galleries,id',
+            ],  [
+                'email.unique' => 'Email sudah terdaftar.',
+                'email.required' => 'Email harus diisi.',
+                'password.required' => 'Kata sandi harus diisi.',
+                'password.min' => 'Kata sandi harus terdiri dari minimal 8 karakter.',
+                'password.confirmed' => 'Kata sandi tidak sama dengan konfirmasi kata sandi.',
+                'name.required' => 'Nama harus diisi.',
+                'dob.required' => 'Tanggal lahir harus diisi.',
+                'gender.required' => 'Jenis kelamin harus diisi.',
+                'phone.required' => 'Nomor telepon harus diisi.',
             ]);
+            if (User::where('email', $request->input('email'))->exists()) {
+                return redirect()->back()->withInput()->with('error', 'Email sudah digunakan.');
+            }            
             $staff = [
                 'name' => $request->input('name'),
-                'description' => $request->input('description'),
                 'status' => 1,
                 'password' => bcrypt($request->input('password')),
                 'date_of_birth' => $request->input('date_of_birth'),
@@ -95,67 +108,67 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $user)
-{
-    try {
-        $staff = User::findOrFail($user);
+    {
+        try {
+            $staff = User::findOrFail($user);
+            $validated = $request->validate([
+                'email' => 'required|email',
+                'name' => 'required|string|max:255',
+                'date_of_birth' => 'required|date',
+                'phone_number' => 'required|string|max:15',
+                'position' => 'required|string',
+                'gender' => 'required|string',
+                'status' => 'required|boolean',
+                'old_photo' => 'nullable|integer|exists:galleries,id',
+                'new_photo' => 'nullable|integer|exists:galleries,id',
+                'oldPassword' => 'nullable|required_if:changePassword,on',
+                'newPassword' => 'nullable|required_if:changePassword,on|confirmed',
+            ]);
+            $staff->email = $validated['email'];
+            $staff->name = $validated['name'];
+            $staff->date_of_birth = $validated['date_of_birth'];
+            $staff->phone_number = $validated['phone_number'];
+            $staff->position = $validated['position'];
+            $staff->gender = $validated['gender'];
+            $staff->status = $validated['status'];
 
-        // Validate the input
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'name' => 'required|string|max:255',
-            'date_of_birth' => 'required|date',
-            'phone_number' => 'required|string|max:15',
-            'position' => 'required|string',
-            'gender' => 'required|string',
-            'status' => 'required|boolean',
-            'old_photo' => 'nullable|integer|exists:galleries,id',
-            'new_photo' => 'nullable|integer|exists:galleries,id',
-            'oldPassword' => 'nullable|required_if:changePassword,on',
-            'newPassword' => 'nullable|required_if:changePassword,on|confirmed',
-        ]);
-
-        // Update basic details
-        $staff->email = $validated['email'];
-        $staff->name = $validated['name'];
-        $staff->date_of_birth = $validated['date_of_birth'];
-        $staff->phone_number = $validated['phone_number'];
-        $staff->position = $validated['position'];
-        $staff->gender = $validated['gender'];
-        $staff->status = $validated['status'];
-
-        // Handle password change
-        if ($request->has('changePassword')) {
-            if (Hash::check($validated['oldPassword'], $staff->password)) {
-                $staff->password = bcrypt($validated['newPassword']);
-            } else {
-                return back()->withErrors(['oldPassword' => 'Password lama salah.']);
+            // Handle password change
+            if ($request->has('changePassword')) {
+                if (Hash::check($validated['oldPassword'], $staff->password)) {
+                    $staff->password = bcrypt($validated['newPassword']);
+                } else {
+                    return back()->withErrors(['oldPassword' => 'Password lama salah.']);
+                }
             }
-        }
 
-        // Handle photo change
-        if ($request->has('new_photo')) {
-            if ($request->input('old_photo') != $request->input('new_photo')) {
-                $staff->gallery_id = $request->input('new_photo');
+            // Handle photo change
+            if ($request->has('new_photo')) {
+                if ($request->input('old_photo') != $request->input('new_photo')) {
+                    $staff->gallery_id = $request->input('new_photo');
+                }
             }
+            $staff->updated_at = now();
+            // Save changes
+            $staff->save();
+
+            return redirect()->route('staf.index')->with('success', 'Data staff berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat memperbarui data: ' . $e->getMessage());
         }
-
-        // Save changes
-        $staff->save();
-
-        return redirect()->route('staf.index')->with('success', 'Data staff berhasil diperbarui!');
-    } catch (\Exception $e) {
-        return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat memperbarui data: ' . $e->getMessage());
     }
-}
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function unactivate(string $user)
     {
-        $staff = User::findOrFail($id);
-        $staff->status = 0;
-        $staff->save();
+        try {
+            $staff = User::findOrFail($user);
+            $staff->status = 0;
+            $staff->save();
 
-        return redirect()->route('staf.index')->with('success', 'Staf berhasil dihapus!');
+            return redirect()->route('staf.index')->with('success', 'Staf berhasil dinonaktifkan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat menonaktifkan staf: ' . $e->getMessage());
+        }
     }
 }

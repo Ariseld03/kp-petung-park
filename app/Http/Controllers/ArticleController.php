@@ -109,7 +109,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(Article $artikel)
+    public function unactive(Article $artikel)
     {
         $artikel->status = 0;
         $artikel->save();
@@ -133,8 +133,8 @@ class ArticleController extends Controller
         // Check if the user has already liked the gallery
         if (session()->has($sessionKey)) {
             // Decrease the like count only if it's greater than zero
-            if ($gallery->number_love > 0) {
-                $gallery->number_love--;
+            if ($article->number_love > 0) {
+                $article->number_love--;
             }
 
             // Remove the like session key
@@ -170,11 +170,11 @@ class ArticleController extends Controller
          $collages = ArticleGallery::all();
          return view('artikel.galeri.index', compact('collages'));
      }
-      public function addArticleGallery()
+      public function createArticleGallery()
      {
          $articles = Article::where('status', 1)->get();
          $galleries = Gallery::where('status', 1)->get();
-         return view('artikel.galeri.add', compact('articles', 'galleries'));
+         return view('artikel.galeri.create', compact('articles', 'galleries'));
      }
  
     public function storeArticleGallery(Request $request)
@@ -289,7 +289,7 @@ class ArticleController extends Controller
         }
         
     }
-    public function deleteArticleGallery($artikel)
+    public function unactiveArticleGallery($artikel)
     {
         try {
             // Update all matching records to status 0

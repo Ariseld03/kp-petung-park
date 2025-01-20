@@ -30,32 +30,31 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the incoming data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'photo' => 'required|image|mimes:jpg,jpeg,png|max:10240', // Validate the file upload
-            'description' => 'nullable|longtext',
-        ]);
-    
-        // If validation passes, save the gallery data
-        $gallery = new Gallery;
-        $gallery->name = $request->input('name');
-        $gallery->description = $request->input('description');
-        $gallery->status = 1;
-        $gallery->number_love = 0;
-        $extension = $request->file('photo')->getClientOriginalExtension();
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'photo' => 'required|image|mimes:jpg,jpeg,png|max:10240', // Validate the file upload
+                'description' => 'nullable|longtext',
+            ]);
         
-        // Generate a new file name based on the gallery name or any custom logic
-        $newFileName = str_replace(' ', '_', strtolower($gallery->name)) . '_' . time() . '.' . $extension;
+            $gallery = new Gallery;
+            $gallery->name = $request->input('name');
+            $gallery->description = $request->input('description');
+            $gallery->status = 1;
+            $gallery->number_love = 0;
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            
+            $newFileName = str_replace(' ', '_', strtolower($gallery->name)) . '_' . time() . '.' . $extension;
+            
+            $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
+            
+            $gallery->photo_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL   
+            $gallery->save();
         
-        // Save the file in 'storage/app/public/images/galeri/baru' folder
-        $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
-        
-        // Save the file path to the database with public path (this is where it will be accessed in the URL)
-        $gallery->photo_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL   
-        $gallery->save();
-    
-        return redirect()->route('galeri.index')->with('success', 'Galeri berhasil ditambahkan!');
+            return redirect()->route('galeri.index')->with('success', 'Galeri berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->route('galeri.index')->with('error', 'Terjadi kesalahan saat menambahkan galeri: ' . $e->getMessage());
+        }
     }
     /**
      * Display the specified resource.
@@ -82,43 +81,47 @@ class GalleryController extends Controller
      */
     public function update(Request $request, Gallery $gallery)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'status' => 'required|in:0,1',
-            'description' => 'nullable|string',
-            'file' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
-        ]);
-        $gallery->name = $request->input('name');
-        $gallery->status = $request->input('status');
-        if ($request->hasFile('file')) {
-            // Get the file extension
-            $extension = $request->file('photo')->getClientOriginalExtension();
-            
-            // Generate a new file name based on the gallery name or any custom logic
-            $newFileName = str_replace(' ', '_', strtolower($gallery->name)) . '_' . time() . '.' . $extension;
-            
-            // Save the file in 'storage/app/public/images/galeri/baru' folder
-            $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
-            
-            // Save the file path to the database with public path (this is where it will be accessed in the URL)
-            $gallery->photo_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL
-        }     
-        $gallery->description = $request->input('description');
-        $gallery->save();
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'status' => 'required|in:0,1',
+                'description' => 'nullable|string',
+                'file' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
+            ]);
 
-        return redirect()->route('galeri.index')->with('success', 'Galeri berhasil diperbarui!');
+            $gallery->name = $request->input('name');
+            $gallery->status = $request->input('status');
+
+            if ($request->hasFile('file')) {
+                $extension = $request->file('file')->getClientOriginalExtension();
+                $newFileName = str_replace(' ', '_', strtolower($gallery->name)) . '_' . time() . '.' . $extension;
+                $filePath = $request->file('file')->storeAs('images/galeri/baru', $newFileName, 'public');
+                $gallery->photo_link = 'storage/images/galeri/baru/' . $newFileName;
+            }
+
+            $gallery->description = $request->input('description');
+            $gallery->save();
+
+            return redirect()->route('galeri.index')->with('success', 'Galeri berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return redirect()->route('galeri.index')->with('error', 'Terjadi kesalahan saat memperbarui galeri: ' . $e->getMessage());
+        }
     }
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(Gallery $gallery)
+    public function unactive(Gallery $gallery)
     {
-        $gallery->status=0;
-        $gallery->travels()->status=0;
-        $gallery->articles()->status=0;
-        $gallery->save();
-        $message = 'Galeri berhasil dinonaktifkan.';
-        return redirect()->route('galeri.index')->with('success', $message);
+        try {
+            $gallery->status = 0;
+            $gallery->travels()->update(['status' => 0]);
+            $gallery->articles()->update(['status' => 0]);
+            $gallery->save();
+            $message = 'Galeri berhasil dinonaktifkan.';
+            return redirect()->route('galeri.index')->with('success', $message);
+        } catch (\Exception $e) {
+            return redirect()->route('galeri.index')->with('error', 'Terjadi kesalahan saat menonaktifkan galeri: ' . $e->getMessage());
+        }
     }
     /**
      * Like or unlike a gallery.
@@ -129,40 +132,30 @@ class GalleryController extends Controller
      */
     public function like(Request $request, $galleryId)
     {
-        // Check if the user is authenticated
         if (!auth()->check()) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        // Retrieve the gallery or return a 404 error if not found
         $gallery = Gallery::findOrFail($galleryId);
 
-        // Generate a unique session key for the gallery
         $sessionKey = 'liked_gallery_' . $galleryId;
 
-        // Check if the user has already liked the gallery
         if (session()->has($sessionKey)) {
-            // Decrease the like count only if it's greater than zero
             if ($gallery->number_love > 0) {
                 $gallery->number_love--;
             }
 
-            // Remove the like session key
             session()->forget($sessionKey);
-            $action = 'unliked'; // Specify the action
+            $action = 'unliked'; 
         } else {
-            // Increase the like count
             $gallery->number_love++;
 
-            // Store the like in the session
             session()->put($sessionKey, true);
-            $action = 'liked'; // Specify the action
+            $action = 'liked'; 
         }
 
-        // Save the updated gallery data
         $gallery->save();
 
-        // Return a JSON response with the updated like count and action
         return response()->json([
             'number_love' => $gallery->number_love,
             'action' => $action,

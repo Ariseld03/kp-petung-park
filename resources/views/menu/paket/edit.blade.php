@@ -29,11 +29,6 @@
             </div>
 
             <div class="form-group">
-                <label for="number_love">Jumlah Like :</label>
-                <input type="number" class="form-control" id="number_love" name="number_love" value="{{ $package->number_love }}" required>
-            </div>
-
-            <div class="form-group">
                 <label for="old_photos">Foto Paket Saat Ini:</label>
                 <div class="col-md-4 d-flex align-items-center justify-content-center" style="flex-wrap: wrap;">
                     <div style="margin: 10px; display: flex; align-items: center;">

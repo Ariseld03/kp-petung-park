@@ -13,6 +13,15 @@
         </div>
         <div class="wisata-container">
             <p>{{ $spot->description }}</p>
+            <div class="like-container">
+            <button class="like-button-travel" data-travel-id="{{ $spot->id }}">
+                <span id="like-count-{{ $spot->id }}" class="{{ $spot->number_love % 2 === 0 ? 'even' : 'odd' }}">
+                    {{ $spot->number_love }}
+                </span>
+                <span class="like-icon"> ❤️</span>
+            </button>
+            </div>
+            <br>
         </div>
 
         <!-- Galeri -->
@@ -42,47 +51,88 @@
 @include('layouts.modalimg')
 
 @section('page-js')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to handle like for galleries
+        function handleGalleryLike() {
             const likeButtons = document.querySelectorAll('.like-button');
             likeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const likeCount = button.querySelector('#like-count');
-                    let currentLikes = parseInt(likeCount.textContent);
+                button.addEventListener('click', function () {
                     const galleryId = button.dataset.galleryId;
-                    const travelId = "{{ $spot->id }}";
-
-                    // Send request to toggle like in the backend
-                    fetch(`/wisata/like/${galleryId}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            },
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            likeCount.textContent = data.number_love;
-                            updateLikeCountDisplay(likeCount);
-                        })
-                        .catch(error => {
-                            console.error("Error updating like:", error);
-                        });
+                    const likeCount = document.getElementById(`like-count-${galleryId}`);
+                    
+                    fetch(`/galeri/${galleryId}/like`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error(data.error);
+                            return;
+                        }
+                        // Update like count and toggle classes
+                        likeCount.textContent = data.number_love;
+                        updateLikeCountDisplay(likeCount);
+                    })
+                    .catch(error => {
+                        console.error("Error updating gallery like:", error);
+                    });
                 });
             });
+        }
 
-            // Update the like count's style based on odd/even value
-            function updateLikeCountDisplay(likeCount) {
-                const count = parseInt(likeCount.textContent);
-                if (count % 2 === 0) {
-                    likeCount.classList.remove('odd');
-                    likeCount.classList.add('even');
-                } else {
-                    likeCount.classList.remove('even');
-                    likeCount.classList.add('odd');
-                }
+        function handleTravelLike() {
+            const likeButtonsTravel = document.querySelectorAll('.like-button-travel');
+            likeButtonsTravel.forEach(button => {
+                button.addEventListener('click', function () {
+                    const travelId = button.dataset.travelId;
+                    const likeCount = document.getElementById(`like-count-${travelId}`);
+                    
+                    fetch(`/wisata/${travelId}/like`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error(data.error);
+                            return;
+                        }
+                        // Update like count and toggle classes
+                        likeCount.textContent = data.number_love;
+                        updateLikeCountDisplay(likeCount);
+                    })
+                    .catch(error => {
+                        console.error("Error updating travel like:", error);
+                    });
+                });
+            });
+        }
+
+        // Helper function to toggle odd/even classes
+        function updateLikeCountDisplay(likeCount) {
+            const count = parseInt(likeCount.textContent);
+            if (count % 2 === 0) {
+                likeCount.classList.remove('odd');
+                likeCount.classList.add('even');
+            } else {
+                likeCount.classList.remove('even');
+                likeCount.classList.add('odd');
             }
-        });
-    </script>
-    <script src="{{ asset('/js/imagemodal.js') }}"></script>
+        }
+
+        // Initialize like handlers
+        handleGalleryLike();
+        handleTravelLike();
+    });
+</script>
+<script src="{{ asset('/js/imagemodal.js') }}"></script>
 @endsection
+

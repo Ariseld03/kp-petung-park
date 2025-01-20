@@ -38,29 +38,32 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|double',
-            'status' => 'required|integer',
-            'recommendation' => 'required|integer',
-            'category_id' => 'required|integer|exists:categories,id',
-            'user_id' => 'required|email|exists:users,id',
-            'gallery_id' => 'required|integer|exists:galleries,id',
-        ]);
-        $menu = Menu::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'status' => 1,
-            'status_recommended' => $request->recommendation,
-            'number_love' => 0,
-            'category_id' => $request->category_id,
-            'user_id' => $request->user_id,
-            'gallery_id' => $request->gallery_id,
-        ]);
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'description' => 'required|string',
+                'price' => 'required|double',
+                'recommendation' => 'required|integer',
+                'category_id' => 'required|integer|exists:categories,id',
+                'user_id' => 'required|email|exists:users,id',
+                'gallery_id' => 'required|integer|exists:galleries,id',
+            ]);
+            $menu = Menu::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'status' => 1,
+                'status_recommended' => $request->recommendation,
+                'number_love' => 0,
+                'category_id' => $request->category_id,
+                'user_id' => $request->user_id,
+                'gallery_id' => $request->gallery_id,
+            ]);
 
-        return redirect()->route('menu.index')->with('success', 'Menu berhasil ditambahkan!');
+            return redirect()->route('menu.index')->with('success', 'Menu berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -126,46 +129,52 @@ class MenuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric',
-            'status' => 'required|integer|in:1,0',
-            'recommendation' => 'required|integer',
-            'number_love' => 'required|integer',
-            'category_id' => 'required|integer|exists:categories,id',
-            'user_id' => 'required|integer|exists:users,id',
-            'gallery_id' => 'required|integer|exists:galleries,id',
-        ]);
-    
-        $menu = Menu::findOrFail($id);
-    
-        // Update menu fields first
-        $menu->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'status' => $request->status,
-            'status_recommended' => $request->recommendation,
-            'number_love' => $request->number_love,
-            'category_id' => $request->category_id,
-            'user_id' => $request->user_id,
-            'gallery_id' => $request->gallery_id,
-            'update_date' => now(),
-        ]);
-        return redirect()->route('menu.index')->with('success', 'Menu berhasil Diupdate!');
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'description' => 'required|string',
+                'price' => 'required|numeric',
+                'status' => 'required|integer|in:1,0',
+                'recommendation' => 'required|integer',
+                'category_id' => 'required|integer|exists:categories,id',
+                'user_id' => 'required|integer|exists:users,id',
+                'gallery_id' => 'nullable|integer|exists:galleries,id',
+            ]);
+        
+            $menu = Menu::findOrFail($id);
+        
+            // Update menu fields first
+            $menu->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'status' => $request->status,
+                'status_recommended' => $request->recommendation,
+                'category_id' => $request->category_id,
+                'user_id' => $request->user_id,
+                'gallery_id' => $request->gallery_id,
+                'update_date' => now(),
+            ]);
+            return redirect()->route('menu.index')->with('success', 'Menu berhasil diupdate!');
+        } catch (\Throwable $th) {
+            return redirect()->route('menu.index')->with('error', 'Menu gagal diupdate');
+        }
     }
     
 
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(string $id)
+    public function unactive(string $menu)
     {
-        $menu = Menu::findOrFail($id);
-        $menu->status=0;
-        $menu->save();
-        return redirect()->route('menu.index')->with('success', true);
+        try {
+            $menu = Menu::findOrFail($menu);
+            $menu->status=0;
+            $menu->save();
+            return redirect()->route('menu.index')->with('success', true);
+        } catch (\Throwable $th) {
+            return redirect()->route('menu.index')->with('error', 'Data gagal di nonaktifkan');
+        }
     }
 }
 

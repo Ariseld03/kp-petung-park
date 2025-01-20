@@ -17,13 +17,6 @@
             </div>
         @endif
 
-        {{-- Display custom error message for server errors --}}
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-
         <form action="{{ route('staf.update', ['user' => $staff->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -52,7 +45,7 @@
                     </div>
                     <div class="form-group">
                         <label for="newPasswordConfirm">Konfirmasi Password Baru:</label>
-                        <input type="password" class="form-control" id="newPasswordConfirm" name="newPasswordConfirm">
+                        <input type="password" class="form-control" id="newPasswordConfirm" name="newPassword_confirmation">
                     </div>
                 </div>
             </div>
@@ -156,6 +149,5 @@
                 }
             });
         });
-
     </script>
 @endsection

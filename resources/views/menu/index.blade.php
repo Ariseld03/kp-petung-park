@@ -55,9 +55,9 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                            <form action="{{ route('menu.paket.delete', $package->id) }}" method="POST" id="nonaktifForm-package-{{ $package->id }}">
+                                            <form action="{{ route('menu.paket.unactive', $package->id) }}" method="POST" id="nonaktifForm-package-{{ $package->id }}">
                                                 @csrf
-                                                @method('DELETE')
+                                                @method('POST')
                                                 <button type="submit" class="btn btn-danger">Nonaktifkan</button>
                                             </form>
                                         </div>
@@ -119,9 +119,9 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                <form action="{{ route('menu.hidangan.delete', $dish->id) }}" method="POST" id="nonaktifForm-dish-{{ $dish->id }}">
+                                                <form action="{{ route('menu.hidangan.unactive', $dish->id) }}" method="POST" id="nonaktifForm-dish-{{ $dish->id }}">
                                                     @csrf
-                                                    @method('DELETE')
+                                                    @method('POST')
                                                     <button type="submit" class="btn btn-danger">Nonaktifkan</button>
                                                 </form>
                                             </div>

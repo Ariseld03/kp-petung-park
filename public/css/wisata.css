@@ -143,6 +143,34 @@ html {
 .like-button:hover {
     transform: scale(1.1); /* Efek zoom saat hover */
 }
+
+.like-button-travel {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 1px solid #295A3F;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #295A3F;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.like-button-travel {
+    margin-left: 8px;
+    font-size: 16px;
+}
+
+.like-button-travel:hover {
+    background-color: #295A3F;
+    color: #ffffff;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+}
+
 .like-count {
     font-weight: bold;
     cursor: pointer;

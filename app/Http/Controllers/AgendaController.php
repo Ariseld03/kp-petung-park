@@ -56,7 +56,7 @@ class AgendaController extends Controller
 
             return redirect()->route('kegiatan.index')->with('success', 'Agenda berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->route('kegiatan.add')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('kegiatan.create')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -109,7 +109,7 @@ class AgendaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(Agenda $kegiatan)
+    public function unactive(Agenda $kegiatan)
     {
         try {
             $kegiatan->status = 0;

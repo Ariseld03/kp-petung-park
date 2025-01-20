@@ -5,7 +5,7 @@
 @section('content')
 <body>
     <div class="container mt-5">
-        <h1 class="text-center text-success">Tambah Staff</h1>
+        <h1 class="text-center text-success">Tambah Staff/User</h1>
         <form action="{{ route('staf.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -22,10 +22,18 @@
                 <label for="password">Password:</label>
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
+            <div class="row mb-2">
+            <div class="col-md-12">   
+            <div class="form-group">             
+                <label for="passwordConfirm">Konfirmasi Password Baru:</label>
+                <input type="password" class="form-control" id="passwordConfirm" name="password_confirmation" placeholder="Masukkan Kembali Kata Sandi" required autocomplete="password">
+            </div>
+            </div>
+            </div>
 
             <div class="form-group">
                 <label for="dob">Tanggal Lahir:</label>
-                <input type="date" class="form-control" id="dob" name="date_of_birth" required>
+                <input type="date" class="form-control" id="dob" name="date_of_birth" required value="2000-01-01">
             </div>
 
             <div class="form-group">

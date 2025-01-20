@@ -32,32 +32,38 @@ class GenericController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'key' => 'required|string|max:255',
-            'value' => 'required|string|max:255',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
-        ]);
+        try {
+            $request->validate([
+                'key' => 'required|string|max:255',
+                'value' => 'required|string|max:255',
+                'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
+            ]);
 
-        $generic = new Generic;
-        $generic->key = $request->input('key');
-        $generic->value = $request->input('value');
-        $generic->status = 1;
-        $generic->user_id = Auth::user()->id;
-        $extension = $request->file('photo')->getClientOriginalExtension();
-        
-        // Generate a new file name based on the gallery name or any custom logic
-        $newFileName = str_replace(' ', '_', strtolower($generic->key)) . '_' . time() . '.' . $extension;
-        
-        // Save the file in 'storage/app/public/images/galeri/baru' folder
-        $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
-        
-        // Save the file path to the database with public path (this is where it will be accessed in the URL)
-        $generic->icon_picture_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL   
-        $generic->created_at = now();
-        $generic->updated_at = now();
-        $generic->save();
+            $generic = new Generic;
+            $generic->key = $request->input('key');
+            $generic->value = $request->input('value');
+            $generic->status = 1;
+            $generic->user_id = Auth::user()->id;
+            if ($request->hasFile('photo')) {
+                $extension = $request->file('photo')->getClientOriginalExtension();
+                
+                // Generate a new file name based on the gallery name or any custom logic
+                $newFileName = str_replace(' ', '_', strtolower($generic->key)) . '_' . time() . '.' . $extension;
+                
+                // Save the file in 'storage/app/public/images/galeri/baru' folder
+                $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
+                
+                // Save the file path to the database with public path (this is where it will be accessed in the URL)
+                $generic->icon_picture_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL   
+            }
+            $generic->created_at = now();
+            $generic->updated_at = now();
+            $generic->save();
 
-        return redirect()->route('generic.index')->with('success', 'Data umum berhasil ditambahkan!');
+            return redirect()->route('generic.index')->with('success', 'Data umum berhasil ditambahkan!');
+        } catch (\Throwable $th) {
+            return redirect()->route('generic.index')->with('error', 'Data umum gagal ditambahkan');
+        }
     }
 
     /**
@@ -73,39 +79,47 @@ class GenericController extends Controller
      */
     public function update(Request $request, Generic $generic)
     {
+        try {
         $request->validate([
             'key' => 'required|string|max:255',
             'value' => 'required|string|max:255',
             'status' => 'required|integer',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
-        ]);       
+        ]);
+
         $generic->key = $request->input('key');
         $generic->value = $request->input('value');
         $generic->status = $request->input('status');
+
         if ($request->hasFile('photo')) {
             $extension = $request->file('photo')->getClientOriginalExtension();
-            
             $newFileName = str_replace(' ', '_', strtolower($generic->name)) . '_' . time() . '.' . $extension;
-            
             $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
-            
             $generic->photo_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL
-        }  
+        }
+
         $generic->updated_at = now();      
         $generic->save();
 
         return redirect()->route('generic.index')->with('success', 'Data umum berhasil diubah!');
-    }
+        } catch (\Throwable $th) {
+            return redirect()->route('generic.index')->with('error', 'Data umum gagal diubah');
+        }
+        }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(Generic $generic)
+    public function unactive(Generic $generic)
     {
-        $generic->status = 0;
-        $generic->save();
+        try {
+            $generic->status = 0;
+            $generic->save();
 
-        return redirect()->route('generic.index')->with('success', 'Data umum berhasil dinonaktifkan!');
+            return redirect()->route('generic.index')->with('success', 'Data umum berhasil dinonaktifkan!');
+        } catch (\Throwable $th) {
+            return redirect()->route('generic.index')->with('error', 'Data umum gagal dinonaktifkan');
+        }
     }
     public function aboutUs()
     {

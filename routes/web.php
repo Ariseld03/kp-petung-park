@@ -61,12 +61,11 @@ Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('
 
 // Wisata
 Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
-Route::post('/wisata/like/{galleryId}', [GalleryController::class, 'like'])->name('wisata.like');
+Route::post('/wisata/{id}/like', [TravelController::class, 'like'])->name('wisata.like');
 
 // Galeri
 Route::post('/galeri/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
 Route::post('/artikel/{id}/like', [ArticleController::class, 'like'])->name('artikel.like');
-Route::post('/wisata/{id}/like', [TravelController::class, 'like'])->name('wisata.like');
 
  // Kategori
  Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
@@ -85,16 +84,16 @@ Route::post('/wisata/{id}/like', [TravelController::class, 'like'])->name('wisat
         Route::post('/admin/wisata/create', [TravelController::class, 'store'])->name('wisata.store');
         Route::get('/admin/wisata/edit/{wisata}', [TravelController::class, 'edit'])->name('wisata.edit');
         Route::post('/admin/wisata/edit/{wisata}', [TravelController::class, 'update'])->name('wisata.update');
-        Route::delete('/admin/wisata/{wisata}', [TravelController::class, 'delete'])->name('wisata.delete');
+        Route::post('/admin/wisata/{wisata}', [TravelController::class, 'unactive'])->name('wisata.unactive');
         Route::get('/admin/wisata/staff', [TravelController::class, 'staff'])->name('wisata.staff');
 
         Route::get('/admin/wisata/galeri', [TravelController::class, 'indexTravelGallery'])->name('wisata.galeri.index');
         Route::post('/admin/wisata/galeri/edit-form', [TravelController::class, 'editTravelGallery'])->name('wisata.galeri.edit');
         Route::get('/admin/wisata/galeri/edit-form', [TravelController::class, 'editTravelGallery']);
         Route::post('/admin/wisata/galeri/edit', [TravelController::class, 'updateTravelGallery'])->name('wisata.galeri.update');
-        Route::get('/admin/wisata/galeri/create', [TravelController::class, 'addTravelGallery'])->name('wisata.galeri.create');
+        Route::get('/admin/wisata/galeri/create', [TravelController::class, 'createTravelGallery'])->name('wisata.galeri.create');
         Route::post('/admin/wisata/galeri/create', [TravelController::class, 'storeTravelGallery'])->name('wisata.galeri.store');
-        Route::post('admin/wisata/galeri/delete/{travel}', [TravelController::class, 'deleteTravelGallery'])->name('wisata.galeri.delete');
+        Route::post('admin/wisata/galeri/delete/{travel}', [TravelController::class, 'deleteTravelGallery'])->name('wisata.galeri.unactive');
         
         Route::middleware('admin')->group(function () {
             // Admin CRUD Staff
@@ -103,7 +102,7 @@ Route::post('/wisata/{id}/like', [TravelController::class, 'like'])->name('wisat
             Route::post('/admin/staf/create', [UserController::class, 'store'])->name('staf.store');
             Route::get('/admin/staf/edit/{user}', [UserController::class, 'edit'])->name('staf.edit');
             Route::post('/admin/staf/edit/{user}', [UserController::class, 'update'])->name('staf.update');
-            Route::delete('/admin/staf/{user}', [UserController::class, 'destroy'])->name('staf.destroy');
+            Route::post('/admin/staf/{user}', [UserController::class, 'unactivate'])->name('staf.unactive');
         });
 
         //Admin CRUD Generic 
@@ -112,7 +111,7 @@ Route::post('/wisata/{id}/like', [TravelController::class, 'like'])->name('wisat
         Route::get('/admin/generic/create', [GenericController::class, 'create'])->name('generic.create');
         Route::get('/admin/generic/edit/{generic}', [GenericController::class, 'edit'])->name('generic.edit');
         Route::post('/admin/generic/edit/{generic}', [GenericController::class, 'update'])->name('generic.update');
-        Route::delete('/admin/generic/{generic}', [GenericController::class, 'delete'])->name('generic.delete');  
+        Route::post('/admin/generic/{generic}', [GenericController::class, 'unactive'])->name('generic.unactive');  
 
         // Admin CRUD Galeri
         Route::get('/admin/galeri', [GalleryController::class, 'index'])->name('galeri.index');
@@ -120,7 +119,7 @@ Route::post('/wisata/{id}/like', [TravelController::class, 'like'])->name('wisat
         Route::get('/admin/galeri/create', [GalleryController::class, 'create'])->name('galeri.create');
         Route::get('/admin/galeri/edit/{gallery}', [GalleryController::class, 'edit'])->name('galeri.edit');
         Route::post('/admin/galeri/edit/{gallery}', [GalleryController::class, 'update'])->name('galeri.update');
-        Route::delete('/admin/galeri/{gallery}', [GalleryController::class, 'delete'])->name('galeri.delete');
+        Route::post('/admin/galeri/{gallery}', [GalleryController::class, 'unactive'])->name('galeri.unactive');
 
         //Admin CRUD Galeri Show 
         Route::get('/admin/galeri-show', [GalleryShowController::class, 'index'])->name('galeri.show.index');
@@ -128,7 +127,7 @@ Route::post('/wisata/{id}/like', [TravelController::class, 'like'])->name('wisat
         Route::get('/admin/galeri-show/create', [GalleryShowController::class, 'create'])->name('galeri.show.create');
         Route::get('/admin/galeri-show/edit/{gallery}', [GalleryShowController::class, 'edit'])->name('galeri.show.edit');
         Route::post('/admin/galeri-show/edit/{gallery}', [GalleryShowController::class, 'update'])->name('galeri.show.update');
-        Route::delete('/admin/galeri-show/{gallery}', [GalleryShowController::class, 'delete'])->name('galeri.show.delete');
+        Route::post('/admin/galeri-show/{gallery}', [GalleryShowController::class, 'unactive'])->name('galeri.show.unactive');
 
         //Admin CRUD Galeri Slider 
         Route::get('/admin/galeri-slider', [SliderHomeController::class, 'index'])->name('galeri.slider.index');
@@ -136,7 +135,7 @@ Route::post('/wisata/{id}/like', [TravelController::class, 'like'])->name('wisat
         Route::get('/admin/galeri-slider/create', [SliderHomeController::class, 'create'])->name('galeri.slider.create');
         Route::get('/admin/galeri-slider/edit/{gallery}', [SliderHomeController::class, 'edit'])->name('galeri.slider.edit');
         Route::post('/admin/galeri-slider/edit/{gallery}', [SliderHomeController::class, 'update'])->name('galeri.slider.update');
-        Route::delete('/admin/galeri-slider/{gallery}', [SliderHomeController::class, 'delete'])->name('galeri.slider.delete');
+        Route::post('/admin/galeri-slider/{gallery}', [SliderHomeController::class, 'unactive'])->name('galeri.slider.unactive');
 
         // Hidangan
         Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('menu.hidangan.show');
@@ -147,29 +146,29 @@ Route::post('/wisata/{id}/like', [TravelController::class, 'like'])->name('wisat
         Route::post('/admin/hidangan/create', [MenuController::class, 'store'])->name('menu.hidangan.store');
         Route::get('/admin/hidangan/edit/{hidangan}', [MenuController::class, 'edit'])->name('menu.hidangan.edit');
         Route::post('/admin/hidangan/edit/{hidangan}', [MenuController::class, 'update'])->name('menu.hidangan.update');
-        Route::delete('/admin/hidangan/{hidangan}', [MenuController::class, 'delete'])->name('menu.hidangan.delete');
+        Route::post('/admin/hidangan/{hidangan}', [MenuController::class, 'unactive'])->name('menu.hidangan.unactive');
 
         Route::get('/admin/kategori', [CategoryController::class, 'indexAdmin'])->name('kategori.index');
         Route::get('/admin/kategori/create', [CategoryController::class, 'create'])->name('kategori.create');
         Route::post('/admin/kategori/create', [CategoryController::class, 'store'])->name('kategori.store');
         Route::get('/admin/kategori/edit/{kategori}', [CategoryController::class, 'edit'])->name('kategori.edit');
         Route::post('/admin/kategori/edit/{kategori}', [CategoryController::class, 'update'])->name('kategori.update');
-        Route::delete('/admin/kategori/{kategori}', [CategoryController::class, 'delete'])->name('kategori.delete');
+        Route::post('/admin/kategori/{kategori}', [CategoryController::class, 'unactive'])->name('kategori.unactive');
 
         // Admin CRUD Paket
         Route::get('/admin/paket/create', [PackageController::class, 'create'])->name('menu.paket.create');
         Route::post('/admin/paket/create', [PackageController::class, 'store'])->name('menu.paket.store');
         Route::get('/admin/paket/edit/{package}', [PackageController::class, 'edit'])->name('menu.paket.edit');
         Route::post('/admin/paket/edit/{package}', [PackageController::class, 'update'])->name('menu.paket.update');
-        Route::delete('/admin/paket/{package}', [PackageController::class, 'delete'])->name('menu.paket.delete');
+        Route::post('/admin/paket/{package}', [PackageController::class, 'unactive'])->name('menu.paket.unactive');
        
         //Paket Menu
         Route::get('/admin/paket-menu', [PackageController::class, 'indexMenuPackage'])->name('menu.menupaket.index');
-        Route::get('/admin/paket-menu/create', [PackageController::class, 'addMenuPackage'])->name('menu.menupaket.create');
+        Route::get('/admin/paket-menu/create', [PackageController::class, 'createMenuPackage'])->name('menu.menupaket.create');
         Route::post('/admin/paket-menu/create', [PackageController::class, 'storeMenuPackage'])->name('menu.menupaket.store');
         Route::get('/admin/paket-menu/edit/{packagemenu}', [PackageController::class, 'editMenuPackage'])->name('menu.menupaket.edit');
         Route::post('/admin/paket-menu/edit/{packagemenu}', [PackageController::class, 'updateMenuPackage'])->name('menu.menupaket.update');
-        Route::delete('/admin/paket-menu/{packagemenu}', [PackageController::class, 'deleteMenuPackage'])->name('menu.menupaket.delete');
+        Route::post('/admin/paket-menu/{packagemenu}', [PackageController::class, 'deleteMenuPackage'])->name('menu.menupaket.unactive');
 
         // Admin CRUD Kegiatan
         Route::get('/admin/kegiatan', [AgendaController::class, 'index'])->name('kegiatan.index');
@@ -177,7 +176,7 @@ Route::post('/wisata/{id}/like', [TravelController::class, 'like'])->name('wisat
         Route::post('/admin/kegiatan/create', [AgendaController::class, 'store'])->name('kegiatan.store');
         Route::get('/admin/kegiatan/edit/{kegiatan}', [AgendaController::class, 'edit'])->name('kegiatan.edit');
         Route::post('/admin/kegiatan/edit/{kegiatan}', [AgendaController::class, 'update'])->name('kegiatan.update');
-        Route::delete('/admin/kegiatan/{kegiatan}', [AgendaController::class, 'delete'])->name('kegiatan.delete');
+        Route::post('/admin/kegiatan/{kegiatan}', [AgendaController::class, 'unactive'])->name('kegiatan.unactive');
 
         // Admin CRUD Artikel
         Route::get('/admin/artikel', [ArticleController::class, 'index'])->name('artikel.index');
@@ -185,15 +184,15 @@ Route::post('/wisata/{id}/like', [TravelController::class, 'like'])->name('wisat
         Route::post('/admin/artikel/create', [ArticleController::class, 'store'])->name('artikel.store');
         Route::get('/admin/artikel/edit/{artikel}', [ArticleController::class, 'edit'])->name('artikel.edit');
         Route::post('/admin/artikel/edit/{artikel}', [ArticleController::class, 'update'])->name('artikel.update');
-        Route::delete('/admin/artikel/{artikel}', [ArticleController::class, 'delete'])->name('artikel.delete');
+        Route::post('/admin/artikel/{artikel}', [ArticleController::class, 'unactive'])->name('artikel.unactive');
 
         // Admin CRUD Artikel Galeri
         Route::get('/admin/artikel/galeri', [ArticleController::class, 'indexArticleGallery'])->name('artikel.galeri.index');
         Route::post('/admin/artikel/galeri/edit-form', [ArticleController::class, 'editArticleGallery'])->name('artikel.galeri.edit');
         Route::get('/admin/artikel/galeri/edit-form', [ArticleController::class, 'editArticleGallery']);
         Route::post('/admin/artikel/galeri/edit', [ArticleController::class, 'updateArticleGallery'])->name('artikel.galeri.update');
-        Route::get('/admin/artikel/galeri/create', [ArticleController::class, 'addArticleGallery'])->name('artikel.galeri.create');
+        Route::get('/admin/artikel/galeri/create', [ArticleController::class, 'createArticleGallery'])->name('artikel.galeri.create');
         Route::post('/admin/artikel/galeri/create', [ArticleController::class, 'storeArticleGallery'])->name('artikel.galeri.store');
-        Route::post('/admin/artikel/galeri/delete/{artikel}', [ArticleController::class, 'deleteArticleGallery'])->name('artikel.galeri.delete');
+        Route::post('/admin/artikel/galeri/delete/{artikel}', [ArticleController::class, 'deleteArticleGallery'])->name('artikel.galeri.unactive');
     });
 });

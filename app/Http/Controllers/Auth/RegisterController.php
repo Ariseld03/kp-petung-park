@@ -50,9 +50,6 @@ class RegisterController extends Controller
     // Menambahkan metode register
     public function register_process(Request $request)
     {
-        if ($request->password != $request->password_confirmation) {
-            return back()->withErrors(['password' => 'Kata sandi tidak sama dengan konfirmasi kata sandi.']);
-        }
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -89,16 +86,12 @@ class RegisterController extends Controller
     }
     public function logout(Request $request)
     {
-        // Logout the user
         Auth::logout();
 
-        // Invalidate the session to clear session data
         $request->session()->invalidate();
 
-        // Regenerate the CSRF token to prevent CSRF attacks
         $request->session()->regenerateToken();
 
-        // Redirect to the login page with a logout success message
         return redirect()->route('register')->with('success', 'You have successfully logged out.');
     }
 }

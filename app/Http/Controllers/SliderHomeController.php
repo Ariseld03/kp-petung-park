@@ -37,16 +37,19 @@ class SliderHomeController extends Controller
             'photos.*' => 'integer|exists:galleries,id',
         ]);
 
-        foreach ($request->input('galleries') as $gallery_id) {
-            SliderHome::create([
-                'name' => $request->input('name'),
-                'status' => 1,
-                'gallery_id' => $gallery_id,
-            ]);
+        try {
+            foreach ($request->input('galleries') as $gallery_id) {
+                SliderHome::create([
+                    'name' => $request->input('name'),
+                    'status' => 1,
+                    'gallery_id' => $gallery_id,
+                ]);
+            }
+            return redirect()->route('galeri.slider.index')->with('success', 'Tampilan Slider Home berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return redirect()->route('galeri.slider.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-        return redirect()->route('galeri.slider.index')->with('success', 'Tampilan Slider Home berhasil ditambahkan.');
     }
-
     /**
      * Display the specified resource.
      */
@@ -83,31 +86,39 @@ class SliderHomeController extends Controller
         ]);
         $galleryIds = $request->input('galleries');
         
-        if (!empty($galleryIds)) {
-            foreach ($galleryIds as $galleryId) {
-                if ($request->input('photo')) {
-                    $sliderHome->gallery_id = $request->input('photo');
-                } else {
-                    $sliderHome->gallery_id = $galleryId;
+        try {
+            if (!empty($galleryIds)) {
+                foreach ($galleryIds as $galleryId) {
+                    if ($request->input('photo')) {
+                        $sliderHome->gallery_id = $request->input('photo');
+                    } else {
+                        $sliderHome->gallery_id = $galleryId;
+                    }
+                    $sliderHome->name = $request->input('name');
+                    $sliderHome->status = $request->input('status');
+                    $sliderHome->updated_at = now();
+                    $sliderHome->save();
                 }
-                $sliderHome->name = $request->input('name');
-                $sliderHome->status = $request->input('status');
-                $sliderHome->updated_at = now();
-                $sliderHome->save();
             }
+            return redirect()->route('galeri.slider.index')->with('success', 'Tampilan Slider Home berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal update tampilan Slider Home');
         }
-        return redirect()->route('galeri.slider.index')->with('success', 'Tampilan Slider Home berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function delete($gallery)
+    public function unactive($gallery)
     {
-        $sliderHome = SliderHome::findorFail($gallery);
-        $sliderHome->status=0;
-        $sliderHome->save();
-        return redirect()->route('galeri.slider.index')->with('success', 'Tampilan Slider Home berhasil dinonaktifkan.');
+        try {
+            $sliderHome = SliderHome::findorFail($gallery);
+            $sliderHome->status=0;
+            $sliderHome->save();
+            return redirect()->route('galeri.slider.index')->with('success', 'Tampilan Slider Home berhasil dinonaktifkan.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal nonaktifkan tampilan Slider Home');
+        }
     }
 }
 

@@ -40,11 +40,6 @@
             </div>
 
             <div class="form-group">
-                <label for="number_love">Jumlah Like:</label>
-                <input type="number" class="form-control" id="number_love" name="number_love" value="{{ $menu->number_love }}" required>
-            </div>
-
-            <div class="form-group">
                 <label for="user_id">User:</label>
                 <select class="form-control" id="user_id" name="user_id" required>
                     @foreach($users as $user)

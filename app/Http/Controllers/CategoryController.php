@@ -35,18 +35,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'status' => 'required|integer',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'status' => 'required|integer',
+            ]);
 
-        Category::create([
-            'name' => $request->input('name'),
-            'status' => $request->input('status'),
-        ]);
+            Category::create([
+                'name' => $request->input('name'),
+                'status' => $request->input('status'),
+            ]);
 
-        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan!');
+            return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->route('kategori.create')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -78,35 +81,38 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $kategori)
     {
-        // Validate the request
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'status' => 'required|integer',
         ]);
-        // try {
+       try {
             $category = Category::findOrFail($kategori);
             $category->update($validatedData);
             return redirect()->route('kategori.index')->with('success', 'Berhasil Update Kategori!');
-        // } catch (\Exception $e) {
-        //     return redirect()->route('kategori.index')->with('error', 'Gagal Update Kategori!');
-        // }
+        } catch (\Exception $e) {
+            return redirect()->route('kategori.index')->with('error', 'Gagal Update Kategori!');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(Category $kategori)
+    public function unactive(Category $kategori)
     {
-        $menus = Menu::where('category_id', $kategori)->get();
-        foreach ($menus as $menu) {
-            $menu->status = 0;
-            $menu->save();
-        }
-        $category = Category::findOrFail($kategori->id);
-        $category->status = 0;
-        $category->save();
+        try {
+            $menus = Menu::where('category_id', $kategori)->get();
+            foreach ($menus as $menu) {
+                $menu->status = 0;
+                $menu->save();
+            }
+            $category = Category::findOrFail($kategori->id);
+            $category->status = 0;
+            $category->save();
 
-        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dinonaktifkan!');
+            return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dinonaktifkan!');
+        } catch (\Exception $e) {
+            return redirect()->route('kategori.index')->with('error', 'Terjadi kesalahan saat menonaktifkan kategori: ' . $e->getMessage());
+        }
     }
 
 }

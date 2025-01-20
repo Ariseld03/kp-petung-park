@@ -57,9 +57,9 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                        <form action="{{ route('galeri.delete', $galeri->id) }}" method="POST" id="nonaktifForm-{{ $galeri->id }}">
+                                        <form action="{{ route('galeri.unactive', $galeri->id) }}" method="POST" id="nonaktifForm-{{ $galeri->id }}">
                                             @csrf
-                                            @method('DELETE')
+                                            @method('POST')
                                             <button type="submit" class="btn btn-danger">Nonaktifkan</button>
                                         </form>
                                     </div>

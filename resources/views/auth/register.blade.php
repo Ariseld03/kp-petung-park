@@ -55,8 +55,9 @@
 
                         <div class="row mb-2">
                             <div class="col-md-12">
-                                <label for="password-confirm" class="col-form-label">{{ __('Konfirmasi Kata Sandi') }}</label>
-                                <input id="password-confirm" type="password" class="form-control" placeholder="Masukkan Kembali Kata Sandi" name="password_confirmation" required autocomplete="new-password">
+                            <div class="form-group">
+                                <label for="passwordConfirm">{{ __('Konfirmasi Kata Sandi') }}</label>
+                                <input type="password" class="form-control" id="passwordConfirm" name="password_confirmation" placeholder="Masukkan Kembali Kata Sandi" required autocomplete="password">
                             </div>
                         </div>
 

@@ -75,8 +75,9 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                            <form action="{{ route('wisata.galeri.delete', ['travel' => $groupedCollages->first()->travel_id]) }}" method="POST">
+                                            <form action="{{ route('wisata.galeri.unactive', ['travel' => $groupedCollages->first()->travel_id]) }}" method="POST">
                                                 @csrf
+                                                @method('POST')
                                                 <button type="submit" class="btn btn-danger">Nonaktifkan</button>
                                             </form>
                                         </div>

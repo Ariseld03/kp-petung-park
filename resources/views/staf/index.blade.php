@@ -22,7 +22,8 @@
                     <th>Status</th>
                     <th>Created</th>
                     <th>Updated</th>
-                    <th>Action</th>
+                    <th>Perbarui</th>
+                    <th>Hapus</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,14 +42,41 @@
                         <td>{{ $pegawai->phone_number }}</td>
                         <td>{{ $pegawai->position }}</td>
                         <td>{{ $pegawai->gender }}</td>
-                        <td>{{ $pegawai->status ? 'Aktif' : 'Non-Aktif' }}</td>
+                        <td>{{ $pegawai->status ? 'Aktif' : 'Nonaktif' }}</td>
                         <td>{{ $pegawai->created_at }}</td>
                         <td>{{ $pegawai->updated_at }}</td>
                         <td>
                             <a href="{{ route('staf.edit', ['user' => $pegawai->id]) }}" class="btn btn-primary mb-1">Perbarui</a>
-                            <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $pegawai->id }}, {{ $pegawai->status }})">
-                                Nonaktif
+                        </td>
+                        <td>
+                            <button type="button" 
+                                        class="btn btn-danger"  
+                                        onclick="handleNonaktif({{ $pegawai->id }}, {{ $pegawai->status }})">
+                                    Nonaktif
                             </button>
+                            <div class="modal fade" id="hapusModal-{{ $pegawai->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $pegawai->id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="hapusModalLabel-{{ $pegawai->id }}">Konfirmasi Nonaktif</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="modalMessage-{{ $pegawai->id }}">Apakah Anda yakin ingin mengubah status data ini?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            <form action="{{ route('staf.unactive', ['user' => $pegawai->id]) }}" method="POST" id="nonaktifForm-{{ $pegawai->id }}">
+                                                @csrf
+                                                @method('POST')
+                                                <button type="submit" class="btn btn-danger">Nonaktifkan</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
@@ -57,19 +85,11 @@
     </div>
 </div>
 @endsection
-
 @section('page-js')
-@if(session('success'))
-    <script>
-        $(document).ready(function() {
-            $('#berhasilModal').modal('show');
-        });
-    </script>
-@endif
 <script>
-    function handleNonaktif(galleryId, status) {
-        var modalMessage = document.getElementById('modalMessage-' + galleryId);
-        var nonaktifForm = document.getElementById('nonaktifForm-' + galleryId);
+    function handleNonaktif(userId, status) {
+        var modalMessage = document.getElementById('modalMessage-' + userId);
+        var nonaktifForm = document.getElementById('nonaktifForm-' + userId);
 
         if (status === 0) {
             modalMessage.innerHTML = "Staff ini sudah nonaktif.";
@@ -79,7 +99,7 @@
             nonaktifForm.querySelector("button[type='submit']").disabled = false;
         }
 
-        $('#hapusModal-' + galleryId).modal('show');
+        $('#hapusModal-' + userId).modal('show');
     }
 </script>
 @endsection

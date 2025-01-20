@@ -50,9 +50,9 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                            <form action="{{ route('kategori.delete', $category->id) }}" method="POST" id="nonaktifForm-category-{{ $category->id }}">
+                                            <form action="{{ route('kategori.unactive', $category->id) }}" method="POST" id="nonaktifForm-category-{{ $category->id }}">
                                                 @csrf
-                                                @method('DELETE')
+                                                @method('POST')
                                                 <button type="submit" class="btn btn-danger">Nonaktifkan</button>
                                             </form>
                                         </div>

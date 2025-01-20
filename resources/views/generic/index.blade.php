@@ -63,9 +63,9 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                        <form action="{{ route('generic.delete', $generic->id) }}" method="POST" id="nonaktifForm-{{ $generic->id }}">
+                                        <form action="{{ route('generic.unactive', $generic->id) }}" method="POST" id="nonaktifForm-{{ $generic->id }}">
                                             @csrf
-                                            @method('DELETE')
+                                            @method('POST')
                                             <button type="submit" class="btn btn-danger">Nonaktifkan</button>
                                         </form>
                                     </div>

@@ -60,7 +60,7 @@ class TravelController extends Controller
 
         }
         catch(\Exception $e){
-            return redirect()->route('wisata.add')->with('error', $e->getMessage());
+            return redirect()->route('wisata.create')->with('error', $e->getMessage());
         }
     }
 
@@ -117,52 +117,46 @@ class TravelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(Travel $wisata)
+    public function unactive(Travel $wisata)
     {
-        $wisata->status = 0;
-        $wisata->save();
+        try {
+            $wisata->status = 0;
+            $wisata->save();
 
-        TravelGallery::where('travel_id', $wisata->id)->update(['status' => 0]);
+            TravelGallery::where('travel_id', $wisata->id)->update(['status' => 0]);
 
-        return redirect()->route('wisata.index')->with('success', 'Wisata berhasil dinonaktifkan!');
+            return redirect()->route('wisata.index')->with('success', 'Wisata berhasil dinonaktifkan!');
+        } catch (\Exception $e) {
+            return redirect()->route('wisata.index')->with('error', 'Terjadi kesalahan saat menonaktifkan wisata: ' . $e->getMessage());
+        }
     }
     
     public function like(Request $request, $travelId)
     {
-        // Check if the user is authenticated
         if (!auth()->check()) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        // Retrieve the gallery or return a 404 error if not found
-        $travel = Article::findOrFail($travelId);
+        $travel = Travel::findOrFail($travelId);
 
-        // Generate a unique session key for the gallery
-        $sessionKey = 'liked_article_' . $travelId;
+        $sessionKey = 'liked_travel_' . $travelId;
 
-        // Check if the user has already liked the gallery
         if (session()->has($sessionKey)) {
-            // Decrease the like count only if it's greater than zero
-            if ($gallery->number_love > 0) {
-                $gallery->number_love--;
+            if ($travel->number_love > 0) {
+                $travel->number_love--;
             }
 
-            // Remove the like session key
             session()->forget($sessionKey);
-            $action = 'unliked'; // Specify the action
+            $action = 'unliked';
         } else {
-            // Increase the like count
             $travel->number_love++;
 
-            // Store the like in the session
             session()->put($sessionKey, true);
-            $action = 'liked'; // Specify the action
+            $action = 'liked'; 
         }
 
-        // Save the updated gallery data
         $travel->save();
 
-        // Return a JSON response with the updated like count and action
         return response()->json([
             'number_love' => $travel->number_love,
             'action' => $action,
@@ -181,11 +175,11 @@ class TravelController extends Controller
         $collages = TravelGallery::all();
         return view('wisata.gallery.index', compact('collages'));
     }
-     public function addTravelGallery()
+     public function createTravelGallery()
     {
         $spots = Travel::where('status', 1)->get();
         $galleries = Gallery::where('status', 1)->get();
-        return view('wisata.gallery.add', compact('spots', 'galleries'));
+        return view('wisata.gallery.create', compact('spots', 'galleries'));
     }
 
     /**
@@ -263,32 +257,25 @@ class TravelController extends Controller
         $status = $request->get('status');
         $newGalleryIds = $request->get('new_photos', []);
         if (!empty($newGalleryIds)) {
-              // Ensure that the old and new gallery IDs are integers
                 $oldGalleryIds = array_map('intval', $oldGalleryIds);
                 $newGalleryIds = array_map('intval', $newGalleryIds);
 
-                // Step 1: Find the galleries that need to be removed
-                // Remove galleries that are in the old data but not in the new data
                 $galleryIdsToRemove = array_diff($oldGalleryIds, $newGalleryIds);
 
 
-                // Delete the galleries that need to be removed
                 if (!empty($galleryIdsToRemove)) {
                     TravelGallery::where('travel_id', $travelId)
                                 ->whereIn('gallery_id', $galleryIdsToRemove)
                                 ->delete();
                 }
 
-                // Step 2: Add the new gallery ids that aren't already in the database
                 $existingGalleryIds = TravelGallery::where('travel_id', $travelId)
                                                 ->whereIn('gallery_id', $newGalleryIds)
                                                 ->pluck('gallery_id')
                                                 ->toArray();
 
-                // Find the new gallery IDs that don't exist in the database
                 $filteredNewGalleryIds = array_diff($newGalleryIds, $existingGalleryIds);
 
-            // Insert the new gallery records
             foreach ($filteredNewGalleryIds as $galleryId) {
                 TravelGallery::create([
                     'travel_id' => $travelId,
@@ -300,7 +287,6 @@ class TravelController extends Controller
                 ]);
             }
         } else {
-            // If no new photos, update existing records with new details
             TravelGallery::where('travel_id', $travelId)
                          ->whereIn('gallery_id', $oldGalleryIds)
                          ->update([
@@ -320,7 +306,7 @@ class TravelController extends Controller
     
 }
 
-public function deleteTravelGallery($travel)
+public function unactiveTravelGallery($travel)
 {
     try {
         // Update all matching records to status 0

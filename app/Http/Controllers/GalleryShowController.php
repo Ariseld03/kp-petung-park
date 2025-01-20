@@ -71,20 +71,24 @@ class GalleryShowController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'photos' => 'required|array',
-            'photos.*' => 'integer|exists:galleries,id',
-        ]);
-
-        foreach ($request->input('galleries') as $gallery_id) {
-            GalleryShow::create([
-                'name' => $request->input('name'),
-                'status' => 1,
-                'gallery_id' => $gallery_id,
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'photos' => 'required|array',
+                'photos.*' => 'integer|exists:galleries,id',
             ]);
+
+            foreach ($request->input('photos') as $gallery_id) {
+                GalleryShow::create([
+                    'name' => $request->input('name'),
+                    'status' => 1,
+                    'gallery_id' => $gallery_id,
+                ]);
+            }
+            return redirect()->route('galeri.show.index')->with('success', 'Tampilan Galeri berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data!']);
         }
-        return redirect()->route('galeri.show.index')->with('success', 'Tampilan Galeri berhasil ditambahkan!');
     }
 
     /**
@@ -116,39 +120,47 @@ class GalleryShowController extends Controller
      */
     public function update(Request $request, GalleryShow $galleryShow)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'status' => 'required|integer',
-            'photos' => 'nullable|array', 
-            'photos.*' => 'integer|exists:galleries,id', 
-        ]);
-        $galleryIds= $request->get('photos');
-        if (!is_null($galleryIds) && !empty($galleryIds)) {
-            foreach($galleryIds as $galleryId){
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'status' => 'required|integer',
+                'photos' => 'nullable|array', 
+                'photos.*' => 'integer|exists:galleries,id', 
+            ]);
+            $galleryIds= $request->get('photos');
+            if (!is_null($galleryIds) && !empty($galleryIds)) {
+                foreach($galleryIds as $galleryId){
+                    $galleryShow->name = $request->input('name');
+                    $galleryShow->status = $request->input('status');
+                    $galleryShow->gallery_id = $galleryId;
+                    $galleryShow->updated_at = now();
+                    $galleryShow->saveQuietly();
+                }
+            } else {
                 $galleryShow->name = $request->input('name');
                 $galleryShow->status = $request->input('status');
-                $galleryShow->gallery_id = $galleryId;
                 $galleryShow->updated_at = now();
                 $galleryShow->saveQuietly();
             }
-        } else {
-            $galleryShow->name = $request->input('name');
-            $galleryShow->status = $request->input('status');
-            $galleryShow->updated_at = now();
-            $galleryShow->saveQuietly();
+            return redirect()->route('galeri.show.index')->with('success', 'Tampilan Galeri berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data!']);
         }
-        return redirect()->route('galeri.show.index')->with('success', 'Tampilan Galeri berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function delete($gallery)
+    public function unactive($gallery)
     {
-        $galleryShow= GalleryShow::findorFail($gallery);
-        $galleryShow->status=0;
-        $galleryShow->save();
-        return redirect()->route('galeri.show.index')->with('success', 'Tampilan Galeri berhasil dinonaktifkan!');
+        try {
+            $galleryShow= GalleryShow::findorFail($gallery);
+            $galleryShow->status=0;
+            $galleryShow->save();
+            return redirect()->route('galeri.show.index')->with('success', 'Tampilan Galeri berhasil dinonaktifkan!');
+        } catch (\Exception $e) {
+            return redirect()->route('galeri.show.index')->with('error', 'Terjadi kesalahan saat dinonaktifkan data!');
+        }
     }
 }
 
