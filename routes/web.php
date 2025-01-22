@@ -193,6 +193,6 @@ Route::post('/artikel/{id}/like', [ArticleController::class, 'like'])->name('art
         Route::post('/admin/artikel/galeri/edit', [ArticleController::class, 'updateArticleGallery'])->name('artikel.galeri.update');
         Route::get('/admin/artikel/galeri/create', [ArticleController::class, 'createArticleGallery'])->name('artikel.galeri.create');
         Route::post('/admin/artikel/galeri/create', [ArticleController::class, 'storeArticleGallery'])->name('artikel.galeri.store');
-        Route::post('/admin/artikel/galeri/delete/{artikel}', [ArticleController::class, 'deleteArticleGallery'])->name('artikel.galeri.unactive');
+        Route::post('/admin/artikel/galeri/delete/{artikel}', [ArticleController::class, 'unactiveArticleGallery'])->name('artikel.galeri.unactive');
     });
 });

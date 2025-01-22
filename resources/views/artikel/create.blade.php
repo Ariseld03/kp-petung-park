@@ -51,4 +51,22 @@
         </form>
     </div>
 @endsection
+@section('page-js')
+<script>
+    document.getElementById('photos').addEventListener('change', function() {
+        var previewContainer = document.getElementById('preview-photos');
+        previewContainer.innerHTML = ''; 
+        Array.from(this.selectedOptions).forEach(option => {
+            var imgSrc = option.dataset.imgSrc;
+            if (imgSrc) {
+                var imgElement = document.createElement('img');
+                imgElement.src = imgSrc;
+                imgElement.style.maxWidth = '100px';
+                imgElement.style.margin = '5px';
+                previewContainer.appendChild(imgElement);
+            }
+        });
+    });
+</script>
+@endsection
 

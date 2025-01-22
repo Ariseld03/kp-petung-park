@@ -53,13 +53,11 @@
                             </div>
                         </div>
 
-                        <div class="row mb-2">
-                            <div class="col-md-12">
                             <div class="form-group">
                                 <label for="passwordConfirm">{{ __('Konfirmasi Kata Sandi') }}</label>
                                 <input type="password" class="form-control" id="passwordConfirm" name="password_confirmation" placeholder="Masukkan Kembali Kata Sandi" required autocomplete="password">
                             </div>
-                        </div>
+                        
 
                         <div class="row mb-3">
                             <div class="col-md-12">

@@ -26,7 +26,8 @@ class ArticleController extends Controller
     public function create()
     {
         $agendas = Agenda::where('status', 1)->get();
-        return view('artikel.create', compact('agendas'));
+        $galleries = Gallery::where('status', 1)->get();
+        return view('artikel.create', compact('agendas', 'galleries'));
     }
 
     /**
@@ -177,29 +178,52 @@ class ArticleController extends Controller
          return view('artikel.galeri.create', compact('articles', 'galleries'));
      }
  
-    public function storeArticleGallery(Request $request)
-    {
-        $request->validate([
-            'article_id' => 'required|integer|exists:articles,id',
-            'photos' => 'required|array', 
-            'photos.*' => 'integer|exists:galleries,id', 
-            'name_collage' => 'required|string',
-        ]);
-        $name= $request->get('name_collage');
-        $galleryIds= $request->get('photos');
-        foreach($galleryIds as $galleryId){
-            $articleGallery = new ArticleGallery([
-                'gallery_id' => $galleryId,
-                'article_id' => $request->get('article_id'),
-                'name_collage' => 'Kolase '. $name,
-                'status' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-            $articleGallery->save();
-        }
-        return redirect()->route('artikel.galeri.index')->with('success', 'Foto di Galeri berhasil ditambahkan!');
-    }
+     public function storeArticleGallery(Request $request)
+     {
+         $request->validate([
+             'article_id' => 'required|integer|exists:articles,id',
+             'photos' => 'required|array', 
+             'photos.*' => 'integer|exists:galleries,id', 
+             'name_collage' => 'required|string',
+         ]);
+     
+         $name = $request->get('name_collage');
+         $articleId = $request->get('article_id');
+         $galleryIds = $request->get('photos');
+     
+         $duplicateEntries = [];
+     
+         foreach ($galleryIds as $galleryId) {
+             // Periksa apakah kombinasi gallery_id dan article_id sudah ada di tabel
+             $exists = ArticleGallery::where('gallery_id', $galleryId)
+                 ->where('article_id', $articleId)
+                 ->exists();
+     
+             if ($exists) {
+                 $duplicateEntries[] = $galleryId; // Simpan gallery_id yang duplikat
+             } else {
+                 // Simpan jika tidak duplikat
+                 $articleGallery = new ArticleGallery([
+                     'gallery_id' => $galleryId,
+                     'article_id' => $articleId,
+                     'name_collage' => 'Kolase ' . $name,
+                     'status' => 1,
+                     'created_at' => now(),
+                     'updated_at' => now(),
+                 ]);
+                 $articleGallery->save();
+             }
+         }
+     
+         // Periksa apakah ada galeri yang duplikat
+         if (!empty($duplicateEntries)) {
+            $duplicateMessage = 'Data galeri dan artikel yang anda masukkan sudah ada';
+             return redirect()->route('artikel.galeri.index')->with('error', $duplicateMessage);
+         }
+     
+         return redirect()->route('artikel.galeri.index')->with('success', 'Foto di Galeri berhasil ditambahkan!');
+     }
+     
     public function editArticleGallery(Request $request)
     {
         $selectedCollage = ArticleGallery::with(['article', 'gallery'])

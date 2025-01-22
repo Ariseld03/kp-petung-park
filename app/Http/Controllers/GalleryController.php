@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class GalleryController extends Controller
@@ -34,7 +35,7 @@ class GalleryController extends Controller
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'photo' => 'required|image|mimes:jpg,jpeg,png|max:10240', // Validate the file upload
-                'description' => 'nullable|longtext',
+                'description' => 'nullable|string',
             ]);
         
             $gallery = new Gallery;
@@ -114,8 +115,16 @@ class GalleryController extends Controller
     {
         try {
             $gallery->status = 0;
-            $gallery->travels()->update(['status' => 0]);
-            $gallery->articles()->update(['status' => 0]);
+            DB::table('travel_gallery')
+                ->where('gallery_id', $gallery->id)
+                ->update(['status' => 0]);
+
+            DB::table('article_gallery')
+                ->where('gallery_id', $gallery->id)
+                ->update(['status' => 0]);
+
+            // $gallery->travels()->update(['status' => 0]);
+            // $gallery->articles()->update(['status' => 0]);
             $gallery->save();
             $message = 'Galeri berhasil dinonaktifkan.';
             return redirect()->route('galeri.index')->with('success', $message);

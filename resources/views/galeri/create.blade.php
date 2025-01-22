@@ -48,17 +48,6 @@
                 @enderror
             </div>
 
-            <div class="form-group">
-                <label for="status">Status:</label>
-                <select class="form-control" id="status" name="status">
-                    <option value="1">Aktif</option>
-                    <option value="0">Tidak Aktif</option>
-                </select>
-                @error('status')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                @enderror
-            </div>
-
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>
                 <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('galeri.index') }}'">Batal</button>

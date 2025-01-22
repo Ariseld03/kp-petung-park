@@ -32,7 +32,7 @@
                     <td>
                     @if ($article->galleries)
                         @foreach ($article->galleries as $image)
-                            <img src="{{ asset($image->photo_link) }}" alt="Foto" style="max-width: 100px;">
+                            <img src="{{ asset($image->photo_link) }}" alt="Foto" style="max-width: 100px; margin-bottom : 10px">
                         @endforeach
                     @else
                         Tidak ada foto
