@@ -162,13 +162,21 @@ class UserController extends Controller
     public function unactivate(string $user)
     {
         try {
-            $staff = User::findOrFail($user);
-            $staff->status = 0;
-            $staff->save();
-
-            return redirect()->route('staf.index')->with('success', 'Staf berhasil dinonaktifkan!');
-        } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat menonaktifkan staf: ' . $e->getMessage());
-        }
+            DB::transaction(function () use ($user) {
+                $staff = User::findOrFail($user);
+   
+                $staff->status = 0;
+                $staff->save();
+   
+            $staff->menus()->update(['user_id' => null]);
+            $staff->agendas()->update(['user_id' => null]);
+            $staff->articles()->update(['user_id' => null]);
+            });
+   
+                return redirect()->route('staf.index')->with('success', 'Staf berhasil dinonaktifkan!');
+            } catch (\Exception $e) {
+                return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat menonaktifkan staf: ' . $e->getMessage());
+            }
     }
+
 }

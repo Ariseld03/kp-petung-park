@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->tinyinteger('status')->default(0);
-            $table->unsignedBigInteger('gallery_id'); // Adding the foreign key column
+            $table->unsignedBigInteger('gallery_id')->nullable(); 
             $table->timestamps();
 
             // Defining the foreign key constraint

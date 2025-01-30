@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -22,9 +23,12 @@ return new class extends Migration
             $table->timestamps();
             
             $table->string('staff_email');
-            $table->foreign('staff_email')->references('email')->on('staffs')->onDelete('cascade');
-            
-            $table->unsignedBigInteger('gallery_id');
+
+            $table->index('staff_email');
+
+            $table->foreign('staff_email', 'menus_staff_email_foreign')
+                ->references('email')->on('staffs')->onDelete('cascade');            
+            $table->unsignedBigInteger('gallery_id')->nullable();
             $table->foreign('gallery_id')->references('id')->on('galleries')->onDelete('cascade');
            
             $table->unsignedBigInteger('category_id');
@@ -38,12 +42,31 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('menus', function (Blueprint $table) {
-            // Drop the foreign key constraint before dropping the column
-            $table->dropForeign(['staff_email']);
+            // Dynamically fetch the foreign key name for 'staff_email' and drop it
+            if (Schema::hasColumn('menus', 'staff_email')) {
+                $foreignKeyName = DB::select(
+                    "SELECT CONSTRAINT_NAME
+                     FROM information_schema.KEY_COLUMN_USAGE
+                     WHERE TABLE_NAME = 'menus' 
+                     AND TABLE_SCHEMA = '" . env('DB_DATABASE') . "' 
+                     AND COLUMN_NAME = 'staff_email'"
+                );
+
+                // Drop the foreign key if it exists
+                if (!empty($foreignKeyName)) {
+                    $table->dropForeign($foreignKeyName[0]->CONSTRAINT_NAME);
+                }
+
+                $table->dropColumn('staff_email');
+            }
+
+            // Drop the foreign keys for 'gallery_id' and 'category_id'
             $table->dropForeign(['gallery_id']);
             $table->dropForeign(['category_id']);
-            $table->dropColumn(['staff_email', 'gallery_id', 'category_id']);
+            $table->dropColumn(['gallery_id', 'category_id']);
         });
+
+        // Drop the table after cleaning up columns and foreign keys
         Schema::dropIfExists('menus');
     }
 };

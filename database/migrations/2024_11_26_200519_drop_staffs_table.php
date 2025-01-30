@@ -35,7 +35,7 @@ return new class extends Migration
             $table->enum('gender', ['perempuan', 'laki-laki'])->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
-            $table->unsignedBigInteger('gallery_id');
+            $table->unsignedBigInteger('gallery_id')->nullable();
             $table->foreign('gallery_id')->references('id')->on('galleries')->onDelete('cascade');
         });
     }

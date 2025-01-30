@@ -8,7 +8,7 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     */
+     */    
     public function up(): void
     {
         Schema::table('generic', function (Blueprint $table) {
@@ -22,9 +22,14 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Truncate the data in the 'icon_picture_link' column to fit within the 255-character limit
+        DB::table('generic')->whereRaw('CHAR_LENGTH(icon_picture_link) > 255')
+            ->update(['icon_picture_link' => DB::raw('LEFT(icon_picture_link, 255)')]);
+
         Schema::table('generic', function (Blueprint $table) {
             $table->string('value')->change();
             $table->string('icon_picture_link')->nullable()->change();
         });
     }
+
 };

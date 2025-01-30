@@ -13,12 +13,14 @@ return new class extends Migration
     public function up()
     {
         Schema::table('generic', function (Blueprint $table) {
-            // Drop the foreign key and column for staff_email
-            $table->dropForeign(['staff_email']); // Drop the foreign key constraint
-            $table->dropColumn('staff_email');   // Remove the column
+            // Drop the existing foreign key and column if they exist
+            if (Schema::hasColumn('generic', 'staff_email')) {
+                $table->dropForeign(['staff_email']);
+                $table->dropColumn('staff_email');
+            }
 
-            // Add the user_id column and foreign key
-            $table->unsignedBigInteger('user_id')->after('id'); // Replace 'id' with the correct column order if needed
+            // Add user_id column and foreign key
+            $table->unsignedBigInteger('user_id')->after('id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -31,14 +33,19 @@ return new class extends Migration
     public function down()
     {
         Schema::table('generic', function (Blueprint $table) {
-            // Drop the foreign key and column for user_id
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
+            // Drop user_id column and foreign key if they exist
+            if (Schema::hasColumn('generic', 'user_id')) {
+                $table->dropForeign(['user_id']);
+                $table->dropColumn('user_id');
+            }
 
-            // Add the staff_email column and foreign key
-            $table->string('staff_email')->after('id'); // Replace 'id' with the correct column order if needed
-            $table->foreign('staff_email')->references('email')->on('staffs')->onDelete('cascade');
+            // Add staff_email column and foreign key if it doesn't exist
+            if (!Schema::hasColumn('generic', 'staff_email')) {
+                $table->string('staff_email', 255)->after('id'); // Ensure staff_email is the same type as 'email' in staffs
+                $table->foreign('staff_email')->references('email')->on('staffs')->onDelete('cascade');
+            }
         });
     }
+
 };
 

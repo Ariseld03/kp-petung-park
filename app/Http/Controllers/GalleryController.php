@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 
 class GalleryController extends Controller
@@ -114,24 +116,24 @@ class GalleryController extends Controller
     public function unactive(Gallery $gallery)
     {
         try {
-            $gallery->status = 0;
-            DB::table('travel_gallery')
-                ->where('gallery_id', $gallery->id)
-                ->update(['status' => 0]);
-
-            DB::table('article_gallery')
-                ->where('gallery_id', $gallery->id)
-                ->update(['status' => 0]);
-
-            // $gallery->travels()->update(['status' => 0]);
-            // $gallery->articles()->update(['status' => 0]);
-            $gallery->save();
-            $message = 'Galeri berhasil dinonaktifkan.';
-            return redirect()->route('galeri.index')->with('success', $message);
-        } catch (\Exception $e) {
-            return redirect()->route('galeri.index')->with('error', 'Terjadi kesalahan saat menonaktifkan galeri: ' . $e->getMessage());
-        }
+            DB::transaction(function () use ($gallery) {
+                $gallery->status = 0;
+                $gallery->save();
+                $gallery->articles()->detach();
+                $gallery->travels()->detach();
+                $gallery->galleriesShow()->update(['gallery_id' => null]);
+                $gallery->slidersHome()->update(['gallery_id' => null]);
+                $gallery->menu()->update(['gallery_id' => null]);
+                            $gallery->users()->update(['gallery_id' => null]);
+                            $gallery->packages()->update(['gallery_id' => null]);
+                        });
+                $message = 'Galeri berhasil dinonaktifkan.';
+                return redirect()->route('galeri.index')->with('success', $message);
+         } catch (\Exception $e) {
+                return redirect()->route('galeri.index')->with('error', 'Terjadi kesalahan saat menonaktifkan galeri: ' . $e->getMessage());
+         }
     }
+
     /**
      * Like or unlike a gallery.
      *

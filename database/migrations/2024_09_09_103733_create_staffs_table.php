@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('staffs', function (Blueprint $table) {
-            $table->string('email')->primary();
+            $table->string('email')->primary()->unique();
             $table->string('name');
             $table->string('password');
             $table->date('date_of_birth');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('gender', ['perempuan', 'laki-laki'])->nullable();
             $table->tinyinteger('status')->default(0);
             $table->timestamps();
-            $table->unsignedBigInteger('gallery_id');
+            $table->unsignedBigInteger('gallery_id')->nullable();
             $table->foreign('gallery_id')->references('id')->on('galleries')->onDelete('cascade');
         });
     }

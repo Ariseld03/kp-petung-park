@@ -4,6 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Menu;
+use App\Models\Article;
+use App\Models\Travel;
+use App\Models\SliderHome;
+use App\Models\GalleryShow;
+use App\Models\User;
+use App\Models\Package;
 
 class Gallery extends Model
 {
@@ -23,11 +30,11 @@ class Gallery extends Model
     }
     public function slidersHome()
     {
-        return $this->hasMany(SlidersHome::class, 'gallery_id', 'id');
+        return $this->hasMany(SliderHome::class, 'gallery_id', 'id');
     }
     public function galleriesShow()
     {
-        return $this->hasMany(GalleriesShow::class, 'gallery_id', 'id');
+        return $this->hasMany(GalleryShow::class, 'gallery_id', 'id');
     }
     public function users()
     {

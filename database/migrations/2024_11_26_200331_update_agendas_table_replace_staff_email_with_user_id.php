@@ -18,7 +18,7 @@ return new class extends Migration
             $table->dropColumn('staff_email');   // Remove the column
 
             // Add the user_id column and foreign key
-            $table->unsignedBigInteger('user_id')->after('id'); // Replace 'id' with the correct column order if needed
+            $table->unsignedBigInteger('user_id')->after('id')->nullable(); // Replace 'id' with the correct column order if needed
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -36,8 +36,8 @@ return new class extends Migration
             $table->dropColumn('user_id');
 
             // Add the staff_email column and foreign key
-            $table->string('staff_email')->after('id'); // Replace 'id' with the correct column order if needed
-            $table->foreign('staff_email')->references('email')->on('staffs')->onDelete('cascade');
+            // $table->string('staff_email')->after('id'); // Replace 'id' with the correct column order if needed
+            // $table->foreign('staff_email')->references('email')->on('staffs')->onDelete('cascade');
         });
     }
 };
