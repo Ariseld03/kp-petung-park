@@ -52,8 +52,8 @@ class TravelController extends Controller
                     'gallery_id' => $galleryId,
                     'travel_id' => $travel->id,
                     'name_collage' => 'Kolase '. $name,
-                    'status' => 1,
                 ]);
+                $travelGallery->status = 1;
                 $travelGallery->save();
             }
             return redirect()->route('wisata.index')->with('success', 'Wisata berhasil ditambahkan!');
@@ -173,13 +173,13 @@ class TravelController extends Controller
     public function indexTravelGallery()
     {
         $collages = TravelGallery::all();
-        return view('wisata.gallery.index', compact('collages'));
+        return view('wisata.galeri.index', compact('collages'));
     }
      public function createTravelGallery()
     {
         $spots = Travel::where('status', 1)->get();
         $galleries = Gallery::where('status', 1)->get();
-        return view('wisata.gallery.create', compact('spots', 'galleries'));
+        return view('wisata.galeri.create', compact('spots', 'galleries'));
     }
 
     /**
@@ -207,7 +207,7 @@ class TravelController extends Controller
             ]);
             $travelGallery->save();
         }
-        return redirect()->route('wisata.gallery.index')->with('success', 'Foto di Galeri berhasil ditambahkan!');
+        return redirect()->route('wisata.galeri.index')->with('success', 'Foto di Galeri berhasil ditambahkan!');
     }
 
     /**
@@ -227,11 +227,11 @@ class TravelController extends Controller
         $galleries = Gallery::where('status', 1)->get();
 
         if (!$selectedCollage) {
-            return redirect()->route('wisata.gallery.index')
+            return redirect()->route('wisata.galeri.index')
                              ->with('error', 'The selected collage with travel_id and gallery_id  was not found.');
         }
     
-        return view('wisata.gallery.edit', compact('galleries', 'selectedCollage', 'existingGallery'));
+        return view('wisata.galeri.edit', compact('galleries', 'selectedCollage', 'existingGallery'));
     }
     
     
@@ -296,9 +296,9 @@ class TravelController extends Controller
                          ]);
         }
     
-        return redirect()->route('wisata.gallery.index')->with('success', 'Data kolase berhasil diperbarui!');
+        return redirect()->route('wisata.galeri.index')->with('success', 'Data kolase berhasil diperbarui!');
     } catch (\Exception $e) {
-        return redirect()->route('wisata.gallery.edit', [
+        return redirect()->route('wisata.galeri.edit', [
             'travel_id' => $request->get('travel_id'),
             'gallery_id' => $oldGalleryIds
         ])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -316,9 +316,9 @@ public function unactiveTravelGallery($travel)
                 'updated_at' => now(),
             ]);
 
-        return redirect()->route('wisata.gallery.index')->with('success', 'Kolase berhasil dinonaktifkan!');
+        return redirect()->route('wisata.galeri.index')->with('success', 'Kolase berhasil dinonaktifkan!');
     } catch (\Exception $e) {
-        return redirect()->route('wisata.gallery.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        return redirect()->route('wisata.galeri.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
     }
 }
 

@@ -58,8 +58,8 @@ class ArticleController extends Controller
                 'gallery_id' => $galleryId,
                 'article_id' => $article->id,
                 'name_collage' => 'Kolase '. $name,
-                'status' => 1,
             ]);
+            $articleGallery->status = 1;
             $articleGallery->save();
         }
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');

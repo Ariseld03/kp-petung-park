@@ -71,6 +71,10 @@ Route::post('/artikel/{id}/like', [ArticleController::class, 'like'])->name('art
  Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
  Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
 
+// Hidangan
+Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('menu.hidangan.show');
+Route::post('/hidangan/{menu}/like', [MenuController::class, 'like'])->name('menu.hidangan.like');
+
  // Paket
  Route::get('/paket/{id}', [PackageController::class, 'show'])->name('menu.paket.show');
  Route::post('/paket/{id}/like', [PackageController::class, 'like'])->name('menu.paket.like');
@@ -93,7 +97,7 @@ Route::post('/artikel/{id}/like', [ArticleController::class, 'like'])->name('art
         Route::post('/admin/wisata/galeri/edit', [TravelController::class, 'updateTravelGallery'])->name('wisata.galeri.update');
         Route::get('/admin/wisata/galeri/create', [TravelController::class, 'createTravelGallery'])->name('wisata.galeri.create');
         Route::post('/admin/wisata/galeri/create', [TravelController::class, 'storeTravelGallery'])->name('wisata.galeri.store');
-        Route::post('admin/wisata/galeri/delete/{travel}', [TravelController::class, 'deleteTravelGallery'])->name('wisata.galeri.unactive');
+        Route::post('admin/wisata/galeri/{travel}', [TravelController::class, 'unactiveTravelGallery'])->name('wisata.galeri.unactive');
         
         Route::middleware('admin')->group(function () {
             // Admin CRUD Staff
@@ -137,9 +141,6 @@ Route::post('/artikel/{id}/like', [ArticleController::class, 'like'])->name('art
         Route::post('/admin/galeri-slider/edit/{gallery}', [SliderHomeController::class, 'update'])->name('galeri.slider.update');
         Route::post('/admin/galeri-slider/{gallery}', [SliderHomeController::class, 'unactive'])->name('galeri.slider.unactive');
 
-        // Hidangan
-        Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('menu.hidangan.show');
-        Route::post('/hidangan/{menu}/like', [MenuController::class, 'like'])->name('menu.hidangan.like');
         // Admin CRUD Hidangan
         Route::get('/admin/menu', [MenuController::class, 'index'])->name('menu.index');
         Route::get('/admin/hidangan/create', [MenuController::class, 'create'])->name('menu.hidangan.create');
@@ -193,6 +194,6 @@ Route::post('/artikel/{id}/like', [ArticleController::class, 'like'])->name('art
         Route::post('/admin/artikel/galeri/edit', [ArticleController::class, 'updateArticleGallery'])->name('artikel.galeri.update');
         Route::get('/admin/artikel/galeri/create', [ArticleController::class, 'createArticleGallery'])->name('artikel.galeri.create');
         Route::post('/admin/artikel/galeri/create', [ArticleController::class, 'storeArticleGallery'])->name('artikel.galeri.store');
-        Route::post('/admin/artikel/galeri/delete/{artikel}', [ArticleController::class, 'unactiveArticleGallery'])->name('artikel.galeri.unactive');
+        Route::post('/admin/artikel/galeri/{artikel}', [ArticleController::class, 'unactiveArticleGallery'])->name('artikel.galeri.unactive');
     });
 });
