@@ -69,6 +69,7 @@
         </div>
     </div>
 
+    @if (Auth::check() && Auth::user()->position === 'Admin')
     <!-- Pegawai Section -->
     <div class="row row-custom mt-5">
         <h3 class="text-center mb-4" style="color: #295A3F;">Pegawai</h3>
@@ -76,6 +77,7 @@
             <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('staf.index') }}">Pegawai</a>
         </div>
     </div>
+    @endif
 
     <!-- Menu Section -->
     <div class="row row-custom mt-5">

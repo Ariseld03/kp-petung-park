@@ -8,10 +8,12 @@
         <div class="slider-container">
             <div class="slider">
                 @foreach ($sliderHomes as $slide)
-                    <div class="slide" style="background-image: url('{{ asset($slide->gallery->photo_link) }}')">
-                        <h1 class="title text">{{ $slide->gallery->name }}</h1>
-                        <p class="description text">{{ $slide->gallery->description }}</p>
-                    </div>
+                    @if ($slide->gallery->photo_link)
+                        <div class="slide" style="background-image: url('{{ asset($slide->gallery->photo_link) }}')">
+                            <h1 class="title text">{{ $slide->gallery->name }}</h1>
+                            <p class="description text">{{ $slide->gallery->description }}</p>
+                        </div>
+                    @endif
                 @endforeach
             </div>
             <div class="navigation">
@@ -73,23 +75,29 @@
         <div class="container">
             <h2 class="title-beranda">GALERI</h2>
             <div class="row justify-content-center mt-4">
-                @foreach ($galleryShows as $galleryShow)
+            @foreach ($galleryShows as $galleryShow)
+                @if ($galleryShow->gallery) <!-- Check if the gallery is not null -->
                     <div class="col-md-4 overflow-hidden">
                         <div class="frame-image">
-                            <img id="{{ $galleryShow->id }}" src="{{ asset($galleryShow->gallery->photo_link) }}"
-                                alt="{{ $galleryShow->name }}" class="galeri-image zoomimg">
+                            @if ($galleryShow->gallery && $galleryShow->gallery->photo_link)
+                                <img id="{{ $galleryShow->id }}" src="{{ asset($galleryShow->gallery->photo_link) }}"
+                                    alt="{{ $galleryShow->name }}" class="galeri-image zoomimg">
+                            @else
+                                <p class="text-center">Tidak ada foto</p>
+                            @endif
                             <div class="content-container">
                                 <p id="text_{{ $galleryShow->id }}" class="text-image">{{ $galleryShow->name }}</p>
                                 <p class="desc-image">{{ $galleryShow->description }}</p>
-                                <button class="like-button" data-gallery-id="{{ $galleryShow->gallery->id }}">
+                                <button class="like-button" data-gallery-id="{{ $galleryShow->gallery->id ?? '' }}">
                                     <span id="like-count"
-                                        class="{{ $galleryShow->gallery->number_love % 2 === 0 ? 'even' : 'odd' }}">{{ $galleryShow->gallery->number_love }}</span>
+                                        class="{{ $galleryShow->gallery->number_love % 2 === 0 ? 'even' : 'odd' }}">{{ $galleryShow->gallery->number_love ?? 0 }}</span>
                                     <span class="like-icon">❤️</span>
                                 </button>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @endif
+            @endforeach
             </div>
         </div>
     </section>

@@ -1,8 +1,9 @@
-@extends('layouts.main')
+@extends('layouts.mainAdmin')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('/css/kategoriAdd.css') }}">
 @endsection
 
+@section('content')
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -27,4 +28,4 @@
     </div>
 </body>
 </html>
-
+@endsection

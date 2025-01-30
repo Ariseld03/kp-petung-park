@@ -19,6 +19,6 @@ class AdminMiddleware
         if (Auth::check() && Auth::user()->position === 'Admin') {
             return $next($request);
         }
-        return redirect()->route('beranda');
+        return redirect()->route('admin.index')->with('warning', 'Anda tidak memiliki akses ke halaman ini');
     }
 }
