@@ -101,7 +101,7 @@ footer-content {
         </div>
         <div class="tautan">
             <p><b>Tautan</b></p>
-            <a href="{{ asset($footerInfo['alamat']) }}"><u>Desa Belik</u></a>
+            <a href="{{ asset($footerInfo['websiteDesa']) }}"><u>Desa Belik</u></a>
         </div>
         <div class="sosmed">
             <p><b>Sosial Media</b></p>

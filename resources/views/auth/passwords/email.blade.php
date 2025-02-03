@@ -1,8 +1,13 @@
+@extends('layouts.loginRegis')
 @extends('layouts.app')
 
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('/css/login.css') }}">
+    @endsection
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="row justify-content-center w-100">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Reset Password') }}</div>

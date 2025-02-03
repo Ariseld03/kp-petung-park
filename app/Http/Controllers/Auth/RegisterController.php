@@ -69,15 +69,20 @@ class RegisterController extends Controller
             'phone.required' => 'Nomor telepon harus diisi.',
         ]);
         
-        // Optional: Add a manual check for email uniqueness if necessary
+        // Check if email is a Gmail address
+        if (!filter_var($request->email, FILTER_VALIDATE_EMAIL) || !str_ends_with($request->email, '@gmail.com')) {
+            return back()->withErrors(['email' => 'Email harus berupa alamat Gmail yang valid.']);
+        }
+        
         if (User::where('email', $request->email)->exists()) {
             return back()->withErrors(['email' => 'Email sudah digunakan.']);
         }
-
+        
         $user = $this->create($request->all());
         
         Auth::login($user);
         return redirect($this->redirectTo)->with('success', 'Selamat datang, registrasi berhasil!');
+        
     }
     public function register()
     {

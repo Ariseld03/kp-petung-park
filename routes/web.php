@@ -14,6 +14,8 @@ use App\Http\Controllers\SliderHomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TravelController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -31,7 +33,8 @@ Route::get('/', function () {
 });
 
 // Authentication Routes
-Auth::routes();
+// Auth::routes();
+Auth::routes(['verify' => true]);
 
 // Custom Login and Register Routes
 Route::middleware('guest')->group(function () {
@@ -45,10 +48,11 @@ Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestF
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
 // Logout Route
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
 // Navbar 
 Route::get('/beranda', [GalleryShowController::class, 'showAllPengguna'])->name('beranda');
 Route::get('/wisata', [PackageController::class, 'showLayanan'])->name('wisata');

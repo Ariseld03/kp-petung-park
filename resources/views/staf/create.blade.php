@@ -44,7 +44,6 @@
             <div class="form-group">
                 <label for="position">Posisi:</label>
                 <select class="form-control" id="position" name="position" required>
-                    <option value="Admin">Admin</option>
                     <option value="Staff">Staff</option>
                     <option value="User">User</option>
                 </select>

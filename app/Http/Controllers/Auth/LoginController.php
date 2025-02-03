@@ -35,23 +35,13 @@ class LoginController extends Controller
     }
     public function login_process(Request $request)
     {
-        
         // Validate input
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
-        ],
-        [
-            'email.required' => 'Email harus diisi.',
-            'password.required' => 'Kata sandi harus diisi.',
-            'password.min' => 'Kata sandi harus terdiri dari minimal 8 karakter.',
-            'password.confirmed' => 'Kata sandi tidak sama dengan konfirmasi kata sandi.',
-            'name.required' => 'Nama harus diisi.',
-            'dob.required' => 'Tanggal lahir harus diisi.',
-            'gender.required' => 'Jenis kelamin harus diisi.',
-            'phone.required' => 'Nomor telepon harus diisi.',
         ]);
 
+        // Check if the email exists in the database
         if (!User::where('email', $request->input('email'))->exists()) {
             return redirect()->back()->withErrors(['email' => 'Email tidak ditemukan.'])->withInput();
         }
@@ -60,12 +50,15 @@ class LoginController extends Controller
         $remember = $request->has('remember'); // Check if "remember" is checked
         
         $user = User::where('email', $request->input('email'))->first();
+        
+        // Check if the user's account is disabled
         if ($user && $user->status == 0) {
             return redirect()->back()->withErrors(['email' => 'Akun Anda telah dinonaktifkan.'])->withInput();
         }
+        
         // Attempt to authenticate the user
         if (Auth::attempt($credentials, $remember)) {
-            // Save the remember_token to the user's account if needed
+            // Handle "remember me" logic
             if ($remember) {
                 $user = Auth::user();
                 if (is_null($user->remember_token)) {
@@ -73,11 +66,16 @@ class LoginController extends Controller
                     $user->save();
                 }
             }
+            
+            // Redirect based on user role
             if (Auth::user()->position === 'Admin' || Auth::user()->position === 'Staff') {
                 return redirect()->route('admin.index');
             }
+
             return redirect()->intended('/beranda')->with('Berhasil', 'Login Sukses!');
         }
+
+        // If login failed, return with errors
         return redirect()->back()->withErrors(['password' => 'Kata sandi salah.'])->withInput();
     }
 

@@ -67,9 +67,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('wisata.index') }}">Wisata</a>
                         </li>
+                        @if (Auth::check() && Auth::user()->position === 'Admin')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('staf.index') }}">Staf</a>
                         </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('artikel.index') }}">Artikel</a>
                         </li>

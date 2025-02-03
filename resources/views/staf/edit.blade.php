@@ -63,7 +63,6 @@
             <div class="form-group">
                 <label for="position">Posisi:</label>
                 <select class="form-control" id="position" name="position">
-                    <option value="Admin" {{ $staff->position == 'admin' ? 'selected' : '' }}>Admin</option>
                     <option value="Staff" {{ $staff->position == 'staff' ? 'selected' : '' }}>Staff</option>
                     <option value="User" {{ $staff->position == 'user' ? 'selected' : '' }}>User</option>
                 </select>
