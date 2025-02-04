@@ -42,6 +42,16 @@
                 <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4">{{ $kegiatan->description }}</textarea>
             </div>
 
+            <div class="form-group">
+                <label for="user_id">User:</label>
+                <select class="form-control" id="user_id" name="user_id" required>
+                    <option value="" {{ is_null($kegiatan->user_id) ? 'selected' : '' }}>Pilih Staff Yang Bertanggung Jawab</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}" {{ $kegiatan->user_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Simpan</button>
                 <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('kegiatan.index') }}'">Kembali</button>

@@ -42,6 +42,7 @@
             <div class="form-group">
                 <label for="user_id">User:</label>
                 <select class="form-control" id="user_id" name="user_id" required>
+                    <option value="" {{ is_null($menu->user_id) ? 'selected' : '' }}>Pilih Staff Yang Bertanggung Jawab</option>
                     @foreach($users as $user)
                         <option value="{{ $user->id }}" {{ $menu->user_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                     @endforeach

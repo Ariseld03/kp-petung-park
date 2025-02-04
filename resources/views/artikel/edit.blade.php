@@ -39,6 +39,15 @@
                     @endforeach
                 </select>
             </div>
+            <div class="form-group">
+                <label for="user_id">User:</label>
+                <select class="form-control" id="user_id" name="user_id" required>
+                    <option value="" {{ is_null($agenda->user_id) ? 'selected' : '' }}>Pilih Staff Yang Bertanggung Jawab</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}" {{ $agenda->user_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit" class="btn btn-success">Simpan</button>
             <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('artikel.index') }}'">Kembali</button>
         </form>

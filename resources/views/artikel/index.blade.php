@@ -15,6 +15,7 @@
                     <th>Konten</th>
                     <th>Status</th>
                     <th>Jumlah Like</th>
+                    <th>User</th>
                     <th>Gambar</th>
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Diubah</th>
@@ -29,6 +30,7 @@
                     <td>{{ Str::limit($article->main_content, 50) }}</td>
                     <td>{{ $article->status == 1 ? 'Aktif' : 'Nonaktif' }}</td>
                     <td>{{ $article->number_love }}</td>
+                    <td>{{ $article->user ? $article->user->name : 'Tidak ada User yang Bertanggung Jawab' }}</td>
                     <td>
                     @if ($article->galleries)
                         @foreach ($article->galleries as $image)

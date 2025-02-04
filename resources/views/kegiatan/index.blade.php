@@ -19,7 +19,7 @@
                     <th>Deskripsi</th>
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Diubah</th>
-                    <th>Email Staff</th>
+                    <th>User</th>
                     <th>Perbarui</th>
                     <th>Hapus</th>
                 </tr>
@@ -35,7 +35,7 @@
                         <td>{{ $perkegiatan->description }}</td>
                         <td>{{ $perkegiatan->created_at }}</td>
                         <td>{{ $perkegiatan->updated_at }}</td>
-                        <td>{{ $perkegiatan->user->name }}</td>
+                        <td>{{ $perkegiatan->user ? $perkegiatan->user->name : 'Tidak ada User yang Bertanggung Jawab' }}</td>
                         <td>
                             <button class="btn btn-primary" onclick="location.href='{{ route('kegiatan.edit', $perkegiatan->id)}}'">Perbarui</button>
                         </td>

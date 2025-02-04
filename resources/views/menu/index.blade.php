@@ -82,6 +82,7 @@
                         <th>Status</th>
                         <th>Rekomendasi</th>
                         <th>Jumlah Like</th>
+                        <th>User</th>
                         <th>Tanggal Dibuat</th>
                         <th>Tanggal Diubah</th>
                         <th>Perbarui</th>
@@ -96,6 +97,13 @@
                             <td>{{ $dish->status ? 'Aktif' : 'Nonaktif' }}</td>
                             <td>{{ $dish->is_recommended ? 'Ya' : 'Tidak' }}</td>
                             <td>{{ $dish->number_love }}</td>
+                            <td>
+                                @if($dish->user_id != null)
+                                    {{ $dish->user->name }}
+                                @else
+                                    Tidak Ada User yang Bertanggung Jawab
+                                @endif
+                            </td>
                             <td>{{ $dish->created_at->format('d-m-Y') }}</td>
                             <td>{{ $dish->updated_at->format('d-m-Y') }}</td>
                             <td>
