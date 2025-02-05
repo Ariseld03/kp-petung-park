@@ -32,13 +32,14 @@
                     <td>{{ $article->number_love }}</td>
                     <td>{{ $article->user ? $article->user->name : 'Tidak ada User yang Bertanggung Jawab' }}</td>
                     <td>
-                    @if ($article->galleries)
+                    @if ($article->galleries->isNotEmpty())
                         @foreach ($article->galleries as $image)
                             <img src="{{ asset($image->photo_link) }}" alt="Foto" style="max-width: 100px; margin-bottom : 10px">
                         @endforeach
                     @else
-                        Tidak ada foto
+                        <p>Tidak ada foto</p>
                     @endif
+
                     </td>
                     <td>{{ $article->created_at }}</td>
                     <td>{{ $article->updated_at }}</td>

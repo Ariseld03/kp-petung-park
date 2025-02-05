@@ -8,6 +8,7 @@ use App\Models\Gallery;
 use App\Models\Agenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -112,9 +113,12 @@ class ArticleController extends Controller
      */
     public function unactive(Article $artikel)
     {
-        $artikel->status = 0;
-        $artikel->save();
-        ArticleGallery::where('article_id', $artikel->id)->update(['status' => 0]);
+        // ArticleGallery::where('article_id', $artikel->id)->update(['status' => 0]);
+        DB::transaction(function () use ($artikel) {
+            $artikel->status = 0;
+            $artikel->galleries()->detach();
+            $artikel->save();
+                    });
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil dinonaktifkan!');
     }
 

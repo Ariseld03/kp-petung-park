@@ -25,7 +25,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $galleries = Gallery::where('status', 1)->get();
+        $galleries = Gallery::where('status', 1)
+        ->where('name', 'like', 'Profile%')
+        ->get();
         return view('staf.create', compact('galleries'));
     }
 
@@ -101,6 +103,7 @@ class UserController extends Controller
         }
         $galleries = Gallery::where('status', 1)
                             ->where('id', '!=', $staff->gallery_id)
+                            ->where('name', 'like', 'Profile%')
                             ->get();
         return view('staf.edit', compact('staff', 'galleries'));
     }
@@ -172,6 +175,7 @@ class UserController extends Controller
             $staff->menus()->update(['user_id' => null]);
             $staff->agendas()->update(['user_id' => null]);
             $staff->articles()->update(['user_id' => null]);
+            $staff->generics()->update(['user_id' => null]);
             });
    
                 return redirect()->route('staf.index')->with('success', 'Staf berhasil dinonaktifkan!');

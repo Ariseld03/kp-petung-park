@@ -16,7 +16,7 @@
                     <th>Foto</th>
                     <th>Isi</th>
                     <th>Status</th>
-                    <th>ID Staff</th>
+                    <th>Nama Staff</th>
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Diubah</th>
                     <th>Perbarui</th>
@@ -36,7 +36,7 @@
                     </td>
                     <td>{{ $generic->value }}</td>
                     <td>{{ $generic->status == 1 ? 'Aktif' : 'Nonaktif' }}</td>
-                    <td>{{ $generic->user_id }}</td>
+                    <td>{{ $generic->user ? $generic->user->name : 'Tidak ada User yang Bertanggung Jawab' }}</td>
                     <td>{{ $generic->created_at }}</td>
                     <td>{{ $generic->updated_at }}</td>
                     <td>
