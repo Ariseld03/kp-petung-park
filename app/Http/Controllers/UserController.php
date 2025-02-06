@@ -136,7 +136,6 @@ class UserController extends Controller
             $staff->gender = $validated['gender'];
             $staff->status = $validated['status'];
 
-            // Handle password change
             if ($request->has('changePassword')) {
                 if (Hash::check($validated['oldPassword'], $staff->password)) {
                     $staff->password = bcrypt($validated['newPassword']);
@@ -144,15 +143,12 @@ class UserController extends Controller
                     return back()->withErrors(['oldPassword' => 'Password lama salah.']);
                 }
             }
-
-            // Handle photo change
             if ($request->has('new_photo')) {
                 if ($request->input('old_photo') != $request->input('new_photo')) {
                     $staff->gallery_id = $request->input('new_photo');
                 }
             }
             $staff->updated_at = now();
-            // Save changes
             $staff->save();
 
             return redirect()->route('staf.index')->with('success', 'Data staff berhasil diperbarui!');

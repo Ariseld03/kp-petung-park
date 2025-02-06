@@ -10,6 +10,7 @@ use App\Models\Menu;
 use App\Models\Gallery;
 use App\Models\TravelGallery;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class PackageController extends Controller
 {
@@ -121,8 +122,6 @@ class PackageController extends Controller
         }
     }
 
-    use Illuminate\Support\Facades\DB;
-
     public function unactive($package)
     {
         try {
@@ -130,7 +129,6 @@ class PackageController extends Controller
                 $package = Package::findOrFail($package);
                 $package->status = 0;
                 $package->save();
-                $package->menus()->detach();
             });
 
             return redirect()->route('menu.index')->with('success', 'Paket berhasil dinonaktifkan!');
@@ -141,18 +139,18 @@ class PackageController extends Controller
 
 
     // M to M package_menus
-    public function indexMenuPackage(){
+    public function indexPackageMenu(){
         $packagemenus = PackageMenu::with('menu')->get();
         return view('menu.menupaket.index', compact('packagemenus'));
     }
-    public function createMenuPackage()
+    public function createPackageMenu()
     {
         $packages = Package::where('status', 1)->get();
         $menus = Menu::where('status', 1)->get();
         return view('menu.menupaket.create', compact('packages', 'menus'));
     }
 
-    public function storeMenuPackage(Request $request)
+    public function storePackageMenu(Request $request)
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -186,14 +184,14 @@ class PackageController extends Controller
             return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }   
-    public function editMenuPackage($id)
+    public function editPackageMenu($id)
     {
         $packageMenus = PackageMenu::with(['package','menu'])->where('package_id', $id)->get();
         $menus = Menu::where('status', 1)->get();
         return view('menu.menupaket.edit', compact('packageMenus', 'menus', 'id'));
     }
     
-    public function updateMenuPackage(Request $request, $packagemenu)
+    public function updatePackageMenu(Request $request, $packagemenu)
     {
         $validator = Validator::make($request->all(), [
             'menu_id' => 'required|array', 
@@ -258,7 +256,7 @@ class PackageController extends Controller
         return redirect()->route('menu.menupaket.index')->with('success', 'Paket Menu berhasil diupdate.');
     }
 
-    public function unactiveMenuPackage($packageMenu)
+    public function unactivePackageMenu($packageMenu)
     {
         try {
             PackageMenu::where('package_id', $packageMenu)->where('status', 1)->update(['status' => 0, 'updated_at' => now()]);

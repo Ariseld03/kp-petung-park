@@ -10,6 +10,7 @@ use App\Models\Travel;
 use App\Models\Category;
 use App\Models\Article;
 use App\Models\Package;
+use App\Models\User;
 
 class AgendaController extends Controller
 {
@@ -74,7 +75,8 @@ class AgendaController extends Controller
      */
     public function edit(Agenda $agenda)
     {
-        return view('agenda.edit', compact('agenda')); 
+        $users = User::where('status', 1)->get();
+        return view('agenda.edit', compact('agenda','users')); 
     }
 
     /**
@@ -130,7 +132,7 @@ class AgendaController extends Controller
     }
 
 
-    //TAMBAHAN-----------------------------------------------------------
+    //TAMBAHAN
     public function showAgenda()
     {
         $agendaMendatang = Agenda::where('status', 1)->where('event_end_date', '>=', now())->orderBy('event_end_date', 'desc')->get();

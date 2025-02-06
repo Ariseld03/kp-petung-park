@@ -122,9 +122,6 @@ class TravelController extends Controller
         try {
             $wisata->status = 0;
             $wisata->save();
-
-            TravelGallery::where('travel_id', $wisata->id)->update(['status' => 0]);
-
             return redirect()->route('wisata.index')->with('success', 'Wisata berhasil dinonaktifkan!');
         } catch (\Exception $e) {
             return redirect()->route('wisata.index')->with('error', 'Terjadi kesalahan saat menonaktifkan wisata: ' . $e->getMessage());
@@ -309,7 +306,6 @@ class TravelController extends Controller
 public function unactiveTravelGallery($travel)
 {
     try {
-        // Update all matching records to status 0
         TravelGallery::where('travel_id', $travel)
             ->update([
                 'status' => 0,

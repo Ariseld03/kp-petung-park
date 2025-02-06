@@ -1,5 +1,9 @@
 @extends('layouts.mainAdmin')
-
+@php
+    $hasNonActive = $menus->contains(fn($dish) => 
+        !$dish->packages()->exists() 
+    );
+@endphp
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('css/paketAdd.css') }}">
 @endsection
@@ -21,7 +25,7 @@
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Diubah</th>
                     <th>Perbarui</th>
-                    <th>Hapus</th>
+                    <th>Nonaktif</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,7 +74,6 @@
             </tbody>
         </table>
 
-        <!-- Tabel Hidangan -->
         <h2 class="hidangan-title" style="color: #557C56;">Hidangan</h2>
         <button id="addRowHidangan" class="btn btn-warning mb-3" style="font-weight: bold;" onclick="location.href='{{ route('menu.hidangan.create') }}'">Tambah Hidangan</button>
         <div class="hidangan-menu">
@@ -86,7 +89,9 @@
                         <th>Tanggal Dibuat</th>
                         <th>Tanggal Diubah</th>
                         <th>Perbarui</th>
-                        <th>Hapus</th>
+                        @if($hasNonActive)
+                        <th>Nonaktif</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -109,34 +114,38 @@
                             <td>
                                 <button class="btn btn-primary" onclick="location.href='{{ route('menu.hidangan.edit', $dish->id) }}'">Perbarui</button>
                             </td>
-                            <td>
-                            <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $dish->id }}, {{ (int)$dish->status }}, 'dish')">
-                                Nonaktif
-                            </button>
-                                <div class="modal fade" id="hapusModal-dish-{{ $dish->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-dish-{{ $dish->id }}" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="hapusModalLabel-dish-{{ $dish->id }}">Konfirmasi Nonaktif</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body" id="modalMessage-dish-{{ $dish->id }}">
-                                                Apakah Anda yakin ingin mengubah status hidangan ini?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                <form action="{{ route('menu.hidangan.unactive', $dish->id) }}" method="POST" id="nonaktifForm-dish-{{ $dish->id }}">
-                                                    @csrf
-                                                    @method('POST')
-                                                    <button type="submit" class="btn btn-danger">Nonaktifkan</button>
-                                                </form>
+                            @if($hasNonActive)
+                                @if(!$dish->packages()->exists())
+                                <td>
+                                <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $dish->id }}, {{ (int)$dish->status }}, 'dish')">
+                                    Nonaktif
+                                </button>
+                                    <div class="modal fade" id="hapusModal-dish-{{ $dish->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-dish-{{ $dish->id }}" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="hapusModalLabel-dish-{{ $dish->id }}">Konfirmasi Nonaktif</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body" id="modalMessage-dish-{{ $dish->id }}">
+                                                    Apakah Anda yakin ingin mengubah status hidangan ini?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                    <form action="{{ route('menu.hidangan.unactive', $dish->id) }}" method="POST" id="nonaktifForm-dish-{{ $dish->id }}">
+                                                        @csrf
+                                                        @method('POST')
+                                                        <button type="submit" class="btn btn-danger">Nonaktifkan</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
+                                @endif
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

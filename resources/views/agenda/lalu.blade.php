@@ -62,7 +62,6 @@
 @section('page-js')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Function to handle like for galleries
         function handleGalleryLike() {
             const likeButtons = document.querySelectorAll('.like-button');
             likeButtons.forEach(button => {

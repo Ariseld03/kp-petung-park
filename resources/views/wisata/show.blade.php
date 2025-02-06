@@ -5,7 +5,6 @@
 @endsection
 
 @section('container-main')
-    <!-- Kategori Wisata -->
     <div class="kategori-wisata">
         <div class="kategori-header">
             <a href="{{ route('wisata') }}" class="btn-kembali">Kembali</a>
@@ -35,7 +34,7 @@
                         <p id="text_alam_{{ $gallery->id }}">{{ $gallery->description }}</p>
                         <div class="like-container">
                             <button class="like-button" data-gallery-id="{{ $gallery->id }}">
-                                <span id="like-count"
+                                <span id="like-count-{{$gallery->id}}"
                                     class="{{ $gallery->number_love % 2 === 0 ? 'even' : 'odd' }}">{{ $gallery->number_love }}</span>
                                 <span class="like-icon">❤️</span>
                             </button>
@@ -53,7 +52,6 @@
 @section('page-js')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Function to handle like for galleries
         function handleGalleryLike() {
             const likeButtons = document.querySelectorAll('.like-button');
             likeButtons.forEach(button => {

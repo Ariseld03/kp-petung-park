@@ -3,7 +3,6 @@
     <link rel="stylesheet" href="{{ asset('/css/agenda.css') }}">
 @endsection
 @section('container-main')
-    <!-- Kegiatan Mendatang -->
     <div class="kegiatan">
         <h2>Kegiatan Mendatang</h2>
 
@@ -18,8 +17,8 @@
                             <td>{{ $agenda->event_location }}</td>
                             <td>
                                 <button class="cek-kegiatan-button"
-                                    onclick="window.location.href='{{ route('kegiatan.mendatang', $agenda->id) }}'">Cek
-                                    Kegiatan</button>
+                                    onclick="window.location.href='{{ route('agenda.mendatang', $agenda->id) }}'">Cek
+                                    Agenda</button>
                             </td>
                         </tr>
                     @empty
@@ -31,8 +30,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Kegiatan Lalu -->
+    
     <div class="kegiatan">
         <h2>Kegiatan Lalu</h2>
 
@@ -60,8 +58,8 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <button onclick="window.location.href='{{ route('kegiatan.lalu', $past->id) }}'">Cek
-                                Kegiatan</button>
+                            <button onclick="window.location.href='{{ route('agenda.lalu', $past->id) }}'">Cek
+                                Agenda</button>
                         </div>
                     {{-- </div> --}}
                 </div>

@@ -36,7 +36,6 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
@@ -116,7 +115,6 @@ class ArticleController extends Controller
         // ArticleGallery::where('article_id', $artikel->id)->update(['status' => 0]);
         DB::transaction(function () use ($artikel) {
             $artikel->status = 0;
-            $artikel->galleries()->detach();
             $artikel->save();
                     });
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil dinonaktifkan!');

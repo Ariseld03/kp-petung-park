@@ -32,11 +32,8 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Authentication Routes
-// Auth::routes();
 Auth::routes(['verify' => true]);
 
-// Custom Login and Register Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'login'])->name('login');
     Route::post('/login', [LoginController::class, 'login_process'])->name('login_process');
@@ -168,12 +165,12 @@ Route::post('/hidangan/{menu}/like', [MenuController::class, 'like'])->name('men
         Route::post('/admin/paket/{package}', [PackageController::class, 'unactive'])->name('menu.paket.unactive');
        
         //Paket Menu
-        Route::get('/admin/paket-menu', [PackageController::class, 'indexMenuPackage'])->name('menu.menupaket.index');
-        Route::get('/admin/paket-menu/create', [PackageController::class, 'createMenuPackage'])->name('menu.menupaket.create');
-        Route::post('/admin/paket-menu/create', [PackageController::class, 'storeMenuPackage'])->name('menu.menupaket.store');
-        Route::get('/admin/paket-menu/edit/{packagemenu}', [PackageController::class, 'editMenuPackage'])->name('menu.menupaket.edit');
-        Route::post('/admin/paket-menu/edit/{packagemenu}', [PackageController::class, 'updateMenuPackage'])->name('menu.menupaket.update');
-        Route::post('/admin/paket-menu/{packagemenu}', [PackageController::class, 'deleteMenuPackage'])->name('menu.menupaket.unactive');
+        Route::get('/admin/paket-menu', [PackageController::class, 'indexPackageMenu'])->name('menu.menupaket.index');
+        Route::get('/admin/paket-menu/create', [PackageController::class, 'createPackageMenu'])->name('menu.menupaket.create');
+        Route::post('/admin/paket-menu/create', [PackageController::class, 'storePackageMenu'])->name('menu.menupaket.store');
+        Route::get('/admin/paket-menu/edit/{packagemenu}', [PackageController::class, 'editPackageMenu'])->name('menu.menupaket.edit');
+        Route::post('/admin/paket-menu/edit/{packagemenu}', [PackageController::class, 'updatePackageMenu'])->name('menu.menupaket.update');
+        Route::post('/admin/paket-menu/{packagemenu}', [PackageController::class, 'unactivePackageMenu'])->name('menu.menupaket.unactive');
 
         // Admin CRUD Agenda
         Route::get('/admin/agenda', [AgendaController::class, 'index'])->name('agenda.index');
