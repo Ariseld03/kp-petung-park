@@ -20,7 +20,7 @@ return new class extends Migration
             }
 
             // Add user_id column and foreign key
-            $table->unsignedBigInteger('user_id')->after('id')->nullable();
+            $table->unsignedBigInteger('user_id')->after('id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -41,7 +41,7 @@ return new class extends Migration
 
             // Add staff_email column and foreign key if it doesn't exist
             if (!Schema::hasColumn('generic', 'staff_email')) {
-                $table->string('staff_email', 255)->after('id'); // Ensure staff_email is the same type as 'email' in staffs
+                $table->string('staff_email', 255)->after('id'); 
                 $table->foreign('staff_email')->references('email')->on('staffs')->onDelete('cascade');
             }
         });

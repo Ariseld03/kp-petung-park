@@ -2,20 +2,22 @@
 
 @section('page-css')
     <style>
-        @media (min-width: 992px) { /* For larger screens */
+        @media (min-width: 992px) { 
             .btn-custom {
-                margin-bottom: 8px; /* Reduce vertical gap */
-                width: 100%;        /* Ensure buttons take full width of column */
+                margin-bottom: 8px; 
+                width: 100%;      
             }
             .row-custom {
-                gap: 10px; /* Reduce horizontal gap between columns */
-                justify-content: center; /* Center buttons horizontally */
+                gap: 10px; 
+                justify-content: center; 
+                align-items: center; 
+                
             }
         }
 
-        @media (max-width: 991px) { /* For smaller screens */
+        @media (max-width: 991px) { 
             .btn-custom {
-                margin-bottom: 16px; /* Increase vertical gap */
+                margin-bottom: 16px; 
             }
         }
     </style>
@@ -23,20 +25,21 @@
 
 @section('content')
 <style>
-    @media (min-width: 992px) { /* For larger screens */
+    @media (min-width: 992px) { 
         .btn-custom {
-            margin-bottom: 8px; /* Reduce vertical gap */
-            width: 100%;        /* Ensure buttons take full width of column */
+            margin-bottom: 8px; 
+            width: 100%;       
         }
         .row-custom {
-            gap: 10px; /* Reduce horizontal gap between columns */
-            justify-content: center; /* Center buttons horizontally */
+            gap: 10px; 
+            justify-content: center;
+            align-items: center;  
         }
     }
 
-    @media (max-width: 991px) { /* For smaller screens */
+    @media (max-width: 991px) { 
         .btn-custom {
-            margin-bottom: 16px; /* Increase vertical gap */
+            margin-bottom: 16px;
         }
     }
 </style>
@@ -90,11 +93,11 @@
         </div>
     </div>
 
-    <!-- Kegiatan & Galeri Section -->
+    <!-- Agenda & Galeri Section -->
     <div class="row row-custom mt-5">
-        <h3 class="text-center mb-4" style="color: #295A3F;">Kegiatan & Galeri</h3>
+        <h3 class="text-center mb-4" style="color: #295A3F;">Agenda & Galeri</h3>
         <div class="col-lg-2 col-md-4 d-flex justify-content-center">
-            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('kegiatan.index') }}">Kegiatan</a>
+            <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('agenda.index') }}">Agenda</a>
         </div>
         <div class="col-lg-2 col-md-4 d-flex justify-content-center">
             <a class="btn btn-warning btn-custom px-3 py-2" style="font-weight: bold;" href="{{ route('galeri.index') }}">Galeri</a>

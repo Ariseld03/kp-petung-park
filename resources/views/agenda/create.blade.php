@@ -16,11 +16,11 @@
                 </div>
             @endif
         <br>
-        <h1 class="text-center text-success">Tambah Kegiatan</h1>
-        <form action="{{ route('kegiatan.store') }}" method="post" enctype="multipart/form-data">
+        <h1 class="text-center text-success">Tambah Agenda</h1>
+        <form action="{{ route('agenda.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="nama">Nama Kegiatan:</label>
+                <label for="nama">Nama Agenda:</label>
                 <input type="text" class="form-control" id="nama" name="nama" required>
             </div>
 
@@ -46,7 +46,7 @@
 
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('kegiatan.index') }}'">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('agenda.index') }}'">Batal</button>
             </div>
         </form>
     </div>

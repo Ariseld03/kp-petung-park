@@ -27,8 +27,8 @@ return new class extends Migration
             ->update(['icon_picture_link' => DB::raw('LEFT(icon_picture_link, 255)')]);
 
         Schema::table('generic', function (Blueprint $table) {
-            $table->string('value')->change();
-            $table->string('icon_picture_link')->nullable()->change();
+            $table->longText('value')->change();
+            $table->longText('icon_picture_link')->nullable()->change();
         });
     }
 

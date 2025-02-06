@@ -20,7 +20,7 @@
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Diubah</th>
                     <th>Perbarui</th>
-                    <th>Hapus</th>
+                    <th>Nonaktif</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,12 +43,10 @@
                         <a href="{{ route('generic.edit', ['generic' => $generic]) }}" class="btn btn-primary">Perbarui</a>
                     </td>
                     <td>
-                        <!-- Button to trigger the nonaktif modal check -->
                         <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $generic->id }}, {{ $generic->status }})">
                             Nonaktif
                         </button>
 
-                        <!-- Modal for nonaktif confirmation -->
                         <div class="modal fade" id="hapusModal-{{ $generic->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $generic->id }}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">

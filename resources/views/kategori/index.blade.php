@@ -1,3 +1,6 @@
+@php
+    $hasNonActive = $categories->contains(fn($category) => !$category->menus()->exists());
+@endphp
 @extends('layouts.mainAdmin')
 
 @section('page-css')
@@ -5,6 +8,7 @@
 @endsection
 
 @section('content')
+
     <div class="container mt-5">
         <h1 class="text-center" style="color: #557C56;">Kategori</h1>
 
@@ -18,7 +22,9 @@
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Diubah</th>
                     <th>Perbarui</th>
-                    <th>Hapus</th>
+                    @if ($hasNonActive)
+                    <th>Nonaktif</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -31,35 +37,39 @@
                         <td>
                             <button class="btn btn-primary" onclick="location.href='{{ route('kategori.edit', $category->id) }}'">Perbarui</button>
                         </td>
-                        <td>
-                        <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $category->id }}, {{ (int)$category->status }}, 'category')">
-                            Nonaktif
-                        </button>
+                        @if ($hasNonActive)
+                            @if (!$category->menus()->exists()) 
+                            <td>    
+                                <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $category->id }}, {{ (int)$category->status }}, 'category')">
+                                    Nonaktif
+                                </button>
 
-                            <div class="modal fade" id="hapusModal-category-{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-category-{{ $category->id }}" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="hapusModalLabel-category-{{ $category->id }}">Konfirmasi Nonaktif</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body" id="modalMessage-category-{{ $category->id }}">
-                                            Apakah Anda yakin ingin mengubah status kategori ini?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                            <form action="{{ route('kategori.unactive', $category->id) }}" method="POST" id="nonaktifForm-category-{{ $category->id }}">
-                                                @csrf
-                                                @method('POST')
-                                                <button type="submit" class="btn btn-danger">Nonaktifkan</button>
-                                            </form>
+                                <div class="modal fade" id="hapusModal-category-{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-category-{{ $category->id }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="hapusModalLabel-category-{{ $category->id }}">Konfirmasi Nonaktif</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" id="modalMessage-category-{{ $category->id }}">
+                                                Apakah Anda yakin ingin mengubah status kategori ini?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                <form action="{{ route('kategori.unactive', $category->id) }}" method="POST" id="nonaktifForm-category-{{ $category->id }}">
+                                                    @csrf
+                                                    @method('POST')
+                                                    <button type="submit" class="btn btn-danger">Nonaktifkan</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
+                            @endif
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

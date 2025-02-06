@@ -60,8 +60,8 @@ Route::get('/agenda', [AgendaController::class, 'showAgenda'])->name('agenda');
 Route::get('/tentangKami', [GenericController::class, 'aboutUs'])->name('tentangKami');
 
 // Agenda 
-Route::get('/kegiatan/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('kegiatan.mendatang');
-Route::get('/kegiatan/lalu/{id}', [AgendaController::class, 'showLalu'])->name('kegiatan.lalu');
+Route::get('/agenda/mendatang/{id}', [AgendaController::class, 'showMendatang'])->name('agenda.mendatang');
+Route::get('/agenda/lalu/{id}', [AgendaController::class, 'showLalu'])->name('agenda.lalu');
 
 // Wisata
 Route::get('/wisata/{id}', [TravelController::class, 'show'])->name('wisata.show');
@@ -175,13 +175,13 @@ Route::post('/hidangan/{menu}/like', [MenuController::class, 'like'])->name('men
         Route::post('/admin/paket-menu/edit/{packagemenu}', [PackageController::class, 'updateMenuPackage'])->name('menu.menupaket.update');
         Route::post('/admin/paket-menu/{packagemenu}', [PackageController::class, 'deleteMenuPackage'])->name('menu.menupaket.unactive');
 
-        // Admin CRUD Kegiatan
-        Route::get('/admin/kegiatan', [AgendaController::class, 'index'])->name('kegiatan.index');
-        Route::get('/admin/kegiatan/create', [AgendaController::class, 'create'])->name('kegiatan.create');
-        Route::post('/admin/kegiatan/create', [AgendaController::class, 'store'])->name('kegiatan.store');
-        Route::get('/admin/kegiatan/edit/{kegiatan}', [AgendaController::class, 'edit'])->name('kegiatan.edit');
-        Route::post('/admin/kegiatan/edit/{kegiatan}', [AgendaController::class, 'update'])->name('kegiatan.update');
-        Route::post('/admin/kegiatan/{kegiatan}', [AgendaController::class, 'unactive'])->name('kegiatan.unactive');
+        // Admin CRUD Agenda
+        Route::get('/admin/agenda', [AgendaController::class, 'index'])->name('agenda.index');
+        Route::get('/admin/agenda/create', [AgendaController::class, 'create'])->name('agenda.create');
+        Route::post('/admin/agenda/create', [AgendaController::class, 'store'])->name('agenda.store');
+        Route::get('/admin/agenda/edit/{agenda}', [AgendaController::class, 'edit'])->name('agenda.edit');
+        Route::post('/admin/agenda/edit/{agenda}', [AgendaController::class, 'update'])->name('agenda.update');
+        Route::post('/admin/agenda/{agenda}', [AgendaController::class, 'unactive'])->name('agenda.unactive');
 
         // Admin CRUD Artikel
         Route::get('/admin/artikel', [ArticleController::class, 'index'])->name('artikel.index');

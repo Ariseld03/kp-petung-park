@@ -28,7 +28,7 @@ return new class extends Migration
 
             $table->foreign('staff_email', 'menus_staff_email_foreign')
                 ->references('email')->on('staffs')->onDelete('cascade');            
-            $table->unsignedBigInteger('gallery_id')->nullable();
+            $table->unsignedBigInteger('gallery_id');
             $table->foreign('gallery_id')->references('id')->on('galleries')->onDelete('cascade');
            
             $table->unsignedBigInteger('category_id');

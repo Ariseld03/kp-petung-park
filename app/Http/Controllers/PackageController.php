@@ -121,17 +121,24 @@ class PackageController extends Controller
         }
     }
 
+    use Illuminate\Support\Facades\DB;
+
     public function unactive($package)
     {
         try {
-            $package = Package::findOrFail($package);
-            $package->status = 0;
-            $package->save();
+            DB::transaction(function () use ($package) {
+                $package = Package::findOrFail($package);
+                $package->status = 0;
+                $package->save();
+                $package->menus()->detach();
+            });
+
             return redirect()->route('menu.index')->with('success', 'Paket berhasil dinonaktifkan!');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
+
 
     // M to M package_menus
     public function indexMenuPackage(){

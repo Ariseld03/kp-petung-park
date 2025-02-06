@@ -76,7 +76,7 @@
                             <a class="nav-link" href="{{ route('artikel.index') }}">Artikel</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('kegiatan.index') }}">Kegiatan</a>
+                            <a class="nav-link" href="{{ route('agenda.index') }}">Agenda</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('galeri.index') }}">Galeri</a>

@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->date('date_of_birth')->nullable(false); // From staffs table
-            $table->string('phone_number')->nullable(false); // From staffs table
-            $table->enum('position', ['Admin', 'User', 'Staff'])->nullable(false); // From staffs table
-            $table->enum('gender', ['Perempuan', 'Laki-laki'])->nullable(false); // From staffs table
-            $table->tinyInteger('status')->default(0); // From staffs table
-            $table->unsignedBigInteger('gallery_id')->nullable(); // From staffs table
+            $table->date('date_of_birth')->nullable(false); 
+            $table->string('phone_number')->nullable(false); 
+            $table->enum('position', ['Admin', 'User', 'Staff'])->nullable(false); 
+            $table->enum('gender', ['Perempuan', 'Laki-laki'])->nullable(false);
+            $table->tinyInteger('status')->default(0); 
+            $table->unsignedBigInteger('gallery_id'); 
             $table->foreign('gallery_id')->references('id')->on('galleries')->onDelete('cascade');
         });
     }
@@ -32,7 +32,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['gallery_id']); // Drop foreign key first
+            $table->dropForeign(['gallery_id']); 
             $table->dropColumn([
                 'date_of_birth',
                 'phone_number',

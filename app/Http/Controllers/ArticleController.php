@@ -124,40 +124,30 @@ class ArticleController extends Controller
 
     public function like(Request $request, $articleId)
     {
-        // Check if the user is authenticated
         if (!auth()->check()) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        // Retrieve the gallery or return a 404 error if not found
         $article = Article::findOrFail($articleId);
 
-        // Generate a unique session key for the gallery
         $sessionKey = 'liked_article_' . $articleId;
 
-        // Check if the user has already liked the gallery
         if (session()->has($sessionKey)) {
-            // Decrease the like count only if it's greater than zero
             if ($article->number_love > 0) {
                 $article->number_love--;
             }
 
-            // Remove the like session key
             session()->forget($sessionKey);
-            $action = 'unliked'; // Specify the action
+            $action = 'unliked';
         } else {
-            // Increase the like count
             $article->number_love++;
 
-            // Store the like in the session
             session()->put($sessionKey, true);
-            $action = 'liked'; // Specify the action
+            $action = 'liked';
         }
 
-        // Save the updated gallery data
         $article->save();
 
-        // Return a JSON response with the updated like count and action
         return response()->json([
             'number_love' => $article->number_love,
             'action' => $action,
@@ -197,32 +187,29 @@ class ArticleController extends Controller
      
          $duplicateEntries = [];
      
-         foreach ($galleryIds as $galleryId) {
-             // Periksa apakah kombinasi gallery_id dan article_id sudah ada di tabel
-             $exists = ArticleGallery::where('gallery_id', $galleryId)
-                 ->where('article_id', $articleId)
-                 ->exists();
-     
-             if ($exists) {
-                 $duplicateEntries[] = $galleryId; // Simpan gallery_id yang duplikat
-             } else {
-                 // Simpan jika tidak duplikat
-                 $articleGallery = new ArticleGallery([
-                     'gallery_id' => $galleryId,
-                     'article_id' => $articleId,
-                     'name_collage' => 'Kolase ' . $name,
-                     'status' => 1,
-                     'created_at' => now(),
-                     'updated_at' => now(),
-                 ]);
-                 $articleGallery->save();
-             }
-         }
-     
-         // Periksa apakah ada galeri yang duplikat
-         if (!empty($duplicateEntries)) {
+                 foreach ($galleryIds as $galleryId) {
+            $exists = ArticleGallery::where('gallery_id', $galleryId)
+                ->where('article_id', $articleId)
+                ->exists();
+
+            if ($exists) {
+                $duplicateEntries[] = $galleryId;
+            } else {
+                $articleGallery = new ArticleGallery([
+                    'gallery_id' => $galleryId,
+                    'article_id' => $articleId,
+                    'name_collage' => 'Kolase ' . $name,
+                    'status' => 1,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+                $articleGallery->save();
+            }
+        }
+
+        if (!empty($duplicateEntries)) {
             $duplicateMessage = 'Data galeri dan artikel yang anda masukkan sudah ada';
-             return redirect()->route('artikel.galeri.index')->with('error', $duplicateMessage);
+            return redirect()->route('artikel.galeri.index')->with('error', $duplicateMessage);
          }
      
          return redirect()->route('artikel.galeri.index')->with('success', 'Foto di Galeri berhasil ditambahkan!');
@@ -320,7 +307,6 @@ class ArticleController extends Controller
     public function unactiveArticleGallery($artikel)
     {
         try {
-            // Update all matching records to status 0
             ArticleGallery::where('article_id', $artikel)
                 ->update([
                     'status' => 0,

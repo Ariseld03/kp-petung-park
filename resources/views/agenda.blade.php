@@ -10,7 +10,7 @@
         <div class="kegiatan-container">
             <div class="kegiatan-mendatang">
                 <table border="0">
-                    @forelse($kegiatanMendatang as $agenda)
+                    @forelse($agendaMendatang as $agenda)
                         <tr>
                             <td>Tanggal: {{ \Carbon\Carbon::parse($agenda->event_start_date)->format('d/m/Y') }} -
                                 {{ \Carbon\Carbon::parse($agenda->event_end_date)->format('d/m/Y') }}</td>
@@ -37,7 +37,7 @@
         <h2>Kegiatan Lalu</h2>
 
         <div class="kegiatan-container row g-0">
-            @forelse($kegiatanLalu as $past)
+            @forelse($agendaLalu as $past)
                 <div class="kegiatan-lalu col-md-9">
                     {{-- <div class="row"> --}}
                         @php

@@ -21,7 +21,7 @@ return new class extends Migration
             }
 
             // Add user_id column and foreign key
-            $table->unsignedBigInteger('user_id')->after('id')->nullable(); 
+            $table->unsignedBigInteger('user_id')->after('id'); 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

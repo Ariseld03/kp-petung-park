@@ -26,7 +26,7 @@ class Gallery extends Model
     }
     public function travels()
     {
-        return $this->belongsToMany(Travel::class, 'travel_gallery', 'gallery_id', 'article_id');
+        return $this->belongsToMany(Travel::class, 'travel_gallery', 'gallery_id', 'travel_id');
     }
     public function slidersHome()
     {

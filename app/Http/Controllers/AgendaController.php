@@ -18,8 +18,8 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        $kegiatan = Agenda::with('user')->get();
-        return view('kegiatan.index', compact('kegiatan'));
+        $agenda = Agenda::with('user')->get();
+        return view('agenda.index', compact('agenda'));
     }
 
     /**
@@ -27,7 +27,7 @@ class AgendaController extends Controller
      */
     public function create()
     {
-        return view('kegiatan.create'); // Return view with form to create new agenda
+        return view('agenda.create'); 
     }
 
     /**
@@ -51,12 +51,12 @@ class AgendaController extends Controller
                 'event_location' => $request->input('lokasi'),
                 'status' => 1,
                 'description' => $request->input('deskripsi'),
-                'user_id' => 1, // Assuming user ID is statically assigned
+                'user_id' => 1, 
             ]);
 
-            return redirect()->route('kegiatan.index')->with('success', 'Agenda berhasil ditambahkan.');
+            return redirect()->route('agenda.index')->with('success', 'Agenda berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->route('kegiatan.create')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('agenda.create')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -66,15 +66,15 @@ class AgendaController extends Controller
      */
     public function show(Agenda $agenda)
     {
-        return view('kegiatan.show', compact('agenda')); // Return view to show agenda details
+        return view('agenda.show', compact('agenda')); 
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Agenda $kegiatan)
+    public function edit(Agenda $agenda)
     {
-        return view('kegiatan.edit', compact('kegiatan')); // Return view with form to edit agenda
+        return view('agenda.edit', compact('agenda')); 
     }
 
     /**
@@ -100,23 +100,32 @@ class AgendaController extends Controller
             $agenda->description = $request->get('deskripsi');
             // $agenda->user_id = $request->get('user_id');
             $agenda->save();
-            return redirect()->route('kegiatan.index')->with('success', 'Agenda Berhasil Diubah!');
+            return redirect()->route('agenda.index')->with('success', 'Agenda Berhasil Diubah!');
         } catch (Exception $e) {
-            return redirect()->route('kegiatan.index')->with('error', 'Agenda Gagal Diubah!');
+            return redirect()->route('agenda.index')->with('error', 'Agenda Gagal Diubah!');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function unactive(Agenda $kegiatan)
+    public function unactive(Agenda $agenda)
     {
         try {
-            $kegiatan->status = 0;
-            $kegiatan->save();
-            return redirect()->route('kegiatan.index')->with('success', 'Agenda Berhasil Dinonaktifkan!');
+            $articles = Article::where('agenda_id', $agenda->id)->count();
+            foreach ($articles as $article) {
+                if($article->status == 1){
+                    return redirect()->route('agenda.index')->with('error', 'Tidak dapat menonaktifkan agenda karena masih ada artikel aktif yang terkait.');
+                }
+            }
+            if ($articles > 0) {
+                return redirect()->route('agenda.index')->with('error', 'Tidak dapat menonaktifkan agenda karena masih ada artikel yang terkait.');
+            }
+            $agenda->status = 0;
+            $agenda->save();
+            return redirect()->route('agenda.index')->with('success', 'Agenda Berhasil Dinonaktifkan!');
         } catch (Exception $e) {
-            return redirect()->route('kegiatan.index')->with('error', 'Agenda Gagal Dinonaktifkan!');
+            return redirect()->route('agenda.index')->with('error', 'Agenda Gagal Dinonaktifkan!');
         }
     }
 
@@ -124,10 +133,10 @@ class AgendaController extends Controller
     //TAMBAHAN-----------------------------------------------------------
     public function showAgenda()
     {
-        $kegiatanMendatang = Agenda::where('status', 1)->where('event_end_date', '>=', now())->orderBy('event_end_date', 'desc')->get();
-        $kegiatanLalu = Agenda::where('status', 1)->where('event_end_date', '<', now())->orderBy('event_end_date', 'desc')->get();
+        $agendaMendatang = Agenda::where('status', 1)->where('event_end_date', '>=', now())->orderBy('event_end_date', 'desc')->get();
+        $agendaLalu = Agenda::where('status', 1)->where('event_end_date', '<', now())->orderBy('event_end_date', 'desc')->get();
         $kategori = Category::where('status', 1)->get();
-        return view('agenda', compact('kegiatanMendatang', 'kegiatanLalu'));
+        return view('agenda', compact('agendaMendatang', 'agendaLalu'));
     }
     public function showMendatang($id)
     {
@@ -143,7 +152,7 @@ class AgendaController extends Controller
             $galleries = $galleries->merge($articleGalleries); // Menggabungkan hasil ke dalam koleksi
         }
 
-        return view('kegiatan.mendatang', compact('agenda', 'articles', 'galleries'));
+        return view('agenda.mendatang', compact('agenda', 'articles', 'galleries'));
     }
 
 
@@ -162,6 +171,6 @@ class AgendaController extends Controller
             $galleries = $galleries->merge($articleGalleries);
         }
 
-        return view('kegiatan.lalu', compact('agenda', 'articles', 'galleries'));
+        return view('agenda.lalu', compact('agenda', 'articles', 'galleries'));
     }
 }

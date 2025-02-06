@@ -18,10 +18,10 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('phone_number');
             $table->enum('position', ['admin', 'user', 'staff']);
-            $table->enum('gender', ['perempuan', 'laki-laki'])->nullable();
+            $table->enum('gender', ['perempuan', 'laki-laki']);
             $table->tinyinteger('status')->default(0);
             $table->timestamps();
-            $table->unsignedBigInteger('gallery_id')->nullable();
+            $table->unsignedBigInteger('gallery_id');
             $table->foreign('gallery_id')->references('id')->on('galleries')->onDelete('cascade');
         });
     }

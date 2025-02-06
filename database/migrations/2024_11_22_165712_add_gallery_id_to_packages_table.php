@@ -14,7 +14,7 @@ class AddGalleryIdToPackagesTable extends Migration
     public function up()
     {
         Schema::table('packages', function (Blueprint $table) {
-            $table->unsignedBigInteger('gallery_id')->nullable();
+            $table->unsignedBigInteger('gallery_id');
             $table->foreign('gallery_id')->references('id')->on('galleries')->onDelete('cascade');
         });
     }

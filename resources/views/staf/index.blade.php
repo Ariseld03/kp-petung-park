@@ -1,9 +1,16 @@
+@php
+    $hasNonActive = $staffs->contains(fn($pegawai) => 
+        !$pegawai->articles()->exists() &&
+        !$pegawai->generics()->exists() &&
+        !$pegawai->menus()->exists() &&
+        !$pegawai->agendas()->exists()
+    );
+@endphp
 @extends('layouts.mainAdmin')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('css/staffShow.css') }}">
 @endsection
 @section('content')
-
 <div class="container-fluid mt-5">
     <h1 class="text-center" style="color: #557C56;">Tabel Pegawai</h1>
     <a href="{{ route('staf.create') }}" class="btn btn-warning mb-3" style="font-weight: bold;">Tambah Pegawai</a>
@@ -23,7 +30,9 @@
                     <th>Created</th>
                     <th>Updated</th>
                     <th>Perbarui</th>
-                    <th>Hapus</th>
+                    @if($hasNonActive)
+                    <th>Nonaktif</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -48,7 +57,12 @@
                         <td>
                             <a href="{{ route('staf.edit', ['user' => $pegawai->id]) }}" class="btn btn-primary mb-1">Perbarui</a>
                         </td>
-                        <td>
+                        @if($hasNonActive)
+                            @if (!$pegawai->articles()->exists() &&
+                         !$pegawai->generics()->exists() &&
+                          !$pegawai->menus()->exists() &&
+                           !$pegawai->agendas()->exists())
+                        <td> 
                             <button type="button" 
                                         class="btn btn-danger"  
                                         onclick="handleNonaktif({{ $pegawai->id }}, {{ $pegawai->status }})">
@@ -78,6 +92,8 @@
                                 </div>
                             </div>
                         </td>
+                        @endif
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
