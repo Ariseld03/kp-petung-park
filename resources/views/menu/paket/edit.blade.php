@@ -19,14 +19,17 @@
                 <label for="price">Harga:</label>
                 <input type="number" class="form-control" id="price" name="price" value="{{ $package->price }}" required>
             </div>
-
+            @if ($package->status == '0')
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
                     <option value="1" {{ $package->status ? 'selected' : '' }}>Aktif</option>
-                    <option value="0" {{ !$package->status ? 'selected' : '' }}>Nonaktif</option>
+                    <option value="0" {{ $package->status ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
+            @else
+                <input type="hidden" name="status" value="{{ $package->status }}">
+            @endif
 
             <div class="form-group">
                 <label for="old_photos">Foto Paket Saat Ini:</label>

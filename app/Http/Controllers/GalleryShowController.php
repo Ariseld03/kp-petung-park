@@ -118,35 +118,34 @@ class GalleryShowController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, GalleryShow $galleryShow)
+    public function update(Request $request,$id)
     {
         try {
             $request->validate([
                 'name' => 'required|string|max:255',
                 'status' => 'required|integer',
-                'photos' => 'nullable|array', 
-                'photos.*' => 'integer|exists:galleries,id', 
+                'photo' => 'nullable|integer|exists:galleries,id', // Accepts only ONE photo
             ]);
-            $galleryIds= $request->get('photos');
-            if (!is_null($galleryIds) && !empty($galleryIds)) {
-                foreach($galleryIds as $galleryId){
-                    $galleryShow->name = $request->input('name');
-                    $galleryShow->status = $request->input('status');
-                    $galleryShow->gallery_id = $galleryId;
-                    $galleryShow->updated_at = now();
-                    $galleryShow->saveQuietly();
-                }
-            } else {
-                $galleryShow->name = $request->input('name');
-                $galleryShow->status = $request->input('status');
-                $galleryShow->updated_at = now();
-                $galleryShow->saveQuietly();
+
+            // Update the GalleryShow attributes
+            $galleryShow= GalleryShow::findorFail($id);
+            $galleryShow->name = $request->input('name');
+            $galleryShow->status = $request->input('status');
+
+            // Replace the old gallery_id with the new one (if provided)
+            if ($request->has('photo')) {
+                $galleryShow->gallery_id = $request->input('photo'); // Replace old ID
             }
+
+            $galleryShow->updated_at = now();
+            $galleryShow->saveQuietly();
+
             return redirect()->route('galeri.show.index')->with('success', 'Tampilan Galeri berhasil diperbarui!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data!']);
         }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -156,6 +155,7 @@ class GalleryShowController extends Controller
         try {
             $galleryShow= GalleryShow::findorFail($gallery);
             $galleryShow->status=0;
+            $galleryShow->updated_at = now();
             $galleryShow->save();
             return redirect()->route('galeri.show.index')->with('success', 'Tampilan Galeri berhasil dinonaktifkan!');
         } catch (\Exception $e) {

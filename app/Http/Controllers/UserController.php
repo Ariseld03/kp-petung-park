@@ -164,14 +164,9 @@ class UserController extends Controller
         try {
             DB::transaction(function () use ($user) {
                 $staff = User::findOrFail($user);
-   
-                $staff->status = 0;
+                   $staff->status = 0;
+                   $staff->updated_at = now();
                 $staff->save();
-   
-            $staff->menus()->update(['user_id' => null]);
-            $staff->agendas()->update(['user_id' => null]);
-            $staff->articles()->update(['user_id' => null]);
-            $staff->generics()->update(['user_id' => null]);
             });
    
                 return redirect()->route('staf.index')->with('success', 'Staf berhasil dinonaktifkan!');

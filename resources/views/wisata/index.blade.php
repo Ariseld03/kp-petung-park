@@ -19,7 +19,7 @@
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Diubah</th>
                     <th>Perbarui</th>
-                    <th>Hapus</th>
+                    <th>Nonaktif</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,8 +38,8 @@
                         Tidak ada foto
                     @endif
                     </td>
-                    <td>{{ $spot->created_at->format('d-m-Y') }}</td>
-                    <td>{{ $spot->updated_at->format('d-m-Y') }}</td>
+                    <td>{{ $spot->created_at }}</td>
+                    <td>{{ $spot->updated_at }}</td>
                     <td>
                         <a href="{{ route('wisata.edit', $spot->id) }}" class="btn btn-primary">Perbarui</a>
                     </td>
@@ -47,11 +47,11 @@
                          <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $spot->id }}, {{ $spot->status }})">
                             Nonaktif
                         </button>
-                        <div class="modal fade" id="hapusModal-{{ $spot->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $spot->id }}" aria-hidden="true">
+                        <div class="modal fade" id="nonaktifModal-{{ $spot->id }}" tabindex="-1" role="dialog" aria-labelledby="nonaktifModalLabel-{{ $spot->id }}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="hapusModalLabel-{{ $spot->id }}">Konfirmasi Nonaktif</h5>
+                                        <h5 class="modal-title" id="nonaktifModalLabel-{{ $spot->id }}">Konfirmasi Nonaktif</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -91,7 +91,7 @@
                 modalMessage.innerHTML = "Apakah Anda yakin ingin mengubah status data ini?";
                 nonaktifForm.querySelector("button[type='submit']").disabled = false; // Enable the submit button
             }
-            $('#hapusModal-' + wisataId).modal('show');
+            $('#nonaktifModal-' + wisataId).modal('show');
         }
 
         $(document).ready(function() {

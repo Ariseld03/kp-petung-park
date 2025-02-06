@@ -68,11 +68,11 @@
                                         onclick="handleNonaktif({{ $pegawai->id }}, {{ $pegawai->status }})">
                                     Nonaktif
                             </button>
-                            <div class="modal fade" id="hapusModal-{{ $pegawai->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $pegawai->id }}" aria-hidden="true">
+                            <div class="modal fade" id="nonaktifModal-{{ $pegawai->id }}" tabindex="-1" role="dialog" aria-labelledby="nonaktifModalLabel-{{ $pegawai->id }}" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="hapusModalLabel-{{ $pegawai->id }}">Konfirmasi Nonaktif</h5>
+                                            <h5 class="modal-title" id="nonaktifModalLabel-{{ $pegawai->id }}">Konfirmasi Nonaktif</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -115,7 +115,7 @@
             nonaktifForm.querySelector("button[type='submit']").disabled = false;
         }
 
-        $('#hapusModal-' + userId).modal('show');
+        $('#nonaktifModal-' + userId).modal('show');
     }
 </script>
 @endsection

@@ -17,7 +17,7 @@
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Diubah</th>
                     <th>Perbarui</th>
-                    <th>Hapus</th>
+                    <th>Nonaktif</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,9 +45,9 @@
                                 @endif
                             </td>
 
-                            <td>{{ $package->created_at->format('d-m-Y') }}</td>
+                            <td>{{ $package->created_at}}</td>
 
-                            <td>{{ $package->updated_at->format('d-m-Y') }}</td>
+                            <td>{{ $package->updated_at}}</td>
 
                             {{-- Update Button --}}
                             <td>                            
@@ -59,11 +59,11 @@
                                         onclick="handleNonaktif({{ $package->package->id }}, {{ $package->status }})">
                                     Nonaktif
                                 </button>
-                                <div class="modal fade" id="hapusModal-{{ $package->package->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $package->package->id }}" aria-hidden="true">
+                                <div class="modal fade" id="nonaktifModal-{{ $package->package->id }}" tabindex="-1" role="dialog" aria-labelledby="nonaktifModalLabel-{{ $package->package->id }}" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="hapusModalLabel-{{ $package->package->id }}">Konfirmasi Nonaktif</h5>
+                                                <h5 class="modal-title" id="nonaktifModalLabel-{{ $package->package->id }}">Konfirmasi Nonaktif</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -106,7 +106,7 @@
                 modalMessage.innerHTML = "Apakah Anda yakin ingin mengubah status data ini?";
                 nonaktifForm.querySelector("button[type='submit']").disabled = false; // Enable the submit button
             }
-            $('#hapusModal-' + packageId).modal('show'); // Show the modal
+            $('#nonaktifModal-' + packageId).modal('show'); // Show the modal
         } else {
             console.error("Modal or form elements are missing for package ID:", packageId);
         }

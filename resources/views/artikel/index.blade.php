@@ -50,11 +50,11 @@
                         <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $article->id }}, {{ $article->status }})">
                             Nonaktif
                         </button>
-                        <div class="modal fade" id="hapusModal-{{ $article->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $article->id }}" aria-hidden="true">
+                        <div class="modal fade" id="nonaktifModal-{{ $article->id }}" tabindex="-1" role="dialog" aria-labelledby="nonaktifModalLabel-{{ $article->id }}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="hapusModalLabel-{{ $article->id }}">Konfirmasi Nonaktif</h5>
+                                        <h5 class="modal-title" id="nonaktifModalLabel-{{ $article->id }}">Konfirmasi Nonaktif</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -94,7 +94,7 @@
                 modalMessage.innerHTML = "Apakah Anda yakin ingin mengubah status data ini?";
                 nonaktifForm.querySelector("button[type='submit']").disabled = false; // Enable the submit button
             }
-            $('#hapusModal-' + articleId).modal('show');
+            $('#nonaktifModal-' + articleId).modal('show');
         }
 
         $(document).ready(function() {

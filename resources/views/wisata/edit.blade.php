@@ -15,6 +15,7 @@
                 <textarea class="form-control" id="description" name="description" rows="4" required>{{ $wisata->description }}</textarea>
             </div>
 
+            @if ($wisata->status == 0)
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
@@ -22,6 +23,9 @@
                     <option value="0" {{ $wisata->status == 0 ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
+            @else
+                <input type="hidden" name="status" value="{{ $wisata->status }}">
+            @endif
             
             <div class="form-group">
                 <label for="old_photos">Foto Saat Ini:</label>

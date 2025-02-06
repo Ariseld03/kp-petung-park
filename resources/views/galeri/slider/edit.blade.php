@@ -6,39 +6,33 @@
 
 @section('content')
     <div class="container mt-5">
-        <h1 class="text-center text-success">Update Paket</h1>
-        <form action="{{ route('menu.paket.update', $package->id) }}" method="post" enctype="multipart/form-data">
+        <h1 class="text-center text-success">Update Slider Home</h1>
+        <form action="{{ route('galeri.slider.update', $slider->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="form-group">
-                <label for="name">Nama Paket:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $package->name }}" required>
+                <label for="name">Nama Slider:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $slider->name }}" required>
             </div>
 
-            <div class="form-group">
-                <label for="price">Harga:</label>
-                <input type="number" class="form-control" id="price" name="price" value="{{ $package->price }}" required>
-            </div>
-
+            @if ($slider->status == '0')
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
-                    <option value="1" {{ $package->status ? 'selected' : '' }}>Aktif</option>
-                    <option value="0" {{ !$package->status ? 'selected' : '' }}>Nonaktif</option>
+                    <option value="1" {{ $slider->status ? 'selected' : '' }}>Aktif</option>
+                    <option value="0" {{ !$slider->status ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
+            @else
+                <input type="hidden" name="status" value="{{ $slider->status }}">
+            @endif
 
             <div class="form-group">
-                <label for="number_love">Jumlah Like :</label>
-                <input type="number" class="form-control" id="number_love" name="number_love" value="{{ $package->number_love }}" required>
-            </div>
-
-            <div class="form-group">
-                <label for="old_photos">Foto Paket Saat Ini:</label>
+                <label for="old_photos">Foto Slider Home Saat Ini:</label>
                 <div class="col-md-4 d-flex align-items-center justify-content-center" style="flex-wrap: wrap;">
                     <div style="margin: 10px; display: flex; align-items: center;">
-                        <label for="old_photo_name" style="margin-right: 10px;">{{ $package->name }}</label>
-                        <img src="{{ asset($package->gallery->photo_link) }}" id="old_photo" alt="Foto sebelumnya" style="max-width: 100px; margin-left: 10px;">
+                        <label for="old_photo_name" style="margin-right: 10px;">{{ $slider->name }}</label>
+                        <img src="{{ asset($slider->gallery->photo_link) }}" id="old_photo" alt="Foto sebelumnya" style="max-width: 100px; margin-left: 10px;">
                     </div>
                 </div>
             </div>
@@ -48,7 +42,7 @@
                 <select class="form-control" id="photo" name="photo">
                     <option value="" disabled selected>Pilih Foto</option>
                     @foreach($galleries as $gallery)
-                        @if($gallery->id !== $package->gallery->id)
+                        @if($gallery->id !== $slider->gallery->id)
                             <option value="{{ $gallery->id }}" data-img-src="{{ asset($gallery->photo_link) }}">
                                 {{ $gallery->name }}
                             </option>
@@ -61,7 +55,7 @@
             </div>
 
             <button type="submit" class="btn btn-success">Simpan</button>
-            <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('menu.index') }}'">Kembali</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('galeri.slider.index') }}'">Kembali</button>
         </form>
     </div>
 @endsection

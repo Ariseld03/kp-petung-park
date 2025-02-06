@@ -19,6 +19,7 @@
                 <label for="name_collage">Nama Kolase:</label>
                 <input type="text" class="form-control" id="name_collage" name="name_collage" value="{{ $selectedCollage->name_collage }}" required>
             </div>
+            @if ($selectedCollage->status == '0')
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
@@ -26,6 +27,10 @@
                     <option value="0" {{ $selectedCollage->status == 0 ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
+            @else
+                <input type="hidden" name="status" value="{{ $selectedCollage->status }}">
+            @endif
+            
             <div class="form-group">
                 <label name="article_id">Nama Artikel :</label>
                 <div class="col-md-4 d-flex align-items-center justify-content-left" style="flex-wrap: wrap;">

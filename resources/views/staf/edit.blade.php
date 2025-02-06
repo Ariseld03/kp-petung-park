@@ -76,13 +76,17 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="status">Status:</label>
-                <select class="form-control" id="status" name="status">
-                    <option value="0" {{ $staff->status == '0' ? 'selected' : '' }}>Tidak Aktif</option>
-                    <option value="1" {{ $staff->status == '1' ? 'selected' : '' }}>Aktif</option>
-                </select>
-            </div>
+            @if ($staff->status == '0')
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select class="form-control" id="status" name="status">
+                        <option value="0"{{ $staff->status ? 'selected' : '' }}>Tidak Aktif</option>
+                        <option value="1" {{ $staff->status ? 'selected' : '' }}>Aktif</option>
+                    </select>
+                </div>
+            @else
+                <input type="hidden" name="status" value="{{ $staff->status }}">
+            @endif
 
             <div class="form-group">
                 <label for="old_photo">Foto Saat Ini:</label>

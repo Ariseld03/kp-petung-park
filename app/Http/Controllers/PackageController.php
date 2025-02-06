@@ -11,6 +11,7 @@ use App\Models\Gallery;
 use App\Models\TravelGallery;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class PackageController extends Controller
 {
@@ -111,7 +112,7 @@ class PackageController extends Controller
                 'name' => $request->name,
                 'price' => $request->price,
                 'status' => $request->status,
-                'update_date' => now(),
+                'updated_at' => now(),
             ]);
 
             $package->save();
@@ -128,6 +129,7 @@ class PackageController extends Controller
             DB::transaction(function () use ($package) {
                 $package = Package::findOrFail($package);
                 $package->status = 0;
+                $package->updated_at = now();
                 $package->save();
             });
 
@@ -159,20 +161,28 @@ class PackageController extends Controller
                 'package_id' => 'required|integer|exists:packages,id',
             ]);
 
-            $existingMenus = PackageMenu::where('package_id', $request->package_id)
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $packageId = $request->package_id;
+            $menuIds = $request->menus;
+
+            // Check for existing menu-package combinations
+            $existingMenus = PackageMenu::where('package_id', $packageId)
                                         ->pluck('menu_id')
                                         ->toArray();
 
-            $newMenus = array_diff($request->menus, $existingMenus);
+            $newMenus = array_diff($menuIds, $existingMenus);
 
-            if (count($newMenus) == 0) {
-                return redirect()->back()->with('error', 'Data sudah ada!');
+            if (empty($newMenus)) {
+                return redirect()->back()->with('error', 'Semua menu yang dipilih sudah ada dalam paket.');
             }
 
             foreach ($newMenus as $menuId) {
                 PackageMenu::create([
                     'menu_id' => $menuId,
-                    'package_id' => $request->package_id,
+                    'package_id' => $packageId,
                     'status' => 1,
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -180,10 +190,17 @@ class PackageController extends Controller
             }
 
             return redirect()->route('menu.menupaket.index')->with('success', 'Paket Menu berhasil ditambahkan.');
+        } catch (QueryException $e) {
+            if ($e->getCode() == 23000) { // SQL Integrity Constraint Violation (Duplicate Entry)
+                return redirect()->back()->with('error', 'Beberapa menu sudah ada dalam paket. Tidak dapat menambahkan duplikat.');
+            }
+
+            return redirect()->back()->with('error', 'Terjadi kesalahan database: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-    }   
+    }
+
     public function editPackageMenu($id)
     {
         $packageMenus = PackageMenu::with(['package','menu'])->where('package_id', $id)->get();

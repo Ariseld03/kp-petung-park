@@ -7,6 +7,7 @@ use App\Models\Gallery;
 use App\Models\TravelGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 class TravelController extends Controller
 {
     /**
@@ -121,6 +122,7 @@ class TravelController extends Controller
     {
         try {
             $wisata->status = 0;
+            $wisata->updated_at = now();
             $wisata->save();
             return redirect()->route('wisata.index')->with('success', 'Wisata berhasil dinonaktifkan!');
         } catch (\Exception $e) {
@@ -182,30 +184,42 @@ class TravelController extends Controller
     /**
      * Store a newly created resource in storage for pivot table travel_gallery.
      */
+
     public function storeTravelGallery(Request $request)
     {
         $request->validate([
             'travel_id' => 'required|integer|exists:travels,id',
-            'photos' => 'required|integer|exists:galleries,id',
             'photos' => 'required|array', 
             'photos.*' => 'integer|exists:galleries,id', 
             'name_collage' => 'required|string',
         ]);
-        $name= $request->get('name_collage');
-        $galleryIds= $request->get('photos');
-        foreach($galleryIds as $galleryId){
-            $travelGallery = new TravelGallery([
-                'gallery_id' => $galleryId,
-                'travel_id' => $request->get('travel_id'),
-                'name_collage' => 'Kolase '. $name,
-                'status' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-            $travelGallery->save();
+
+        $name = $request->get('name_collage');
+        $galleryIds = $request->get('photos');
+
+        try {
+            foreach ($galleryIds as $galleryId) {
+                $travelGallery = new TravelGallery([
+                    'gallery_id' => $galleryId,
+                    'travel_id' => $request->get('travel_id'),
+                    'name_collage' => 'Kolase ' . $name,
+                    'status' => 1,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+                $travelGallery->save();
+            }
+
+            return redirect()->route('wisata.galeri.index')->with('success', 'Foto di Galeri berhasil ditambahkan!');
+        } catch (QueryException $e) {
+            if ($e->getCode() == 23000) { // Duplicate entry error
+                return redirect()->back()->with('error', 'Foto ini sudah ada dalam galeri wisata.');
+            }
+            
+            return redirect()->back()->with('error', 'Terjadi kesalahan, silakan coba lagi.');
         }
-        return redirect()->route('wisata.galeri.index')->with('success', 'Foto di Galeri berhasil ditambahkan!');
     }
+
 
     /**
      * Show the form for editing the specified resource in pivot table travel_gallery.

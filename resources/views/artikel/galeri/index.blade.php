@@ -39,10 +39,10 @@
                             @endif
                         </td>
                         <td rowspan="{{ $groupedCollages->count() }}">
-                            {{ $groupedCollages->first()->created_at->format('d-m-Y') }}
+                            {{ $groupedCollages->first()->created_at}}
                         </td>
                         <td rowspan="{{ $groupedCollages->count() }}">
-                            {{ $groupedCollages->first()->updated_at->format('d-m-Y') }}
+                            {{ $groupedCollages->first()->updated_at}}
                         </td>
                         <td rowspan="{{ $groupedCollages->count() }}">
                             <form action="{{ route('artikel.galeri.edit') }}" method="POST" style="display:inline;">
@@ -57,7 +57,7 @@
                                     class="btn btn-danger" 
                                     onclick="handleNonaktif('{{ $groupedCollages->first()->article_id }}', '{{ $groupedCollages->first()->status }}')"
                                     data-toggle="modal" 
-                                    data-target="#hapusModal-{{ $articleId }}">
+                                    data-target="#nonaktifModal-{{ $articleId }}">
                                 Nonaktif
                             </button>
                         </td>
@@ -75,11 +75,11 @@
                         </tr>
                     @endforeach
 
-                    <div class="modal fade" id="hapusModal-{{ $articleId }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $articleId }}" aria-hidden="true">
+                    <div class="modal fade" id="nonaktifModal-{{ $articleId }}" tabindex="-1" role="dialog" aria-labelledby="nonaktifModalLabel-{{ $articleId }}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="hapusModalLabel-{{ $articleId }}">Konfirmasi Nonaktif</h5>
+                                    <h5 class="modal-title" id="nonaktifModalLabel-{{ $articleId }}">Konfirmasi Nonaktif</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -105,7 +105,7 @@
 @section('page-js')
     <script>
          function handleNonaktif(wisataId, status) {
-            var modal = $('#hapusModal-' + wisataId);
+            var modal = $('#nonaktifModal-' + wisataId);
             if (status === '0') {
                 modal.find('.modal-body').text("Kolase wisata ini sudah nonaktif.");
                 modal.find("button[type='submit']").prop('disabled', true);

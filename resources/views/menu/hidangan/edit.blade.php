@@ -22,7 +22,7 @@
                 <label for="price">Harga:</label>
                 <input type="number" class="form-control" id="price" name="price" value="{{ $menu->price }}" required>
             </div>
-
+            @if ($menu->status == '0')
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
@@ -30,6 +30,9 @@
                     <option value="0" {{ $menu->status == '0' ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
+            @else
+                <input type="hidden" name="status" value="{{ $menu->status }}">
+            @endif
 
             <div class="form-group">
                 <label for="recommendation">Rekomendasi:</label>
@@ -48,6 +51,7 @@
                     @endforeach
                 </select>
             </div>
+
             <div class="form-group">
                 <label for="old_photo">Foto Saat Ini:</label>
                 <div class="col-md-4">

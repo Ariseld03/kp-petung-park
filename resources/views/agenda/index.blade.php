@@ -53,11 +53,11 @@
                                     Nonaktif
                             </button>
                        
-                            <div class="modal fade" id="hapusModal-{{ $peragenda->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $peragenda->id }}" aria-hidden="true">
+                            <div class="modal fade" id="nonaktifModal-{{ $peragenda->id }}" tabindex="-1" role="dialog" aria-labelledby="nonaktifModalLabel-{{ $peragenda->id }}" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="hapusModalLabel-{{ $peragenda->id }}">Konfirmasi Nonaktif</h5>
+                                            <h5 class="modal-title" id="nonaktifModalLabel-{{ $peragenda->id }}">Konfirmasi Nonaktif</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -100,7 +100,7 @@
                 modalMessage.innerHTML = "Apakah Anda yakin ingin mengubah status data ini?";
                 nonaktifForm.querySelector("button[type='submit']").disabled = false; // Enable the submit button
             }
-            $('#hapusModal-' + agendaId).modal('show'); // Show the modal
+            $('#nonaktifModal-' + agendaId).modal('show'); // Show the modal
         } else {
             console.error("Modal or form elements are missing for agenda ID:", agendaId);
         }

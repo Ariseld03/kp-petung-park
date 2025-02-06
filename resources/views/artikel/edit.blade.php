@@ -20,7 +20,7 @@
                 <label for="main_content">Konten:</label>
                 <textarea class="form-control" id="main_content" name="main_content" style="min-height: 300px;" rows="4" required>{{ $artikel->main_content }}</textarea>
             </div>
-
+            @if ($artikel->status == '0')
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
@@ -28,6 +28,9 @@
                     <option value="0" {{ $artikel->status == '0' ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
+            @else
+                <input type="hidden" name="status" value="{{ $artikel->status }}">
+            @endif
             <div class="form-group">
                 <label for="agenda_id"> Pilih Kegiatan :</label>
                 <select class="form-control" id="agenda_id" name="agenda_id">
@@ -42,9 +45,9 @@
             <div class="form-group">
                 <label for="user_id">User:</label>
                 <select class="form-control" id="user_id" name="user_id" required>
-                    <option value="" disabled {{ is_null($agenda->user_id) ? 'selected' : '' }}>Pilih Staff Yang Bertanggung Jawab</option>
+                    <option value="" disabled {{ is_null($artikel->user_id) ? 'selected' : '' }}>Pilih Staff Yang Bertanggung Jawab</option>
                     @foreach($users as $user)
-                        <option value="{{ $user->id }}" {{ $agenda->user_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                        <option value="{{ $user->id }}" {{ $artikel->user_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                     @endforeach
                 </select>
             </div>

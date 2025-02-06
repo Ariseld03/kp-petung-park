@@ -18,7 +18,7 @@
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Diubah</th>
                     <th>Perbarui</th>
-                    <th>Hapus</th>
+                    <th>Nonaktif</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,10 +40,10 @@
                             @endif
                         </td>
                         <td rowspan="{{ $groupedCollages->count() }}">
-                            {{ $groupedCollages->first()->created_at->format('d-m-Y') }}
+                            {{ $groupedCollages->first()->created_at}}
                         </td>
                         <td rowspan="{{ $groupedCollages->count() }}">
-                            {{ $groupedCollages->first()->updated_at->format('d-m-Y') }}
+                            {{ $groupedCollages->first()->updated_at}}
                         </td>
                         <td rowspan="{{ $groupedCollages->count() }}">
                             <form action="{{ route('wisata.galeri.edit') }}" method="POST" style="display:inline;">
@@ -61,11 +61,11 @@
                                     onclick="handleNonaktif('{{ $groupedCollages->first()->travel_id }}', '{{ $groupedCollages->first()->status }}')">
                                 Nonaktif
                             </button>
-                            <div class="modal fade" id="hapusModal-{{$groupedCollages->first()->travel_id}}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{$groupedCollages->first()->travel_id }}" aria-hidden="true">
+                            <div class="modal fade" id="nonaktifModal-{{$groupedCollages->first()->travel_id}}" tabindex="-1" role="dialog" aria-labelledby="nonaktifModalLabel-{{$groupedCollages->first()->travel_id }}" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="hapusModalLabel-{{$groupedCollages->first()->travel_id}}">Konfirmasi Nonaktif</h5>
+                                            <h5 class="modal-title" id="nonaktifModalLabel-{{$groupedCollages->first()->travel_id}}">Konfirmasi Nonaktif</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -107,7 +107,7 @@
 @section('page-js')
     <script>
          function handleNonaktif(wisataId, status) {
-            var modal = $('#hapusModal-' + wisataId);
+            var modal = $('#nonaktifModal-' + wisataId);
             if (status === '0') {
                 modal.find('.modal-body').text("Kolase wisata ini sudah nonaktif.");
                 modal.find("button[type='submit']").prop('disabled', true);

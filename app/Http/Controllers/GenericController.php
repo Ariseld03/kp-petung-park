@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class GenericController extends Controller
 {
@@ -35,7 +36,7 @@ class GenericController extends Controller
         try {
             $request->validate([
                 'key' => 'required|string|max:255',
-                'value' => 'required|string|max:255',
+                'value' => 'required|string',
                 'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
             ]);
 
@@ -47,13 +48,10 @@ class GenericController extends Controller
             if ($request->hasFile('photo')) {
                 $extension = $request->file('photo')->getClientOriginalExtension();
                 
-                // Generate a new file name based on the gallery name or any custom logic
                 $newFileName = str_replace(' ', '_', strtolower($generic->key)) . '_' . time() . '.' . $extension;
                 
-                // Save the file in 'storage/app/public/images/galeri/baru' folder
                 $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
                 
-                // Save the file path to the database with public path (this is where it will be accessed in the URL)
                 $generic->icon_picture_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL   
             }
             $generic->created_at = now();
@@ -71,41 +69,56 @@ class GenericController extends Controller
      */
     public function edit(Generic $generic)
     {
-        return view('generic.edit', compact('generic'));
+        $users = User::where('status', 1)->get();
+        return view('generic.edit', compact('generic', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, Generic $generic)
     {
         try {
-        $request->validate([
-            'key' => 'required|string|max:255',
-            'value' => 'required|string|max:255',
-            'status' => 'required|integer',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
-        ]);
+            $request->validate([
+                'key' => 'required|string|max:255',
+                'value' => 'required|string',
+                'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
+                'user_id' => 'required|exists:users,id',
+            ]);
 
-        $generic->key = $request->input('key');
-        $generic->value = $request->input('value');
-        $generic->status = $request->input('status');
+            $generic->key = $request->input('key');
+            $generic->value = $request->input('value');
 
-        if ($request->hasFile('photo')) {
-            $extension = $request->file('photo')->getClientOriginalExtension();
-            $newFileName = str_replace(' ', '_', strtolower($generic->name)) . '_' . time() . '.' . $extension;
-            $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
-            $generic->photo_link = 'storage/images/galeri/baru/' . $newFileName; // Save as relative URL
-        }
+            // Check if a new user is selected
+            if ($request->has('user_id')) {
+                $generic->user_id = $request->input('user_id');
+            }
 
-        $generic->updated_at = now();      
-        $generic->save();
+            // Check if a new photo is uploaded
+            if ($request->hasFile('photo')) {
+                // Delete the old photo if it exists
+                if ($generic->icon_picture_link) {
+                    $oldPhotoPath = str_replace('storage/', '', $generic->icon_picture_link);
+                    Storage::disk('public')->delete($oldPhotoPath);
+                }
 
-        return redirect()->route('generic.index')->with('success', 'Data umum berhasil diubah!');
+                // Save the new photo
+                $extension = $request->file('photo')->getClientOriginalExtension();
+                $newFileName = str_replace(' ', '_', strtolower($generic->key)) . '_' . time() . '.' . $extension;
+                $filePath = $request->file('photo')->storeAs('images/galeri/baru', $newFileName, 'public');
+                $generic->icon_picture_link = 'storage/images/galeri/baru/' . $newFileName;
+            }
+
+            $generic->updated_at = now();
+            $generic->save();
+
+            return redirect()->route('generic.index')->with('success', 'Data umum berhasil diubah!');
         } catch (\Throwable $th) {
             return redirect()->route('generic.index')->with('error', 'Data umum gagal diubah');
         }
-        }
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -114,6 +127,7 @@ class GenericController extends Controller
     {
         try {
             $generic->status = 0;
+            $generic->updated_at = now();
             $generic->save();
 
             return redirect()->route('generic.index')->with('success', 'Data umum berhasil dinonaktifkan!');
@@ -131,7 +145,6 @@ class GenericController extends Controller
             'gambar' => null,
         ];
 
-        // Loop through the data and assign values
         foreach ($data as $item) {
             switch ($item->key) {
                 case 'sejarah':

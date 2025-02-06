@@ -20,7 +20,7 @@
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Diubah</th>
                     <th>Perbarui</th>
-                    <th>Nonaktif</th>
+                    <!-- <th>Nonaktif</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -42,16 +42,16 @@
                     <td>
                         <a href="{{ route('generic.edit', ['generic' => $generic]) }}" class="btn btn-primary">Perbarui</a>
                     </td>
-                    <td>
+                    <!-- <td>
                         <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $generic->id }}, {{ $generic->status }})">
                             Nonaktif
                         </button>
 
-                        <div class="modal fade" id="hapusModal-{{ $generic->id }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel-{{ $generic->id }}" aria-hidden="true">
+                        <div class="modal fade" id="nonaktifModal-{{ $generic->id }}" tabindex="-1" role="dialog" aria-labelledby="nonaktifModalLabel-{{ $generic->id }}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="hapusModalLabel-{{ $generic->id }}">Konfirmasi Nonaktif</h5>
+                                        <h5 class="modal-title" id="nonaktifModalLabel-{{ $generic->id }}">Konfirmasi Nonaktif</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                         </div>
-                    </td>
+                    </td> -->
                 </tr>
             @endforeach
             </tbody>
@@ -92,7 +92,7 @@
                 nonaktifForm.querySelector("button[type='submit']").disabled = false; // Enable the submit button
             }
 
-            $('#hapusModal-' + genericId).modal('show');
+            $('#nonaktifModal-' + genericId).modal('show');
         }
 
         $(document).ready(function() {

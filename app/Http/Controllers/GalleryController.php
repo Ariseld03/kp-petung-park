@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
-
 class GalleryController extends Controller
 {
     /**
@@ -96,6 +95,8 @@ class GalleryController extends Controller
             $gallery->status = $request->input('status');
 
             if ($request->hasFile('file')) {
+                $oldPhotoPath = str_replace('storage/', '', $gallery->photo_link);
+                Storage::disk('public')->delete($oldPhotoPath);
                 $extension = $request->file('file')->getClientOriginalExtension();
                 $newFileName = str_replace(' ', '_', strtolower($gallery->name)) . '_' . time() . '.' . $extension;
                 $filePath = $request->file('file')->storeAs('images/galeri/baru', $newFileName, 'public');
@@ -103,6 +104,7 @@ class GalleryController extends Controller
             }
 
             $gallery->description = $request->input('description');
+            $gallery->updated_at = now();
             $gallery->save();
 
             return redirect()->route('galeri.index')->with('success', 'Galeri berhasil diperbarui!');
@@ -118,15 +120,9 @@ class GalleryController extends Controller
         try {
             DB::transaction(function () use ($gallery) {
                 $gallery->status = 0;
+                $gallery->updated_at = now();
                 $gallery->save();
-                $gallery->articles()->detach();
-                $gallery->travels()->detach();
-                $gallery->galleriesShow()->update(['gallery_id' => null]);
-                $gallery->slidersHome()->update(['gallery_id' => null]);
-                $gallery->menu()->update(['gallery_id' => null]);
-                            $gallery->users()->update(['gallery_id' => null]);
-                            $gallery->packages()->update(['gallery_id' => null]);
-                        });
+                });
                 $message = 'Galeri berhasil dinonaktifkan.';
                 return redirect()->route('galeri.index')->with('success', $message);
          } catch (\Exception $e) {

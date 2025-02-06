@@ -14,6 +14,7 @@
                 <label for="name">Nama Galeri:</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ $show->name }}" required>
             </div>
+            @if ($show->status == '0')
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
@@ -21,6 +22,9 @@
                     <option value="0" {{ !$show->status ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
+            @else
+                <input type="hidden" name="status" value="{{ $show->status }}">
+            @endif
             <div class="form-group">
                 <label for="old_photos">Foto Saat Ini:</label>
                 <div class="col-md-4 d-flex align-items-center justify-content-left" style="flex-wrap: wrap;">
@@ -31,11 +35,11 @@
             </div>
 
             <div class="form-group">
-                <label for="photos">Foto:</label>
-                <select class="form-control" id="photos" name="photos[]" multiple>
-                    <option value="" disabled>Pilih Foto</option>
+                <label for="photo">Foto:</label>
+                <select class="form-control" id="photo" name="photo">
+                    <option value="" disabled selected>Pilih Foto</option>
                     @foreach($galleries as $showOption)
-                        @if($showOption->id !== $show->id)
+                        @if($showOption->id !== $show->gallery->id)
                             <option value="{{ $showOption->id }}" data-img-src="{{ asset($showOption->photo_link) }}">
                                 {{ $showOption->name }}
                             </option>
@@ -43,7 +47,7 @@
                     @endforeach
                 </select>
                 <br>
-                <div id="preview-new-photos" class="text-center">
+                <div id="preview-new-photo" class="text-center">
                 </div>
             </div>
 
@@ -55,8 +59,8 @@
 
 @section('page-js')
 <script>
-    document.getElementById('photos').addEventListener('change', function() {
-        var previewContainer = document.getElementById('preview-new-photos');
+    document.getElementById('photo').addEventListener('change', function() {
+        var previewContainer = document.getElementById('preview-new-photo');
         previewContainer.innerHTML = ''; // Clear previous images
 
         // Iterate over selected options

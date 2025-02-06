@@ -88,6 +88,8 @@ class CategoryController extends Controller
        try {
             $category = Category::findOrFail($kategori);
             $category->update($validatedData);
+            $category->updated_at = now();
+            $category->save();
             return redirect()->route('kategori.index')->with('success', 'Berhasil Update Kategori!');
         } catch (\Exception $e) {
             return redirect()->route('kategori.index')->with('error', 'Gagal Update Kategori!');
@@ -101,16 +103,9 @@ class CategoryController extends Controller
     {
         try {
             $menus = Menu::where('category_id', $kategori)->get();
-            foreach ($menus as $menu) {
-                if ($menu->status == 1) {
-                    return redirect()->route('kategori.index')->with('error', 'Tidak dapat menonaktifkan kategori karena masih ada menu yang aktif!');
-                }
-            }
-            if ($menus > 0) {
-                return redirect()->route('kegiatan.index')->with('error', 'Tidak dapat menonaktifkan kategori karena masih ada menu yang terkait.');
-            }
             $category = Category::findOrFail($kategori->id);
             $category->status = 0;
+            $category->updated_at = now();
             $category->save();
 
             return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dinonaktifkan!');

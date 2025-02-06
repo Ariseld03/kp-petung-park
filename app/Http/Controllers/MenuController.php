@@ -143,7 +143,6 @@ class MenuController extends Controller
         
             $menu = Menu::findOrFail($id);
         
-            // Update menu fields first
             $menu->update([
                 'name' => $request->name,
                 'description' => $request->description,
@@ -153,7 +152,7 @@ class MenuController extends Controller
                 'category_id' => $request->category_id,
                 'user_id' => $request->user_id,
                 'gallery_id' => $request->gallery_id,
-                'update_date' => now(),
+                'updated_at' => now(),
             ]);
             return redirect()->route('menu.index')->with('success', 'Menu berhasil diupdate!');
         } catch (\Throwable $th) {
@@ -170,6 +169,7 @@ class MenuController extends Controller
         try {
             $menu = Menu::findOrFail($menu);
             $menu->status=0;
+            $menu->updated_at = now();
             $menu->save();
             return redirect()->route('menu.index')->with('success', true);
         } catch (\Throwable $th) {

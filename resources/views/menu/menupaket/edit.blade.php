@@ -28,7 +28,7 @@
                     @endif
                 </div>
             </div>
-
+            @if($packageMenus->first()->status == '0')
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
@@ -36,6 +36,9 @@
                     <option value="0" {{ $packageMenus->first()->status == 0 ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
+            @else
+                <input type="hidden" name="status" value="{{ $packageMenus->first()->status }}">
+            @endif
 
             <div class="form-group">
                 <label for="new_menus">Ganti Menu Baru:</label>

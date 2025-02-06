@@ -6,9 +6,11 @@ use App\Models\Article;
 use App\Models\ArticleGallery;
 use App\Models\Gallery;
 use App\Models\Agenda;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class ArticleController extends Controller
 {
@@ -85,7 +87,8 @@ class ArticleController extends Controller
     {
         $artikel = Article::with('agenda')->findOrFail($artikel->id);
         $agendas = Agenda::where('status', 1)->get();
-        return view('artikel.edit', compact('artikel', 'agendas'));
+        $users = User::where('status', 1)->get();
+        return view('artikel.edit', compact('artikel', 'agendas', 'users'));
     }
 
     /**
@@ -98,10 +101,13 @@ class ArticleController extends Controller
             'main_content' => 'required|string',
             'status' => 'required|integer',
             'agenda_id' => 'required|exists:agendas,id',
+            'user_id' => 'required|exists:users,id',
         ]);
         try {
             $article = Article::findOrFail($id);
             $article->update($validatedData);
+            $article->updated_at = now();
+            $article->save();
             return redirect()->route('artikel.index')->with('success', 'Artikel berhasil Diupdate!');
         } catch (Exception $e) {
             return redirect()->route('artikel.index')->with('error', 'Artikel Gagal Diupdate!');
@@ -115,6 +121,7 @@ class ArticleController extends Controller
         // ArticleGallery::where('article_id', $artikel->id)->update(['status' => 0]);
         DB::transaction(function () use ($artikel) {
             $artikel->status = 0;
+            $artikel->updated_at = now();
             $artikel->save();
                     });
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil dinonaktifkan!');
@@ -143,7 +150,7 @@ class ArticleController extends Controller
             session()->put($sessionKey, true);
             $action = 'liked';
         }
-
+        $article->updated_at = now();
         $article->save();
 
         return response()->json([
@@ -169,49 +176,63 @@ class ArticleController extends Controller
          $galleries = Gallery::where('status', 1)->get();
          return view('artikel.galeri.create', compact('articles', 'galleries'));
      }
- 
-     public function storeArticleGallery(Request $request)
-     {
-         $request->validate([
-             'article_id' => 'required|integer|exists:articles,id',
-             'photos' => 'required|array', 
-             'photos.*' => 'integer|exists:galleries,id', 
-             'name_collage' => 'required|string',
-         ]);
-     
-         $name = $request->get('name_collage');
-         $articleId = $request->get('article_id');
-         $galleryIds = $request->get('photos');
-     
-         $duplicateEntries = [];
-     
-                 foreach ($galleryIds as $galleryId) {
-            $exists = ArticleGallery::where('gallery_id', $galleryId)
-                ->where('article_id', $articleId)
-                ->exists();
 
-            if ($exists) {
-                $duplicateEntries[] = $galleryId;
-            } else {
-                $articleGallery = new ArticleGallery([
-                    'gallery_id' => $galleryId,
-                    'article_id' => $articleId,
-                    'name_collage' => 'Kolase ' . $name,
-                    'status' => 1,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-                $articleGallery->save();
+    public function storeArticleGallery(Request $request)
+    {
+        $request->validate([
+            'article_id' => 'required|integer|exists:articles,id',
+            'photos' => 'required|array', 
+            'photos.*' => 'integer|exists:galleries,id', 
+            'name_collage' => 'required|string',
+        ]);
+
+        $name = $request->get('name_collage');
+        $articleId = $request->get('article_id');
+        $galleryIds = $request->get('photos');
+
+        $duplicateEntries = [];
+
+        try {
+            foreach ($galleryIds as $galleryId) {
+                // Check for existing entry before inserting
+                $exists = ArticleGallery::where('gallery_id', $galleryId)
+                    ->where('article_id', $articleId)
+                    ->exists();
+
+                if ($exists) {
+                    $duplicateEntries[] = $galleryId;
+                } else {
+                    ArticleGallery::create([
+                        'gallery_id' => $galleryId,
+                        'article_id' => $articleId,
+                        'name_collage' => 'Kolase ' . $name,
+                        'status' => 1,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
             }
-        }
 
-        if (!empty($duplicateEntries)) {
-            $duplicateMessage = 'Data galeri dan artikel yang anda masukkan sudah ada';
-            return redirect()->route('artikel.galeri.index')->with('error', $duplicateMessage);
-         }
-     
-         return redirect()->route('artikel.galeri.index')->with('success', 'Foto di Galeri berhasil ditambahkan!');
-     }
+            if (!empty($duplicateEntries)) {
+                return redirect()->route('artikel.galeri.index')->with(
+                    'error', 'Beberapa foto sudah ada dalam galeri artikel.'
+                );
+            }
+
+            return redirect()->route('artikel.galeri.index')->with('success', 'Foto di Galeri berhasil ditambahkan!');
+        } catch (QueryException $e) {
+            if ($e->getCode() == 23000) { // SQL Integrity Constraint Violation (Duplicate Entry)
+                return redirect()->route('artikel.galeri.index')->with(
+                    'error', 'Terjadi duplikasi dalam database. Foto sudah ada dalam galeri artikel.'
+                );
+            }
+
+            return redirect()->route('artikel.galeri.index')->with(
+                'error', 'Terjadi kesalahan. Silakan coba lagi.'
+            );
+        }
+    }
+
      
     public function editArticleGallery(Request $request)
     {

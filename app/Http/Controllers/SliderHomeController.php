@@ -38,7 +38,7 @@ class SliderHomeController extends Controller
         ]);
 
         try {
-            foreach ($request->input('galleries') as $gallery_id) {
+            foreach ($request->input('photos') as $gallery_id) {
                 SliderHome::create([
                     'name' => $request->input('name'),
                     'status' => 1,
@@ -77,34 +77,32 @@ class SliderHomeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SliderHome $sliderHome)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'status' => 'required|integer',
-            'photo' => 'integer|exists:galleries,id',
-        ]);
-        $galleryIds = $request->input('galleries');
-        
-        try {
-            if (!empty($galleryIds)) {
-                foreach ($galleryIds as $galleryId) {
-                    if ($request->input('photo')) {
-                        $sliderHome->gallery_id = $request->input('photo');
-                    } else {
-                        $sliderHome->gallery_id = $galleryId;
-                    }
-                    $sliderHome->name = $request->input('name');
-                    $sliderHome->status = $request->input('status');
-                    $sliderHome->updated_at = now();
-                    $sliderHome->save();
-                }
-            }
-            return redirect()->route('galeri.slider.index')->with('success', 'Tampilan Slider Home berhasil diperbarui.');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Gagal update tampilan Slider Home');
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'status' => 'required|integer',
+        'photo' => 'nullable|integer|exists:galleries,id',
+    ]);
+
+    try {
+        $sliderHome = SliderHome::findOrFail($id);
+        $sliderHome->name = $request->input('name');
+        $sliderHome->status = $request->input('status');
+
+        if ($request->filled('photo')) {
+            $sliderHome->gallery_id = $request->input('photo');
         }
+
+        $sliderHome->save();
+
+        return redirect()->route('galeri.slider.index')->with('success', 'Tampilan Slider Home berhasil diperbarui.');
+    } catch (\Exception $e) {
+        return back()->with('error', 'Gagal update tampilan Slider Home: ' . $e->getMessage());
     }
+}
+
+    
 
     /**
      * Remove the specified resource from storage.
@@ -114,6 +112,7 @@ class SliderHomeController extends Controller
         try {
             $sliderHome = SliderHome::findorFail($gallery);
             $sliderHome->status=0;
+            $sliderHome->updated_at = now();
             $sliderHome->save();
             return redirect()->route('galeri.slider.index')->with('success', 'Tampilan Slider Home berhasil dinonaktifkan.');
         } catch (\Exception $e) {

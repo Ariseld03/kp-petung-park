@@ -15,6 +15,7 @@
                 <input type="text" class="form-control" id="name" name="name" value="{{ $category->name }}" required>
             </div>
 
+            @if ($category->status == '0')  
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
@@ -22,6 +23,9 @@
                     <option value="0" {{ $category->status == '0' ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
+            @else
+                <input type="hidden" name="status" value="{{ $category->status }}">
+            @endif
 
             <button type="submit" class="btn btn-success">Simpan</button>
             <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('kategori.index') }}'">Kembali</button>

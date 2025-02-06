@@ -91,6 +91,7 @@ class AgendaController extends Controller
             'lokasi' => 'required|string|max:255',
             'status' => 'required|integer',
             'deskripsi' => 'nullable|string',
+            'user_id' => 'required|integer|exists:users,id',
         ]);
         try {
             $agenda = Agenda::findOrFail($id);
@@ -100,7 +101,8 @@ class AgendaController extends Controller
             $agenda->event_location = $request->get('lokasi');
             $agenda->status = $request->get('status');
             $agenda->description = $request->get('deskripsi');
-            // $agenda->user_id = $request->get('user_id');
+            $agenda->user_id = $request->get('user_id');
+            $agenda->updated_at = now();
             $agenda->save();
             return redirect()->route('agenda.index')->with('success', 'Agenda Berhasil Diubah!');
         } catch (Exception $e) {
@@ -124,6 +126,7 @@ class AgendaController extends Controller
                 return redirect()->route('agenda.index')->with('error', 'Tidak dapat menonaktifkan agenda karena masih ada artikel yang terkait.');
             }
             $agenda->status = 0;
+            $agenda->updated_at = now();
             $agenda->save();
             return redirect()->route('agenda.index')->with('success', 'Agenda Berhasil Dinonaktifkan!');
         } catch (Exception $e) {

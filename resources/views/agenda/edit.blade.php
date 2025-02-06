@@ -28,7 +28,8 @@
                 <label for="lokasi">Lokasi:</label>
                 <input type="text" class="form-control" id="lokasi" name="lokasi" value="{{ $agenda->event_location }}" required>
             </div>
-
+            
+            @if ($agenda->status == '0')
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select class="form-control" id="status" name="status">
@@ -36,6 +37,9 @@
                     <option value="0" {{ $agenda->status == 0 ? 'selected' : '' }}>Nonaktif</option>
                 </select>
             </div>
+            @else
+                <input type="hidden" name="status" value="{{ $agenda->status }}">
+            @endif
 
             <div class="form-group">
                 <label for="deskripsi">Deskripsi:</label>
