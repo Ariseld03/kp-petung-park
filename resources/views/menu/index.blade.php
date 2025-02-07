@@ -106,11 +106,11 @@
                         </td>
                         @if($hasNonActive && !$dish->packages()->exists())
                             <td>
-                                <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $dish->id }}, {{ (int)$dish->status }},'dish')">
+                                <button type="button" class="btn btn-danger" onclick="handleNonaktif({{ $dish->id }}, {{ (int)$dish->status }},'menu')">
                                     Nonaktif
                                 </button>
 
-                                <div class="modal fade" id="nonaktifModal-dish-{{ $dish->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal fade" id="nonaktifModal-menu-{{ $dish->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -119,12 +119,12 @@
                                                     <span>&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body" id="modalMessage-dish-{{ $dish->id }}">
+                                            <div class="modal-body" id="modalMessage-menu-{{ $dish->id }}">
                                                 Apakah Anda yakin ingin mengubah status hidangan ini?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                <form action="{{ route('menu.hidangan.unactive', $dish->id) }}" method="POST" id="nonaktifForm-dish-{{ $dish->id }}">
+                                                <form action="{{ route('menu.hidangan.unactive', $dish->id) }}" method="POST" id="nonaktifForm-menu-{{ $dish->id }}">
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger">Nonaktifkan</button>
                                                 </form>
@@ -145,9 +145,11 @@
 <script src="{{ asset('js/modalHandler.js') }}"></script>
 <script>
     $(document).ready(function() {
-        @if(session('success'))
-            $('#BerhasilModal .modal-body').html('Data berhasil dinonaktifkan');
-        @endif
+        let successMessage = "{{ session('success') }}"; // Get success message from session
+        if (successMessage) {
+            $('body').attr('data-success', successMessage); // Store success message in a data attribute
+        }
     });
 </script>
 @endsection
+

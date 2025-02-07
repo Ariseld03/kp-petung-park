@@ -1,15 +1,8 @@
-@extends('layouts.main')
+@extends('layouts.mainAdmin')
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('/css/hidanganAdd.css') }}">
 @endsection
-
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Hidangan</title>
-</head>
+@section('content')
 <body>
     <div class="container mt-5">
         <h1 class="text-center text-success">Tambah Hidangan</h1>
@@ -66,6 +59,6 @@
             </div>
         </form>
     </div>
-</body>
-</html>
+    <body>
+@endsection
 

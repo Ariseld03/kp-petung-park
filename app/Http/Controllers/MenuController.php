@@ -171,7 +171,7 @@ class MenuController extends Controller
             $menu->status=0;
             $menu->updated_at = now();
             $menu->save();
-            return redirect()->route('menu.index')->with('success', true);
+            return redirect()->route('menu.index')->with('success', 'Menu berhasil dinonaktifkan');
         } catch (\Throwable $th) {
             return redirect()->route('menu.index')->with('error', 'Data gagal di nonaktifkan');
         }

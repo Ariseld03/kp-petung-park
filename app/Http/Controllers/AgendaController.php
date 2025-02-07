@@ -19,8 +19,8 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        $agenda = Agenda::with('user')->get();
-        return view('agenda.index', compact('agenda'));
+        $agendas = Agenda::with('user')->get();
+        return view('agenda.index', compact('agendas'));
     }
 
     /**
@@ -37,22 +37,26 @@ class AgendaController extends Controller
         public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
-            'lokasi' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
+            'name' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:tanggal_mulai',
+            'location' => 'required|string|max:255',
+            'desc' => 'nullable|string',
         ]);
+
+        if (Carbon::parse($request->input('start_date'))->gt(Carbon::parse($request->input('end_date')))) {
+            return redirect()->route('agenda.create')->with('error', 'Tanggal mulai harus lebih awal atau sama dengan tanggal selesai.');
+        } 
 
         try {
             Agenda::create([
-                'event_name' => $request->input('nama'),
-                'event_start_date' => $request->input('tanggal_mulai'),
-                'event_end_date' => $request->input('tanggal_selesai'),
-                'event_location' => $request->input('lokasi'),
+                'event_name' => $request->input('name'),
+                'event_start_date' => $request->input('start_date'),
+                'event_end_date' => $request->input('end_date'),
+                'event_location' => $request->input('location'),
                 'status' => 1,
-                'description' => $request->input('deskripsi'),
-                'user_id' => 1, 
+                'description' => $request->input('desc'),
+                'user_id' => $request->input('user_id'), 
             ]);
 
             return redirect()->route('agenda.index')->with('success', 'Agenda berhasil ditambahkan.');
@@ -85,22 +89,28 @@ class AgendaController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
-            'lokasi' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:tanggal_mulai',
+            'location' => 'required|string|max:255',
             'status' => 'required|integer',
-            'deskripsi' => 'nullable|string',
+            'desc' => 'nullable|string',
             'user_id' => 'required|integer|exists:users,id',
         ]);
         try {
             $agenda = Agenda::findOrFail($id);
-            $agenda->event_name = $request->get('nama');
-            $agenda->event_start_date = $request->get('tanggal_mulai');
-            $agenda->event_end_date = $request->get('tanggal_selesai');
-            $agenda->event_location = $request->get('lokasi');
+            $startDate = Carbon::parse($request->get('start_date'));
+            $endDate = Carbon::parse($request->get('end_date'));
+            if (Carbon::parse($startDate)->gt(Carbon::parse($endDate))) {
+                return redirect()->route('agenda.edit', $id)->with('error', 'Tanggal mulai harus lebih awal atau sama dengan tanggal selesai.');
+            }
+            
+            $agenda->event_name = $request->get('name');
+            $agenda->event_start_date = $startDate;
+            $agenda->event_end_date = $endDate;
+            $agenda->event_location = $request->get('location');
             $agenda->status = $request->get('status');
-            $agenda->description = $request->get('deskripsi');
+            $agenda->description = $request->get('desc');
             $agenda->user_id = $request->get('user_id');
             $agenda->updated_at = now();
             $agenda->save();

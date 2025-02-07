@@ -46,7 +46,7 @@
 
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='{{ url('/artikelStaff') }}'">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('artikel.index') }}'">Batal</button>
             </div>
         </form>
     </div>

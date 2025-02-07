@@ -10,23 +10,23 @@
         <form action="{{ route('agenda.update', $agenda->id) }}" method="post">
             @csrf 
             <div class="form-group">
-                <label for="nama">Nama Agenda:</label>
-                <input type="text" class="form-control" id="nama" name="nama" value="{{ $agenda->event_name }}" required>
+                <label for="name">Nama Agenda:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $agenda->event_name }}" required>
             </div>
 
             <div class="form-group">
-                <label for="tanggal_mulai">Tanggal Mulai:</label>
-                <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai" value="{{ $agenda->event_start_date }}" required>
+                <label for="start_date">Tanggal Mulai:</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ $agenda->event_start_date }}" required>
             </div>
 
             <div class="form-group">
-                <label for="tanggal_selesai">Tanggal Selesai:</label>
-                <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" value="{{ $agenda->event_end_date }}" required>
+                <label for="end_date">Tanggal Selesai:</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $agenda->event_end_date }}" required>
             </div>
 
             <div class="form-group">
-                <label for="lokasi">Lokasi:</label>
-                <input type="text" class="form-control" id="lokasi" name="lokasi" value="{{ $agenda->event_location }}" required>
+                <label for="location">Lokasi:</label>
+                <input type="text" class="form-control" id="location" name="location" value="{{ $agenda->event_location }}" required>
             </div>
             
             @if ($agenda->status == '0')
@@ -42,8 +42,8 @@
             @endif
 
             <div class="form-group">
-                <label for="deskripsi">Deskripsi:</label>
-                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4">{{ $agenda->description }}</textarea>
+                <label for="desc">Deskripsi:</label>
+                <textarea class="form-control" id="desc" name="desc" rows="4">{{ $agenda->description }}</textarea>
             </div>
 
             <div class="form-group">
@@ -58,7 +58,7 @@
 
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Simpan</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='{{ route('agenda.index') }}'">Kembali</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('agenda.index') }}'">Batal</button>
             </div>
         </form>
     </div>

@@ -33,21 +33,23 @@ class SliderHomeController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'photos' => 'required|array',
-            'photos.*' => 'integer|exists:galleries,id',
+            'photo' => 'required|integer|exists:galleries,id',
         ]);
-
+    
         try {
-            foreach ($request->input('photos') as $gallery_id) {
-                SliderHome::create([
-                    'name' => $request->input('name'),
-                    'status' => 1,
-                    'gallery_id' => $gallery_id,
-                ]);
+            $sliderHome = new SliderHome();
+            $sliderHome->name = $request->input('name');
+            $sliderHome->status = 1;
+    
+            if ($request->filled('photo')) {
+                $sliderHome->gallery_id = $request->input('photo');
             }
+    
+            $sliderHome->save();
+    
             return redirect()->route('galeri.slider.index')->with('success', 'Tampilan Slider Home berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->route('galeri.slider.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('galeri.slider.create')->with('error', 'Gagal tambah tampilan Slider Home: ' . $e->getMessage());
         }
     }
     /**
@@ -98,7 +100,7 @@ class SliderHomeController extends Controller
 
         return redirect()->route('galeri.slider.index')->with('success', 'Tampilan Slider Home berhasil diperbarui.');
     } catch (\Exception $e) {
-        return back()->with('error', 'Gagal update tampilan Slider Home: ' . $e->getMessage());
+        return redirect()->route('galeri.slider.edit', $id)->with('error', 'Gagal update tampilan Slider Home: ' . $e->getMessage());
     }
 }
 

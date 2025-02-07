@@ -6,7 +6,7 @@
 
 @section('content')
 @php
-    $hasNonActive = $agenda->contains(fn($peragenda) => !$peragenda->articles()->exists());
+    $hasNonActive = $agendas->contains(fn($agenda) => !$agenda->articles()->exists());
 @endphp
     <div class="container mt-5">
         <h1 class="text-center" style="color: #557C56;">Agenda</h1>
@@ -30,44 +30,44 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($agenda as $peragenda)
+                @foreach($agendas as $agenda)
                     <tr>
-                        <td>{{ $peragenda->event_name }}</td>
-                        <td>{{ $peragenda->event_start_date }}</td>
-                        <td>{{ $peragenda->event_end_date }}</td>
-                        <td>{{ $peragenda->event_location }}</td>
-                        <td>{{ $peragenda->status ? 'Aktif' : 'Nonaktif' }}</td>
-                        <td>{{ $peragenda->description }}</td>
-                        <td>{{ $peragenda->created_at }}</td>
-                        <td>{{ $peragenda->updated_at }}</td>
-                        <td>{{ $peragenda->user ? $peragenda->user->name : 'Tidak ada User yang Bertanggung Jawab' }}</td>
+                        <td>{{ $agenda->event_name }}</td>
+                        <td>{{ $agenda->event_start_date }}</td>
+                        <td>{{ $agenda->event_end_date }}</td>
+                        <td>{{ $agenda->event_location }}</td>
+                        <td>{{ $agenda->status ? 'Aktif' : 'Nonaktif' }}</td>
+                        <td>{{ $agenda->description }}</td>
+                        <td>{{ $agenda->created_at }}</td>
+                        <td>{{ $agenda->updated_at }}</td>
+                        <td>{{ $agenda->user ? $agenda->user->name : 'Tidak ada User yang Bertanggung Jawab' }}</td>
                         <td>
-                            <button class="btn btn-primary" onclick="location.href='{{ route('agenda.edit', $peragenda->id)}}'">Perbarui</button>
+                            <button class="btn btn-primary" onclick="location.href='{{ route('agenda.edit', $agenda->id)}}'">Perbarui</button>
                         </td>
                         @if ($hasNonActive)
-                            @if (!$peragenda->articles()->exists()) 
+                            @if (!$agenda->articles()->exists()) 
                         <td> 
                             <button type="button" 
                                         class="btn btn-danger"  
-                                        onclick="handleNonaktif({{ $peragenda->id }}, {{ $peragenda->status }})">
+                                        onclick="handleNonaktif({{ $agenda->id }}, {{ $agenda->status }})">
                                     Nonaktif
                             </button>
                        
-                            <div class="modal fade" id="nonaktifModal-{{ $peragenda->id }}" tabindex="-1" role="dialog" aria-labelledby="nonaktifModalLabel-{{ $peragenda->id }}" aria-hidden="true">
+                            <div class="modal fade" id="nonaktifModal-{{ $agenda->id }}" tabindex="-1" role="dialog" aria-labelledby="nonaktifModalLabel-{{ $agenda->id }}" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="nonaktifModalLabel-{{ $peragenda->id }}">Konfirmasi Nonaktif</h5>
+                                            <h5 class="modal-title" id="nonaktifModalLabel-{{ $agenda->id }}">Konfirmasi Nonaktif</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <p id="modalMessage-{{ $peragenda->id }}">Apakah Anda yakin ingin mengubah status data ini?</p>
+                                            <p id="modalMessage-{{ $agenda->id }}">Apakah Anda yakin ingin mengubah status data ini?</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                            <form action="{{ route('agenda.unactive', ['agenda' => $peragenda->id]) }}" method="POST" id="nonaktifForm-{{ $peragenda->id }}">
+                                            <form action="{{ route('agenda.unactive', ['agenda' => $agenda->id]) }}" method="POST" id="nonaktifForm-{{ $agenda->id }}">
                                                 @csrf
                                                 @method('POST')
                                                 <button type="submit" class="btn btn-danger">Nonaktifkan</button>

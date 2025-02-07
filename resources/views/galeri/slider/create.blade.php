@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container mt-5">
-        <h1 class="text-center text-success">Tambah Tampilan Galeri</h1>
+        <h1 class="text-center text-success">Tambah Tampilan Home Slider</h1>
         <form action="{{ route('galeri.slider.store') }}" method="POST" enctype="multipart/form-data">
             @csrf 
             
@@ -15,9 +15,9 @@
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
             <div class="form-group">
-                <label for="photos">Pilih Galeri untuk ditampilkan di slider Home :</label>
+                <label for="photo">Pilih Galeri untuk ditampilkan di slider Home :</label>
 
-                <select class="form-control" id="photos" name="photos[]" required multiple>
+                <select class="form-control" id="photo" name="photo" required >
                     <option value="" selected disabled>Pilih Galeri</option>
                     @foreach ($galleries as $gallery)
                         <option value="{{ $gallery->id }}" data-img-src="{{ asset($gallery->photo_link) }}">
@@ -39,7 +39,7 @@
 @endsection
 @section('page-js')
 <script>
-    document.getElementById('photos').addEventListener('change', function() {
+    document.getElementById('photo').addEventListener('change', function() {
         var previewContainer = document.getElementById('preview-photo');
         previewContainer.innerHTML = ''; // Clear previous previews
         Array.from(this.selectedOptions).forEach(option => {
