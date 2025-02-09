@@ -1,5 +1,5 @@
-@extends('layouts.loginRegis')
 @extends('layouts.app')
+@extends('layouts.loginRegis')
 
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('/css/login.css') }}">
@@ -38,8 +38,8 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
+                                <button type="submit" class="btn btn-primary" style="background-color: #295A3F; color: #fff;">
+                                    {{ __('Kirim Tautan Reset Password') }}
                                 </button>
                             </div>
                         </div>

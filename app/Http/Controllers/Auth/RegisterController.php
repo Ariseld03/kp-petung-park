@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Gallery;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 
 class RegisterController extends Controller
 {
@@ -43,11 +45,10 @@ class RegisterController extends Controller
             'gender' => $data['gender'],
             'phone_number' => $data['phone'],
             'status' => 1,
-            'gallery_id' => null,
+            'gallery_id' => 19,
         ]);
     }
 
-    // Menambahkan metode register
     public function register_process(Request $request)
     {
         $request->validate([
@@ -68,22 +69,27 @@ class RegisterController extends Controller
             'gender.required' => 'Jenis kelamin harus diisi.',
             'phone.required' => 'Nomor telepon harus diisi.',
         ]);
-        
+
         // Check if email is a Gmail address
         if (!filter_var($request->email, FILTER_VALIDATE_EMAIL) || !str_ends_with($request->email, '@gmail.com')) {
             return back()->withErrors(['email' => 'Email harus berupa alamat Gmail yang valid.']);
         }
-        
+
         if (User::where('email', $request->email)->exists()) {
             return back()->withErrors(['email' => 'Email sudah digunakan.']);
         }
-        
-        $user = $this->create($request->all());
-        
+
+        $user = $this->create($request->all());        
+
+        // Send the verification email
+        event(new Registered($user));  // This triggers the sending of the verification email
+
+        // Log the user in
         Auth::login($user);
-        return redirect($this->redirectTo)->with('success', 'Selamat datang, registrasi berhasil!');
-        
+
+        return redirect(RouteServiceProvider::HOME)->with('success', 'Selamat datang, registrasi berhasil! Silakan verifikasi email Anda.');
     }
+
     public function register()
     {
         $galleries = Gallery::all();
