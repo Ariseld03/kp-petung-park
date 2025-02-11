@@ -39,6 +39,9 @@ class CategoryController extends Controller
             $request->validate([
                 'name' => 'required|string|max:255',
                 'status' => 'required|integer',
+            ],[
+                'name.required' => 'Nama kategori harus diisi.',
+                'status.required' => 'Status kategori harus diisi.',
             ]);
 
             Category::create([
@@ -84,6 +87,9 @@ class CategoryController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'status' => 'required|integer',
+        ],[
+            'name.required' => 'Nama kategori harus diisi.',
+            'status.required' => 'Status kategori harus diisi.',
         ]);
        try {
             $category = Category::findOrFail($kategori);

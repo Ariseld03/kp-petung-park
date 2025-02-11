@@ -10,15 +10,15 @@
             @csrf
             <div class="form-group">
                 <label for="name">Nama Hidangan:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
             <div class="form-group">
                 <label for="description">Deskripsi:</label>
-                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                <textarea class="form-control" id="description" name="description" rows="4" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')"></textarea>
             </div>
             <div class="form-group">
                 <label for="price">Harga:</label>
-                <input type="number" class="form-control" id="price" name="price" value="{{ old('price') }}" required>
+                <input type="number" class="form-control" id="price" name="price" value="{{ old('price') }}" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
             <div class="form-group">
                 <label for="recommendation">Rekomendasi:</label>

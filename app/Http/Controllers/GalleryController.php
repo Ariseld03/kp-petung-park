@@ -37,6 +37,13 @@ class GalleryController extends Controller
                 'name' => 'required|string|max:255',
                 'photo' => 'required|image|mimes:jpg,jpeg,png|max:10240', // Validate the file upload
                 'description' => 'nullable|string',
+            ], [
+                'name.required' => 'Nama harus diisi.',
+                'photo.required' => 'Foto harus diunggah.',
+                'photo.image' => 'File yang diunggah harus berupa gambar.',
+                'photo.mimes' => 'Format file yang diunggah harus jpg, jpeg, atau png.',
+                'photo.max' => 'Ukuran file tidak boleh lebih dari 10 MB.',
+                'description.max' => 'Deskripsi tidak boleh lebih dari 255 karakter.',
             ]);
         
             $gallery = new Gallery;
@@ -89,6 +96,13 @@ class GalleryController extends Controller
                 'status' => 'required|in:0,1',
                 'description' => 'nullable|string',
                 'file' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
+            ], [
+                'name.required' => 'Nama harus diisi.',
+                'status.required' => 'Status harus dipilih.',
+                'description.max' => 'Deskripsi tidak boleh lebih dari 255 karakter.',
+                'file.image' => 'File yang diunggah harus berupa gambar.',
+                'file.mimes' => 'Format file yang diunggah harus jpg, jpeg, atau png.',
+                'file.max' => 'Ukuran file tidak boleh lebih dari 10 MB.',
             ]);
 
             $gallery->name = $request->input('name');

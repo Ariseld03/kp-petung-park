@@ -21,17 +21,17 @@
             @csrf
             <div class="form-group">
                 <label for="key">Kata Kunci:</label>
-                <input type="text" class="form-control" id="key" name="key" placeholder="Contoh: sosial_media_instagram" required>
+                <input type="text" class="form-control" id="key" name="key" placeholder="Contoh: sosial_media_instagram" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">
                 <label for="value">Isi:</label>
-                <input type="text" class="form-control" id="value" name="value" required>
+                <input type="text" class="form-control" id="value" name="value" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">
                 <label for="photo">Gambar Ikon:</label>
-                <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .jpeg, .png" required>
+                <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .jpeg, .png" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
                 @error('photo')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror

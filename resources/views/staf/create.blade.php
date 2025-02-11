@@ -10,35 +10,35 @@
             @csrf
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required autocomplete="email">
+                <input type="email" class="form-control" id="email" name="email" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')" autocomplete="email">
             </div>
 
             <div class="form-group">
                 <label for="name">Nama:</label>
-                <input type="text" class="form-control" id="name" name="name" required autocomplete="name">
+                <input type="text" class="form-control" id="name" name="name" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')" autocomplete="name">
             </div>
 
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <input type="password" class="form-control" id="password" name="password" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')" required>
             </div>
             <div class="row mb-2">
             <div class="col-md-12">   
             <div class="form-group">             
                 <label for="passwordConfirm">Konfirmasi Password Baru:</label>
-                <input type="password" class="form-control" id="passwordConfirm" name="password_confirmation" placeholder="Masukkan Kembali Kata Sandi" required autocomplete="password">
+                <input type="password" class="form-control" id="passwordConfirm" name="password_confirmation" placeholder="Masukkan Kembali Kata Sandi" required autocomplete="password" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
             </div>
             </div>
 
             <div class="form-group">
                 <label for="dob">Tanggal Lahir:</label>
-                <input type="date" class="form-control" id="dob" name="date_of_birth" required value="2000-01-01">
+                <input type="date" class="form-control" id="dob" name="date_of_birth" required value="2000-01-01" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">
                 <label for="phone">Nomor Telepon:</label>
-                <input type="tel" class="form-control" id="phone" name="phone_number" required autocomplete="tel">
+                <input type="tel" class="form-control" id="phone" name="phone_number" required autocomplete="tel" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">

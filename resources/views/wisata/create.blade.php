@@ -9,7 +9,7 @@
             @csrf
             <div class="form-group">
                 <label for="name">Nama:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control" id="name" name="name" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">

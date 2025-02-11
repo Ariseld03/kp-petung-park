@@ -34,6 +34,10 @@ class SliderHomeController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'photo' => 'required|integer|exists:galleries,id',
+        ],
+        [
+            'name.required' => 'Nama harus diisi.',
+            'photo.required' => 'Foto harus dipilih.',
         ]);
     
         try {
@@ -85,6 +89,10 @@ class SliderHomeController extends Controller
         'name' => 'required|string|max:255',
         'status' => 'required|integer',
         'photo' => 'nullable|integer|exists:galleries,id',
+    ],
+    [
+        'name.required' => 'Nama harus diisi.',
+        'status.required' => 'Status harus diisi.',
     ]);
 
     try {

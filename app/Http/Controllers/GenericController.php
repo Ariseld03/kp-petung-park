@@ -38,6 +38,13 @@ class GenericController extends Controller
                 'key' => 'required|string|max:255',
                 'value' => 'required|string',
                 'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
+            ]
+            ,[
+                'key.required' => 'Key harus diisi.',
+                'value.required' => 'Value harus diisi.',
+                'photo.image' => 'File yang diunggah harus berupa gambar.',
+                'photo.mimes' => 'Format file yang diunggah harus jpg, jpeg, atau png.',
+                'photo.max' => 'Ukuran file tidak boleh lebih dari 10 MB.',
             ]);
 
             $generic = new Generic;
@@ -85,6 +92,14 @@ class GenericController extends Controller
                 'value' => 'required|string',
                 'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
                 'user_id' => 'required|exists:users,id',
+            ]
+            ,[
+                'key.required' => 'Key harus diisi.',
+                'value.required' => 'Value harus diisi.',
+                'photo.image' => 'File yang diunggah harus berupa gambar.',
+                'photo.mimes' => 'Format file yang diunggah harus jpg, jpeg, atau png.',
+                'photo.max' => 'Ukuran file tidak boleh lebih dari 10 MB.',
+                'user_id.required' => 'User harus dipilih.',
             ]);
 
             $generic->key = $request->input('key');

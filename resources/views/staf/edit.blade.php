@@ -21,43 +21,43 @@
             @csrf
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required value="{{ $staff->email }}" autocomplete="email">
+                <input type="email" class="form-control" id="email" name="email" required value="{{ $staff->email }}" autocomplete="email" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">
                 <label for="name">Nama:</label>
-                <input type="text" class="form-control" id="name" name="name" required value="{{ $staff->name }}" autocomplete="name">
+                <input type="text" class="form-control" id="name" name="name" required value="{{ $staff->name }}" autocomplete="name" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="changePassword" name="changePassword">
+                    <input type="checkbox" class="form-check-input" id="changePassword" name="changePassword" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
                     <label class="form-check-label" for="changePassword">Ubah Password</label>
                 </div>
                 <div id="passwordFields" style="display: none;">
                     <div class="form-group">
                         <label for="oldPassword">Password Lama:</label>
-                        <input type="password" class="form-control" id="oldPassword" name="oldPassword">
+                        <input type="password" class="form-control" id="oldPassword" name="oldPassword" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
                     </div>
                     <div class="form-group">
                         <label for="newPassword">Password Baru:</label>
-                        <input type="password" class="form-control" id="newPassword" name="newPassword">
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
                     </div>
                     <div class="form-group">
                         <label for="newPasswordConfirm">Konfirmasi Password Baru:</label>
-                        <input type="password" class="form-control" id="newPasswordConfirm" name="newPassword_confirmation">
+                        <input type="password" class="form-control" id="newPasswordConfirm" name="newPassword_confirmation" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="date_of_birth">Tanggal Lahir:</label>
-                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required value="{{ $staff->date_of_birth }}">
+                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required value="{{ $staff->date_of_birth }}" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">
                 <label for="phone_number">Nomor Telepon:</label>
-                <input type="tel" class="form-control" id="phone_number" name="phone_number" required value="{{ $staff->phone_number }}">
+                <input type="tel" class="form-control" id="phone_number" name="phone_number" required value="{{ $staff->phone_number }}" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">

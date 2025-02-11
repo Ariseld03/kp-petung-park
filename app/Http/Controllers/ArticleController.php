@@ -44,6 +44,13 @@ class ArticleController extends Controller
             'agenda_id' => 'required|integer|exists:agendas,id',
             'photos' => 'required|array', 
             'photos.*' => 'integer|exists:galleries,id', 
+        ],
+        [
+            'title.required' => 'Judul artikel harus diisi.',
+            'content.required' => 'Konten artikel harus diisi.',
+            'agenda_id.required' => 'Agenda harus dipilih.',
+            'photos.required' => 'Foto harus dipilih.',
+            'photos.*.exists' => 'Foto tidak ditemukan.',
         ]);
         $article = new Article([
             'user_id' => 2,
@@ -102,6 +109,12 @@ class ArticleController extends Controller
             'status' => 'required|integer',
             'agenda_id' => 'required|exists:agendas,id',
             'user_id' => 'required|exists:users,id',
+        ],[
+            'title.required' => 'Judul artikel harus diisi.',
+            'main_content.required' => 'Konten artikel harus diisi.',
+            'status.required' => 'Status artikel harus diisi.',
+            'agenda_id.required' => 'Agenda harus dipilih.',
+            'user_id.required' => 'User harus dipilih.',
         ]);
         try {
             $article = Article::findOrFail($id);

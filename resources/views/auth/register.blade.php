@@ -17,7 +17,7 @@
                         <div class="row mb-3 form-group">
                             <div class="col-md-12">
                                 <label for="name" class="col-form-label">{{ __('Nama') }}</label>
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Masukkan Nama Pengguna" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Masukkan Nama Pengguna" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -30,7 +30,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label for="email" class="col-form-label">{{ __('Alamat Email') }}</label>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Email" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -43,7 +43,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label for="password" class="col-form-label">{{ __('Kata Sandi') }}</label>
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan Kata Sandi" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan Kata Sandi" name="password" required autocomplete="new-password" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -55,7 +55,7 @@
 
                             <div class="form-group">
                                 <label for="passwordConfirm">{{ __('Konfirmasi Kata Sandi') }}</label>
-                                <input type="password" class="form-control" id="passwordConfirm" name="password_confirmation" placeholder="Masukkan Kembali Kata Sandi" required autocomplete="password">
+                                <input type="password" class="form-control" id="passwordConfirm" name="password_confirmation" placeholder="Masukkan Kembali Kata Sandi" required autocomplete="password" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
                             </div>
                         
 
@@ -90,7 +90,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label for="phone" class="col-form-label">Nomor Telepon</label>
-                                <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" placeholder="081234567890" pattern="[0-9]{10,15}" name="phone" required autocomplete="phone">
+                                <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" placeholder="081234567890" pattern="[0-9]{10,15}" name="phone" required autocomplete="phone" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
 
                                 @error('phone')
                                     <span class="invalid-feedback" role="alert">

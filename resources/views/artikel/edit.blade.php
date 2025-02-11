@@ -13,7 +13,7 @@
 
             <div class="form-group">
                 <label for="title">Judul:</label>
-                <textarea class="form-control" id="title" name="title" rows="4" required>{{ $artikel->title }}</textarea>
+                <textarea class="form-control" id="title" name="title" rows="4" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">{{ $artikel->title }}</textarea>
             </div>
 
             <div class="form-group">

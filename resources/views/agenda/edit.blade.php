@@ -11,22 +11,22 @@
             @csrf 
             <div class="form-group">
                 <label for="name">Nama Agenda:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $agenda->event_name }}" required>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $agenda->event_name }}" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">
                 <label for="start_date">Tanggal Mulai:</label>
-                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ $agenda->event_start_date }}" required>
+                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ $agenda->event_start_date }}" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">
                 <label for="end_date">Tanggal Selesai:</label>
-                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $agenda->event_end_date }}" required>
+                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $agenda->event_end_date }}" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">
                 <label for="location">Lokasi:</label>
-                <input type="text" class="form-control" id="location" name="location" value="{{ $agenda->event_location }}" required>
+                <input type="text" class="form-control" id="location" name="location" value="{{ $agenda->event_location }}" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
             
             @if ($agenda->status == '0')

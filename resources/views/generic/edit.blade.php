@@ -12,7 +12,7 @@
 
             <div class="form-group">
                 <label for="key">Kata Kunci:</label>
-                <input type="text" class="form-control" id="key" name="key" value="{{ old('key', $generic->key) }}" required>
+                <input type="text" class="form-control" id="key" name="key" value="{{ old('key', $generic->key) }}" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
                 @error('key')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror

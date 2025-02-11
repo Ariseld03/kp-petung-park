@@ -12,7 +12,8 @@
             
             <div class="form-group">
                 <label for="name">Nama Tampilan Galeri:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control" id="name" name="name" required                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan Kata Sandi" name="password" required autocomplete="current-password" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
+                >
             </div>
             <div class="form-group">
                 <label for="photos">Pilih Galeri:</label>

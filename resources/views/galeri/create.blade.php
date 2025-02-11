@@ -26,7 +26,7 @@
             @csrf
             <div class="form-group">
                 <label for="name">Nama:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control" id="name" name="name" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
                 @error('name')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
@@ -34,7 +34,7 @@
 
             <div class="form-group">
                 <label for="photo">Foto:</label>
-                <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .jpeg, .png" required>
+                <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .jpeg, .png" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
                 @error('photo')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror

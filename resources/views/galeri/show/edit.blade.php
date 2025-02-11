@@ -12,7 +12,7 @@
             @method('POST')
             <div class="form-group">
                 <label for="name">Nama Galeri:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $show->name }}" required>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $show->name }}" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')>
             </div>
             @if ($show->status == '0')
             <div class="form-group">

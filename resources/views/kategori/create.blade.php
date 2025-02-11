@@ -18,7 +18,7 @@
             @csrf
             <div class="form-group">
                 <label for="name">Nama Kategori:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Tambahkan</button>

@@ -20,7 +20,7 @@
             
             <div class="form-group">
                 <label for="name">Nama:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $gallery->name) }}" required>
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $gallery->name) }}" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
                 <!-- @error('name')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror -->

@@ -38,7 +38,11 @@ class TravelController extends Controller
             'description' => 'nullable|string',
             'photos' => 'required|array', 
             'photos.*' => 'integer|exists:galleries,id', 
-        ]);
+        ],
+        [
+        'name.required' => 'Nama wisata harus diisi.',  
+        'photos.required' => 'Foto harus dipilih.',
+        'photos.*.exists' => 'Foto tidak ditemukan.',]);
         try{
             $travel = new Travel([
                 'name' => $request->get('name'),
@@ -103,6 +107,10 @@ class TravelController extends Controller
                 'name' => 'required|string|max:255',
                 'status' => 'required|integer',
                 'description' => 'nullable|string',
+            ],
+            [
+                'name.required' => 'Nama wisata harus diisi.',
+                'status.required' => 'Status wisata harus diisi.',
             ]);
             $wisata->name = $request->get('name');
             $wisata->status = $request->get('status');

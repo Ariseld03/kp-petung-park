@@ -47,6 +47,14 @@ class MenuController extends Controller
                 'category_id' => 'required|integer|exists:categories,id',
                 'user_id' => 'required|email|exists:users,id',
                 'gallery_id' => 'required|integer|exists:galleries,id',
+            ],[
+                'name.required' => 'Nama harus diisi.',
+                'description.required' => 'Deskripsi harus diisi.',
+                'price.required' => 'Harga harus diisi.',
+                'recommendation.required' => 'Rekomendasi harus diisi.',
+                'category_id.required' => 'Kategori harus dipilih.',
+                'user_id.required' => 'User harus dipilih.',
+                'gallery_id.required' => 'Foto harus dipilih.',
             ]);
             $menu = Menu::create([
                 'name' => $request->name,
@@ -139,6 +147,15 @@ class MenuController extends Controller
                 'category_id' => 'required|integer|exists:categories,id',
                 'user_id' => 'required|integer|exists:users,id',
                 'gallery_id' => 'nullable|integer|exists:galleries,id',
+            ],
+            [
+                'name.required' => 'Nama harus diisi.',
+                'description.required' => 'Deskripsi harus diisi.',
+                'price.required' => 'Harga harus diisi.',
+                'status.required' => 'Status harus diisi.',
+                'recommendation.required' => 'Rekomendasi harus diisi.',
+                'category_id.required' => 'Kategori harus dipilih.',
+                'user_id.required' => 'User harus dipilih.',
             ]);
         
             $menu = Menu::findOrFail($id);

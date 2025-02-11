@@ -39,7 +39,13 @@ class PackageController extends Controller
             'menus.*' => 'integer|exists:menus,id', 
             'photos' => 'required|array',
             'photos.*' => 'integer|exists:galleries,id', 
-        ]);
+        ],[
+            'name.required' => 'Nama harus diisi.',
+            'price.required' => 'Harga harus diisi.',
+            'menus.required' => 'Menu harus dipilih.',
+            'photos.required' => 'Foto harus dipilih.', 
+        ]
+        );
 
         try {
             $packagePhotos = $request->get('gallery_id'); 
@@ -99,7 +105,13 @@ class PackageController extends Controller
             'price' => 'required|double',
             'status' => 'required|integer',
             'new_photo' => 'nullable|integer|exists:galleries,id',
-        ]);
+        ],
+        [
+            'name.required' => 'Nama harus diisi.',
+            'price.required' => 'Harga harus diisi.',
+            'status.required' => 'Status harus diisi.',
+        ]
+        );
 
         try {
             $package = Package::findOrFail($package->id);

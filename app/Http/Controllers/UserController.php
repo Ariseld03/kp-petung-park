@@ -127,6 +127,20 @@ class UserController extends Controller
                 'new_photo' => 'nullable|integer|exists:galleries,id',
                 'oldPassword' => 'nullable|required_if:changePassword,on',
                 'newPassword' => 'nullable|required_if:changePassword,on|confirmed',
+            ],
+            [
+                'email.required' => 'Email harus diisi.',
+                'name.required' => 'Nama harus diisi.',
+                'date_of_birth.required' => 'Tanggal lahir harus diisi.',
+                'phone_number.required' => 'Nomor telepon harus diisi.',
+                'position.required' => 'Posisi harus diisi.',
+                'gender.required' => 'Jenis kelamin harus diisi.',
+                'status.required' => 'Status harus diisi.',
+                'old_photo.exists' => 'Foto lama tidak ditemukan.',
+                'new_photo.exists' => 'Foto baru tidak ditemukan.',
+                'oldPassword.required_if' => 'Password lama harus diisi.',
+                'newPassword.required_if' => 'Password baru harus diisi.',
+                'newPassword.confirmed' => 'Password baru tidak sama dengan konfirmasi password.',
             ]);
             $staff->email = $validated['email'];
             $staff->name = $validated['name'];

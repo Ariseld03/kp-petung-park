@@ -10,12 +10,12 @@
             
             <div class="form-group">
                 <label for="title">Judul:</label>
-                <input type="text" class="form-control" id="title" name="title" required>
+                <input type="text" class="form-control" id="title" name="title" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">
                 <label for="content">Konten:</label>
-                <textarea class="form-control" id="content" name="content" required></textarea>
+                <textarea class="form-control" id="content" name="content" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')"></textarea>
             </div>
 
             <div class="form-group">

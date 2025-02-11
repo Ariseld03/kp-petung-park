@@ -39,9 +39,15 @@ class AgendaController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:tanggal_mulai',
+            'end_date' => 'required|date|after_or_equal:start_date',
             'location' => 'required|string|max:255',
             'desc' => 'nullable|string',
+        ], [
+            'name.required' => 'Nama harus diisi.',
+            'start_date.required' => 'Tanggal mulai harus diisi.',
+            'end_date.required' => 'Tanggal selesai harus diisi.',
+            'end_date.after_or_equal' => 'Tanggal selesai harus lebih akhir atau sama dengan tanggal mulai.',
+            'location.required' => 'Lokasi harus diisi.',
         ]);
 
         if (Carbon::parse($request->input('start_date'))->gt(Carbon::parse($request->input('end_date')))) {
@@ -96,7 +102,15 @@ class AgendaController extends Controller
             'status' => 'required|integer',
             'desc' => 'nullable|string',
             'user_id' => 'required|integer|exists:users,id',
+        ], [
+            'name.required' => 'Nama harus diisi.',
+            'start_date.required' => 'Tanggal mulai harus diisi.',
+            'end_date.required' => 'Tanggal selesai harus diisi.',
+            'end_date.after_or_equal' => 'Tanggal selesai harus lebih akhir atau sama dengan tanggal mulai.',
+            'location.required' => 'Lokasi harus diisi.',
+            'status.required' => 'Status harus diisi.',
         ]);
+
         try {
             $agenda = Agenda::findOrFail($id);
             $startDate = Carbon::parse($request->get('start_date'));

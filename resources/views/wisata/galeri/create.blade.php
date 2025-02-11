@@ -10,7 +10,7 @@
             @method('POST')
             <div class="form-group">
                 <label for="name_collage">Nama Kolase :</label>
-                <input type="text" class="form-control" id="name_collage" name="name_collage" required>
+                <input type="text" class="form-control" id="name_collage" name="name_collage" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">

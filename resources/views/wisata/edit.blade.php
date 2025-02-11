@@ -7,12 +7,12 @@
             @method('POST')
             <div class="form-group">
                 <label for="name">Nama Wisata:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $wisata->name }}" required>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $wisata->name }}" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             <div class="form-group">
                 <label for="description">Deskripsi:</label>
-                <textarea class="form-control" id="description" name="description" rows="4" required>{{ $wisata->description }}</textarea>
+                <textarea class="form-control" id="description" name="description" rows="4" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">{{ $wisata->description }}</textarea>
             </div>
 
             @if ($wisata->status == 0)

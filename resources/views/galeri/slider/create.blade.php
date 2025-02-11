@@ -12,7 +12,7 @@
             
             <div class="form-group">
                 <label for="name">Nama Tampilan Slider:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control" id="name" name="name" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
             <div class="form-group">
                 <label for="photo">Pilih Galeri untuk ditampilkan di slider Home :</label>

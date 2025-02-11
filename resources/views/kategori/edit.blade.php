@@ -12,7 +12,7 @@
             @method('POST')
             <div class="form-group">
                 <label for="name">Nama Kategori:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $category->name }}" required>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $category->name }}" required oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
             </div>
 
             @if ($category->status == '0')  

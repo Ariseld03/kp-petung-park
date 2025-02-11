@@ -39,6 +39,13 @@ class LoginController extends Controller
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
+        ],
+        [
+            'email.unique' => 'Email sudah terdaftar.',
+            'email.required' => 'Email harus diisi.',
+            'password.required' => 'Kata sandi harus diisi.',
+            'password.min' => 'Kata sandi harus terdiri dari minimal 8 karakter.',
+            'password.confirmed' => 'Kata sandi tidak sama dengan konfirmasi kata sandi.',
         ]);
 
         // Check if the email exists in the database
