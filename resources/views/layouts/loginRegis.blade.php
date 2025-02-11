@@ -8,8 +8,9 @@
     @yield('page-css') 
 </head>
 <body>
-    @yield('container-main') 
-    
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script> <!-- Script Bootstrap jika diperlukan -->
+    @yield('container-main')
+    @yield('page-js') 
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

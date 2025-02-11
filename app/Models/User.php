@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use App\Notifications\ResetPasswordNotification;
+use App\Notifications\VerifyEmailNotification;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -47,6 +48,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification());
+    }
+
 
     /**
      * The attributes that should be cast.

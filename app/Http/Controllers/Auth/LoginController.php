@@ -92,13 +92,10 @@ class LoginController extends Controller
 
         Auth::logout();
 
-        // Invalidate the session to clear session data
         $request->session()->invalidate();
 
-        // Regenerate the CSRF token to prevent CSRF attacks
         $request->session()->regenerateToken();
 
-        // Redirect to the login page with a logout success message
-        return redirect()->route('login')->with('Berhasil', 'Anda berhasil keluar!');
+        return redirect()->route('login')->with('success', 'Anda berhasil keluar!');
     }
 }

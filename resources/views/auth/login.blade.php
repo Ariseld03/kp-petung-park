@@ -73,7 +73,45 @@
         </div>
     </div>
 @endsection
+@section('page-js')
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        @if(session('success'))
+            setTimeout(() => {
+                // Create a fixed overlay to prevent body shift
+                const overlay = document.createElement('div');
+                overlay.style.position = 'fixed';
+                overlay.style.top = 0;
+                overlay.style.left = 0;
+                overlay.style.width = '100vw';
+                overlay.style.height = '100vh';
+                overlay.style.backgroundColor = 'rgba(0,0,0,0.3)';
+                overlay.style.zIndex = '9998';  // Set overlay z-index lower than SweetAlert
+                document.body.appendChild(overlay);
+
+                // Show SweetAlert
+                Swal.fire({
+                    title: "Berhasil!",
+                    text: "{{ session('success') }}",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                    allowOutsideClick: false,
+                    backdrop: false, // Disable the default backdrop
+                    didOpen: () => {
+                        document.body.style.overflow = 'hidden'; // Prevent scroll on body
+                    },
+                    willClose: () => {
+                        document.body.style.overflow = ''; // Restore body scroll
+                        document.body.removeChild(overlay); // Remove the overlay when closed
+                    },
+                    customClass: {
+                        popup: 'swal-popup-custom' // Custom class for SweetAlert to handle z-index
+                    }
+                });
+            }, 500); // Slight delay to prevent layout shift
+        @endif
+    });
+
     $(document).ready(function() {
         $('#login-form').submit(function(e) {
             e.preventDefault();
@@ -81,31 +119,43 @@
             var password = $('#password').val();
 
             $.ajax({
-            type: 'POST',
-            url: '/login-process',
-            data: {
-                email: email,
-                password: password,
-                '_token': '{{ csrf_token() }}',
-                'expectsJson': true
-            },
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            dataType: 'json',
-            success: function(response) {
-                // Handle the response
-                console.log(response);
-                if (response.success) {
-                    window.location.href = "{{ route('beranda') }}";
-                } else {
-                    alert(response.message);
-                }
-            }
-        });
+                type: 'POST',
+                url: '/login-process',
+                data: {
+                    email: email,
+                    password: password,
+                    '_token': '{{ csrf_token() }}',
+                    'expectsJson': true
+                },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        // Show success alert
+                        $('body').prepend(`
+                            <div class="alert alert-success alert-dismissible fade show" role="alert" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: 80%; max-width: 400px; display: block;">
+                                <strong>Login Berhasil!</strong> Anda akan dialihkan ke beranda...
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `);
 
+                        setTimeout(function() {
+                            window.location.href = "{{ route('beranda') }}";
+                        }, 2000); // Redirect after 2 seconds
+                    } else {
+                        alert(response.message); // Display error alert
+                    }
+                },
+                error: function(xhr) {
+                    alert("Terjadi kesalahan saat login. Periksa kembali email dan kata sandi Anda.");
+                }
+            });
         });
     });
 </script>
-
+@endsection

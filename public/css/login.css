@@ -8,8 +8,14 @@ body {
     font-family: Arial, sans-serif;
     margin: 0; /* Pastikan tidak ada margin pada body */
     position: relative; /* Mengatur posisi relative untuk kontainer overlay */
+    overflow: hidden;
 }
-
+body .swal2-container {
+    z-index: 9999 !important; /* Set SweetAlert's container z-index higher */
+}
+.swal-popup-custom {
+    z-index: 9999 !important;  /* Ensure SweetAlert is on top of all content */
+}
 .container-fluid {
     height: 100vh; /* Menjamin kontainer mengisi tinggi penuh */
     display: flex;

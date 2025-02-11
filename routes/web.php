@@ -54,8 +54,13 @@ Route::get('/email/verify', function () {
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect('/beranda');
+    return redirect('/beranda')->with('verified', 'Email berhasil diverifikasi!');
 })->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Link verifikasi telah dikirim ulang!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::post('/email/resend', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
