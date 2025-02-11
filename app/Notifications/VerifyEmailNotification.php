@@ -29,14 +29,15 @@ class VerifyEmailNotification extends Notification
             'id' => $notifiable->getKey(),
             'hash' => sha1($notifiable->getEmailForVerification()),
         ], false));
-
+    
         return (new MailMessage)
             ->subject('Verifikasi Email Anda')
             ->greeting('Halo ' . $notifiable->name . ',')
             ->line('Silakan klik tombol di bawah ini untuk memverifikasi email Anda:')
             ->action('Verifikasi Email', $verificationUrl)
-            ->line('Jika Anda tidak membuat akun ini, abaikan email ini.');
-    }
+            ->line('Jika Anda tidak membuat akun ini, abaikan email ini.')
+            ->markdown('notifications.verify', ['url' => $verificationUrl, 'notifiable' => $notifiable,'logo' => url('images/footer/logoPetungPark.png')]);
+    }    
         public function verificationUrl($notifiable)
     {
         return URL::temporarySignedRoute(

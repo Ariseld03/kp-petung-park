@@ -36,12 +36,12 @@ class ResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Reset Kata Sandi Anda')
-            ->greeting('Halo ' . $notifiable->name . ',')
-            ->line('Kami menerima permintaan untuk mereset kata sandi akun Anda.')
-            ->action('Reset Kata Sandi', url(route('password.reset', ['token' => $this->token, 'email' => $notifiable->email], false)))
-            ->line('Jika Anda tidak meminta reset kata sandi, abaikan email ini.')
-            ->salutation('Salam, Tim Dukungan Aplikasi Anda');
+            ->subject('Reset Password')
+            ->greeting('Hello!')
+            ->line('Click the button below to reset your password.')
+            ->action('Reset Password', $this->resetUrl($notifiable))
+            ->line('If you did not request a password reset, no further action is required.')
+            ->markdown('notifications.reset', ['url' => $this->resetUrl($notifiable), 'notifiable' => $notifiable, 'logo' => url('images/footer/logoPetungPark.png')]);
     }
 
     /**
