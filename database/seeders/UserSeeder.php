@@ -30,6 +30,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'email' => 'Griseldaamelia681@gmail.com',
+                'email_verified_at' => now(),
                 'name' => 'Amel',
                 'password' => bcrypt('12345678'),
                 'date_of_birth' => $faker->date(),
@@ -43,6 +44,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'email' => 'amelgriselda504@gmail.com',
+                'email_verified_at' => now(),
                 'name' => 'Feli',
                 'password' => bcrypt('12345678'),
                 'date_of_birth' => $faker->date(),
