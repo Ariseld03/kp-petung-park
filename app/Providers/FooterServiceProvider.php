@@ -1,15 +1,21 @@
 <?php
 
 namespace App\Providers;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Http\Request;
 use App\Models\Generic;
+
 class FooterServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $footerData = [];
-        $footerData = Generic::where('status',1)->get();
+        // Prevent execution during migrations, seeding, or CLI commands
+        if ($this->app->runningInConsole()) {
+            return;
+        }
+
+        $footerData = Generic::where('status', 1)->get();
         $footerInfo = [
             'instagram' => null,
             'whatsapp' => null,
@@ -23,16 +29,16 @@ class FooterServiceProvider extends ServiceProvider
         foreach ($footerData as $item) {
             switch ($item->key) {
                 case 'sosial_media_instagram':
-                    $footerInfo['instagram'] = $item->value; // Instagram link
-                    $footerInfo['instagram_logo'] = $item->icon_picture_link; // Instagram logo
+                    $footerInfo['instagram'] = $item->value; 
+                    $footerInfo['instagram_logo'] = $item->icon_picture_link; 
                     break;
                 case 'kontak_whatsapp':
-                    $footerInfo['whatsapp'] = $item->value; // WhatsApp link
-                    $footerInfo['whatsapp_logo'] = $item->icon_picture_link; // WhatsApp logo
+                    $footerInfo['whatsapp'] = $item->value; 
+                    $footerInfo['whatsapp_logo'] = $item->icon_picture_link; 
                     break;
                 case 'sosial_media_tiktok':
-                    $footerInfo['tiktok'] = $item->value; // TikTok link
-                    $footerInfo['tiktok_logo'] = $item->icon_picture_link; // TikTok logo
+                    $footerInfo['tiktok'] = $item->value; 
+                    $footerInfo['tiktok_logo'] = $item->icon_picture_link; 
                     break;
                 case 'sosial_media_youtube':
                     $footerInfo['youtube'] = $item->value; 
@@ -46,10 +52,10 @@ class FooterServiceProvider extends ServiceProvider
                     break;
             }
         }
-        // dd($footerInfo);
+
         view()->share('footerInfo', $footerInfo);
     }
-    
+
     /**
      * Register services.
      */
@@ -57,9 +63,4 @@ class FooterServiceProvider extends ServiceProvider
     {
         //
     }
-
-    /**
-     * Bootstrap services.
-     */
-
 }
