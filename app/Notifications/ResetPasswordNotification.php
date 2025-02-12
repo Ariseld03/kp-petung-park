@@ -30,19 +30,32 @@ class ResetPasswordNotification extends Notification
         return ['mail'];
     }
 
+    private function resetUrl($notifiable)
+    {
+        return url(route('password.reset', [
+            'token' => $this->token,
+            'email' => $notifiable->email,
+        ], false));
+    }
+
     /**
      * Get the mail representation of the notification.
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Reset Password')
-            ->greeting('Hello!')
-            ->line('Click the button below to reset your password.')
-            ->action('Reset Password', $this->resetUrl($notifiable))
-            ->line('If you did not request a password reset, no further action is required.')
-            ->markdown('notifications.reset', ['url' => $this->resetUrl($notifiable), 'notifiable' => $notifiable, 'logo' => url('images/footer/logoPetungPark.png')]);
+            ->subject('Reset Kata Sandi')
+            ->greeting('Halo!')
+            ->line('Klik tombol di bawah ini untuk mereset kata sandi Anda.')
+            ->action('Reset Kata Sandi', $this->resetUrl($notifiable))
+            ->line('Jika Anda tidak meminta reset kata sandi, tidak ada tindakan lebih lanjut yang diperlukan.')
+            ->markdown('notifications.reset', [
+                'url' => $this->resetUrl($notifiable),
+                'notifiable' => $notifiable,
+                'logo' => url('images/footer/logoPetungPark.png')
+            ]);
     }
+
 
     /**
      * Get the array representation of the notification.
