@@ -93,7 +93,10 @@ html {
     border: 0px;
     display: inline-block;
     margin-bottom: 20px;
-    position: absolute;
+    margin-top: 10px;
+    position: relative;
+    display: block;
+    text-align: left;
     left: 20px;
     top: 40px;
     font-weight: bold;
@@ -142,7 +145,7 @@ html {
     }
 
     .btn-kembali {
-        top: 70px;
+        top: 40px;
         left: 10px;
     }
 }

@@ -155,38 +155,60 @@ html {
 }
 /* Penyesuaian untuk layar handphone */
 @media (max-width: 768px) {
-
-    /* Styling untuk hidangan di layar kecil */
-    .hidangan-gambar {
-        width: 100%; /* Set width to 100% for responsiveness */
-        max-width: 400px; /* Set a maximum width for larger screens */
-        height: auto; /* Maintain aspect ratio */
-        display: block; /* Ensures the image behaves like a block element */
-        margin: 10px auto; /* Center horizontally and add margin above and below */
-    }
-
     .hidangan-container {
         padding-top: 0px;
-        flex-direction: column; /* Mengatur agar gambar dan detail vertikal pada layar kecil */
+        flex-direction: column;
         align-items: center;
     }
 
+    .hidangan-gambar {
+        width: 80%; /* Reduce size while maintaining aspect ratio */
+        max-width: 300px; 
+        height: auto;
+        display: block;
+        margin: 10px auto; /* Center horizontally */
+    }
+
     .hidangan-detail {
-        margin-left: 0; /* Hilangkan jarak di layar kecil */
-        text-align: center; /* Teks rata tengah pada layar kecil */
+        width: 90%;
+        max-width: 350px;
+        margin-left: 0; /* Remove unnecessary margin */
+        text-align: center;
     }
+
     .hidangan-detail h3 {
-        margin-top: 20px;
+        margin-top: 15px;
+        font-size: 26px; /* Scale down the font slightly */
     }
-    /* Atur jarak kategori-header h2 dari atas */
-    .kategori-header h2 {
-        margin-top: 60px; /* Beri jarak 30px dari atas pada layar kecil */
+
+    .hidangan-detail p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        line-height: 1.5; /* Improve readability */
+        word-wrap: break-word; /* Ensure long words break properly */
+        overflow-wrap: break-word; 
+        max-width: 100%; /* Prevent overflow */
+        padding: 0 10px; /* Add slight padding for better spacing */
     }
-    .btn-kembali{
-        top: 70px; /* Mengatur posisi tombol untuk handphone */
-        left: 10px; /* Mengatur posisi tombol untuk handphone */
+
+    .like-count {
+        font-size: 18px;
     }
-    .rekomendasi-container{
+
+    .kategori-makanan h2 {
+        font-size: 32px;
+        margin-top: 40px; /* Adjust spacing */
+    }
+
+    .btn-kembali {
+        position: absolute;
+        top: 20px; /* Adjust button position */
+        left: 10px;
+        font-size: 14px; /* Scale button text */
+        padding: 8px 12px; /* Adjust padding */
+    }
+
+    .rekomendasi-container {
         justify-content: center;
     }
 }
