@@ -30,18 +30,19 @@ use Illuminate\Http\Request;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Auth::routes(['verify' => true, 'reset' => true]);
+// Auth::routes(['verify' => true, 'reset' => true]);
 
-Route::middleware('guest')->group(function () {
-    Route::get('/login', [LoginController::class, 'login'])->name('login');
-    Route::post('/login', [LoginController::class, 'login_process'])->name('login_process');
-    Route::get('/register', [RegisterController::class, 'register'])->name('register');
-    Route::post('/register', [RegisterController::class, 'register_process'])->name('register_process');
-});
+// Route::middleware('guest')->group(function () {
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/login', [LoginController::class, 'login_process'])->name('login_process');
+Route::get('/register', [RegisterController::class, 'register'])->name('register');
+Route::post('/register', [RegisterController::class, 'register_process'])->name('register_process');
+// });
 
 Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
@@ -70,7 +71,7 @@ Route::post('/email/resend', function (Request $request) {
 // Logout Route
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::middleware('auth', 'verified')->group(function () {
+
 // Navbar 
 Route::get('/beranda', [GalleryShowController::class, 'showAllPengguna'])->name('beranda');
 Route::get('/wisata', [PackageController::class, 'showLayanan'])->name('wisata');
@@ -89,18 +90,18 @@ Route::post('/wisata/{id}/like', [TravelController::class, 'like'])->name('wisat
 Route::post('/galeri/{id}/like', [GalleryController::class, 'like'])->name('gallery.like');
 Route::post('/artikel/{id}/like', [ArticleController::class, 'like'])->name('artikel.like');
 
- // Kategori
- Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
- Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
+// Kategori
+Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
+Route::get('/kategori/{id}', [CategoryController::class, 'cariMakananDariKategori'])->name('kategori.makanan');
 
 // Hidangan
 Route::get('/hidangan/{id}', [MenuController::class, 'cariMenuDariId'])->name('menu.hidangan.show');
 Route::post('/hidangan/{menu}/like', [MenuController::class, 'like'])->name('menu.hidangan.like');
 
- // Paket
- Route::get('/paket/{id}', [PackageController::class, 'show'])->name('menu.paket.show');
- Route::post('/paket/{id}/like', [PackageController::class, 'like'])->name('menu.paket.like');
-
+// Paket
+Route::get('/paket/{id}', [PackageController::class, 'show'])->name('menu.paket.show');
+Route::post('/paket/{id}/like', [PackageController::class, 'like'])->name('menu.paket.like');
+Route::middleware('auth', 'verified')->group(function () {
     Route::middleware('staff')->group(function () {
         Route::get('/admin', [UserController::class, 'showAdminPage'])->name('admin.index');
 
@@ -120,7 +121,7 @@ Route::post('/hidangan/{menu}/like', [MenuController::class, 'like'])->name('men
         Route::get('/admin/wisata/galeri/create', [TravelController::class, 'createTravelGallery'])->name('wisata.galeri.create');
         Route::post('/admin/wisata/galeri/create', [TravelController::class, 'storeTravelGallery'])->name('wisata.galeri.store');
         Route::post('admin/wisata/galeri/{travel}', [TravelController::class, 'unactiveTravelGallery'])->name('wisata.galeri.unactive');
-        
+
         Route::middleware('admin')->group(function () {
             // Admin CRUD Staff
             Route::get('/admin/staf', [UserController::class, 'index'])->name('staf.index');
@@ -137,7 +138,7 @@ Route::post('/hidangan/{menu}/like', [MenuController::class, 'like'])->name('men
         Route::get('/admin/generic/create', [GenericController::class, 'create'])->name('generic.create');
         Route::get('/admin/generic/edit/{generic}', [GenericController::class, 'edit'])->name('generic.edit');
         Route::post('/admin/generic/edit/{generic}', [GenericController::class, 'update'])->name('generic.update');
-        Route::post('/admin/generic/{generic}', [GenericController::class, 'unactive'])->name('generic.unactive');  
+        Route::post('/admin/generic/{generic}', [GenericController::class, 'unactive'])->name('generic.unactive');
 
         // Admin CRUD Galeri
         Route::get('/admin/galeri', [GalleryController::class, 'index'])->name('galeri.index');
@@ -184,7 +185,7 @@ Route::post('/hidangan/{menu}/like', [MenuController::class, 'like'])->name('men
         Route::get('/admin/paket/edit/{package}', [PackageController::class, 'edit'])->name('menu.paket.edit');
         Route::post('/admin/paket/edit/{package}', [PackageController::class, 'update'])->name('menu.paket.update');
         Route::post('/admin/paket/{package}', [PackageController::class, 'unactive'])->name('menu.paket.unactive');
-       
+
         //Paket Menu
         Route::get('/admin/paket-menu', [PackageController::class, 'indexPackageMenu'])->name('menu.menupaket.index');
         Route::get('/admin/paket-menu/create', [PackageController::class, 'createPackageMenu'])->name('menu.menupaket.create');
