@@ -62,7 +62,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ route('admin.index') }}">
                     <img src="{{ asset('/images/footer/logoPetungPark.png') }}" alt="Logo" width="40"
-                        height="40" class="d-inline-block align-text-top">
+                        height="40" class="d-inline-block">
                     Petung Park
                 </a>
 

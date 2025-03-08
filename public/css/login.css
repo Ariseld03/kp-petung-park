@@ -86,27 +86,76 @@ body .swal2-container {
 }
 
 /* Pastikan input memenuhi lebar penuh container */
-.inputLogin input[type="email"],
-.inputLogin input[type="password"] {
-    width: 100% !important;
+/* Pastikan input memiliki lebar yang sama dengan form-group */
+.email, .password {
+    width: 100% !important; /* Sesuaikan dengan form-group */
     padding: 10px;
-    margin: 0 auto; /* Ratakan ke tengah */
-    display: block; /* Pastikan elemen input memenuhi lebar penuh */
     font-size: 20px;
     border: 6px solid #295A3F;
     border-radius: 10px;
     color: #295A3F;
     background-color: white;
-    box-sizing: border-box; /* Pastikan padding tidak menambah lebar total */
+    box-sizing: border-box; /* Pastikan padding tidak mempengaruhi ukuran */
     display: block;
-    align-items: center;
+}
+
+/* Hapus efek saat input ditekan atau dihover */
+.email:focus, .password:focus,
+.email:hover, .password:hover {
+    border-color: #295A3F !important; /* Tetap gunakan warna asli */
+    box-shadow: none !important; /* Hapus efek bayangan */
+    outline: none !important; /* Hapus outline */
+    background-color: white !important; /* Tetap putih */
+    color: #295A3F !important; /* Warna tetap */
 }
 
 /* Pastikan kontainer pembungkus juga memiliki lebar penuh */
-.form-group,
+/* Pastikan semua elemen dalam .form-group memiliki lebar penuh */
+.form-group {
+    width: 100% !important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+/* Pastikan kolom label dan input memiliki proporsi yang benar */
+.form-group .col-md-4 {
+    display: flex;
+    justify-content: flex-end; /* Pastikan label tetap rata kanan */
+    align-items: center;
+    text-align: right;
+}
+
 .form-group .col-md-8 {
     width: 100% !important;
-    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+/* Pastikan input mengisi lebar penuh */
+.form-control {
+    width: 100% !important;
+    padding: 10px;
+    font-size: 20px;
+    border: 6px solid #295A3F;
+    border-radius: 10px;
+    color: #295A3F;
+    background-color: white;
+    box-sizing: border-box; /* Pastikan padding tidak menambah ukuran */
+}
+
+
+
+/* Hapus efek hover dan focus */
+.form-control:focus,
+.form-control:hover {
+    border-color: #295A3F !important;
+    box-shadow: none !important;
+    outline: none !important;
+    background-color: white !important;
+    color: #295A3F !important;
 }
 
 
@@ -116,7 +165,6 @@ body .swal2-container {
     border: 2px solid #295A3F !important;
     appearance: none !important;
     background-color: white !important;
-    display: inline-block !important;
 }
 
 .custom-checkbox:checked {
@@ -133,41 +181,34 @@ body .swal2-container {
     justify-content: center;
 }
 
-.form-check-input {
-    margin: 0; /* Remove any default margin */
+.remember-me-container {
     display: flex;
-    align-items: center; /* Center items vertically */
-    justify-content: center; /* Center items horizontally */
-}
-
-.form-check-label {
-    margin-bottom: 0; /* Remove any default margin */
-    line-height: 1; /* Align label vertically with the checkbox */
-}
-
-/* Menempatkan checkbox dan label "Remember Me" di tengah */
-.form-check-input.custom-checkbox {
-    margin-left: 5px; /* Memberi jarak antara checkbox dan label */
-}
-
-/* Kontainer untuk "Remember Me" dan "Forgot Your Password?" */
-.form-group.col-md-6.offset-md-3.d-flex.align-items-center { 
-    display: flex;
-    justify-content: flex-start; /* Rata kiri */
     align-items: center;
-    width: 100%;
-    padding: 0;
-    gap: 10px; /* Jarak antar elemen */
-    margin-bottom: 5px;
-    margin-left: 0px;
-    padding-right: 25px;
+    justify-content: space-between;
+    width: 70%;
+    padding-right: 10pt;
 }
 
-/* Label "Remember Me" tetap di kiri */
+/* Memastikan checkbox dan label sejajar tanpa bertumpukan */
 .form-check {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    margin-right: auto;
+    gap: 8px; /* Memberikan jarak antara checkbox dan label */
+    margin-bottom: 0;
+    padding-inline-start: 8%;
+}
+
+/* Menghapus align-items dan justify-content yang tidak perlu */
+.form-check-input {
+    margin: 0; /* Menghapus margin bawaan */
+    width: 20px; /* Atur ukuran checkbox */
+    height: 20px;
+}
+
+/* Memastikan label tetap sejajar dengan checkbox */
+.form-check-label {
+    margin-bottom: 0;
+    font-size: 14px;
 }
 
 /* Tombol "Forgot Your Password?" */
@@ -177,6 +218,7 @@ body .swal2-container {
     text-decoration: underline;
     font-size: 14px;
     cursor: pointer;
+    padding-inline-end: 10%;
 }
 
 /* Styling tombol "Login" */
@@ -278,12 +320,29 @@ body .swal2-container {
 
     .inputLogin input,
     .inputLogin button {
-        font-size: 20px;
+        font-size: 18px;
         width: 100%; /* Memastikan elemen mengisi lebar kontainer pada perangkat kecil */
     }
 
     .signup-container p,
     .signup-container button {
         font-size: 15px;
+    }
+
+    .form-group.row.mb-3{
+        padding-inline-start: 5%;
+    }
+
+    .form-check {
+        width: 100%;
+        margin-left: 10pt;
+    }
+    .form-group .form-check-label{
+        font-size: 15px;
+    }
+    .form-group .forgot-password-link {
+        padding-inline-start: 20%;
+        width: 100%;
+        text-align: center;
     }
 }

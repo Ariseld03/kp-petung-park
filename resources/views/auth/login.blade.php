@@ -12,12 +12,11 @@
             <div class="col-md-12 d-flex align-items-center justify-content-center">
                 <div class="login-container">
                     <div class="login-title">Masuk</div>
-
                     <form id="login-form" class="inputLogin" method="POST" action="{{ route('login_process') }}"> 
                         @csrf 
                         <div class="form-group row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Alamat Email') }}</label>
-                            <div class="col-md-8">
+                            <label for="email" class="col-md-4 col-form-label justify-content-start">{{ __('Alamat Email') }}</label>
+                            <div>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
                             </div>
                         </div>
@@ -30,8 +29,8 @@
                         @enderror
 
                         <div class="form-group row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Kata Sandi') }}</label>
-                            <div class="col-md-8">
+                            <label for="password" class="col-md-4 col-form-label justify-content-start">{{ __('Kata Sandi') }}</label>
+                            <div>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan Kata Sandi" name="password" required autocomplete="current-password" oninvalid="this.setCustomValidity('Harap isi bidang ini')" oninput="this.setCustomValidity('')">
                             </div>
                         </div>
@@ -43,25 +42,29 @@
                             </div>
                         @enderror
 
-                        <!-- "Remember Me" dan "Forgot Your Password?" -->
-                        <div class="form-group col-md-6 offset-md-3 d-flex align-items-center">
+                    <!-- "Remember Me" and "Forgot Your Password?" -->
+                    <div class="form-group remember-me-container">
+                        <div class="form-check">
                             <input class="form-check-input custom-checkbox" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label ms-2 mb-0 d-flex align-items-center" style="font-size: 14px;" for="remember">
+                            <label class="form-check-label" for="remember">
                                 {{ __('Ingat Saya') }}
                             </label>
-                            @if (Route::has('password.request'))
-                                <a class="forgot-password-link" href="{{ route('password.request') }}">
-                                    {{ __('Lupa kata sandi?') }}
-                                </a>
-                            @endif
                         </div>
 
+                        @if (Route::has('password.request'))
+                            <a class="forgot-password-link" href="{{ route('password.request') }}">
+                                {{ __('Lupa kata sandi?') }}
+                            </a>
+                        @endif
+                    </div>
+
+
                         <!-- Button Login -->
-                        <div class="col-md-8 offset-md-2">
-                            <button type="submit" class="btn btn-block">
-                                {{ __('Masuk') }}
-                            </button>
-                        </div>
+                    <div class="col-md-8 offset-md-2">
+                        <button type="submit" class="btn btn-block">
+                            {{ __('Masuk') }}
+                        </button>
+                    </div>
 
                     <!-- Signup Section -->
                     <div class="signup-container">
