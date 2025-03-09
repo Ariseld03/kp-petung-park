@@ -2,6 +2,10 @@
 
 @section('page-css')
     <style>
+        body {
+            background-color: #FFFBE6; /* Warna latar belakang halaman */
+            font-family: Arial, sans-serif; /* Font halaman */
+        }
         @media (min-width: 992px) { 
             .btn-custom {
                 margin-bottom: 8px; 

@@ -1,4 +1,7 @@
 @extends('layouts.mainAdmin')
+@section('page-css')
+    <link rel="stylesheet" href="{{ asset('css/wisataUpdate.css') }}">
+@endsection
 @section('content')
     <div class="container mt-5">
         <h1 class="judul">Update Galeri Wisata</h1>
