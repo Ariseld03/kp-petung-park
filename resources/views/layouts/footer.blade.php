@@ -77,7 +77,7 @@ footer-content {
     .footer .alamat,
     .footer .tautan,
     .footer .sosmed {
-        margin: 10px 0;
+        margin: 5px;
     }
     .footer .alamat img {
         display: inline-block;

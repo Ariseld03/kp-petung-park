@@ -103,7 +103,6 @@
     </section>
 @endsection
 @include('layouts.modalimg')
-
 @section('page-js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -163,27 +162,17 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        likeCount.textContent = data.number_love; // Update like count
-                        showAlert(data.action === 'liked' ? 'You liked this gallery!' : 'You unliked this gallery.');
+                        likeCount.textContent = data.number_love;
+                        // showAlert(data.action === 'liked' ? 'You liked this gallery!' : 'You unliked this gallery.');
+                        // alert(data.action === 'liked' ? 'Anda menyukai foto ini!' : 'Anda batal menyukai foto ini.');
+
                     })
                     .catch(error => {
                         console.error("Error updating like:", error);
-                        showAlert('An error occurred while updating your like. Please try again.', true);
+                        alert('Terjadi kesalahan saat mengupdate like Anda. Silakan coba lagi.', true);
                     });
             });
         });
-
-        function showAlert(message, isError = false) {
-            const alertBox = document.createElement('div');
-            alertBox.className = `alert-box ${isError ? 'alert-error' : 'alert-success'}`;
-            alertBox.textContent = message;
-
-            document.body.appendChild(alertBox);
-
-            setTimeout(() => {
-                alertBox.remove();
-            }, 3000); // Remove alert after 3 seconds
-        }
     });
 
     </script>

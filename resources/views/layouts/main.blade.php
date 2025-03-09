@@ -10,11 +10,7 @@
     <!-- Link Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     @yield('page-css')
-    <style>
-        /* Custom CSS untuk styling yang tidak ada di Bootstrap */
-    </style>
 </head>
-
 <body>
     <!-- Header -->
     @include('layouts.app')
@@ -23,10 +19,8 @@
     @include('layouts.footer')
     <!-- Link Bootstrap JS dan jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     @yield('page-js')
-
 </body>
-
 </html>
