@@ -3,8 +3,8 @@
 @section('page-css')
     <style>
         body {
-            background-color: #FFFBE6; /* Warna latar belakang halaman */
-            font-family: Arial, sans-serif; /* Font halaman */
+            background-color: #FFFBE6 !important; 
+            font-family: Arial, sans-serif !important; 
         }
         @media (min-width: 992px) { 
             .btn-custom {
@@ -28,25 +28,6 @@
 @endsection
 
 @section('content')
-<style>
-    @media (min-width: 992px) { 
-        .btn-custom {
-            margin-bottom: 8px; 
-            width: 100%;       
-        }
-        .row-custom {
-            gap: 10px; 
-            justify-content: center;
-            align-items: center;  
-        }
-    }
-
-    @media (max-width: 991px) { 
-        .btn-custom {
-            margin-bottom: 16px;
-        }
-    }
-</style>
 
 <div class="container mt-5">
     <h1 class="text-center" style="color: #557C56;">Berikut Menu Admin</h1>
