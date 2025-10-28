@@ -18,7 +18,7 @@ class TravelSeeder extends Seeder
         DB::table('travels')->insert([
             [
                 'name' => 'Hutan Bambu',
-                'description' => 'Perjalanan yang menakjubkan melalui Hutan Bambu, menawarkan keindahan alam yang memukau dan suasana yang tenang di Bali.',
+                'description' => 'Perjalanan yang menakjubkan melalui Hutan Bambu, menawarkan keindahan alam yang memukau dan suasana yang tenang.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),
