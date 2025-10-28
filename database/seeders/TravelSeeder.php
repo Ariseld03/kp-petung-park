@@ -26,7 +26,7 @@ class TravelSeeder extends Seeder
             ],
             [
                 'name' => 'Camping Ground',
-                'description' => 'Nikmati sensasi mendaki, berski, dan pemandangan yang menakjubkan di pegunungan Alps yang megah, ideal untuk petualangan outdoor.',
+                'description' => 'Nikmati sensasi tinggal bersama dengan alam dan pemandangan yang menakjubkan sekaligus menenangkan.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),
@@ -34,7 +34,7 @@ class TravelSeeder extends Seeder
             ],
             [
                 'name' => 'Meja Kecek',
-                'description' => 'Temukan keanekaragaman hayati Kenya melalui pengalaman safari yang mendebarkan di jantung sabana yang luas.',
+                'description' => 'Tempat yang cocok untuk bersantai, bermain air, dan menikmati pemandangan alami sembari makan dan minum.',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),
@@ -50,7 +50,7 @@ class TravelSeeder extends Seeder
             ],
             [
                 'name' => 'Pondok Bambu',
-                'description' => 'Rasakan udara yang sangat sejuk dan suasana tenang di Pondok Babu',
+                'description' => 'Rasakan udara yang sangat sejuk dan suasana tenang di Pondok Bambu',
                 'status' => 1,
                 'number_love' => $faker->numberBetween(0, 20),
                 'created_at' => now(),
